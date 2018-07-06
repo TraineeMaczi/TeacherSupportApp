@@ -3,7 +3,7 @@
 
 <head lang="en">
 
-    <title>TeacherSupport</title>
+    <title>TeacherSupportHome</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../static/css/style.css"
           th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/TSHome">Home</a>
+                <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About Me</a>
@@ -41,16 +41,25 @@
     </div>
 </nav>
 
-<span class="border light rounded">
-<div class="jumbotron mb-0 text-center jpink">
-    <div class="jumbotron mb-0 text-center jwhite">
-    <h2>About</h2>
-    <h4>Web App developed for UMK purposes by Karolina Makowska.</h4>
-    <p>Create your very own academic teacher website in few easy steps.</p>
+<div class="row justify-content-around">
+    <div class="jumbotron jpink col-4">
+        <p>Tmp</p>
+    </div>
+
+    <div class="jumbotron jpink col-4">
+        <h4>Tmp</h4>
+        <div class="form-group"> </div>
+        <textarea class="form-control rounded text-center" rows="10" th:text="${}" type="text"  readonly>
+
+                      </textarea>
+    </div>
+
+    <div class="jumbotron jpink col-3 jcenter">
+        <p>Tmp</p>
     </div>
 </div>
-</span>
 
 <div class="footer-copyright text-center py-3">© 2018 Copyright: Karolina Makowska </div>
+
 </body>
 </html>

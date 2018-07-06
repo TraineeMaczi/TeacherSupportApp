@@ -2,6 +2,12 @@
 {
     background-color:rgb(238, 44, 109) !important;
     color: white;
+      padding:0;
+}
+.jwhite
+{
+    background-color:white !important;
+    color: black;
 }
 .footer-copyright
 {
