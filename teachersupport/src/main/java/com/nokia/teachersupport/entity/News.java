@@ -3,6 +3,7 @@ package com.nokia.teachersupport.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "news")
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"com.nokia.teachersupport"})
-@EnableJpaRepositories(basePackages = {"com.nokia.repositories"})
+@EntityScan(basePackages = {"com.nokia.teachersupport"}) //wybieramy folder w ktorym beda szukane encje
+@EnableJpaRepositories(basePackages = {"com.nokia.teachersupport.repositories"})
 @EnableTransactionManagement
 public class RepoConfig {
 }
