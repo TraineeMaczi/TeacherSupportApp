@@ -28,11 +28,11 @@ public class NewsLoader implements ApplicationListener<ContextRefreshedEvent> {
 
 
         News newNews1=new News();
-        newNews1.setNews("News 1: Tmp Test News: Hello World !");
+        newNews1.setContent("News 1: Tmp Test News: Hello World !");
         newsRepo.save(newNews1);
 
         News newNews2=new News();
-        newNews2.setNews("News 2: Tmp Test News: Hello World !");
+        newNews2.setContent("News 2: Tmp Test News: Hello World !");
         newsRepo.save(newNews2);
 
     }
