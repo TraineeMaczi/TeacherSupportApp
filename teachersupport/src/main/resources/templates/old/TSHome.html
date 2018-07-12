@@ -51,7 +51,7 @@
 
     <div class="jumbotron jpink col-3 ">
         <h4>Add News</h4>
-        <form id="newNewsForm" class="form-control" th:object="${newNews}" th:action="@{/tshome/new}" method="post">
+        <form id="newNewsForm" class="form-control" th:object="${newNews}" th:action="@{/teachersupporthome/new}" method="post">
             <input type="hidden" th:field="*{id}"/>
             <input type="hidden" th:field="*{version}"/>
             <textarea class="form-control rounded text-center" rows="8" th:field="*{content}" form="newNewsForm">

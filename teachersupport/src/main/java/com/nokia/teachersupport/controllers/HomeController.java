@@ -17,16 +17,16 @@ public class HomeController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/TSHome")
+    @GetMapping("/teacherSupportHome")
     String tshome(Model model){
         model.addAttribute("news", newsService.listOfAllNews());
         model.addAttribute("newNews", new News());
-        return "TSHome";
+        return "teacherSupportHome";
     }
 
     @PostMapping("/tshome/new") //tu zmienilam z malych
     String addNewNews(News news){
         newsService.saveNews(news);
-        return "redirect:/TSHome";
+        return "redirect:/teacherSupportHome";
     }
 }

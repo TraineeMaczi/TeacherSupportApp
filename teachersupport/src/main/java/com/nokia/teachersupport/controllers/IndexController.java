@@ -10,6 +10,6 @@ public class IndexController {
    * strone index on nam zparsuje na string ktory jest czytelny dla app  */
     @RequestMapping("/")
     String index(){
-        return "index";
+        return "teacherSupportIndex";
     }
 }

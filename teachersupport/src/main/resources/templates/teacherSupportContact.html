@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>TeacherSupportContact</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+
+    <link href="../static/css/teacherSupportCSS.css"
+          th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+    <p>
+        <div class="text-right pr-3 pt-2 pb-2">
+            <form>
+
+                <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right" placeholder="Hello currentUserName !"
+                    disabled/>
+                <br/>
+                <div class="d-inline pr-2">
+                    <button type="button" class=" btn text-white bg-changableColor btn-sm">Log out</button>
+                </div>
+            </form>
+        </div>
+    </p>
+    <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+        <h1>TeacherSupportApp</h1>
+        <h5>Make it easy</h5>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">TeacherSupportApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">Hello</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/teacherSupportHome">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportAboutMe">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportPublications">Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportStudent">Student</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/teacherSupportContact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportGenerate">Generate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportEditProfile">Edit Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <form>
+        <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+
+            <div class="row">
+                <div class="col bg-white jumbotron text-dark mr-3">
+                    <h4>Basic Info</h4>
+
+                    
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs ">
+                                <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control rounded text-center d-inline" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                            <div class="row">
+                                <div class="col-xs ">
+                                    <input type="text" class="form-control text-center" placeholder="Name: " disabled>
+                                </div>
+                                <div class="col-sm">
+                                    <input type="text" class="form-control rounded text-center d-inline" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-xs ">
+                                        <input type="text" class="form-control text-center" placeholder="Surname: " disabled>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs ">
+                                            <input type="text" class="form-control text-center" placeholder="Work Address: " disabled>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input type="text" class="form-control rounded text-center d-inline" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                        <div class="row">
+                                            <div class="col-xs ">
+                                                <input type="text" class="form-control text-center" placeholder="Profession: " disabled>
+                                            </div>
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control rounded text-center d-inline" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                            <div class="row">
+                                                <div class="col-xs ">
+                                                    <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <input type="text" class="form-control rounded text-center d-inline" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container">
+                                                <div class="row">
+                                                    <div class="col-xs ">
+                                                        <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xs ">
+                                                            <input type="text" class="form-control text-center" placeholder="My Usos Profile: " disabled>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <input type="text" class="form-control rounded text-center d-inline" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                </div>
+                <div class="col bg-white jumbotron text-dark mr-3">
+                        <h4>Meet Me</h4>
+
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-xs ">
+                                        <input type="text" class="form-control text-center" placeholder="Place: " disabled>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs ">
+                                            <input type="text" class="form-control text-center" placeholder="Office Number: " disabled>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input type="text" class="form-control rounded text-center d-inline" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                        <div class="row">
+                                            <div class="col-xs ">
+                                                <input type="text" class="form-control text-center" placeholder="Day: " disabled>
+                                            </div>
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control rounded text-center d-inline" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                            <div class="col-xs ml-3">
+                                                <input type="text" class="form-control text-center" placeholder="Time: " disabled>
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="time" class="border-0 " />
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="time" class="border-0" />
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-3">
+                                                <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-xs ">
+                                                                <input type="text" class="form-control text-center" placeholder="Place: " disabled>
+                                                            </div>
+                                                            <div class="col-sm">
+                                                                <input type="text" class="form-control rounded text-center d-inline" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-xs ">
+                                                                    <input type="text" class="form-control text-center" placeholder="Office Number: " disabled>
+                                                                </div>
+                                                                <div class="col-sm">
+                                                                    <input type="text" class="form-control rounded text-center d-inline" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-xs ">
+                                                                        <input type="text" class="form-control text-center" placeholder="Day: " disabled>
+                                                                    </div>
+                                                                    <div class="col-sm">
+                                                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                        
+                                                            <div class="row">
+                                                                    <div class="col-xs ml-3">
+                                                                        <input type="text" class="form-control text-center" placeholder="Time: " disabled>
+                                                                    </div>
+                                                                    <div class="col-2">
+                                                                        <input type="time" class="border-0 " />
+                                                                    </div>
+                                                                    <div class="col-2">
+                                                                        <input type="time" class="border-0" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-light btn-lg btn-block">Add Contact Info</button>
+            </div>
+        </div>
+    </form>
+
+    <p class="bg-white"> </p>
+
+    <div class="jumbotron footer-copyright text-center py-3 rounded-0 bg-changableColor text-white">© 2018 Copyright: Karolina Makowska </div>
+
+</body>
+
+</html>
