@@ -32,4 +32,12 @@ public class SecurityData {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Person getPersonAndSecurity() {
+        return personAndSecurity;
+    }
+
+    public void setPersonAndSecurity(Person personAndSecurity) {
+        this.personAndSecurity = personAndSecurity;
+    }
 }

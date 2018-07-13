@@ -50,5 +50,12 @@ public class News {
         this.id = id;
     }
 
+    public Person getPersonAndNews() {
+        return personAndNews;
+    }
+
+    public void setPersonAndNews(Person personAndNews) {
+        this.personAndNews = personAndNews;
+    }
 }
 

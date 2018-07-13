@@ -140,4 +140,12 @@ public class MeetMe {
     public void setTime2ToField(Time time2ToField) {
         this.time2ToField = time2ToField;
     }
+
+    public Person getPersonAndMeetMe() {
+        return personAndMeetMe;
+    }
+
+    public void setPersonAndMeetMe(Person personAndMeetMe) {
+        this.personAndMeetMe = personAndMeetMe;
+    }
 }

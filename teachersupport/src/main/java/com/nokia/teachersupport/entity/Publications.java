@@ -12,6 +12,11 @@ public class Publications {
 
     @Version
     private Integer version;
+    private String publicationsInfoField;
+
+    public Publications(){
+        this.publicationsInfoField=Strings.EMPTY;
+    }
 
     @OneToMany
     @JoinColumn(name = "person_id")
@@ -31,5 +36,21 @@ public class Publications {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPublicationsInfoField() {
+        return publicationsInfoField;
+    }
+
+    public void setPublicationsInfoField(String publicationsInfoField) {
+        this.publicationsInfoField = publicationsInfoField;
+    }
+
+    public Person getPersonAndPublications() {
+        return personAndPublications;
+    }
+
+    public void setPersonAndPublications(Person personAndPublications) {
+        this.personAndPublications = personAndPublications;
     }
 }

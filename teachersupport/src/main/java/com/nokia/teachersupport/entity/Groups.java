@@ -111,4 +111,12 @@ public class Groups {
     public void setTimeToField(Time timeToField) {
         this.timeToField = timeToField;
     }
+
+    public Person getPersonAndGroups() {
+        return personAndGroups;
+    }
+
+    public void setPersonAndGroups(Person personAndGroups) {
+        this.personAndGroups = personAndGroups;
+    }
 }
