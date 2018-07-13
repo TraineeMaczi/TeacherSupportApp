@@ -1,12 +1,11 @@
 package com.nokia.teachersupport.entity;
-
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "news")
-public class News {
+@Table(name = "securitydata")
+public class SecurityData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -14,25 +13,9 @@ public class News {
     @Version
     private Integer version;
 
-    private String newsContentField;
-
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "person_id")
-    private Person personAndNews;
-
-    public News() {
-        this.newsContentField = Strings.EMPTY;
-    }
-
-
-    public String getNewsContentField()
-    {
-        return newsContentField;
-    }
-    public  void setNewsContentField(String newsText)
-    {
-        newsContentField =newsText;
-    }
+    private Person personAndSecurity;
 
     public Integer getVersion() {
         return version;
@@ -49,6 +32,4 @@ public class News {
     public void setId(Integer id) {
         this.id = id;
     }
-
 }
-

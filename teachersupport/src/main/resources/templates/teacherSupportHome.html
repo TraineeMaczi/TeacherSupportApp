@@ -9,6 +9,12 @@
 
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
     <p>
@@ -73,7 +79,7 @@
                 <form id="newNewsForm" class="form-control text-dark" th:object="${newNews}" th:action="@{/tshome/new}" method="post">
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{version}"/>
-                    <textarea class="form-control rounded text-center" rows="5" th:field="*{content}" form="newNewsForm">
+                    <textarea class="form-control rounded text-center" rows="5" th:field="*{newsContentField}" form="newNewsForm">
                     </textarea>
                <!--Tu ten button cos jest dziwny-->
                 </form>
@@ -86,7 +92,7 @@
         <div class="mt-4 text-dark">
 
                 <ul class="list-group">
-                    <li class="list-group-item" th:each="one : ${news}" th:text="${one.content}"></li>
+                    <li class="list-group-item" th:each="one : ${news}" th:text="${one.newsContentField}"></li>
                 </ul>
         </div>
         <div class="text-right mt-2">
