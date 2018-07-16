@@ -2,8 +2,11 @@ package com.nokia.teachersupport.entity;
 
 import org.apache.logging.log4j.util.Strings;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -23,11 +26,14 @@ public class Groups {
     private Time timeFromField; //Typ time nowy nie wiemn czy odpowiedni
     private Time timeToField;
 
-   /*
-    @OneToMany
-    @JoinColumn(name = "person_id")
-    private Person personAndGroups;
-*/
+    @ManyToOne
+    @JoinColumn(name="person_id")
+    private Person groupsOwner;
+
+    @OneToMany(mappedBy="resourceOwner")
+    private List<GroupResources> groupsResourcesList;
+
+
 
     public Groups() {
         this.groupNameField = Strings.EMPTY;
@@ -113,13 +119,35 @@ public class Groups {
     public void setTimeToField(Time timeToField) {
         this.timeToField = timeToField;
     }
-/*
-    public Person getPersonAndGroups() {
-        return personAndGroups;
+
+    public Person getGroupsOwner() {
+        return groupsOwner;
     }
 
-    public void setPersonAndGroups(Person personAndGroups) {
-        this.personAndGroups = personAndGroups;
+    public void setGroupsOwner(Person groupsOwner) {
+        this.groupsOwner = groupsOwner;
+        if(!groupsOwner.getPersonGroupsList().contains(this))
+        {
+            groupsOwner.getPersonGroupsList().add(this);
+        }
     }
-    */
+
+
+    public List<GroupResources> getGroupsResourcesList() {
+        return groupsResourcesList;
+    }
+
+    public void setGroupsResourcesList(List<GroupResources> groupsResourcesList) {
+        this.groupsResourcesList = groupsResourcesList;
+    }
+
+    public void addResourcesToMyList(GroupResources groupResource)
+    {
+        this.groupsResourcesList.add(groupResource);
+
+        if(groupResource.getResourceOwner()!=this)
+        {
+            groupResource.setResourceOwner(this);
+        }
+    }
 }

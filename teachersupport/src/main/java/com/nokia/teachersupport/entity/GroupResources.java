@@ -14,6 +14,9 @@ public class GroupResources {
     @Version
     private Integer version;
 
+    @ManyToOne
+    @JoinColumn(name="group_id")
+    private Groups resourceOwner;
 
 
     public Integer getVersion() {
@@ -30,5 +33,17 @@ public class GroupResources {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Groups getResourceOwner() {
+        return resourceOwner;
+    }
+
+    public void setResourceOwner(Groups resourceOwner) {
+        this.resourceOwner = resourceOwner;
+        if(!resourceOwner.getGroupsResourcesList().contains(this))
+        {
+            resourceOwner.getGroupsResourcesList().add(this);
+        }
     }
 }

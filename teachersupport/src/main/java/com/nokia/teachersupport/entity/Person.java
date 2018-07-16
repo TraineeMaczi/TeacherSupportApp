@@ -26,6 +26,8 @@ public class Person {
     private String usosPersonProfileLinkField;
     private String hobbyField;
 
+    //private String fotoField;
+    //private String cvField;
 
 
     @OneToMany(mappedBy="newsOwner")
@@ -33,8 +35,11 @@ public class Person {
 
     @OneToMany(mappedBy="publicationOwner")
     private List<Publications> personPublicationsList;
-    //private String fotoField;
-    //private String cvField;
+
+    @OneToMany(mappedBy="groupsOwner")
+    private List<Groups> personGroupsList;
+
+
 
     public Person(){
         this.degreeField=Strings.EMPTY;
@@ -168,6 +173,22 @@ public class Person {
         if (publication.getPublicationOwner()!=this)
         {
             publication.setPublicationOwner(this);
+        }
+    }
+
+    public List<Groups> getPersonGroupsList() {
+        return personGroupsList;
+    }
+
+    public void setPersonGroupsList(List<Groups> personGroupsList) {
+        this.personGroupsList = personGroupsList;
+    }
+    public void addGroupsToMyList(Groups group)
+    {
+        this.personGroupsList.add(group);
+        if(group.getGroupsOwner()!=this)
+        {
+            group.setGroupsOwner(this);
         }
     }
 }
