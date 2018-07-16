@@ -22,10 +22,12 @@ public class Groups {
     private String classDayFiled;
     private Time timeFromField; //Typ time nowy nie wiemn czy odpowiedni
     private Time timeToField;
+
+   /*
     @OneToMany
     @JoinColumn(name = "person_id")
     private Person personAndGroups;
-
+*/
 
     public Groups() {
         this.groupNameField = Strings.EMPTY;
@@ -111,7 +113,7 @@ public class Groups {
     public void setTimeToField(Time timeToField) {
         this.timeToField = timeToField;
     }
-
+/*
     public Person getPersonAndGroups() {
         return personAndGroups;
     }
@@ -119,4 +121,5 @@ public class Groups {
     public void setPersonAndGroups(Person personAndGroups) {
         this.personAndGroups = personAndGroups;
     }
+    */
 }

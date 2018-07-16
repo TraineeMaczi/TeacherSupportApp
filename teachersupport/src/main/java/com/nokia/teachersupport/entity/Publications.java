@@ -18,9 +18,9 @@ public class Publications {
         this.publicationsInfoField=Strings.EMPTY;
     }
 
-    @OneToMany
-    @JoinColumn(name = "person_id")
-    private Person personAndPublications;
+    @ManyToOne
+    @JoinColumn(name="person_id")
+    private Person publicationOwner;
 
     public Integer getVersion() {
         return version;
@@ -45,12 +45,15 @@ public class Publications {
     public void setPublicationsInfoField(String publicationsInfoField) {
         this.publicationsInfoField = publicationsInfoField;
     }
-
-    public Person getPersonAndPublications() {
-        return personAndPublications;
+    public void setPublicationOwner(Person publicationOwner) {
+        this.publicationOwner = publicationOwner;
+        if(!publicationOwner.getPersonPublicationsList().contains(this))
+        {
+            publicationOwner.getPersonPublicationsList().add(this);
+        }
     }
 
-    public void setPersonAndPublications(Person personAndPublications) {
-        this.personAndPublications = personAndPublications;
+    public Person getPublicationOwner() {
+        return publicationOwner;
     }
 }

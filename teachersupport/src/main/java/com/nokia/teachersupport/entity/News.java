@@ -16,9 +16,11 @@ public class News {
 
     private String newsContentField;
 
-    @OneToMany
-    @JoinColumn(name = "person_id")
-    private Person personAndNews;
+    @ManyToOne
+    @JoinColumn(name = "person_id") //to jest nazwa kolumny tylko
+    private Person newsOwner; //newsOwner to jest to co w Person wpisalas mappedby
+
+
 
     public News() {
         this.newsContentField = Strings.EMPTY;
@@ -50,12 +52,21 @@ public class News {
         this.id = id;
     }
 
-    public Person getPersonAndNews() {
-        return personAndNews;
+
+    public Person getNewsOwner() {
+        return newsOwner;
     }
 
-    public void setPersonAndNews(Person personAndNews) {
-        this.personAndNews = personAndNews;
+    public void setNewsOwner(Person newsOwner) {
+        this.newsOwner = newsOwner;
+        if(!newsOwner.getPersonNewsList().contains(this))
+        {
+            newsOwner.getPersonNewsList().add(this);
+        }
     }
+
+
+
+
 }
 

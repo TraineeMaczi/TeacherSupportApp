@@ -41,9 +41,12 @@ public class MeetMe {
         this.time2FromField = new Time(0);
         this.time2ToField = new Time(0);
     }
+
+    /*
     @OneToOne
     @JoinColumn(name = "person_id") //tu moze byc ta sama nazwa
     private Person personAndMeetMe;
+*/
 
     public Integer getVersion() {
         return version;
@@ -141,6 +144,7 @@ public class MeetMe {
         this.time2ToField = time2ToField;
     }
 
+    /*
     public Person getPersonAndMeetMe() {
         return personAndMeetMe;
     }
@@ -148,4 +152,5 @@ public class MeetMe {
     public void setPersonAndMeetMe(Person personAndMeetMe) {
         this.personAndMeetMe = personAndMeetMe;
     }
+    */
 }

@@ -76,24 +76,21 @@
             <div>
                    
                     <h4>Add Publication</h4>
-                    <form id="newPubliForm" class="form-control" >
-                    <!-- th:object="${newNews}" th:action="@{/tshome/new}" method="post">-->
-                    <!--    <input type="hidden" th:field="*{id}"/>
-                        <input type="hidden" th:field="*{version}"/>-->
-                        <textarea class="form-control rounded text-center" rows="5" > </textarea>
-                            <!--th:field="*{content}" form="newNewsForm">-->
-                       
-                   <!--Tu ten button cos jest dziwny-->
+                    <form id="newPubliForm" class="form-control" th:object="${newPublication}" th:action="@{/publications/new}"  method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{version}"/>
+                        <textarea class="form-control rounded text-center" rows="5" th:field="*{publicationsInfoField}" form="newPubliForm" > </textarea>
                     </form>
                     <div class="text-right mt-2">
                     <button type="submit" form="newPubliForm" class="btn mt-2">Add</button>
                </div>
             </div>
-            
-            <div class="mt-4">
-                    <h4>My Publications</h4>
+
+            <h4>My Publications</h4>
+            <div class="mt-4 text-dark">
+                
                     <ul class="list-group">
-                        <li class="list-group-item" ></li> <!--th:each="one : ${news}" th:text="${one.content}"></li>-->
+                        <li class="list-group-item" th:each="one : ${publications}" th:text="${one.publicationsInfoField}" ></li>
                     </ul>
             </div>
             <div class="text-right mt-2">

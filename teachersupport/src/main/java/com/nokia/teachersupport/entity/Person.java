@@ -2,7 +2,9 @@ package com.nokia.teachersupport.entity;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "person")
@@ -24,6 +26,13 @@ public class Person {
     private String usosPersonProfileLinkField;
     private String hobbyField;
 
+
+
+    @OneToMany(mappedBy="newsOwner")
+    private List<News> personNewsList;
+
+    @OneToMany(mappedBy="publicationOwner")
+    private List<Publications> personPublicationsList;
     //private String fotoField;
     //private String cvField;
 
@@ -128,5 +137,37 @@ public class Person {
 
     public void setHobbyField(String hobbyField) {
         this.hobbyField = hobbyField;
+    }
+
+    public List<News> getPersonNewsList() {
+        return personNewsList;
+    }
+
+    public void setPersonNewsList(List<News> personNewsList) {
+        this.personNewsList = personNewsList;
+    }
+    //UWAGA METODAPUBLUCZNA
+    public void addNewsToMyList(News news) {
+        this.personNewsList.add(news);
+        //To po co jest to za bardzo nie wiem
+        if (news.getNewsOwner() != this) {
+            news.setNewsOwner(this);
+        }
+    }
+
+    public List<Publications> getPersonPublicationsList() {
+        return personPublicationsList;
+    }
+
+    public void setPersonPublicationsList(List<Publications> personPublicationsList) {
+        this.personPublicationsList = personPublicationsList;
+    }
+    public void addPubicationsToMyList(Publications publication)
+    {
+        this.personPublicationsList.add(publication);
+        if (publication.getPublicationOwner()!=this)
+        {
+            publication.setPublicationOwner(this);
+        }
     }
 }
