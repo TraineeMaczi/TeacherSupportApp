@@ -13,3 +13,10 @@
  {
     background-color:rgb(0, 21, 116) !important;
  }
+.makeMeScroll
+{
+    display: inline-block;
+    overflow-y: scroll;
+    max-height:200px;
+
+}
