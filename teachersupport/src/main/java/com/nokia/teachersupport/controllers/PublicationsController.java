@@ -30,6 +30,9 @@ public class PublicationsController {
     {
         publicationService.savePublications(publications);
         return "redirect:/teacherSupportPublications";
+
+
+
     }
 }
 
