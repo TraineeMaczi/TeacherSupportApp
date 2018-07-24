@@ -17,7 +17,7 @@ public class UserService implements IUserService {
     public UserSecurityData registerNewUserAccount(UserSecurityData userSecurityData)
             throws EmailExistsException {
 
-        if (emailExist(userSecurityData.getEmail(),userSecurityData.getActive())) {
+        if (emailExist(userSecurityData.getEmail(), userSecurityData.getActive())) {
             throw new EmailExistsException("There is an account with that email address:"  + userSecurityData.getEmail());
         }
         UserSecurityData user = new UserSecurityData();
@@ -28,11 +28,8 @@ public class UserService implements IUserService {
         //user.setMyRoles(Arrays.asList("ROLE_USER")); Zmienilam bo mam obiekty typu rola
         return repository.save(user);
     }
-    private boolean emailExist(String email,Boolean active) {
+    private boolean emailExist(String email, Boolean active) {
         UserSecurityData user = repository.findByEmail(email);
-        if ((user != null)&&(active==true)) {
-            return true;
-        }
-        return false;
+        return (user != null) && (active);
     }
 }

@@ -4,9 +4,11 @@ import com.nokia.teachersupport.roles.SecutityRole;
 import org.apache.logging.log4j.util.Strings;
 import org.apache.tomcat.util.descriptor.web.SecurityRoleRef;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @PasswordMatches
