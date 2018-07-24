@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 
 @Service
 public class UserService implements IUserService {
     @Autowired
-    private UserRepository repository;
+    private UserSecurityDataRepo repository;
+
+
 
     @Transactional
     @Override
@@ -32,4 +33,6 @@ public class UserService implements IUserService {
         UserSecurityData user = repository.findByEmail(email);
         return (user != null) && (active);
     }
+
+
 }

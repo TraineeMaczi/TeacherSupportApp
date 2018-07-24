@@ -22,6 +22,7 @@ public class UserSecurityData {
     @Version
     private Integer version;
 
+    @Column(name = "activate")
     private Boolean active;
 
     @NotNull
@@ -43,6 +44,9 @@ public class UserSecurityData {
             joinColumns=@JoinColumn( referencedColumnName="DataId"),
             inverseJoinColumns=@JoinColumn( referencedColumnName="RoleId"))
     private List<SecutityRole> myRoles;
+
+
+
 
     public void addARole(String rName)
     {
@@ -112,4 +116,9 @@ public class UserSecurityData {
     public void setMyRoles(List<SecutityRole> myRoles) {
         this.myRoles = myRoles;
     }
+
+    public boolean isActived() {
+        return this.active == true;
+    }
+
 }

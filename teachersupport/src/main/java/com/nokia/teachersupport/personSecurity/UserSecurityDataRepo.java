@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserSecurityData, Integer> {
+public interface UserSecurityDataRepo extends CrudRepository<UserSecurityData, Integer> {
     List<UserSecurityData> findAll();
     UserSecurityData findByEmail(String email);
 }

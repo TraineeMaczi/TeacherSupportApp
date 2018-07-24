@@ -23,6 +23,7 @@ public class SecutityRole {
     public SecutityRole()
     {
         roleName="ROLE_USER";
+
     }
 
     public Integer getId() {
