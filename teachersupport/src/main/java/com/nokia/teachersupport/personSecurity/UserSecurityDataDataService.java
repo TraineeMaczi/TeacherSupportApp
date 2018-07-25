@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class UserSecurityDataSecurityDataService implements IUserSecurityDataService {
+public class UserSecurityDataDataService implements IUserSecurityDataService {
     @Autowired
     private UserSecurityDataRepo repository;
 

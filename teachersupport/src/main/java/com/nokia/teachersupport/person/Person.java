@@ -1,7 +1,9 @@
 package com.nokia.teachersupport.person;
 
+import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.newsP.News;
-import com.nokia.teachersupport.groupsSchool.GroupsSchool;
+import com.nokia.teachersupport.groupsSchool.StudGroups;
+import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.publications.Publications;
 import org.apache.logging.log4j.util.Strings;
 
@@ -21,8 +23,8 @@ public class Person {
     private String degreeField;
     private String nameField;
     private String surnameField;
-    private String facultyPictureField;
-    private String workAddresField;
+
+    private String workAddressField;
     private String professionField;
     private String phoneNumberField;
     private String usosPersonProfileLinkField;
@@ -30,6 +32,14 @@ public class Person {
 
     //private String fotoField;
     //private String cvField;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="SecurityDataId")
+    private UserSecurityData userSecurityDataField;
+
+    @ManyToOne
+    @JoinColumn(name = "faculty_id") //to jest nazwa kolumny tylko
+    private Faculty facultyField;
 
 
     @OneToMany(mappedBy = "newsOwner")
@@ -39,15 +49,15 @@ public class Person {
     private List<Publications> personPublicationsList;
 
     @OneToMany(mappedBy = "groupsOwner")
-    private List<GroupsSchool> personGroupsSchoolList;
+    private List<StudGroups> personStudGroupsList;
 
 
     public Person() {
         this.degreeField = Strings.EMPTY;
         this.nameField = Strings.EMPTY;
         this.surnameField = Strings.EMPTY;
-        this.facultyPictureField = Strings.EMPTY;
-        this.workAddresField = Strings.EMPTY;
+
+        this.workAddressField = Strings.EMPTY;
         this.professionField = Strings.EMPTY;
         this.phoneNumberField = Strings.EMPTY;
         this.usosPersonProfileLinkField = Strings.EMPTY;
@@ -97,20 +107,14 @@ public class Person {
         this.surnameField = surnameField;
     }
 
-    public String getFacultyPictureField() {
-        return facultyPictureField;
+
+
+    public String getWorkAddressField() {
+        return workAddressField;
     }
 
-    public void setFacultyPictureField(String facultyPictureField) {
-        this.facultyPictureField = facultyPictureField;
-    }
-
-    public String getWorkAddresField() {
-        return workAddresField;
-    }
-
-    public void setWorkAddresField(String workAddresField) {
-        this.workAddresField = workAddresField;
+    public void setWorkAddressField(String workAddressField) {
+        this.workAddressField = workAddressField;
     }
 
     public String getProfessionField() {
@@ -177,18 +181,38 @@ public class Person {
         }
     }
 
-    public List<GroupsSchool> getPersonGroupsSchoolList() {
-        return personGroupsSchoolList;
+    public List<StudGroups> getPersonStudGroupsList() {
+        return personStudGroupsList;
     }
 
-    public void setPersonGroupsSchoolList(List<GroupsSchool> personGroupsSchoolList) {
-        this.personGroupsSchoolList = personGroupsSchoolList;
+    public void setPersonStudGroupsList(List<StudGroups> personStudGroupsList) {
+        this.personStudGroupsList = personStudGroupsList;
     }
 
-    public void addGroupsToMyList(GroupsSchool group) {
-        this.personGroupsSchoolList.add(group);
+    public void addGroupsToMyList(StudGroups group) {
+        this.personStudGroupsList.add(group);
         if (group.getGroupsOwner() != this) {
             group.setGroupsOwner(this);
         }
+    }
+
+
+    public Faculty getFacultyField() {
+        return facultyField;
+    }
+
+    public void setFacultyField(Faculty facultyField) {
+        this.facultyField = facultyField;
+        if (!facultyField.getFacultyAndPersonList().contains(this)) {
+            facultyField.getFacultyAndPersonList().add(this);
+        }
+    }
+
+    public UserSecurityData getUserSecurityDataField() {
+        return userSecurityDataField;
+    }
+
+    public void setUserSecurityDataField(UserSecurityData userSecurityDataField) {
+        this.userSecurityDataField = userSecurityDataField;
     }
 }

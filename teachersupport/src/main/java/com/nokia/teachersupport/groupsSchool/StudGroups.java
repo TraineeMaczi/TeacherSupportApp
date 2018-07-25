@@ -8,7 +8,7 @@ import java.sql.Time;
 import java.util.List;
 
 @Entity
-public class GroupsSchool {
+public class StudGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -32,7 +32,7 @@ public class GroupsSchool {
     private List<GroupResources> groupsResourcesList;
 
 
-    public GroupsSchool() {
+    public StudGroups() {
         this.groupNameField = Strings.EMPTY;
         this.facultyField = Strings.EMPTY;
         this.groupNrFiled = Strings.EMPTY;
@@ -123,8 +123,8 @@ public class GroupsSchool {
 
     public void setGroupsOwner(Person groupsOwner) {
         this.groupsOwner = groupsOwner;
-        if (!groupsOwner.getPersonGroupsSchoolList().contains(this)) {
-            groupsOwner.getPersonGroupsSchoolList().add(this);
+        if (!groupsOwner.getPersonStudGroupsList().contains(this)) {
+            groupsOwner.getPersonStudGroupsList().add(this);
         }
     }
 
