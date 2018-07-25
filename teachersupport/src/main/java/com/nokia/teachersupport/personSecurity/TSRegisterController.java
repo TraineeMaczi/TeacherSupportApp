@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class TSRegisterController {
 
     @Autowired
-    private IUserService userService;
+    private IUserSecurityDataService userService;
 
     @GetMapping("/teacherSupportRegister")
     public String tSRegisterGet(WebRequest request, Model model) {
@@ -29,7 +29,7 @@ public class TSRegisterController {
         return "teacherSupportRegister";
     }
 
-    @PostMapping ("/teacherSupportRegister")
+    @PostMapping("/teacherSupportRegister")
     public ModelAndView registerUserAccount
             (@ModelAttribute("user") @Valid UserSecurityData accountDto,
              BindingResult result, WebRequest request, Errors errors) {
@@ -43,12 +43,12 @@ public class TSRegisterController {
 
         if (result.hasErrors()) {
             return new ModelAndView("teacherSupportRegister", "user", accountDto);
-        }
-        else {
+        } else {
             return new ModelAndView("teacherSupportLogIn", "user", accountDto);
         }
 
     }
+
     private UserSecurityData createUserAccount(UserSecurityData accountDto, BindingResult result) {
         UserSecurityData registered = null;
         try {
@@ -59,5 +59,8 @@ public class TSRegisterController {
         }
         return registered;
     }
+
+
+
 
 }

@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Configuration
 @EnableAutoConfiguration
 @EnableWebSecurity
-@Order(1)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Order(2)
+public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/teacherSupportLogIn").defaultSuccessUrl("/", true)
+                .formLogin().loginPage("/teacherSupportLogIn").defaultSuccessUrl("/teacherSupportAdminDashboard", true)
                 .permitAll()
                 .and()
                 .logout().permitAll();
@@ -39,8 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1").password("user1Pass").roles("USER");
-
+                .withUser("test")
+                .password("test123")
+                .roles("ADMIN");
     }
 
 }
