@@ -21,40 +21,48 @@ public class AdminDashBoardControler {
 
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
-        model.addAttribute("userDataForAdminAction",new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
+        model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
+        model.addAttribute("faculty",new Faculty());
         return "teacherSupportAdminDashboard";
     }
 
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminAction")
-    String addNewUser(UserDTOForAdminAction userDTOForAdminActionserDTO)
-    {
+    String addNewUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
 //jak nie mam takiego e-mail w bazie jeszcze
-        if(adminDashboardService.getUserSecurityDataByEmail(userDTOForAdminActionserDTO.getUserEmailDTOField()) != null) {
-    Person person = new Person();
-    UserSecurityData userSecurityData = new UserSecurityData();
-    Faculty faculty = adminDashboardService.getFacultyByName(userDTOForAdminActionserDTO.getUserNameDTOField());
+        if (adminDashboardService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) != null) {
+            Person person = new Person();
+            UserSecurityData userSecurityData = new UserSecurityData();
+            Faculty faculty = adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserNameDTOField());
 
-    person.setNameField(userDTOForAdminActionserDTO.getUserNameDTOField());
-    person.setSurnameField(userDTOForAdminActionserDTO.getUserSurnameDTOField());
-
-
-    faculty.addPersonToFaculty(person);//!
-    person.setFacultyField(faculty); //to nie wiem czy potrzebne bo sa zabezpieczenia w obie str
-
-    userSecurityData.setActive(false);
-    userSecurityData.setEmail(userDTOForAdminActionserDTO.getUserEmailDTOField());
-    userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
-    userSecurityData.setMatchingPassword("NULL");
-    person.setUserSecurityDataField(userSecurityData);
+            person.setNameField(userDTOForAdminActionDTO.getUserNameDTOField());
+            person.setSurnameField(userDTOForAdminActionDTO.getUserSurnameDTOField());
 
 
-    adminDashboardService.saveUserPersonDataAdminAction(person);
-    adminDashboardService.saveUserSecurityDataAdminAction(userSecurityData);
+            faculty.addPersonToFaculty(person);//!
+            person.setFacultyField(faculty); //to nie wiem czy potrzebne bo sa zabezpieczenia w obie str
 
-    //Czy ja mam ten faculty zapisywac XD ?
-    adminDashboardService.saveUserFacultyDataAdminAction(faculty);
-}
+            userSecurityData.setActive(false);
+            userSecurityData.setEmail(userDTOForAdminActionDTO.getUserEmailDTOField());
+            userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
+            userSecurityData.setMatchingPassword("NULL");
+            person.setUserSecurityDataField(userSecurityData);
 
+
+            adminDashboardService.saveUserPersonDataAdminAction(person);
+            adminDashboardService.saveUserSecurityDataAdminAction(userSecurityData);
+
+            //Czy ja mam ten faculty zapisywac XD ?
+            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+        }
+
+        return "redirect:/teacherSupportAdminDashboard";
+    }
+
+    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
+    String addNewFaculty(Faculty faculty) {
+        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
+            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+        }
         return "redirect:/teacherSupportAdminDashboard";
     }
 

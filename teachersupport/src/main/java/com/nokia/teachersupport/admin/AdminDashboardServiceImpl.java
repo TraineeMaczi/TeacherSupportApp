@@ -6,6 +6,7 @@ import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +16,23 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     private PersonRepo aDSPersonRepoInstance;
     private UserSecurityDataRepo aDSUserSecurityDataRepoInstance;
     private FacultyRepo facultyRepo;
+
+    @Autowired
+    public void setFacultyRepo(FacultyRepo facultyRepo) {
+        this.facultyRepo = facultyRepo;
+    }
+
+    @Autowired
+    public void setaDSUserSecurityDataRepoInstance(UserSecurityDataRepo userSecurityDataRepoInstance) {
+        this.aDSUserSecurityDataRepoInstance = userSecurityDataRepoInstance;
+    }
+
+    @Autowired
+    public void setaDSPersonRepoInstance(PersonRepo personRepo) {
+        this.aDSPersonRepoInstance = personRepo;
+    }
+
+
 
     @Override
     public void deleteUserPersonDataAdminAction(Integer userID) {

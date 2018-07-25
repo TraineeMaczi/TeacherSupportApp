@@ -79,6 +79,7 @@
                 <form id="newNewsForm" class="form-control text-dark" th:object="${newNews}" th:action="@{/tshome/new}" method="post">
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{version}"/>
+
                     <textarea class="form-control rounded text-center" rows="5" th:field="*{newsContentField}" form="newNewsForm">
                     </textarea>
                <!--Tu ten button cos jest dziwny-->
