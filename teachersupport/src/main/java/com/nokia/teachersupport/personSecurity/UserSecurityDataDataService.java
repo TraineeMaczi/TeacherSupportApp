@@ -25,7 +25,10 @@ public class UserSecurityDataDataService implements IUserSecurityDataService {
 
         user.setPassword(userSecurityData.getPassword());
         user.setEmail(userSecurityData.getEmail());
-        user.addARole("ROLE_USER");
+
+
+        //TU ROLA REJESTRACJA SIE WYWALI PEWNIE
+        //user.addARole("ROLE_USER");
         //user.setMyRoles(Arrays.asList("ROLE_USER")); Zmienilam bo mam obiekty typu rola
         return repository.save(user);
     }

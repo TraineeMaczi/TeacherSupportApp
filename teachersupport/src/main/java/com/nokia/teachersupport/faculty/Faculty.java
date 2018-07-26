@@ -21,7 +21,7 @@ public class Faculty {
     private boolean checkedField;
 
     @OneToMany(mappedBy = "facultyField")
-    private List<Person> facultyAndPersonList;
+    private List<Person> facultyAndPersonList;   //A tu nie ma new czemu to dzila a przy many to many nie -.-
 
     public Faculty()
     {

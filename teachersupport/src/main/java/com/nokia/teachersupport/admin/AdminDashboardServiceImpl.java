@@ -6,6 +6,8 @@ import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
+import com.nokia.teachersupport.roles.RoleRepo;
+import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     private PersonRepo aDSPersonRepoInstance;
     private UserSecurityDataRepo aDSUserSecurityDataRepoInstance;
     private FacultyRepo facultyRepo;
+    private RoleRepo roleRepo;
+
+
 
     @Autowired
     public void setFacultyRepo(FacultyRepo facultyRepo) {
@@ -34,7 +39,10 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     }
 
 
-
+    @Autowired
+    public void setRoleRepo(RoleRepo roleRepo) {
+        this.roleRepo = roleRepo;
+    }
     @Override
     public void deleteUserPersonDataAdminAction(Integer userID) {
     aDSPersonRepoInstance.deleteById(userID);
@@ -49,6 +57,23 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
     public void deleteUserFacultyDataAdminAction(Integer facultyID) {
         facultyRepo.deleteById(facultyID);
     }
+
+
+
+
+    @Override
+    public void deleteUserRoleDataAdminAction(Integer roleID) {
+        roleRepo.deleteById(roleID);
+    }
+
+    @Override
+    public SecutityRole saveUserRoleDataAdminAction(SecutityRole secutityRole) {
+        return roleRepo.save(secutityRole);
+    }
+
+
+
+
 
     @Override
     public Person saveUserPersonDataAdminAction(Person person) {
@@ -89,5 +114,20 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
         return facultyRepo.findAll();
     }
 
+    @Override
+    public SecutityRole getRoleByName(String rName) {
+        SecutityRole secutityRole=roleRepo.findByRoleName(rName);
+        return secutityRole;
+    }
+
+    @Override
+    public List<Person> listOfAllPersons() {
+        return aDSPersonRepoInstance.findAll();
+    }
+
+
+    public RoleRepo getRoleRepo() {
+        return roleRepo;
+    }
 
 }

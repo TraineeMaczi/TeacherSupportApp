@@ -33,7 +33,7 @@ public class Person {
     //private String fotoField;
     //private String cvField;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
     @JoinColumn(name="SecurityDataId")
     private UserSecurityData userSecurityDataField;
 

@@ -235,24 +235,39 @@
                             <th scope="col">Faculty</th>
                             <th scope="col">e-mail</th>
                             <th scope="col">Password</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Active</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <tr>
-                            <td>Sample Name</td>
-                            <td>Sample Surname</td>
-                            <td>Sample Faculty</td>
-                            <td>sample@samle.pl</td>
-                            <td>samplePass</td>
-                            <td>False</td>
+
+
+
+
+                        <tr th:each="objPerson : ${currentUsers}">
+                            <td th:text="${objPerson.nameField}"></td>
+                            <td th:text="${objPerson.surnameField}"></td>
+                            <td th:text="${objPerson.facultyField.getFacultyNameField()}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.getEmail()}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.getPassword()}"></td>
+                            <td>
+                                <select class="form-control">
+                                    <option>ROLE_USER</option>
+                                    <option>ROLE_ADMIN</option>
+                                    <option>THI IS TO DO</option>
+                                </select>
+                            </td>
+                            <td th:text="${objPerson.userSecurityDataField.getActive()}"></td>
                             <td>
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID"
                                        value="SAMPLE_VALUE">
                             </td>
                         </tr>
+
+
+
 
                         </tbody>
                     </table>
@@ -279,14 +294,16 @@
                     <div class="modal-body">
                         <div class="container">
 
-                            <form id="InnerAddNewUserForm"  >
+
+                            <form id="InnerAddNewUserForm" th:object="${userDataForAdminAction}" th:action="@{/teacherSupportAdminDashboard/newUserAdminAction}" method="post">
+
                                 <div class="row">
                                     <div class="col-xs ">
                                         <input type="text" class="form-control text-center" placeholder="Name: "
                                                disabled>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline"/>
+                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userNameDTOField}"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -295,7 +312,7 @@
                                                disabled>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline"/>
+                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userSurnameDTOField}"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -304,16 +321,23 @@
                                                disabled>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline"/>
+                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userFacultyDTOField}" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs ">
-                                        <input type="text" class="form-control text-center" placeholder="e-mail: "
-                                               disabled>
+                                        <input type="text" class="form-control text-center" placeholder="Role: " disabled>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="email" class="form-control rounded text-center d-inline"/>
+                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userRoleDTOField}"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs ">
+                                        <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="email" class="form-control rounded text-center d-inline" th:field="*{userEmailDTOField}"/>
                                     </div>
                                 </div>
                             </form>

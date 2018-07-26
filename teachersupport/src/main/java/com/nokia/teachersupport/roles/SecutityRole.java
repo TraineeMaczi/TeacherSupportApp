@@ -3,6 +3,7 @@ package com.nokia.teachersupport.roles;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,15 +18,23 @@ public class SecutityRole {
 
     private String roleName;
 
-    @ManyToMany(mappedBy="myRoles")
-    private List<UserSecurityData> securityInsAndRoles;
+    @ManyToMany(mappedBy="myRoles", cascade = { CascadeType.ALL })
+    private List<UserSecurityData> securityInsAndRoles=new ArrayList<>();
 
     public SecutityRole()
     {
         roleName="ROLE_USER";
 
     }
+    public void addUserSecurityDataToRole(UserSecurityData userSecurityData)
+    {
+        this.securityInsAndRoles.add(userSecurityData);
+        //!UWAGA
+        if (!userSecurityData.getMyRoles().contains(this)) {
+            userSecurityData.addARole(this);
+        }
 
+    }
     public Integer getId() {
         return id;
     }

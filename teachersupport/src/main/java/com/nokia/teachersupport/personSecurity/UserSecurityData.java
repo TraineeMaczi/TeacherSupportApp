@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @PasswordMatches
@@ -43,16 +44,17 @@ public class UserSecurityData {
             name="securityUserDataAndSecurityRole",
             joinColumns=@JoinColumn( referencedColumnName="DataId"),
             inverseJoinColumns=@JoinColumn( referencedColumnName="RoleId"))
-    private List<SecutityRole> myRoles;
+    private List<SecutityRole> myRoles=new ArrayList<>();
 
 
 
 
-    public void addARole(String rName)
+    public void addARole(SecutityRole secutityRole)
     {
-        SecutityRole newRole=new SecutityRole();
-        newRole.setRoleName(rName);
-        this.myRoles.add(newRole);
+        this.myRoles.add(secutityRole);
+        if (!secutityRole.getSecurityInsAndRoles().contains(this)) {
+            secutityRole.addUserSecurityDataToRole(this);
+        }
     }
 
     public UserSecurityData() {

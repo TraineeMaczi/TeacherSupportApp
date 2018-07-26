@@ -15,6 +15,7 @@ public class UserDTOForAdminAction {
     private String userSurnameDTOField;
     private String userEmailDTOField;
     private String userFacultyDTOField;
+    private String userRoleDTOField;
 }
 
 
