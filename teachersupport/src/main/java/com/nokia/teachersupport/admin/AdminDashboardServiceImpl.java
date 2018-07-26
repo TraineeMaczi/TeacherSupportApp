@@ -9,6 +9,7 @@ import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class AdminDashboardServiceImpl implements IAdminDashboardService {
@@ -81,6 +82,11 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
     public UserSecurityData getUserSecurityDataByEmail(String email) {
         UserSecurityData usd=aDSUserSecurityDataRepoInstance.findByEmail(email);
         return usd;
+    }
+
+    @Override
+    public List<Faculty> listOfAllFaculties() {
+        return facultyRepo.findAll();
     }
 
 

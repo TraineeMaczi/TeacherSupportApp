@@ -18,6 +18,7 @@ public class Faculty {
     private String facultyNameField;
     //Pole z fotka na razie brak
 
+    private boolean checkedField;
 
     @OneToMany(mappedBy = "facultyField")
     private List<Person> facultyAndPersonList;
@@ -25,6 +26,7 @@ public class Faculty {
     public Faculty()
     {
         this.facultyNameField= Strings.EMPTY;
+        this.checkedField=false;
     }
 
 
@@ -66,4 +68,13 @@ public void addPersonToFaculty(Person person)
         person.setFacultyField(this);
     }
 }
+
+
+    public boolean isCheckedField() {
+        return checkedField;
+    }
+
+    public void setCheckedField(boolean checkedField) {
+        this.checkedField = checkedField;
+    }
 }

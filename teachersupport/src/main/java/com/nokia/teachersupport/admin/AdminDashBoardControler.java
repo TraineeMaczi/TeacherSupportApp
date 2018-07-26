@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.admin;
 
+import com.nokia.teachersupport.checkBox.CheckBoxList;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
@@ -9,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class AdminDashBoardControler {
 
@@ -16,13 +20,15 @@ public class AdminDashBoardControler {
 
     @Autowired
     public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice) {
-        this.adminDashboardService = adminDashboardService;
+       this.adminDashboardService=adminDashboardsSrvice;
     }
 
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
         model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
-        model.addAttribute("faculty",new Faculty());
+        model.addAttribute("newFaculty",new Faculty());
+        model.addAttribute("hAllFaculty",adminDashboardService.listOfAllFaculties());
+
         return "teacherSupportAdminDashboard";
     }
 

@@ -4,6 +4,8 @@ import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 
+import java.util.List;
+
 public interface IAdminDashboardService {
     void deleteUserPersonDataAdminAction(Integer userID);
     void deleteUserSecurityDataAdminAction(Integer userID);
@@ -14,4 +16,5 @@ public interface IAdminDashboardService {
     Faculty getFacultyData(Faculty faculty);
     Faculty getFacultyByName(String facultyName);
     UserSecurityData getUserSecurityDataByEmail(String email);
+    List<Faculty> listOfAllFaculties();
 }
