@@ -1,8 +1,6 @@
 package com.nokia.teachersupport.personSecurity;
 
 import com.nokia.teachersupport.roles.SecutityRole;
-import org.apache.logging.log4j.util.Strings;
-import org.apache.tomcat.util.descriptor.web.SecurityRoleRef;
 
 
 import javax.persistence.*;
@@ -12,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@PasswordMatches
+
 @Entity
 public class UserSecurityData {
     @Id
@@ -34,7 +32,6 @@ public class UserSecurityData {
     @NotEmpty
     private String matchingPassword;
 
-    @ValidEmail
     @NotNull
     @NotEmpty
     private String email;

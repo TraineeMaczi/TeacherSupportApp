@@ -2,7 +2,7 @@ package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.newsP.News;
-import com.nokia.teachersupport.groupsSchool.StudGroups;
+import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.publications.Publications;
 import org.apache.logging.log4j.util.Strings;
@@ -49,7 +49,7 @@ public class Person {
     private List<Publications> personPublicationsList;
 
     @OneToMany(mappedBy = "groupsOwner")
-    private List<StudGroups> personStudGroupsList;
+    private List<StudGroup> personStudGroupList;
 
 
     public Person() {
@@ -181,16 +181,16 @@ public class Person {
         }
     }
 
-    public List<StudGroups> getPersonStudGroupsList() {
-        return personStudGroupsList;
+    public List<StudGroup> getPersonStudGroupList() {
+        return personStudGroupList;
     }
 
-    public void setPersonStudGroupsList(List<StudGroups> personStudGroupsList) {
-        this.personStudGroupsList = personStudGroupsList;
+    public void setPersonStudGroupList(List<StudGroup> personStudGroupList) {
+        this.personStudGroupList = personStudGroupList;
     }
 
-    public void addGroupsToMyList(StudGroups group) {
-        this.personStudGroupsList.add(group);
+    public void addGroupsToMyList(StudGroup group) {
+        this.personStudGroupList.add(group);
         if (group.getGroupsOwner() != this) {
             group.setGroupsOwner(this);
         }

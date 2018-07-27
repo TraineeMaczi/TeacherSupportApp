@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.groupsSchool;
+package com.nokia.teachersupport.studGroup;
 
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
@@ -8,7 +8,7 @@ import java.sql.Time;
 import java.util.List;
 
 @Entity
-public class StudGroups {
+public class StudGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -32,7 +32,7 @@ public class StudGroups {
     private List<GroupResources> groupsResourcesList;
 
 
-    public StudGroups() {
+    public StudGroup() {
         this.groupNameField = Strings.EMPTY;
         this.facultyField = Strings.EMPTY;
         this.groupNrFiled = Strings.EMPTY;
@@ -123,8 +123,8 @@ public class StudGroups {
 
     public void setGroupsOwner(Person groupsOwner) {
         this.groupsOwner = groupsOwner;
-        if (!groupsOwner.getPersonStudGroupsList().contains(this)) {
-            groupsOwner.getPersonStudGroupsList().add(this);
+        if (!groupsOwner.getPersonStudGroupList().contains(this)) {
+            groupsOwner.getPersonStudGroupList().add(this);
         }
     }
 

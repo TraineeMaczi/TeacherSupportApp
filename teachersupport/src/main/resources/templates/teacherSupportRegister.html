@@ -31,7 +31,7 @@
                     <h1>TeacherSupportApp</h1>
                     <h5>Make it easy</h5>
                     <div class="jumbotron rounded  bg-white text-dark mt-4">
-                        <form th:action="@{/teacherSupportRegister}"  th:object="${user}" method="post" enctype="utf8">
+                        <form th:action="@{/teacherSupportRegister}"  th:object="${registerUserAction}" method="post" enctype="utf8">
                             <input type="hidden" th:field="*{id}"/>
                             <input type="hidden" th:field="*{version}"/>
                             <input type="hidden" th:field="*{active}"/>
@@ -40,8 +40,6 @@
                             </div>
                             <div class="row mt-2">
                                 <input th:field="*{email}" type="email" class="form-control rounded text-center d-inline" />
-                                <p class="text-danger" th:each="error: ${#fields.errors('email')}"
-                                   th:text="${error}">Validation error</p>
                             </div>
 
                             <div class="row mt-2">
@@ -49,8 +47,6 @@
                             </div>
                             <div class="row mt-2">
                                 <input th:field="*{password}"  type="password" class="form-control rounded text-center d-inline" />
-                                <p class="text-danger" th:each="error: ${#fields.errors('password')}"
-                                   th:text="${error}">Validation error</p>
                             </div>
 
                             <div class="row mt-2">

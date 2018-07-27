@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.groupsSchool;
+package com.nokia.teachersupport.studGroup;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ public class GroupResources {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private StudGroups resourceOwner;
+    private StudGroup resourceOwner;
 
 
     public Integer getVersion() {
@@ -32,11 +32,11 @@ public class GroupResources {
         this.id = id;
     }
 
-    public StudGroups getResourceOwner() {
+    public StudGroup getResourceOwner() {
         return resourceOwner;
     }
 
-    public void setResourceOwner(StudGroups resourceOwner) {
+    public void setResourceOwner(StudGroup resourceOwner) {
         this.resourceOwner = resourceOwner;
         if (!resourceOwner.getGroupsResourcesList().contains(this)) {
             resourceOwner.getGroupsResourcesList().add(this);
