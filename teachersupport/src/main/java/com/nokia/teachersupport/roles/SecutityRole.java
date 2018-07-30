@@ -18,7 +18,7 @@ public class SecutityRole {
 
     private String roleName;
 
-    @ManyToMany(mappedBy="myRoles", cascade = { CascadeType.ALL })
+    @ManyToMany(mappedBy="myRoles", cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
     private List<UserSecurityData> securityInsAndRoles=new ArrayList<>();
 
     public SecutityRole()

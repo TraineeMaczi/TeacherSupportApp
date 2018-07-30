@@ -6,6 +6,7 @@ import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
+import com.nokia.teachersupport.personSecurity.personRegister.RegisterDTO;
 import com.nokia.teachersupport.roles.RoleRepo;
 import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,15 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
     @Override
     public List<Person> listOfAllPersons() {
         return aDSPersonRepoInstance.findAll();
+    }
+
+    @Override
+    public UserSecurityData registerNewUserAction(RegisterDTO registerDTO) {
+        UserSecurityData userSecurityData=aDSUserSecurityDataRepoInstance.findByEmail(registerDTO.getUserName_Email());
+        userSecurityData.setActive(true);
+        userSecurityData.setPassword(registerDTO.getUserPass());
+        userSecurityData.setMatchingPassword(registerDTO.getUserConfirmPass());
+        return userSecurityData;
     }
 
 

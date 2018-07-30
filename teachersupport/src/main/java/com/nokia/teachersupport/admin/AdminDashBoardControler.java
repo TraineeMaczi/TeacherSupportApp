@@ -6,6 +6,7 @@ import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class AdminDashBoardControler {
     public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice) {
        this.adminDashboardService=adminDashboardsSrvice;
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
         model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
@@ -34,7 +35,7 @@ public class AdminDashBoardControler {
 
         return "teacherSupportAdminDashboard";
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminAction")
     String addNewUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
 //jak nie mam takiego e-mail w bazie jeszcze i jak wydzial istnieje i jesli rola istnieje
@@ -76,7 +77,7 @@ public class AdminDashBoardControler {
 
         return "redirect:/teacherSupportAdminDashboard";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
     String addNewFaculty(Faculty faculty) {
         if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {

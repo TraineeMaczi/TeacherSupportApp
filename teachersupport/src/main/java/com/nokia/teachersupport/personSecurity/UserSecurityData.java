@@ -24,26 +24,28 @@ public class UserSecurityData {
     @Column(name = "activate")
     private Boolean active;
 
-    @NotNull
-    @NotEmpty
     private String password;
 
-    @NotNull
-    @NotEmpty
     private String matchingPassword;
 
-    @NotNull
-    @NotEmpty
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
     @JoinTable(
             name="securityUserDataAndSecurityRole",
             joinColumns=@JoinColumn( referencedColumnName="DataId"),
             inverseJoinColumns=@JoinColumn( referencedColumnName="RoleId"))
     private List<SecutityRole> myRoles=new ArrayList<>();
 
-
+    public UserSecurityData(UserSecurityData userSecurityData) {
+    this.id=userSecurityData.id;
+    this.version=userSecurityData.version;
+    this.active=userSecurityData.active;
+    this.password=userSecurityData.password;
+    this.matchingPassword=userSecurityData.matchingPassword;
+    this.email=userSecurityData.email;
+    this.myRoles=userSecurityData.myRoles;
+    }
 
 
     public void addARole(SecutityRole secutityRole)

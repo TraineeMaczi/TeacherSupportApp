@@ -67,6 +67,21 @@ public class Person {
         //private String cvField;
     }
 
+
+
+//    //copy const for user details
+//    public Person(Person person) {
+//        this.degreeField = person.degreeField;
+//        this.nameField = person.nameField;
+//        this.surnameField = person.surnameField;
+//
+//        this.workAddressField = person.workAddressField;
+//        this.professionField = person.professionField;
+//        this.phoneNumberField = person.phoneNumberField;
+//        this.usosPersonProfileLinkField = person.usosPersonProfileLinkField;
+//        this.hobbyField = person.hobbyField;
+//    }
+
     public Integer getVersion() {
         return version;
     }

@@ -3,6 +3,7 @@ package com.nokia.teachersupport.admin;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.personSecurity.personRegister.RegisterDTO;
 import com.nokia.teachersupport.roles.SecutityRole;
 
 
@@ -23,4 +24,5 @@ public interface IAdminDashboardService {
     List<Faculty> listOfAllFaculties();
     SecutityRole getRoleByName(String rName);
     List<Person> listOfAllPersons();
+    UserSecurityData registerNewUserAction(RegisterDTO registerDTO);
 }

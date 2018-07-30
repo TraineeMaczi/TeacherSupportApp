@@ -32,28 +32,32 @@
                     <h5>Make it easy</h5>
                     <div class="jumbotron rounded  bg-white text-dark mt-4">
                         <form th:action="@{/teacherSupportRegister}"  th:object="${registerUserAction}" method="post" enctype="utf8">
-                            <input type="hidden" th:field="*{id}"/>
-                            <input type="hidden" th:field="*{version}"/>
-                            <input type="hidden" th:field="*{active}"/>
+
                             <div class="row">
                                 <input type="text" class="form-control text-center" placeholder="e-mail:" disabled>
+
                             </div>
                             <div class="row mt-2">
-                                <input th:field="*{email}" type="email" class="form-control rounded text-center d-inline" />
+                                <input th:field="*{userName_Email}" type="email" class="form-control rounded text-center d-inline" />
+                                <p th:each="error : ${#fields.errors('userName_Email')}"
+                                   th:text="${error}">Validation error</p>
                             </div>
 
                             <div class="row mt-2">
                                 <input type="text" class="form-control text-center" placeholder="Password:" disabled>
+
                             </div>
                             <div class="row mt-2">
-                                <input th:field="*{password}"  type="password" class="form-control rounded text-center d-inline" />
+                                <input th:field="*{userPass}"  type="password" class="form-control rounded text-center d-inline" />
+                                <p th:each="error : ${#fields.errors('userPass')}"
+                                   th:text="${error}">Validation error</p>
                             </div>
 
                             <div class="row mt-2">
                                 <input type="text" class="form-control text-center" placeholder="Confirm password:" disabled>
                             </div>
                             <div class="row mt-2">
-                                <input th:field="*{matchingPassword}" type="password" class="form-control rounded text-center d-inline" />
+                                <input th:field="*{userConfirmPass}" type="password" class="form-control rounded text-center d-inline" />
 
                             </div>
 
