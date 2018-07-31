@@ -69,7 +69,7 @@
         <p>From this dashboard you can add/modify/delete site components and ausers.</p>
 
         <p>Something went wrong ?</p>
-        <p>Contact our support support.teacher.support.app@samplemail.com</p>
+        <p>Contact our support teacher.supp.tswa@gmail.com</p>
     </div>
 
 
@@ -147,8 +147,8 @@
             <div class="row">
 
                 <div class="col">
-
-                    <form class="mt-3"  >
+                    <!--th:object="${selectedFaculty}" th:action="@{/teacherSupportAdminDashboard/deleteFacultyAdminAction}" method="post"-->
+                    <form class="mt-3" >
 
                             <div class="table-responsive makeMeScroll">
                                 <table class="table">
@@ -163,10 +163,9 @@
                                         </td>
                                         <td>
                                             <div class="form-check " >
-                                            <input class="form-check-input" type="radio" th:name="${obj.id}"
-                                                   th:id="${obj.id}" th:value="${obj.facultyNameField}"
-                                                   />
-
+                                            <input class="form-check-input" type="radio"  th:checked="${obj.checkedField}" th:value="${obj.id}"
+                                                   th:id="${obj.id}" th:name="${obj.facultyNameField}"
+                                                  />
                                             </div>
                                         </td>
 

@@ -7,6 +7,8 @@ import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
 import com.nokia.teachersupport.personSecurity.personRegister.RegisterDTO;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.TokenRepo;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
 import com.nokia.teachersupport.roles.RoleRepo;
 import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,12 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     private UserSecurityDataRepo aDSUserSecurityDataRepoInstance;
     private FacultyRepo facultyRepo;
     private RoleRepo roleRepo;
+    private TokenRepo tokenRepo;
 
-
+    @Autowired
+    public AdminDashboardServiceImpl(TokenRepo tokenRepo) {
+        this.tokenRepo = tokenRepo;
+    }
 
     @Autowired
     public void setFacultyRepo(FacultyRepo facultyRepo) {
@@ -133,6 +139,22 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
         userSecurityData.setPassword(registerDTO.getUserPass());
         userSecurityData.setMatchingPassword(registerDTO.getUserConfirmPass());
         return userSecurityData;
+    }
+
+    @Override
+    public void createVerificationToken(UserSecurityData user, String token) {
+        VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepo.save(myToken);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepo.findByToken(VerificationToken);
+    }
+
+    @Override
+    public void deleteFacultyAdminAction(Faculty faculty) {
+        facultyRepo.delete(faculty);
     }
 
 

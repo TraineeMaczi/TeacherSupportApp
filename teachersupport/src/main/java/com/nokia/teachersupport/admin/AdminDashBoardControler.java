@@ -32,6 +32,7 @@ public class AdminDashBoardControler {
         model.addAttribute("newFaculty",new Faculty());
         model.addAttribute("hAllFaculty",adminDashboardService.listOfAllFaculties());
         model.addAttribute("currentUsers",adminDashboardService.listOfAllPersons());
+        model.addAttribute("selectedFaculty",new Faculty()); // to zbiera wydzila do usuniecia
 
         return "teacherSupportAdminDashboard";
     }
@@ -86,5 +87,13 @@ public class AdminDashBoardControler {
         return "redirect:/teacherSupportAdminDashboard";
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
+    String deleteFaculty(Faculty faculty) {
+        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) != null) {
+        adminDashboardService.deleteFacultyAdminAction(faculty);
+        }
+        return "redirect:/teacherSupportAdminDashboard";
+    }
 
 }

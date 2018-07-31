@@ -4,6 +4,7 @@ import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.personRegister.RegisterDTO;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
 import com.nokia.teachersupport.roles.SecutityRole;
 
 
@@ -25,4 +26,7 @@ public interface IAdminDashboardService {
     SecutityRole getRoleByName(String rName);
     List<Person> listOfAllPersons();
     UserSecurityData registerNewUserAction(RegisterDTO registerDTO);
+    void createVerificationToken(UserSecurityData user, String token);
+    VerificationToken getVerificationToken(String VerificationToken);
+    void deleteFacultyAdminAction(Faculty faculty);
 }
