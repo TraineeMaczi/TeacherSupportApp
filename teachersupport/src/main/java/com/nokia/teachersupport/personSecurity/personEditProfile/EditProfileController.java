@@ -1,10 +1,9 @@
 package com.nokia.teachersupport.personSecurity.personEditProfile;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Objects;
 
@@ -16,7 +15,7 @@ public class EditProfileController {
     @GetMapping("/teacherSupportEditProfile")
     String editprofile(Model model)
     {
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(UserTools.getCurrentUserName()));
         return "teacherSupportEditProfile";
     }
 }

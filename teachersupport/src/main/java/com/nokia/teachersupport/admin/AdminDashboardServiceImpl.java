@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class AdminDashboardServiceImpl implements IAdminDashboardService {
+    //TODO naming...
 
     private PersonRepo aDSPersonRepoInstance;
     private UserSecurityDataRepo aDSUserSecurityDataRepoInstance;
@@ -50,22 +52,21 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     public void setRoleRepo(RoleRepo roleRepo) {
         this.roleRepo = roleRepo;
     }
+
     @Override
     public void deleteUserPersonDataAdminAction(Integer userID) {
-    aDSPersonRepoInstance.deleteById(userID);
+        aDSPersonRepoInstance.deleteById(userID);
     }
 
     @Override
     public void deleteUserSecurityDataAdminAction(Integer userID) {
-aDSUserSecurityDataRepoInstance.deleteById(userID);
+        aDSUserSecurityDataRepoInstance.deleteById(userID);
     }
 
     @Override
     public void deleteUserFacultyDataAdminAction(Integer facultyID) {
         facultyRepo.deleteById(facultyID);
     }
-
-
 
 
     @Override
@@ -77,9 +78,6 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
     public SecutityRole saveUserRoleDataAdminAction(SecutityRole secutityRole) {
         return roleRepo.save(secutityRole);
     }
-
-
-
 
 
     @Override
@@ -99,6 +97,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public Faculty getFacultyData(Faculty faculty) {
+        //TODO invstigate new faculty???
         Optional<Faculty> facultyOpt = facultyRepo.findById(faculty.getId());
         Faculty tmp = facultyOpt.orElse(new Faculty());
         return tmp;
@@ -112,7 +111,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public UserSecurityData getUserSecurityDataByEmail(String email) {
-        UserSecurityData usd=aDSUserSecurityDataRepoInstance.findByEmail(email);
+        UserSecurityData usd = aDSUserSecurityDataRepoInstance.findByEmail(email);
         return usd;
     }
 
@@ -123,7 +122,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public SecutityRole getRoleByName(String rName) {
-        SecutityRole secutityRole=roleRepo.findByRoleName(rName);
+        SecutityRole secutityRole = roleRepo.findByRoleName(rName);
         return secutityRole;
     }
 
@@ -134,7 +133,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public UserSecurityData registerNewUserAction(RegisterDTO registerDTO) {
-        UserSecurityData userSecurityData=aDSUserSecurityDataRepoInstance.findByEmail(registerDTO.getUserName_Email());
+        UserSecurityData userSecurityData = aDSUserSecurityDataRepoInstance.findByEmail(registerDTO.getUserName_Email());
         userSecurityData.setActive(true);
         userSecurityData.setPassword(registerDTO.getUserPass());
         userSecurityData.setMatchingPassword(registerDTO.getUserConfirmPass());

@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.configuration;
+package com.nokia.teachersupport.infrastructure.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"com.nokia.teachersupport"}) //wybieramy folder w ktorym beda szukane encje
+@EntityScan(basePackages = {"com.nokia.teachersupport"})
 @EnableJpaRepositories(basePackages = {"com.nokia.teachersupport"})
 @EnableTransactionManagement
 public class RepoConfig {

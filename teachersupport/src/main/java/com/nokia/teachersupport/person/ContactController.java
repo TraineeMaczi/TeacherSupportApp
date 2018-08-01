@@ -1,10 +1,9 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ public class ContactController {
      * strone index on nam zparsuje na string ktory jest czytelny dla app  */
     @GetMapping("/teacherSupportContact")
     String contact(Model model){
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(UserTools.getCurrentUserName()));
         return "teacherSupportContact";
     }
 }

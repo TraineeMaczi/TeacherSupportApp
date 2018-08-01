@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class AboutMeRESTController {
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
         Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(UserTools.getCurrentUserName()));
 
         person.setDegreeField(basicInfoDTO.getDegree());
         person.setWorkAddressField(basicInfoDTO.getWorkplace());
@@ -39,7 +39,7 @@ public class AboutMeRESTController {
     public ResponseEntity<Object> getBasicInfo() {
         BasicInfoDTO basicInfoDTO=new BasicInfoDTO();
         Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(UserTools.getCurrentUserName()));
 
         basicInfoDTO.setDegree(person.getDegreeField());
         basicInfoDTO.setWorkplace(person.getWorkAddressField());

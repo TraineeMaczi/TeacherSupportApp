@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
+//TODO lets create global loader for all entities
 public class NewsLoader implements ApplicationListener<ApplicationReadyEvent> {
     private NewsRepo newsRepo;
 
@@ -21,6 +22,7 @@ public class NewsLoader implements ApplicationListener<ApplicationReadyEvent> {
         insertNewNews();
     }
 
+    //TODO cant private method be transactional
     @Transactional
     private void insertNewNews() {
 

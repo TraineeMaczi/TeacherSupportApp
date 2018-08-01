@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
+//TODO what mean meetme :D?!
 public class MeetMe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

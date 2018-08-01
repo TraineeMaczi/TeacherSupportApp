@@ -8,6 +8,11 @@ import java.util.List;
 
 @Entity
 public class SecutityRole {
+    /**
+     * Nie widze sensu dodawania roli jako osobnej tabelki skoro prawdopodobnie nie bedziemy przewidywac
+     * dodawnia dynamicznie nowych rol w trakcie dzialania aplikacji
+     * TODO change role to enum / discussion
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="RoleId")

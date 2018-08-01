@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//TODO global loading
 @Component
 public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent> {
     private FacultyRepo facultyRepo;

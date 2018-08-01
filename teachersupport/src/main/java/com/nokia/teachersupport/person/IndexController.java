@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +24,9 @@ public class IndexController {
     @GetMapping("/")
     String index(Model model) {
         Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(UserTools.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(UserTools.getCurrentUserName()));
         return "teacherSupportIndex";
     }
 

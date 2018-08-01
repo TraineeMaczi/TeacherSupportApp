@@ -1,10 +1,8 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +24,8 @@ public class AboutMeController {
     @GetMapping("/teacherSupportAboutMe")
     String aboutme(Model model){
         Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(UserTools.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(UserTools.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
         return "teacherSupportAboutMe";
     }
@@ -43,7 +41,7 @@ public class AboutMeController {
 //    public @ResponseBody BasicInfoDTO postBasicInfo(BasicInfoDTO basicInfoDTO)
 //    {
 //        Person person=new Person();
-//        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+//        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(UserTools.getCurrentUserName()));
 //
 //        person.setDegreeField(basicInfoDTO.getDegree());
 //        person.setWorkAddressField(basicInfoDTO.getWorkplace());

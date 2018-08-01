@@ -1,6 +1,5 @@
-package com.nokia.teachersupport.configuration;
+package com.nokia.teachersupport.infrastructure.config;
 
-import com.nokia.teachersupport.personSecurity.personRegister.CustomUserDetails;
 import com.nokia.teachersupport.personSecurity.personRegister.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,8 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -40,9 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                //whaaaat?
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/teacherSupportLogIn").permitAll();
-
 
 
         httpSecurity.csrf().disable();
@@ -52,10 +49,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService)
-        .passwordEncoder(getPasswordEncoder());
+                .passwordEncoder(getPasswordEncoder());
     }
 
     //to na razie nic nie koduje
+    //TODO passwordencoder should be bean in infrastructure
     private PasswordEncoder getPasswordEncoder() {
         return new PasswordEncoder() {
             @Override
@@ -69,6 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
         };
     }
+    //WHY COMMENTED?
     /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

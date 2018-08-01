@@ -11,6 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UserDTOForAdminAction {
+    //TODO naming...
     private String userNameDTOField;
     private String userSurnameDTOField;
     private String userEmailDTOField;

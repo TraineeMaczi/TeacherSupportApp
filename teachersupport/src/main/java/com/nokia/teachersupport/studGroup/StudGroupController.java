@@ -1,12 +1,11 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.infrastructure.tools.UserTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class StudGroupController {
     String student(Model model){
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",studGroupService.listOfAllGroups());
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(UserTools.getCurrentUserName()));
         return "teacherSupportStudent";
     }
 

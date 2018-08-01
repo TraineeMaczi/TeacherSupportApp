@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 @Component
+//TODO delete this
 public class LoadMyRoles implements ApplicationListener<ApplicationReadyEvent> {
 
     private RoleRepo MyRoleRepoInstance;
