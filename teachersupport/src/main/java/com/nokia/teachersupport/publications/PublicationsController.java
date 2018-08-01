@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.publications;
 
+import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.publications.Publications;
 import com.nokia.teachersupport.publications.IPublicationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Objects;
 
 @Controller
 public class PublicationsController {
@@ -20,6 +23,7 @@ public class PublicationsController {
     @GetMapping("/teacherSupportPublications")
     String publications(Model model)
     {
+        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("publications",publicationService.listOfAllPublications());
     model.addAttribute("newPublication",new Publications());
         return "teacherSupportPublications";

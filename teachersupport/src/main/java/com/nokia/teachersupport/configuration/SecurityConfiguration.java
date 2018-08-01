@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -38,7 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/teacherSupportLogIn").defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/teacherSupportLogIn").permitAll();
 
 
 

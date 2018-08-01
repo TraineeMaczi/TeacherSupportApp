@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.admin;
 
 
+import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class AdminDashBoardControler {
@@ -33,6 +35,7 @@ public class AdminDashBoardControler {
         model.addAttribute("hAllFaculty",adminDashboardService.listOfAllFaculties());
         model.addAttribute("currentUsers",adminDashboardService.listOfAllPersons());
         model.addAttribute("selectedFaculty",new Faculty()); // to zbiera wydzila do usuniecia
+        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
 
         return "teacherSupportAdminDashboard";
     }

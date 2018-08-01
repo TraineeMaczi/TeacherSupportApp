@@ -21,10 +21,10 @@
     <div class="text-right pr-3 pt-2 pb-2"> 
     <form>
         
-    <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right" placeholder="Hello currentUserName !" disabled/>
+    <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right" placeholder="Hello!" th:text="${currentUserName}" disabled/>
     <br/>
     <div class="d-inline pr-2">
-    <button type="button" class=" btn text-white bg-changableColor btn-sm">Log out</button>
+    <a  class=" btn text-white bg-changableColor btn-sm" th:href="@{/logout}">Log out</a>
     </div>
 </form>    
     </div>
@@ -66,6 +66,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/teacherSupportEditProfile">Edit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherSupportAdminDashboard">Admin Dashboard</a>
                 </li>
             </ul>
         </div>

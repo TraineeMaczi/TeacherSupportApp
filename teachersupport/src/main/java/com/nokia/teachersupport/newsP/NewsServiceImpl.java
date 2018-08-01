@@ -28,10 +28,13 @@ public class NewsServiceImpl implements INewsService {
         return news;
     }
 
+
     @Override
     public News saveNews(News news) {
         return newsRepo.save(news);
     }
+
+
 
     @Override
     public void deleteNews(Integer id) {
