@@ -30,9 +30,8 @@ $(document).ready(
     					success : function(result) {
     						if (result.status == "success") {
     							$("#postResultDiv").html(
-    									"" + result.data.profession
-    											+ "Post Successfully! <br>"
-    											+ "---> Congrats !!" + "</p>");
+    									"Success"
+    											);
     						} else {
     							$("#postResultDiv").html("<strong>Error</strong>");
     						}

@@ -75,28 +75,39 @@
     </div>
 </nav>
 
-<div id="postResultDiv" align="center"></div>
 
 <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
     <div class="row">
         <!--About Me Basic-->
 
+
+
+
+
+
         <div class="col bg-white jumbotron text-dark">
+
             <form id="basicInfoForm">
                 <h4>Basic Info</h4>
+
+                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDiv" align="center"></div>
+
                 <div class="container mt-2">
 
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-5">
                             <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
                         </div>
+
+
                         <div class="col-sm">
                             <input id="degree" name="degree" type="text"
                                    class="form-control rounded text-center d-inline"/>
                         </div>
+
                     </div>
 
-                    <div class="row">
+                    <div class="row ">
                         <div class="col-5">
                             <input type="text" class="form-control text-center" placeholder="Name: " disabled>
                         </div>
@@ -181,8 +192,11 @@
                         </button>
                     </div>
                 </div>
+
             </form>
+
         </div>
+
 
 
         <!--......................................................-->
@@ -261,15 +275,21 @@
 </div>
 
 </body>
+
+
+
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
+
 <script href="../static/js/jsBasicInfo/postBasicInfo.js" th:src="@{js/jsBasicInfo/postBasicInfo.js}"
         type="text/javascript"></script>
 <script>
