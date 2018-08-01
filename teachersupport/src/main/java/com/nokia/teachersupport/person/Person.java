@@ -30,6 +30,9 @@ public class Person {
     private String usosPersonProfileLinkField;
     private String hobbyField;
 
+    private String facebookField;
+    private String twitterField;
+
     //private String fotoField;
     //private String cvField;
 
@@ -62,6 +65,8 @@ public class Person {
         this.phoneNumberField = Strings.EMPTY;
         this.usosPersonProfileLinkField = Strings.EMPTY;
         this.hobbyField = Strings.EMPTY;
+        this.facebookField=Strings.EMPTY;
+        this.twitterField=Strings.EMPTY;
 
         //private String fotoField;
         //private String cvField;
@@ -229,5 +234,21 @@ public class Person {
 
     public void setUserSecurityDataField(UserSecurityData userSecurityDataField) {
         this.userSecurityDataField = userSecurityDataField;
+    }
+
+    public String getFacebookField() {
+        return facebookField;
+    }
+
+    public void setFacebookField(String facebookField) {
+        this.facebookField = facebookField;
+    }
+
+    public String getTwitterField() {
+        return twitterField;
+    }
+
+    public void setTwitterField(String twitterField) {
+        this.twitterField = twitterField;
     }
 }
