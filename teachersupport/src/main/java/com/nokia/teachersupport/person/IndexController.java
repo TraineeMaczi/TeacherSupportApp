@@ -23,8 +23,7 @@ public class IndexController {
 
     @GetMapping("/")
     String index(Model model) {
-        Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         return "teacherSupportIndex";

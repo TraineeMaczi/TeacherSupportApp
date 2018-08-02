@@ -29,11 +29,11 @@ $(document).ready(
     					dataType : 'json',
     					success : function(result) {
     						if (result.status == "success") {
-    							$("#postResultDiv").html(
+    							$("#postResultDivBasicInfo").html(
     									"Success");
 
     						} else {
-    							$("#postResultDiv").html("<strong>Error</strong>");
+    							$("#postResultDivBasicInfo").html("<strong>Error</strong>");
     						}
     						console.log(result);
     					},

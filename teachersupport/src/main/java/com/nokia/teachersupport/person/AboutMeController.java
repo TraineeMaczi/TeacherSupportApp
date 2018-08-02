@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-//Very Important Comment
-
-
 @Controller
 public class AboutMeController {
 
@@ -28,34 +25,12 @@ public class AboutMeController {
 
     @GetMapping("/teacherSupportAboutMe")
     String aboutme(Model model){
-        Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
         return "teacherSupportAboutMe";
     }
 
-    @PostMapping("/teacherSupportAboutMe/hobby/new")
-    String hobbyAction()
-    {
-        //to tak na razie zaby sie nie wywalilo
-        return "teacherSupportAboutMe";
-    }
 
-//    @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
-//    public @ResponseBody BasicInfoDTO postBasicInfo(BasicInfoDTO basicInfoDTO)
-//    {
-//        Person person=new Person();
-//        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-//
-//        person.setDegreeField(basicInfoDTO.getDegree());
-//        person.setWorkAddressField(basicInfoDTO.getWorkplace());
-//        person.setProfessionField(basicInfoDTO.getProfession());
-//        person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
-//        person.setTwitterField(basicInfoDTO.getTwitter());
-//        person.setFacebookField(basicInfoDTO.getFacebook());
-//
-//        personService.savePerson(person);
-//        return basicInfoDTO;
-//    }
+
 }

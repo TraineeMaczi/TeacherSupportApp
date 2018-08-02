@@ -86,7 +86,7 @@
             <form id="basicInfoForm">
                 <h4>Basic Info</h4>
 
-                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDiv" align="center"></div>
+                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivBasicInfo" align="center"></div>
 
                 <div class="container mt-2">
 
@@ -200,19 +200,13 @@
         <!--Hobby-->
         <div class="col bg-white jumbotron text-dark ml-3 ">
             <h4>Hobby</h4>
-
-
-            <form id="newHobbyInfo" class="form-control bg-gray">
-                <!-- th:object="${newNews}" th:action="@{/tshome/new}" method="post">-->
-                <!--    <input type="hidden" th:field="*{id}"/>
-                        <input type="hidden" th:field="*{version}"/>-->
-                <textarea class="form-control rounded text-center" rows="10"></textarea>
-                <!--th:field="*{content}" form="newNewsForm">-->
-
+            <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivHobby" align="center"></div>
+            <form id="hobbyForm" class="form-control bg-gray mt-2">
+                <textarea class="form-control rounded text-center" id="hobbyContentID" rows="10" th:placeholder="${currentUserPerson.getHobbyField()}"></textarea>
             </form>
 
             <div class="text-right mt-2">
-                <button type="submit" form="newHobbyInfo" class="btn mt-2 bg-changableColor text-white">Add/Update Hobby
+                <button type="submit" form="hobbyForm" class="btn mt-2 bg-changableColor text-white">Add/Update Hobby
                     Info
                 </button>
             </div>
@@ -285,6 +279,10 @@
 
 
 <script href="../static/js/jsBasicInfo/postBasicInfo.js" th:src="@{js/jsBasicInfo/postBasicInfo.js}"
+        type="text/javascript"></script>
+
+
+<script href="../static/js/jsHobby/postRequestHobby.js" th:src="@{js/jsHobby/postRequestHobby.js}"
         type="text/javascript"></script>
 <script>
         $("#foAdd").change(function () {
