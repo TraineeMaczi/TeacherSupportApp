@@ -1,6 +1,7 @@
 # TeacherSupportApp
 
 #Basic app properties
+
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://localhost:3306/YOUR_BASE_NAME?allowPublicKeyRetrieval=true&useSSL=false
 spring.datasource.username=YOUR_USER_NAME
