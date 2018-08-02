@@ -29,3 +29,12 @@ spring.mail.properties.mail.smtp.starttls.required=true
 
 
 #MySQL Base (temporary)
+
+1) Check your role id's:
+
+select * from secutityrole;
+
+2)Create security data for your users 
+
+you can check table content by typing ---->  select * from usersecuritydata;
+
