@@ -16,4 +16,5 @@ String profession;
 String usos;
 String twitter;
 String facebook;
+String phone;
 }

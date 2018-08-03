@@ -22,7 +22,8 @@ $(document).ready(
                 profession: $('#profession').val(),
                 usos: $('#usos').val(),
                 twitter: $('#twitter').val(),
-                facebook: $('#facebook').val()
+                facebook: $('#facebook').val(),
+                phone: $('#phone').val()
             }
 
             // DO POST

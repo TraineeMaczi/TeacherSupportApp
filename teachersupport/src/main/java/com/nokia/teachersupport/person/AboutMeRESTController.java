@@ -28,6 +28,7 @@ public class AboutMeRESTController {
         person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
         person.setTwitterField(basicInfoDTO.getTwitter());
         person.setFacebookField(basicInfoDTO.getFacebook());
+        person.setPhoneNumberField(basicInfoDTO.getPhone());
 
         personService.savePerson(person);
 

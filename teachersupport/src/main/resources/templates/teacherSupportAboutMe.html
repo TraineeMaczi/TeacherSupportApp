@@ -83,10 +83,6 @@
         <!--About Me Basic-->
 
 
-
-
-
-
         <div class="col bg-white jumbotron text-dark">
 
             <form id="basicInfoForm">
@@ -158,6 +154,17 @@
                                    th:placeholder="${currentUserName}" disabled />
                         </div>
                     </div>
+
+
+                        <div class="row">
+                            <div class="col-5 ">
+                                <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" id="phone" name="phone" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getPhoneNumberField()}"/>
+                            </div>
+                        </div>
+
 
                     <div class="row">
                         <div class="col-5">
