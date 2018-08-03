@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control rounded text-center d-inline" />
+                                <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getDegreeField()}"/>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                     <input type="text" class="form-control text-center" placeholder="Name: " disabled>
                                 </div>
                                 <div class="col-sm">
-                                    <input type="text" class="form-control rounded text-center d-inline" />
+                                    <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getNameField()}" disabled/>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                         <input type="text" class="form-control text-center" placeholder="Surname: " disabled>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                        <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getSurnameField()}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                             <input type="text" class="form-control text-center" placeholder="Work Address: " disabled>
                                         </div>
                                         <div class="col-sm">
-                                            <input type="text" class="form-control rounded text-center d-inline" />
+                                            <input type="text" class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getWorkAddressField()}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                                 <input type="text" class="form-control text-center" placeholder="Profession: " disabled>
                                             </div>
                                             <div class="col-sm">
-                                                <input type="text" class="form-control rounded text-center d-inline" />
+                                                <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getProfessionField()}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                                     <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
                                                 </div>
                                                 <div class="col-sm">
-                                                    <input type="text" class="form-control rounded text-center d-inline" />
+                                                    <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getPhoneNumberField()}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +158,7 @@
                                                         <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <input type="text" class="form-control rounded text-center d-inline" />
+                                                        <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserName}" disabled/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +169,7 @@
                                                             <input type="text" class="form-control text-center" placeholder="My Usos Profile: " disabled>
                                                         </div>
                                                         <div class="col-sm">
-                                                            <input type="text" class="form-control rounded text-center d-inline" />
+                                                            <input type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getUsosPersonProfileLinkField()}" />
                                                         </div>
                                                     </div>
                                                 </div>

@@ -41,11 +41,7 @@ public class MeetMe {
         this.time2ToField = new Time(0);
     }
 
-    /*
-    @OneToOne
-    @JoinColumn(name = "person_id") //tu moze byc ta sama nazwa
-    private Person personAndMeetMe;
-*/
+
 
     public Integer getVersion() {
         return version;

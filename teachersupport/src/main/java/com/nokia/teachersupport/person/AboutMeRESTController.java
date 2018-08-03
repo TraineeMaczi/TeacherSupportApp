@@ -19,8 +19,7 @@ public class AboutMeRESTController {
     }
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
-        Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
         person.setDegreeField(basicInfoDTO.getDegree());
         person.setWorkAddressField(basicInfoDTO.getWorkplace());
@@ -35,20 +34,15 @@ public class AboutMeRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/teacherSupportAboutMe/BasicInfo")
-    public ResponseEntity<Object> getBasicInfo() {
-        BasicInfoDTO basicInfoDTO=new BasicInfoDTO();
-        Person person=new Person();
-        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+    @PostMapping("/teacherSupportAboutMe/hobby/new")
+    public ResponseEntity<Object> addHobbyInfo(@RequestBody String hobbyInfo) {
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
-        basicInfoDTO.setDegree(person.getDegreeField());
-        basicInfoDTO.setWorkplace(person.getWorkAddressField());
-        basicInfoDTO.setProfession(person.getProfessionField());
-        basicInfoDTO.setUsos(person.getUsosPersonProfileLinkField());
-        basicInfoDTO.setTwitter(person.getTwitterField());
-        basicInfoDTO.setFacebook(person.getFacebookField());
+        person.setHobbyField(hobbyInfo);
 
-        ServiceResponse<BasicInfoDTO> response = new ServiceResponse<>("success", basicInfoDTO);
+        personService.savePerson(person);
+
+        ServiceResponse<String> response = new ServiceResponse<String>("success", hobbyInfo);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 }
