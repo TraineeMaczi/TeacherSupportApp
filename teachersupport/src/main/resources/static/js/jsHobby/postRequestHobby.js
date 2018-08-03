@@ -1,14 +1,14 @@
-$(document).ready(
-    		function() {
+//$(document).ready(
+//    		function() {
+//
+//    			// SUBMIT FORM
+//    			$("#hobbyForm").submit(function(event) {
+//    				// Prevent the form from submitting via the browser.
+//    				event.preventDefault();
+//    				ajaxPost();
+//    			});
 
-    			// SUBMIT FORM
-    			$("#hobbyForm").submit(function(event) {
-    				// Prevent the form from submitting via the browser.
-    				event.preventDefault();
-    				ajaxPost();
-    			});
-
-    			function ajaxPost() {
+    			function ajaxPostHobby() {
 
     				$.ajax({
     					type : "POST",
@@ -33,4 +33,4 @@ $(document).ready(
 
     			}
 
-    })
+//    })
