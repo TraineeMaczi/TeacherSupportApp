@@ -1,10 +1,10 @@
-package com.nokia.teachersupport.resource.controller;
+package com.nokia.teachersupport.fileUpload;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.fileUpload.FileRepository;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-import com.nokia.teachersupport.resource.model.FileModel;
-import com.nokia.teachersupport.resource.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class UpdateFileController {
     @Autowired
-    FileRepository fileRepository;
+    private IFileService fileRepository;
     @Autowired
     private IPersonService personService;
     @Autowired
@@ -31,7 +31,7 @@ public class UpdateFileController {
             if(file.getOriginalFilename().equals(""))
                 return "FAIL! \n" +
                         "You did not choose a file.";
-            fileRepository.save(filemode);
+            fileRepository.savefile(filemode);
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
         } catch (	Exception e) {
             return "FAIL! ";

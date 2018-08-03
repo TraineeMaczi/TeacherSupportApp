@@ -11,7 +11,7 @@ $(document).ready(
 
 function doAjax(formName, listFiles, typ) {
 
-//    event.preventDefault();
+    event.preventDefault();
     formName='#'+formName;
     listFiles='#'+listFiles;
 
