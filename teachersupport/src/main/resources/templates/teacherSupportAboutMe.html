@@ -12,6 +12,8 @@
 
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jsFiles/postrequestfile.js"></script>
 </head>
 
 <body>
@@ -81,6 +83,10 @@
         <!--About Me Basic-->
 
 
+
+
+
+
         <div class="col bg-white jumbotron text-dark">
 
             <form id="basicInfoForm">
@@ -92,13 +98,13 @@
 
                     <div class="row" >
                         <div class="col-5">
-                            <input  type="text" class="form-control text-center" placeholder="Degree: " disabled>
+                            <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
                         </div>
 
 
                         <div class="col-sm">
                             <input id="degree" name="degree" type="text"
-                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getDegreeField()}" />
+                                   class="form-control rounded text-center d-inline"/>
                         </div>
 
                     </div>
@@ -129,7 +135,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="workplace" name="workplace" type="text"
-                                class="form-control rounded text-center d-inline"   th:placeholder="${currentUserPerson.getWorkAddressField()}"/>
+                                   class="form-control rounded text-center d-inline"/>
                         </div>
                     </div>
 
@@ -139,7 +145,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="profession" name="profession" type="text"
-                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getProfessionField()}"/>
+                                   class="form-control rounded text-center d-inline"/>
                         </div>
                     </div>
 
@@ -158,7 +164,7 @@
                             <input type="text" class="form-control text-center" placeholder="My usos: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getUsosPersonProfileLinkField()}" />
+                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline"/>
                         </div>
                     </div>
 
@@ -168,7 +174,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="twitter" name="twitter" type="text"
-                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getTwitterField()}"/>
+                                   class="form-control rounded text-center d-inline"/>
                         </div>
                     </div>
 
@@ -178,12 +184,12 @@
                         </div>
                         <div class="col-sm">
                             <input id="facebook" name="facebook" type="text"
-                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getFacebookField()}"/>
+                                   class="form-control rounded text-center d-inline"/>
                         </div>
                     </div>
 
                     <div class="text-right mt-2">
-                        <button type="submit" form="basicInfoForm"  class="btn mt-2 bg-changableColor text-white">Add
+                        <button type="submit" form="basicInfoForm" class="btn mt-2 bg-changableColor text-white">Add
                             Basic Info
                         </button>
                     </div>
@@ -227,30 +233,34 @@
             <img src="picture.png" class="rounde mt-2"/>
 
 
-            <form>
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm" onsubmit="doAjax('fileUploadForm', 'listFiles', 'foto')">
                 <div class="form-group mt-4 ">
-
                     <div>
-
-                        <label for="foAdd" class="btn text-white bg-changableColor rounded mt-2">Add Foto</label>
+                        <label for="fotoAdd" class="btn text-white bg-changableColor rounded mt-2">Add Foto</label>
                         <div class="ml-4">
-                            <input id="foAdd" style="visibility:hidden;" type="file">
+                            <input id="fotoAdd" style="visibility:hidden;" type="file" name="uploadfile">
                         </div>
                     </div>
+                </div>
+                <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit">Upload</button>
+                <div id="listFiles">
                 </div>
             </form>
 
 
-            <form>
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm2" onsubmit="doAjax('fileUploadForm2', 'listFiles2', 'cv')">
                 <div class="form-group mt-4 ">
 
                     <div>
 
                         <label for="cvAdd" class="btn text-white bg-changableColor rounded ">Add CV</label>
                         <div class="ml-4">
-                            <input id="cvAdd" style="visibility:hidden;" type="file">
+                            <input id="cvAdd" style="visibility:hidden;" type="file" name="uploadfile">
                         </div>
                     </div>
+                </div>
+                <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit2">Upload</button>
+                <div id="listFiles2">
                 </div>
             </form>
 
@@ -281,7 +291,9 @@
 <script
         src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
 
 <script href="../static/js/jsBasicInfo/postBasicInfo.js" th:src="@{js/jsBasicInfo/postBasicInfo.js}"

@@ -17,36 +17,36 @@ import java.util.Objects;
 public class HomeController {
     private INewsService newsService;
     private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
+   private IUserSecurityDataService userSecurityDataService;
+
 
 
     @Autowired
-    public HomeController(INewsService newsService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public HomeController(INewsService newsService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         this.newsService = newsService;
         this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
+        this.userSecurityDataService=userSecurityDataService;
     }
 
     @GetMapping("/teacherSupportHome")
-    String tshome(Model model) {
-
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("logInUser", person);
+    String tshome(Model model){
+        Person person=new Person();
+        person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        model.addAttribute("logInUser",person);
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
-        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         return "teacherSupportHome";
     }
 
-    @PostMapping("/tshome/new")
-        //tu zmienilam z malych
-    String addNewNews(News news) {
-        String userName = CurrentUser.getCurrentUserName();
-        UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
-        Person tmpPerson = personService.getPersonByUserSecurityData(userSecurityData);
-        news.setNewsOwner(tmpPerson);
-        tmpPerson.addNewsToMyList(news);
-        personService.savePerson(tmpPerson);
+    @PostMapping("/tshome/new") //tu zmienilam z malych
+    String addNewNews(News news){
+    String userName=CurrentUser.getCurrentUserName();
+    UserSecurityData userSecurityData=userSecurityDataService.getUserSecurityDataByEmail(userName);
+    Person tmpPerson=personService.getPersonByUserSecurityData(userSecurityData);
+    news.setNewsOwner(tmpPerson);
+    tmpPerson.addNewsToMyList(news);
+    personService.savePerson(tmpPerson);
         newsService.saveNews(news);
         return "redirect:/teacherSupportHome";
     }

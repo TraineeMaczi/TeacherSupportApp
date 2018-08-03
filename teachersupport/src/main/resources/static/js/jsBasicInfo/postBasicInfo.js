@@ -30,8 +30,8 @@ $(document).ready(
     					success : function(result) {
     						if (result.status == "success") {
     							$("#postResultDiv").html(
-    									"Success");
-
+    									"Success"
+    											);
     						} else {
     							$("#postResultDiv").html("<strong>Error</strong>");
     						}
