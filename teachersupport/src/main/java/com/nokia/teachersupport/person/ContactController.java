@@ -27,6 +27,7 @@ public class ContactController {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
+        model.addAttribute("meetMeDataList",person.getPersonMeetMeDataList());
 
         return "teacherSupportContact";
     }
