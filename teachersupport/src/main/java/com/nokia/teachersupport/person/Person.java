@@ -2,6 +2,7 @@ package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.newsP.News;
+import com.nokia.teachersupport.resource.model.FileModel;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.publications.Publications;
@@ -53,7 +54,8 @@ public class Person {
 
     @OneToMany(mappedBy = "groupsOwner")
     private List<StudGroup> personStudGroupList;
-
+    @OneToMany(mappedBy = "filesOwner")
+    private List<FileModel> personFiles;
 
     public Person() {
         this.degreeField = Strings.EMPTY;
@@ -86,6 +88,14 @@ public class Person {
 //        this.usosPersonProfileLinkField = person.usosPersonProfileLinkField;
 //        this.hobbyField = person.hobbyField;
 //    }
+
+    public List<FileModel> getPersonFiles() {
+        return personFiles;
+    }
+
+    public void setPersonFiles(List<FileModel> personFiles) {
+        this.personFiles = personFiles;
+    }
 
     public Integer getVersion() {
         return version;

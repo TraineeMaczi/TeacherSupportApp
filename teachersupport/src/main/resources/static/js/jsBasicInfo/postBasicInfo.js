@@ -29,8 +29,10 @@ $(document).ready(
     					dataType : 'json',
     					success : function(result) {
     						if (result.status == "success") {
+
     							$("#postResultDivBasicInfo").html(
     									"Success");
+
 
     						} else {
     							$("#postResultDivBasicInfo").html("<strong>Error</strong>");

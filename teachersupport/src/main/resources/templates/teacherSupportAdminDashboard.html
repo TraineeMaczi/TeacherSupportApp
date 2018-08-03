@@ -38,6 +38,8 @@
         });
 
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jsFiles/postrequestfile.js"></script>
 </head>
 
 <body>
@@ -239,16 +241,19 @@
 
                     <h3 class="mb-4">Add Faculty Picture</h3>
 
-                    <form>
+                    <form method="POST" enctype="multipart/form-data" id="fileUploadForm" onsubmit="doAjax('fileUploadForm', 'listFiles', 'facultyFoto')">
                         <div class="form-group mt-4">
 
                             <div>
                                 <label for="facultyFotoAdd" class="btn text-white bg-changableColor rounded ">Add
                                     Faculty Foto</label>
                                 <div class="ml-4">
-                                    <input id="facultyFotoAdd" style="visibility:hidden;" type="file">
+                                    <input id="facultyFotoAdd" style="visibility:hidden;" type="file" name="uploadfile">
                                 </div>
                             </div>
+                        </div>
+                        <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit">Upload</button>
+                        <div id="listFiles">
                         </div>
                     </form>
 
