@@ -10,11 +10,18 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class BasicInfoDTO {
-String degree;
-String workplace;
-String profession;
-String usos;
-String twitter;
-String facebook;
-String phone;
+
+    String degree;
+
+    String workplace;
+
+    String profession;
+
+    String usos;
+
+    String twitter;
+
+    String facebook;
+
+    String phone;
 }
