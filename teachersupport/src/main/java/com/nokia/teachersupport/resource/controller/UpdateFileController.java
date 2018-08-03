@@ -22,6 +22,7 @@ public class UpdateFileController {
     private IPersonService personService;
     @Autowired
     private IUserSecurityDataService userSecurityDataService;
+
     @PostMapping("/upload/{type}")
     public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) {
         try {

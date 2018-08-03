@@ -12,6 +12,7 @@ public class AboutMeRESTController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
 
+
     @Autowired
     public AboutMeRESTController(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
@@ -45,6 +46,7 @@ public class AboutMeRESTController {
         ServiceResponse<String> response = new ServiceResponse<String>("success", hobbyInfo);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
 }
 
 
