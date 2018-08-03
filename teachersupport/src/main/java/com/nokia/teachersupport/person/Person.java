@@ -54,8 +54,12 @@ public class Person {
 
     @OneToMany(mappedBy = "groupsOwner")
     private List<StudGroup> personStudGroupList;
+
     @OneToMany(mappedBy = "filesOwner")
     private List<FileModel> personFiles;
+
+    @OneToMany(mappedBy = "meetMeOwner")
+    private List<MeetMe> personMeetMeDataList;
 
     public Person() {
         this.degreeField = Strings.EMPTY;
@@ -260,5 +264,13 @@ public class Person {
 
     public void setTwitterField(String twitterField) {
         this.twitterField = twitterField;
+    }
+
+    public List<MeetMe> getPersonMeetMeDataList() {
+        return personMeetMeDataList;
+    }
+
+    public void setPersonMeetMeDataList(List<MeetMe> personMeetMeDataList) {
+        this.personMeetMeDataList = personMeetMeDataList;
     }
 }
