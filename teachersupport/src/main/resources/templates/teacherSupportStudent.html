@@ -23,7 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/jsFiles/postrequestfile.js"></script>
+    <script src="/js/jsFiles/teacherSupportStudentFiles.js"></script>
 </head>
 
 <body>
@@ -198,7 +198,7 @@
             <div class="col bg-white jumbotron text-dark mr-3">
                 <input type="text" class="form-control text-center" placeholder="Group Name: sampleGroupName" disabled>
 
-                <form method="POST" enctype="multipart/form-data" id="fileUploadForm" onsubmit="doAjax('fileUploadForm', 'listFiles', 'resource')">
+                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                     <div class="form-group mt-4">
                         <h4>Add Resource</h4>
                         <div>
@@ -209,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit">Upload</button>
+                    <button type="button" class="btn text-white bg-changableColor rounded " id="btn1">Upload</button>
                     <div id="listFiles">
                     </div>
                 </form>

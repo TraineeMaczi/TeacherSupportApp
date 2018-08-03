@@ -13,7 +13,7 @@
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/jsFiles/postrequestfile.js"></script>
+    <script src="/js/jsFiles/teacherSupportAboutMeFiles.js"></script>
 </head>
 
 <body>
@@ -227,7 +227,7 @@
             <img src="picture.png" class="rounde mt-2"/>
 
 
-            <form method="POST" enctype="multipart/form-data" id="fileUploadForm" onsubmit="doAjax('fileUploadForm', 'listFiles', 'foto')">
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                 <div class="form-group mt-4 ">
                     <div>
                         <label for="fotoAdd" class="btn text-white bg-changableColor rounded mt-2">Add Foto</label>
@@ -236,13 +236,13 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit">Upload</button>
+                <button type="button" class="btn text-white bg-changableColor rounded " id="btn1">Upload</button>
                 <div id="listFiles">
                 </div>
             </form>
 
 
-            <form method="POST" enctype="multipart/form-data" id="fileUploadForm2" onsubmit="doAjax('fileUploadForm2', 'listFiles2', 'cv')">
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm2">
                 <div class="form-group mt-4 ">
 
                     <div>
@@ -253,7 +253,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn text-white bg-changableColor rounded " id="btnSubmit2">Upload</button>
+                <button type="button" class="btn text-white bg-changableColor rounded " id="btn2">Upload</button>
                 <div id="listFiles2">
                 </div>
             </form>

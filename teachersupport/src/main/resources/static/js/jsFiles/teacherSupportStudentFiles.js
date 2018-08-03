@@ -1,4 +1,13 @@
 
+$(document).ready(
+    function() {
+        $("#btn1").on('click',function (event) {
+            // Prevent the form from submitting via the browser.
+            event.preventDefault();
+            doAjax('fileUploadForm', 'listFiles', 'resource');
+        });
+
+    });
 
 function doAjax(formName, listFiles, typ) {
 
