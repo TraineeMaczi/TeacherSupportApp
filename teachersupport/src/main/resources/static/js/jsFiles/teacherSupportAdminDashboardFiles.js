@@ -43,7 +43,7 @@ function doAjax(formName, listFiles, typ) {
 function doAjax2() {
 
     event.preventDefault();
-    var form = $('#UsersForm')[1];
+    var form = $('#fileUpload')[0];
     var data = new FormData(form);
 
     $.ajax({

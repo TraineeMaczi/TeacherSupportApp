@@ -314,23 +314,23 @@
                 <button data-toggle="modal" data-target="#adminAddUserModal" type="button"
                         class="btn bg-changableColor text-white">Add
                 </button>
-                <form method="POST" enctype="multipart/form-data" id="fileUpload">
-                <div class="form-group mt-4">
-
-                    <div>
-                        <label for="UsersAdd" class="btn text-white bg-changableColor rounded ">Add
-                            Faculty Foto</label>
-                        <div class="ml-4">
-                            <input id="UsersAdd" style="visibility:hidden;" type="file" name="uploadfile">
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn text-white bg-changableColor rounded " id="newUserFromFile">Upload</button>
-                <div class="container bg-changableColor text-white mt-3 rounded-2" id="listFiles2" align="center"></div>
-        </form>
                 <button form="UsersForm" type="button" class="btn bg-changableColor text-white">Delete</button>
 
             </div>
+        </form>
+        <form method="POST" enctype="multipart/form-data" id="fileUpload">
+            <div class="form-group mt-4">
+
+                <div>
+                    <label for="UsersAdd" class="btn text-white bg-changableColor rounded ">Add
+                        Users From File</label>
+                    <div class="ml-4">
+                        <input id="UsersAdd" style="visibility:hidden;" type="file" name="uploadfile">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn text-white bg-changableColor rounded " id="newUserFromFile">Upload</button>
+            <div class="container bg-changableColor text-white mt-3 rounded-2" id="listFiles2" align="center"></div>
         </form>
         <div class="modal fade" id="adminAddUserModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
              aria-hidden="true">
