@@ -11,6 +11,10 @@ $(document).ready(
             ajaxPostBasicInfo()
         });
 
+ $("#contactPostButton").on('click',function (event) {
+            event.preventDefault();
+          ajaxPostContact()
+        });
     })
 
         function ajaxPostBasicInfo() {
@@ -22,7 +26,8 @@ $(document).ready(
                 profession: $('#profession').val(),
                 usos: $('#usos').val(),
                 twitter: $('#twitter').val(),
-                facebook: $('#facebook').val()
+                facebook: $('#facebook').val(),
+                phone: $('#phone').val()
             }
 
             // DO POST
@@ -75,4 +80,39 @@ $(document).ready(
                 }
             });
 
-        }
+        };
+
+         function ajaxPostContact() {
+var formData = {
+
+            placeField:$('#placeField').val(),
+            officeField: $('#officeField').val(),
+            dayField: $('#dayField').val(),
+            timeFromFieldH: $('#timeFromFieldH').val(),
+            timeToFieldH: $('#timeToFieldH').val(),
+            timeFromFieldM:$('#timeFromFieldM').val(),
+            timeToFieldM:$('#timeToFieldM').val(),
+}
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportContact/contact/new",
+                        data: JSON.stringify(formData),
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.status == "success") {
+                                $("#postResultDivContact").html(
+                                    "Success");
+                            } else {
+                                $("#postResultDivContact").html("<strong>Error</strong>");
+                            }
+                            console.log(result);
+                        },
+                        error: function (e) {
+                            alert("Error!")
+                            console.log("ERROR: ", e);
+                        }
+                    });
+
+                };
+
