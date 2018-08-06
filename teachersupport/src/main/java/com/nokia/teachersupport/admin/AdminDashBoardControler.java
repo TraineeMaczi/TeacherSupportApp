@@ -6,17 +6,17 @@ import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.roles.SecutityRole;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
 
 @Controller
 public class AdminDashBoardControler {
@@ -25,32 +25,34 @@ public class AdminDashBoardControler {
 
     @Autowired
     public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice) {
-       this.adminDashboardService=adminDashboardsSrvice;
+        this.adminDashboardService = adminDashboardsSrvice;
     }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
         model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
-        model.addAttribute("newFaculty",new Faculty());
-        model.addAttribute("hAllFaculty",adminDashboardService.listOfAllFaculties());
-        model.addAttribute("currentUsers",adminDashboardService.listOfAllPersons());
-        model.addAttribute("selectedFaculty",new Faculty()); // to zbiera wydzila do usuniecia
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("newFaculty", new Faculty());
+        model.addAttribute("hAllFaculty", adminDashboardService.listOfAllFaculties());
+        model.addAttribute("currentUsers", adminDashboardService.listOfAllPersons());
+        model.addAttribute("selectedFaculty", new Faculty()); // to zbiera wydzila do usuniecia
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
 
         return "teacherSupportAdminDashboard";
     }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminAction")
     String addNewUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
 //jak nie mam takiego e-mail w bazie jeszcze i jak wydzial istnieje i jesli rola istnieje
-        if ((adminDashboardService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null)&&
-                (adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserFacultyDTOField()) !=null)&&
-                (adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField()) !=null) ) {
+        if ((adminDashboardService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null) &&
+                (adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserFacultyDTOField()) != null) &&
+                (adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField()) != null)) {
 
             Person person = new Person();
             UserSecurityData userSecurityData = new UserSecurityData();
             Faculty faculty = adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserFacultyDTOField());
-            SecutityRole secutityRole=adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField());
+            SecutityRole secutityRole = adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField());
             //Tak samo jak dla faculty musi byc security rolke
 
             person.setNameField(userDTOForAdminActionDTO.getUserNameDTOField());
@@ -81,6 +83,7 @@ public class AdminDashBoardControler {
 
         return "redirect:/teacherSupportAdminDashboard";
     }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
     String addNewFaculty(Faculty faculty) {
@@ -94,7 +97,7 @@ public class AdminDashBoardControler {
     @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
     String deleteFaculty(Faculty faculty) {
         if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) != null) {
-        adminDashboardService.deleteFacultyAdminAction(faculty);
+            adminDashboardService.deleteFacultyAdminAction(faculty);
         }
         return "redirect:/teacherSupportAdminDashboard";
     }
