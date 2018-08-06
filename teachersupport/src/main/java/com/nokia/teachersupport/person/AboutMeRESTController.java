@@ -22,14 +22,21 @@ public class AboutMeRESTController {
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
-        person.setDegreeField(basicInfoDTO.getDegree());
-        person.setWorkAddressField(basicInfoDTO.getWorkplace());
-        person.setProfessionField(basicInfoDTO.getProfession());
-        person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
-        person.setTwitterField(basicInfoDTO.getTwitter());
-        person.setFacebookField(basicInfoDTO.getFacebook());
+        if(!basicInfoDTO.getDegree().equals("")) person.setDegreeField(basicInfoDTO.getDegree());
 
-        personService.savePerson(person);
+        if(!basicInfoDTO.getWorkplace().equals(""))   person.setWorkAddressField(basicInfoDTO.getWorkplace());
+
+        if(!basicInfoDTO.getProfession().equals("")) person.setProfessionField(basicInfoDTO.getProfession());
+
+        if(!basicInfoDTO.getUsos().equals("")) person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
+
+        if(!basicInfoDTO.getTwitter().equals("")) person.setTwitterField(basicInfoDTO.getTwitter());
+
+        if(!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(basicInfoDTO.getFacebook());
+
+        if(!basicInfoDTO.getPhone().equals("")) person.setPhoneNumberField(basicInfoDTO.getPhone());
+
+       personService.savePerson(person);
 
         ServiceResponse<BasicInfoDTO> response = new ServiceResponse<BasicInfoDTO>("success", basicInfoDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
@@ -39,7 +46,7 @@ public class AboutMeRESTController {
     public ResponseEntity<Object> addHobbyInfo(@RequestBody String hobbyInfo) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
-        person.setHobbyField(hobbyInfo);
+        if (!hobbyInfo.equals(""))person.setHobbyField(hobbyInfo);
 
         personService.savePerson(person);
 

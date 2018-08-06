@@ -17,10 +17,12 @@ public class AboutMeController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
 
+
     @Autowired
-    public AboutMeController (IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+    public AboutMeController (IMeetMeService meetMeService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
         this.userSecurityDataService=userSecurityDataService;
+
     }
 
     @GetMapping("/teacherSupportAboutMe")
@@ -28,6 +30,7 @@ public class AboutMeController {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson",person);
+
         return "teacherSupportAboutMe";
     }
 

@@ -83,10 +83,6 @@
         <!--About Me Basic-->
 
 
-
-
-
-
         <div class="col bg-white jumbotron text-dark">
 
             <form id="basicInfoForm">
@@ -104,7 +100,7 @@
 
                         <div class="col-sm">
                             <input id="degree" name="degree" type="text"
-                                   class="form-control rounded text-center d-inline"/>
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getDegreeField()}"/>
                         </div>
 
                     </div>
@@ -135,7 +131,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="workplace" name="workplace" type="text"
-                                   class="form-control rounded text-center d-inline"/>
+                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getWorkAddressField()}"/>
                         </div>
                     </div>
 
@@ -145,7 +141,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="profession" name="profession" type="text"
-                                   class="form-control rounded text-center d-inline"/>
+                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getProfessionField()}"/>
                         </div>
                     </div>
 
@@ -155,16 +151,27 @@
                         </div>
                         <div class="col-sm">
                             <input type="text" class="form-control rounded text-center d-inline"
-                                   th:placeholder="${currentUserName}" disabled/>
+                                   th:placeholder="${currentUserName}" disabled />
                         </div>
                     </div>
+
+
+                        <div class="row">
+                            <div class="col-5 ">
+                                <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" id="phone" name="phone" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getPhoneNumberField()}"/>
+                            </div>
+                        </div>
+
 
                     <div class="row">
                         <div class="col-5">
                             <input type="text" class="form-control text-center" placeholder="My usos: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline"/>
+                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getUsosPersonProfileLinkField()}"/>
                         </div>
                     </div>
 
@@ -174,7 +181,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="twitter" name="twitter" type="text"
-                                   class="form-control rounded text-center d-inline"/>
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getTwitterField()}"/>
                         </div>
                     </div>
 
@@ -184,7 +191,7 @@
                         </div>
                         <div class="col-sm">
                             <input id="facebook" name="facebook" type="text"
-                                   class="form-control rounded text-center d-inline"/>
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getFacebookField()}"/>
                         </div>
                     </div>
 

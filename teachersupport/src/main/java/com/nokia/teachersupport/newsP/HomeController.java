@@ -47,7 +47,7 @@ public class HomeController {
     news.setNewsOwner(tmpPerson);
     tmpPerson.addNewsToMyList(news);
     personService.savePerson(tmpPerson);
-        newsService.saveNews(news);
-        return "redirect:/teacherSupportHome";
+    newsService.saveNews(news);
+    return "redirect:/teacherSupportHome";
     }
 }
