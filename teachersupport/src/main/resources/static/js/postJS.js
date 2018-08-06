@@ -11,6 +11,10 @@ $(document).ready(
             ajaxPostBasicInfo()
         });
 
+ $("#contactPostButton").on('click',function (event) {
+            event.preventDefault();
+            ajaxPostContact()
+        });
     })
 
         function ajaxPostBasicInfo() {
@@ -76,5 +80,43 @@ $(document).ready(
                 }
             });
 
-        }
+        };
+         function ajaxPostContact() {
+
+
+        private String placeField;
+            private String officeField;
+            private String dayField;
+            private String timeFromFieldH;
+            private String timeToFieldH;
+            private String timeFromFieldM;
+            private String timeToFieldM;
+            private String timeField;
+
+
+
+
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportContact/contact/new",
+                        data: $('#hobbyContentID').val(),
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.status == "success") {
+                                $("#postResultDivHobby").html(
+                                    "Success");
+                            } else {
+                                $("#postResultDivHobby").html("<strong>Error</strong>");
+                            }
+                            console.log(result);
+                        },
+                        error: function (e) {
+                            alert("Error!")
+                            console.log("ERROR: ", e);
+                        }
+                    });
+
+                };
 
