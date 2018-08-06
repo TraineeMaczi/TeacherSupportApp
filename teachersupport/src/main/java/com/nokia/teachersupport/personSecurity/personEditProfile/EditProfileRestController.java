@@ -7,11 +7,18 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 @RestController
 public class EditProfileRestController {
@@ -36,6 +43,11 @@ public class EditProfileRestController {
         person.setUserSecurityDataField(userSecurityData);
         userSecurityDataService.saveUserSecurityData(userSecurityData);
         personService.savePerson(person);
+        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder
+                .getContext().getAuthentication().getAuthorities();
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, userSecurityData.getPassword(), nowAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
        return "success";
     }
     @PostMapping("/change/password")
@@ -48,6 +60,10 @@ public class EditProfileRestController {
         person.setUserSecurityDataField(userSecurityData);
         userSecurityDataService.saveUserSecurityData(userSecurityData);
         personService.savePerson(person);
+        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder
+                .getContext().getAuthentication().getAuthorities();
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userSecurityData.getEmail(), password, nowAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return "success";
     }
 }
