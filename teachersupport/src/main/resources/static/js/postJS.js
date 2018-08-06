@@ -11,11 +11,47 @@ $(document).ready(
             ajaxPostBasicInfo()
         });
 
- $("#contactPostButton").on('click',function (event) {
+        $("#contactPostButton").on('click',function (event) {
             event.preventDefault();
           ajaxPostContact()
         });
-    })
+
+
+        $("#editStudGroupButton").on('click',function (event) {
+                    event.preventDefault();
+                    ajaxEditStudGroupButton()
+                });
+
+
+
+ $("#editStudGroupButton").on('click', function () {
+var item=$('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
+                    alert(item);
+//                       event.preventDefault();
+//                      ajaxEditStudGroupButton()
+$.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportStudent/select",
+                        data:  item,
+                        dataType: 'json',
+                    });
+                });
+
+
+     })
+
+        function ajaxEditStudGroupButton(){
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportStudent/select",
+                        data:  {groupNameField:$('#studGroupFormCheck option:selected').val()},
+                        dataType: 'json',
+                    });
+                };
+
 
         function ajaxPostBasicInfo() {
 
@@ -116,3 +152,13 @@ var formData = {
 
                 };
 
+
+
+//Zarombisty kod ktory bierze wszystkie zaznaczone
+//                    var checkbox_value = "";
+//                    $(":checkbox").each(function () {
+//                        var ischecked = $(this).is(":checked");
+//                        if (ischecked) {
+//                            checkbox_value += $(this).val() ;
+//                        }
+//                    });
