@@ -17,10 +17,10 @@ $(document).ready(
         });
 
 
-        $("#editStudGroupButton").on('click',function (event) {
-                    event.preventDefault();
-                    ajaxEditStudGroupButton()
-                });
+//        $("#editStudGroupButton").on('click',function (event) {
+//                    event.preventDefault();
+//                    ajaxEditStudGroupButton()
+//                });
 
 
 
@@ -34,23 +34,25 @@ $.ajax({
                         contentType: "application/json",
                         url: "/teacherSupportStudent/select",
                         data:  item,
-                        dataType: 'json',
+                        dataType: 'json'
+
                     });
                 });
 
 
      })
 
-        function ajaxEditStudGroupButton(){
-
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportStudent/select",
-                        data:  {groupNameField:$('#studGroupFormCheck option:selected').val()},
-                        dataType: 'json',
-                    });
-                };
+//        function ajaxEditStudGroupButton(){
+//
+//                    $.ajax({
+//                        type: "POST",
+//                        contentType: "application/json",
+//                        url: "/teacherSupportStudent/select",
+//                        data:  {groupNameField:$('#studGroupFormCheck option:selected').val()},
+//                        dataType: 'json',
+//
+//                    });
+//                };
 
 
         function ajaxPostBasicInfo() {

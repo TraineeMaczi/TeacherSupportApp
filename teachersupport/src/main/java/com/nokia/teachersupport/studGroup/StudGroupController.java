@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.studGroup;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.innerService.IInnerService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
@@ -21,11 +22,13 @@ public class StudGroupController {
     private IStudGroupService studGroupService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
+    private IInnerService innerService;
 
 
     @Autowired
-    public StudGroupController(IUserSecurityDataService userSecurityDataService,IPersonService personService,IStudGroupService studGroupService)
+    public StudGroupController(IInnerService iInnerService,IUserSecurityDataService userSecurityDataService,IPersonService personService,IStudGroupService studGroupService)
     {
+        this.innerService=iInnerService;
         this.studGroupService=studGroupService;
         this.personService=personService;
         this.userSecurityDataService=userSecurityDataService;
@@ -37,6 +40,7 @@ public class StudGroupController {
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentStudGroup",innerService.getServiceStudGroupInstance());
         return "teacherSupportStudent";
     }
 
@@ -56,5 +60,4 @@ public class StudGroupController {
         }
         return "redirect:/teacherSupportStudent";
     }
-
 }
