@@ -16,6 +16,8 @@
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jsFiles/teacherSupportEditProfileFiles.js"></script>
 </head>
 
 <body>
@@ -80,25 +82,25 @@
 
         <div class="bg-white jumbotron text-dark mr-3 ml-3">
             <div class="container">
-                <form>
+                <form >
                     <div class="row">
                         <div class="col-xs ">
                             <input type="text" class="form-control text-center" placeholder="Name: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input id="nameId" ype="text" class="form-control rounded text-center d-inline" />
                         </div>
 
                         <div class="col-xs ">
                             <input type="text" class="form-control text-center" placeholder="Surname: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input id="surnameId" type="text" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
                     <div class="text-right">
-                        <button type="submit" class=" btn text-white bg-changableColor btn-md mt-3 mb-3">Change</button>
+                        <button type="button" class=" btn text-white bg-changableColor btn-md mt-3 mb-3" id="btnChangeName">Change</button>
                     </div>
                 </form>
                 <form>
@@ -107,20 +109,21 @@
                             <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input id="emailId" type="text" class="form-control rounded text-center d-inline" name="emailId" />
                         </div>
 
                         <div class="col-xs ">
                             <input type="text" class="form-control text-center" placeholder="Confirm e-mail: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input  id="emailConfirmId"type="text" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
                     <div class="text-right">
-                        <button type="submit" class=" btn text-white bg-changableColor btn-md mt-3 mb-3">Change</button>
+                        <button type="button" class=" btn text-white bg-changableColor btn-md mt-3 mb-3" id="btnChangeMail">Change</button>
                     </div>
+                    <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivBasicInfo" align="center"></div>
                 </form>
                 <form>
                     <div class="row">
@@ -128,19 +131,20 @@
                             <input type="text" class="form-control text-center" placeholder="Password: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="password" class="form-control " />
+                            <input id="password" type="password" class="form-control " />
                         </div>
 
                         <div class="col-xs ">
                             <input type="text" class="form-control text-center" placeholder="Confirm Password: " disabled>
                         </div>
                         <div class="col-sm">
-                            <input type="password" class="form-control " />
+                            <input id="confirmPassword" type="password" class="form-control " />
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="submit" class=" btn text-white bg-changableColor btn-md mt-3 mb-3">Change</button>
+                        <button type="button" class=" btn text-white bg-changableColor btn-md mt-3 mb-3", id="btnChangePassword">Change</button>
                     </div>
+                    <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultChangePassword" align="center"></div>
                 </form>
             </div>
         </div>

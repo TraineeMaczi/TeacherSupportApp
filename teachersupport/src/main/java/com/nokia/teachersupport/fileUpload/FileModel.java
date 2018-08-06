@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.resource.model;
+package com.nokia.teachersupport.fileUpload;
 
 import com.nokia.teachersupport.person.Person;
 
