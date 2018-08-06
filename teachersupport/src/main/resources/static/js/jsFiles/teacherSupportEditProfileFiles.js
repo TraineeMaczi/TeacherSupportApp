@@ -3,16 +3,19 @@ $(document).ready(
 
         $("#btnChangeName").on('click', function (event) {
             event.preventDefault();
-            doAjax();
+            changeName();
         });
         $("#btnChangeMail").on('click', function (event) {
             event.preventDefault();
-            doAjax2();
+            changeEmail();
+        });
+        $("#btnChangePassword").on('click', function (event) {
+            event.preventDefault();
+            changePassword();
         });
 
-
     })
-function doAjax() {
+function changeName() {
     event.preventDefault();
     var name = $('#nameId').val();
     var surname = $('#surnameId').val();
@@ -21,12 +24,63 @@ function doAjax() {
         url: '/change/name/'+name+'/'+surname
 });
 }
-function doAjax2() {
+function changeEmail() {
     event.preventDefault();
-    var emailId = $('#emailId').val();
-    var emailConfirm = $('#emailConfirmId').val();
+    var email = $('#emailId').val();
+    var confirmEmail = $('#emailConfirmId').val();
     $.ajax({
         type: "POST",
-        url: '/change/name/'+emailId+'/'+emailConfirm
+        url: '/change/email',
+        data: {
+            "email": email,
+            "confirmEmail": confirmEmail
+        },
+
+        success: function (result) {
+            if (result == "success") {
+
+                $("#postResultDivBasicInfo").html(
+                    result);
+
+
+            } else {
+                $("#postResultDivBasicInfo").html(result);
+            }
+            console.log(result);
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    });
+}
+function changePassword() {
+    event.preventDefault();
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+    $.ajax({
+        type: "POST",
+        url: '/change/password',
+        data: {
+            "password": password,
+            "confirmPassword": confirmPassword
+        },
+
+        success: function (result) {
+            if (result == "success") {
+
+                $("#postResultChangePassword").html(
+                    result);
+
+
+            } else {
+                $("#postResultChangePassword").html(result);
+            }
+            console.log(result);
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
     });
 }

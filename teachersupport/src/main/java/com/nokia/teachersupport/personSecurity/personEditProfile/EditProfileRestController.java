@@ -9,6 +9,7 @@ import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,17 +26,28 @@ public class EditProfileRestController {
         person.setSurnameField(surname);
         personService.savePerson(person);
     }
-    @PostMapping("/change/email/{email}/{confirm}")
-    public String changeEmail(@PathVariable String email, @PathVariable String confirm){
-        if(!email.equals(confirm)){
-            return "FAIL!";
-        }
+    @PostMapping("/change/email")
+    public String changeEmail(@RequestParam String email, @RequestParam String confirmEmail ){
+        if(!email.equals(confirmEmail))
+            return "Error "+confirmEmail+" is different than "+email;
         Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         UserSecurityData userSecurityData=person.getUserSecurityDataField();
         userSecurityData.setEmail(email);
         person.setUserSecurityDataField(userSecurityData);
         userSecurityDataService.saveUserSecurityData(userSecurityData);
         personService.savePerson(person);
-        return "SUCCES";
+       return "success";
+    }
+    @PostMapping("/change/password")
+    public String changePassword(@RequestParam String password, @RequestParam String confirmPassword ){
+        if(!password.equals(confirmPassword))
+            return "Error "+confirmPassword+" is different than "+password;
+        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        UserSecurityData userSecurityData=person.getUserSecurityDataField();
+        userSecurityData.setPassword(password);
+        person.setUserSecurityDataField(userSecurityData);
+        userSecurityDataService.saveUserSecurityData(userSecurityData);
+        personService.savePerson(person);
+        return "success";
     }
 }
