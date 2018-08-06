@@ -20,10 +20,10 @@ public class MeetMe {
     private String placeField;
     private String officeField;
     private String dayField;
-    private String timeFromFieldH;
-    private String timeToFieldH;
-    private String timeFromFieldM;
-    private String timeToFieldM;
+//    private String timeFromFieldH;
+//    private String timeToFieldH;
+//    private String timeFromFieldM;
+//    private String timeToFieldM;
     private String timeField;
 
     @ManyToOne
@@ -37,10 +37,10 @@ public class MeetMe {
         this.placeField=Strings.EMPTY;
         this.officeField=Strings.EMPTY;
         this.dayField=Strings.EMPTY;
-        this.timeFromFieldH=Strings.EMPTY;
-        this.timeToFieldH=Strings.EMPTY;
-       this.timeFromFieldM=Strings.EMPTY;
-         this.timeToFieldM=Strings.EMPTY;
+//        this.timeFromFieldH=Strings.EMPTY;
+//        this.timeToFieldH=Strings.EMPTY;
+//       this.timeFromFieldM=Strings.EMPTY;
+//         this.timeToFieldM=Strings.EMPTY;
          this.timeField=Strings.EMPTY;
     }
 
@@ -85,37 +85,37 @@ public class MeetMe {
         this.dayField = dayField;
     }
 
-    public String getTimeFromFieldH() {
-        return timeFromFieldH;
-    }
+//    public String getTimeFromFieldH() {
+//        return timeFromFieldH;
+//    }
 
-    public void setTimeFromFieldH(String timeFromFieldH) {
-        this.timeFromFieldH = timeFromFieldH;
-    }
-
-    public String getTimeToFieldH() {
-        return timeToFieldH;
-    }
-
-    public void setTimeToFieldH(String timeToFieldH) {
-        this.timeToFieldH = timeToFieldH;
-    }
-
-    public String getTimeFromFieldM() {
-        return timeFromFieldM;
-    }
-
-    public void setTimeFromFieldM(String timeFromFieldM) {
-        this.timeFromFieldM = timeFromFieldM;
-    }
-
-    public String getTimeToFieldM() {
-        return timeToFieldM;
-    }
-
-    public void setTimeToFieldM(String timeToFieldM) {
-        this.timeToFieldM = timeToFieldM;
-    }
+//    public void setTimeFromFieldH(String timeFromFieldH) {
+//        this.timeFromFieldH = timeFromFieldH;
+//    }
+//
+//    public String getTimeToFieldH() {
+//        return timeToFieldH;
+//    }
+//
+//    public void setTimeToFieldH(String timeToFieldH) {
+//        this.timeToFieldH = timeToFieldH;
+//    }
+//
+//    public String getTimeFromFieldM() {
+//        return timeFromFieldM;
+//    }
+//
+//    public void setTimeFromFieldM(String timeFromFieldM) {
+//        this.timeFromFieldM = timeFromFieldM;
+//    }
+//
+//    public String getTimeToFieldM() {
+//        return timeToFieldM;
+//    }
+//
+//    public void setTimeToFieldM(String timeToFieldM) {
+//        this.timeToFieldM = timeToFieldM;
+//    }
 
     public String getTimeField() {
         return timeField;

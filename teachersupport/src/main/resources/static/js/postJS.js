@@ -13,7 +13,7 @@ $(document).ready(
 
  $("#contactPostButton").on('click',function (event) {
             event.preventDefault();
-            ajaxPostContact()
+          ajaxPostContact()
         });
     })
 
@@ -81,34 +81,30 @@ $(document).ready(
             });
 
         };
+
          function ajaxPostContact() {
+var formData = {
 
-
-        private String placeField;
-            private String officeField;
-            private String dayField;
-            private String timeFromFieldH;
-            private String timeToFieldH;
-            private String timeFromFieldM;
-            private String timeToFieldM;
-            private String timeField;
-
-
-
-
-
+            placeField:$('#placeField').val(),
+            officeField: $('#officeField').val(),
+            dayField: $('#dayField').val(),
+            timeFromFieldH: $('#timeFromFieldH').val(),
+            timeToFieldH: $('#timeToFieldH').val(),
+            timeFromFieldM:$('#timeFromFieldM').val(),
+            timeToFieldM:$('#timeToFieldM').val(),
+}
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
                         url: "/teacherSupportContact/contact/new",
-                        data: $('#hobbyContentID').val(),
+                        data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
                             if (result.status == "success") {
-                                $("#postResultDivHobby").html(
+                                $("#postResultDivContact").html(
                                     "Success");
                             } else {
-                                $("#postResultDivHobby").html("<strong>Error</strong>");
+                                $("#postResultDivContact").html("<strong>Error</strong>");
                             }
                             console.log(result);
                         },

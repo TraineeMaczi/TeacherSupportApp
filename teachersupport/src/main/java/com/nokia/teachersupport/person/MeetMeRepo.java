@@ -8,6 +8,7 @@ import java.util.List;
 @Repository
 public interface MeetMeRepo extends CrudRepository<MeetMe, Integer> {
     List<MeetMe> findAll();
+
 }
 
 

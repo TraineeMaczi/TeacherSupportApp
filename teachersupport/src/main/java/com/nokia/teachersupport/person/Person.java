@@ -229,6 +229,12 @@ public class Person {
             group.setGroupsOwner(this);
         }
     }
+    public void addMeetMeToMyList(MeetMe meetMe) {
+        this.personMeetMeDataList.add(meetMe);
+        if (meetMe.getMeetMeOwner() != this) {
+            meetMe.setMeetMeOwner(this);
+        }
+    }
 
 
     public Faculty getFacultyField() {
