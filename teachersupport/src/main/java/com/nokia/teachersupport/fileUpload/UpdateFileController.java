@@ -1,8 +1,6 @@
 package com.nokia.teachersupport.fileUpload;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
-import com.nokia.teachersupport.fileUpload.FileModel;
-import com.nokia.teachersupport.fileUpload.FileRepository;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
