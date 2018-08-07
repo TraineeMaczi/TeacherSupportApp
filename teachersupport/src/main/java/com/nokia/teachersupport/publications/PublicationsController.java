@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
@@ -33,9 +34,12 @@ public class PublicationsController {
     {
         publicationService.savePublications(publications);
         return "redirect:/teacherSupportPublications";
-
-
-
+    }
+    @PostMapping("/publications/delete")
+    String deletePublications(@RequestParam("id") Integer id)
+    {
+        publicationService.deletePublications(id);
+        return "SUCCES";
     }
 }
 

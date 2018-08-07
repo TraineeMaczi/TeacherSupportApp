@@ -68,7 +68,7 @@ function changePassword() {
 
         success: function (result) {
             if (result == "success") {
-
+                location.reload();
                 $("#postResultChangePassword").html(
                     result);
 

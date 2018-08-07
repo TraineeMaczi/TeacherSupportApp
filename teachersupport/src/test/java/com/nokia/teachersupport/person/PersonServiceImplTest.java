@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static javafx.beans.binding.Bindings.when;
+
 import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class PersonServiceImplTest {

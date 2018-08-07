@@ -15,6 +15,8 @@
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jsRadios/SupportIndex.js"></script>
 </head>
 <body>
     <p>
@@ -82,18 +84,20 @@
             </div>
             <div class="jumbotron text-center rounded-0 bg-white text-dark mb-0">
                     
-                   <form>
-                       <div class="form-check ">
+                   <form id="selectFaculty">
                            <div class="table-responsive">
                                <table class="table">
                                    <tbody>
 
 
-                                   <tr>
+                                   <tr th:each="one : ${facultyList}">
                                        <!--To kopiowac-->
-                                       <td>Sample Faculty</br>
-                                           <img src="img/logo.jpg" class="rounded mt-1" alt="...">
-                                           <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID" value="SAMPLE_VALUE">
+                                       <td  th:text="${one.facultyNameField}"></td>
+                                       <td>
+                                           <div class="form-check ">
+                                            <img src="img/logo.jpg" class="rounded mt-1" alt="...">
+                                            <input class="form-check-input" type="radio" name="selectedFaculty" th:value="${one.facultyNameField}"/>
+                                           </div>
                                        </td>
                                        <!--...............................................-->
                                    </tr>
@@ -102,8 +106,7 @@
                                    </tbody>
                                </table>
                            </div>
-                       </div>
-                    <button type="submit" class=" btn text-white bg-changableColor btn-sm mt-3">Confirm Faculty</button>
+                    <button type="button" class=" btn text-white bg-changableColor btn-sm mt-3"id="confirmFacultyButton">Confirm Faculty</button>
                    </form>    
             </div>
                     
