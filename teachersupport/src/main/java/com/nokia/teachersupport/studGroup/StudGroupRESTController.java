@@ -40,4 +40,5 @@ public class StudGroupRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+
 }

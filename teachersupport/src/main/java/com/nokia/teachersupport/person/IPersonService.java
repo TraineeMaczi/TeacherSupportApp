@@ -13,6 +13,6 @@ public interface IPersonService {
     Person savePerson(Person person);
     void deletePerson(Integer id);
     Person getPersonByUserSecurityData(UserSecurityData userSecurityData);
-    //Person getPersonByName(String name);
+    Person setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person);
 
 }

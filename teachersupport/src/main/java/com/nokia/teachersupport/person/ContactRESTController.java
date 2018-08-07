@@ -27,12 +27,7 @@ private IMeetMeService meetMeService;
     @PostMapping("/teacherSupportContact/contact/new")
     public ResponseEntity<Object> addContactInfo(@RequestBody MeetMeDTO meetMeDTO) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        MeetMe meetMe=new MeetMe();
-
-        meetMe.setPlaceField(meetMeDTO.getPlaceField());
-        meetMe.setOfficeField(meetMeDTO.getOfficeField());
-        meetMe.setDayField(meetMeDTO.getDayField());
-        meetMe.setTimeField(meetMeDTO.getTimeFromFieldH()+":"+meetMeDTO.getTimeFromFieldM()+"-"+meetMeDTO.getTimeToFieldH()+":"+meetMeDTO.getTimeToFieldM());
+        MeetMe meetMe=meetMeService.meetMeDTOIntoMeetMe(meetMeDTO);
         meetMe.setMeetMeOwner(person);
         person.addMeetMeToMyList(meetMe);
         meetMeService.saveMeetMe(meetMe);

@@ -8,5 +8,6 @@ public interface IMeetMeService {
     MeetMe getMeetMe(Integer id);
     MeetMe saveMeetMe(MeetMe meetMe);
     void deleteMeetMe(Integer id);
+    MeetMe meetMeDTOIntoMeetMe(MeetMeDTO meetMeDTO);
 
 }
