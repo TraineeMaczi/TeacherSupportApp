@@ -21,23 +21,8 @@ public class AboutMeRESTController {
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-
-        if(!basicInfoDTO.getDegree().equals("")) person.setDegreeField(basicInfoDTO.getDegree());
-
-        if(!basicInfoDTO.getWorkplace().equals(""))   person.setWorkAddressField(basicInfoDTO.getWorkplace());
-
-        if(!basicInfoDTO.getProfession().equals("")) person.setProfessionField(basicInfoDTO.getProfession());
-
-        if(!basicInfoDTO.getUsos().equals("")) person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
-
-        if(!basicInfoDTO.getTwitter().equals("")) person.setTwitterField(basicInfoDTO.getTwitter());
-
-        if(!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(basicInfoDTO.getFacebook());
-
-        if(!basicInfoDTO.getPhone().equals("")) person.setPhoneNumberField(basicInfoDTO.getPhone());
-
-       personService.savePerson(person);
-
+        person=personService.setPersonBasicInfo(basicInfoDTO,person);
+        personService.savePerson(person);
         ServiceResponse<BasicInfoDTO> response = new ServiceResponse<BasicInfoDTO>("success", basicInfoDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

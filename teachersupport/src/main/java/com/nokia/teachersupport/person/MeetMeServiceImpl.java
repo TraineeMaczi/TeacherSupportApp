@@ -28,7 +28,6 @@ public class MeetMeServiceImpl implements IMeetMeService {
         MeetMe meetMe = Opt.orElse(new MeetMe());
         return meetMe;
     }
-
     @Override
     public MeetMe saveMeetMe(MeetMe meetMe) {
         return meetMeRepo.save(meetMe);
@@ -37,6 +36,16 @@ public class MeetMeServiceImpl implements IMeetMeService {
     @Override
     public void deleteMeetMe(Integer id) {
         meetMeRepo.deleteById(id);
+    }
+
+    @Override
+    public MeetMe meetMeDTOIntoMeetMe(MeetMeDTO meetMeDTO) {
+        MeetMe meetMe=new MeetMe();
+        meetMe.setPlaceField(meetMeDTO.getPlaceField());
+        meetMe.setOfficeField(meetMeDTO.getOfficeField());
+        meetMe.setDayField(meetMeDTO.getDayField());
+        meetMe.setTimeField(meetMeDTO.getTimeFromFieldH()+":"+meetMeDTO.getTimeFromFieldM()+"-"+meetMeDTO.getTimeToFieldH()+":"+meetMeDTO.getTimeToFieldM());
+        return meetMe;
     }
 
 

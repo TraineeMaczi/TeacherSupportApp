@@ -174,7 +174,7 @@
     </div>
         <div class="col bg-white jumbotron text-dark mr-3 text-center" >
 
-            <form class="mt-3">
+            <form class="mt-3" id="dispContactForm">
 
                     <div class="table-responsive makeMeScroll ">
                         <table class="table">
@@ -194,12 +194,14 @@
                                 <td th:text="${objMeetMe.getOfficeField()}"></td>
                                 <td th:text="${objMeetMe.getDayField()}"></td>
                                 <td th:text="${objMeetMe.getTimeField()}"></td>
-                                <div class="form-check ">
+
                                 <td>
+                                    <div class="form-check ">
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID111" value="SAMPLE_VALUE1">
+                                    </div>
                                 </td>
                                 <!--...............................................-->
-                                </div>
+
                             </tr>
 
                             </tbody>

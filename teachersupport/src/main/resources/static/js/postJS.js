@@ -34,7 +34,11 @@ $.ajax({
                         contentType: "application/json",
                         url: "/teacherSupportStudent/select",
                         data:  item,
-                        dataType: 'json'
+                        dataType: 'json',
+                        success: function()
+                        {
+                        document.getElementById('edGroupFormGroupName').value=item;
+                        }
 
                     });
                 });

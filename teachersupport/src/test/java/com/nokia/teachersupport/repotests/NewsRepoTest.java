@@ -2,6 +2,7 @@ package com.nokia.teachersupport.repotests;
 
 
 import com.nokia.teachersupport.TeachersupportApplication;
+import com.nokia.teachersupport.person.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,5 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class NewsRepoTest {
     @Test
     public void contextLoads() {
+
+
     }
 }

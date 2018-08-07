@@ -47,8 +47,24 @@ public class PersonServiceImpl implements IPersonService {
         return personRepo.findByUserSecurityDataField(userSecurityData);
     }
 
-//    @Override
-//    public Person getPersonByName(String name) {
-//      return personRepo.findByNameField(name);
-//    }
+    @Override
+    public Person setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person)
+    {
+        if(!basicInfoDTO.getDegree().equals("")) person.setDegreeField(basicInfoDTO.getDegree());
+
+        if(!basicInfoDTO.getWorkplace().equals(""))   person.setWorkAddressField(basicInfoDTO.getWorkplace());
+
+        if(!basicInfoDTO.getProfession().equals("")) person.setProfessionField(basicInfoDTO.getProfession());
+
+        if(!basicInfoDTO.getUsos().equals("")) person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
+
+        if(!basicInfoDTO.getTwitter().equals("")) person.setTwitterField(basicInfoDTO.getTwitter());
+
+        if(!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(basicInfoDTO.getFacebook());
+
+        if(!basicInfoDTO.getPhone().equals("")) person.setPhoneNumberField(basicInfoDTO.getPhone());
+
+        return person;
+    }
+
 }
