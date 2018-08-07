@@ -1,7 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
-import com.nokia.teachersupport.innerService.IInnerService;
 import com.nokia.teachersupport.person.IMeetMeService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -21,21 +20,22 @@ public class StudGroupRESTController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
     private IStudGroupService studGroupService;
-    private IInnerService innerService;
+    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
+
 
     @Autowired
-    public StudGroupRESTController(IInnerService innerService,IStudGroupService studGroupService, IPersonService personService,IMeetMeService meetMeService ,IUserSecurityDataService userSecurityDataService) {
+    public StudGroupRESTController(IStudGroupService studGroupService, IPersonService personService,IMeetMeService meetMeService ,IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
         this.userSecurityDataService=userSecurityDataService;
         this.studGroupService=studGroupService;
-        this.innerService=innerService;
+        this.studGroupLocalInstanc=null;
     }
 
 
     @PostMapping("/teacherSupportStudent/select")
     public ResponseEntity<Object> addContactInfo(@RequestBody String groupName) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        innerService.setServiceStudGroupInstance(studGroupService.getStudGroupByName(groupName));
+        studGroupLocalInstanc=studGroupService.getStudGroupByName(groupName);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
