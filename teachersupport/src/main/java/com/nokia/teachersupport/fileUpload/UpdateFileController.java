@@ -10,30 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 
 
 @RestController
 public class UpdateFileController {
     @Autowired
-    private IFileService fileRepository;
-    @Autowired
-    private IPersonService personService;
-    @Autowired
-    private IUserSecurityDataService userSecurityDataService;
-
+    FileServiceImpl fileService;
     @PostMapping("/upload/{type}")
-    public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) {
-        try {
-            FileModel filemode = new FileModel(file.getOriginalFilename(), type,file.getBytes(),
-                    personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName())));
-            if(file.getOriginalFilename().equals(""))
-                return "FAIL! \n" +
-                        "You did not choose a file.";
-            fileRepository.savefile(filemode);
+    public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) throws IOException {
+        if (fileService.saveMultipartFile(file, type))
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
-        } catch (	Exception e) {
-            return "FAIL! ";
-        }
+        else
+            return "FAIL! \n" +
+                    "You did not choose a file.";
     }
 
 }

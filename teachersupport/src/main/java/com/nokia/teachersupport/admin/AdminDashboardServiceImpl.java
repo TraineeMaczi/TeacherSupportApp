@@ -13,7 +13,14 @@ import com.nokia.teachersupport.roles.RoleRepo;
 import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Null;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -24,6 +31,8 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     private FacultyRepo facultyRepo;
     private RoleRepo roleRepo;
     private TokenRepo tokenRepo;
+    @Autowired
+    private IAdminDashboardService adminDashboardService;
 
     @Autowired
     public AdminDashboardServiceImpl(TokenRepo tokenRepo) {
@@ -162,4 +171,55 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
         return roleRepo;
     }
 
+    @Override
+    public boolean saveUsersFromFile(InputStream stream) {
+        String myName;
+        String mySurname;
+        String myFaculty;
+        String myRole;
+        String myEmail;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+            String newline = bufferedReader.readLine();
+
+            do {
+                String[] parts = newline.split(",");
+                 myName = parts[0];
+                 mySurname = parts[1];
+                 myFaculty = parts[2];
+                 myRole = parts[3];
+                 myEmail = parts[4];
+                if ((adminDashboardService.getUserSecurityDataByEmail(myEmail) == null) &&
+                        (adminDashboardService.getFacultyByName(myFaculty) != null) &&
+                        (adminDashboardService.getRoleByName(myRole) != null)) {
+                    Person person = new Person();
+                    UserSecurityData userSecurityData = new UserSecurityData();
+                    Faculty faculty = adminDashboardService.getFacultyByName(myFaculty);
+                    SecutityRole secutityRole = adminDashboardService.getRoleByName(myRole);
+                    person.setNameField(myName);
+                    person.setSurnameField(mySurname);
+                    faculty.addPersonToFaculty(person);
+                    person.setFacultyField(faculty);
+                    userSecurityData.setActive(false);
+                    userSecurityData.setEmail(myEmail);
+                    userSecurityData.setPassword("NULL");
+                    userSecurityData.setMatchingPassword("NULL");
+                    userSecurityData.addARole(secutityRole);
+                    secutityRole.addUserSecurityDataToRole(userSecurityData);
+                    person.setUserSecurityDataField(userSecurityData);
+                    adminDashboardService.saveUserPersonDataAdminAction(person);
+                    adminDashboardService.saveUserSecurityDataAdminAction(userSecurityData);
+                    adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+                    adminDashboardService.saveUserRoleDataAdminAction(secutityRole);
+                }
+                newline = bufferedReader.readLine();
+
+            } while (newline != null);
+            bufferedReader.close();
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
