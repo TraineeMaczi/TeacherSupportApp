@@ -21,24 +21,24 @@ public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent>
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         List<String> umkFaculties=new ArrayList<>();
 
-        umkFaculties.add("Wydział Biologii i Ochrony Środowiska");
-        umkFaculties.add("Wydział Chemii");
-        umkFaculties.add("Wydział Farmaceutyczny (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydział Filologiczny");
-        umkFaculties.add("Wydział Fizyki, Astronomii i Informatyki Stosowanej");
-        umkFaculties.add("Wydział Humanistyczny");
-        umkFaculties.add("Wydział Lekarski (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydział Matematyki i Informatyki");
-        umkFaculties.add("Wydział Nauk Ekonomicznych i Zarządzania");
-        umkFaculties.add("Wydział Nauk Historycznych");
-        umkFaculties.add("Wydział Nauk o Zdrowiu (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydział Biologii i Ochrony Środowiska");
-        umkFaculties.add("Wydział Nauk o Ziemi");
-        umkFaculties.add("Wydział Nauk Pedagogicznych");
-        umkFaculties.add("Wydział Politologii i Studiów Międzynarodowych");
-        umkFaculties.add("Wydział Prawa i Administracji");
-        umkFaculties.add("Wydział Sztuk Pięknych");
-        umkFaculties.add("Wydział Teologiczny");
+        umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
+        umkFaculties.add("Wydzial Chemii");
+        umkFaculties.add("Wydzial Farmaceutyczny (Collegium Medicum w Bydgoszczy)");
+        umkFaculties.add("Wydzial Filologiczny");
+        umkFaculties.add("Wydzial Fizyki, Astronomii i Informatyki Stosowanej");
+        umkFaculties.add("Wydzial Humanistyczny");
+        umkFaculties.add("Wydzial Lekarski (Collegium Medicum w Bydgoszczy)");
+        umkFaculties.add("Wydzial Matematyki i Informatyki");
+        umkFaculties.add("Wydzial Nauk Ekonomicznych i Zarzadzania");
+        umkFaculties.add("Wydzial Nauk Historycznych");
+        umkFaculties.add("Wydzial Nauk o Zdrowiu (Collegium Medicum w Bydgoszczy)");
+        umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
+        umkFaculties.add("Wydzial Nauk o Ziemi");
+        umkFaculties.add("Wydzial Nauk Pedagogicznych");
+        umkFaculties.add("Wydzial Politologii i Studiow Miedzynarodowych");
+        umkFaculties.add("Wydzial Prawa i Administracji");
+        umkFaculties.add("Wydzial Sztuk Pieknych");
+        umkFaculties.add("Wydzial Teologiczny");
 
 
         for(int i=umkFaculties.size()-1;i>=0;i--)

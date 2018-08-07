@@ -14,16 +14,30 @@
   console.log(filename);
 });
     </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+
+    <script src="/js/jsFiles/teacherSupportAboutMeFiles.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/jsFiles/teacherSupportStudentFiles.js"></script>
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+
+    <script href="../static/js/postJS.js" th:src="@{js/postJS.js}"
+            type="text/javascript"></script>
 </head>
 
 <body>
@@ -85,6 +99,7 @@
     </nav>
 
     <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+
         <div class="row">
             <div class="col bg-white jumbotron text-dark mr-3">
                 <h4>Add Group</h4>
@@ -99,28 +114,26 @@
                     <button type="submit" form="newGroupForm" class="btn mt-2 bg-changableColor text-white">Add</button>
                 </div>
 
-                <form class="mt-3">
-                    <div class="form-check ">
+                <form class="mt-3" id="edDeleteGroupForm">
+                    <div  class="form-check ">
                         <div class="table-responsive makeMeScroll">
                             <table class="table">
                                 <tbody>
 
-
-                                <tr th:each="objStudGroup : ${currentGroups}">
+                                <tr id="studGroupFormCheck" th:each="objStudGroup : ${currentGroups}">
                                     <td th:text="${objStudGroup.groupNameField}"></td>
                                     <td>
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID11" value="SAMPLE_VALUE">
+                                        <input type="radio" name="groupsED" class="form-check-input" th:value="${objStudGroup.groupNameField}"/>
                                     </td>
                                     <!--...............................................-->
                                 </tr>
-
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="text-right mt-2">
-                        <button type="button" class="btn bg-changableColor text-white">Edit</button>
+                        <button id="editStudGroupButton" type="button" class="btn bg-changableColor text-white">Edit</button>
                         <button type="button" class="btn bg-changableColor text-white">Delete</button>
                     </div>
                 </form>
@@ -196,7 +209,7 @@
                 </form>
             </div>
             <div class="col bg-white jumbotron text-dark mr-3">
-                <input type="text" class="form-control text-center" placeholder="Group Name: sampleGroupName" disabled>
+                <input type="text" class="form-control text-center" disabled>
 
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                     <div class="form-group mt-4">
