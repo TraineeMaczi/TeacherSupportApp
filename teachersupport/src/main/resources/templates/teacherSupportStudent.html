@@ -45,8 +45,7 @@
         <div class="text-right pr-3 pt-2 pb-2">
             <form>
 
-                <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right"  placeholder="Hello!" th:text="${currentUserName}"
-                    disabled/>
+                <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right"  placeholder="Hello!" th:text="${currentUserName}" disabled/>
                 <br/>
                 <div class="d-inline pr-2">
                     <a th:href="@{/logout}" type="button" class=" btn text-white bg-changableColor btn-sm">Log out</a>
@@ -136,13 +135,15 @@
 
                     <div class="text-right mt-2">
                         <button id="editStudGroupButton" type="button" class="btn bg-changableColor text-white">Edit</button>
-                        <button type="button" class="btn bg-changableColor text-white">Delete</button>
+                        <button type="button" id="deleteGroupButton" class="btn bg-changableColor text-white">Delete</button>
                     </div>
                 </form>
             </div>
 
             <div class="col bg-white jumbotron text-dark mr-3">
-                <form id="edGroupForm">
+                <form >
+                    <div class="container bg-changableColor text-white mt-3 mb-2 rounded-2" id="postResultDivGroupUpdate" align="center"></div>
+
                     <div class="row">
                         <div class="col ">
                             <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
@@ -157,7 +158,7 @@
                             <input type="text" class="form-control text-center" placeholder="Group Nr: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input type="text" id="groupNrFiled" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
@@ -166,7 +167,7 @@
                             <input type="text" class="form-control text-center" placeholder="Faculty: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input type="text" id="facultyField" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
@@ -175,7 +176,7 @@
                             <input type="text" class="form-control text-center" placeholder="Class Name: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input type="text" id="classNameField" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
@@ -186,19 +187,39 @@
                             <input type="text" class="form-control text-center" placeholder="Day: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control rounded text-center d-inline" />
+                            <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" class="form-control text-center" placeholder="Time: " disabled>
+                    <div class="container">
+                        <div class="row">
+
+                                <input type="text" class="form-control text-center" placeholder="Time: " disabled>
+
                         </div>
-                        <div class="col-2">
-                            <input type="time" class="border-0 " />
-                        </div>
-                        <div class="col-2">
-                            <input type="time" class="border-0" />
+                        <div class="row">
+
+                                <div class="input-group mb-3 ">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >From</span>
+                                    </div>
+                                    <input id="timeFromFieldH" type="text" class="form-control  text-center "/>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >:</span>
+                                    </div>
+                                    <input  id="timeFromFieldM" type="text" class="form-control  text-center"/>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >To</span>
+                                    </div>
+                                    <input id="timeToFieldH" type="text" class="form-control  text-center "/>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >:</span>
+                                    </div>
+                                    <input type="text" id="timeToFieldM" class="form-control  text-center"/>
+                                    <div class="input-group-prepend">
+                                    </div>
+                                </div>
+
                         </div>
                     </div>
 
@@ -206,12 +227,13 @@
 
 
                     <div class="text-right mt-2">
-                        <button type="submit" form="edGroupForm" class="btn mt-2 bg-changableColor text-white">Update</button>
+                        <button type="submit" id="groupUpdatePostButton" class="btn mt-2 bg-changableColor text-white">Update</button>
                     </div>
                 </form>
             </div>
             <div class="col bg-white jumbotron text-dark mr-3">
-                <input type="text" class="form-control text-center" disabled>
+
+                <input type="text" class="form-control text-center" id="dispGroupForResource" disabled>
 
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                     <div class="form-group mt-4">

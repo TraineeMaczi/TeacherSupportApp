@@ -24,21 +24,49 @@ public class StudGroupRESTController {
 
 
     @Autowired
-    public StudGroupRESTController(IStudGroupService studGroupService, IPersonService personService,IMeetMeService meetMeService ,IUserSecurityDataService userSecurityDataService) {
+    public StudGroupRESTController(IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
-        this.userSecurityDataService=userSecurityDataService;
-        this.studGroupService=studGroupService;
-        this.studGroupLocalInstanc=null;
+        this.userSecurityDataService = userSecurityDataService;
+        this.studGroupService = studGroupService;
+        this.studGroupLocalInstanc = null;
     }
 
 
-    @PostMapping("/teacherSupportStudent/select")
-    public ResponseEntity<Object> addContactInfo(@RequestBody String groupName) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        studGroupLocalInstanc=studGroupService.getStudGroupByName(groupName);
+    @PostMapping("/teacherSupportStudent/edit")
+    public ResponseEntity<Object> editGroup(@RequestBody String groupName) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/teacherSupportStudent/delete")
+    public ResponseEntity<Object> deleteGroup(@RequestBody String groupName) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        person.deleteStudGroup(studGroupService.getStudGroupByName(groupName));
+        studGroupService.deleteStudGroupById(studGroupService.getStudGroupByName(groupName).getId());
+        personService.savePerson(person);
+        ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/teacherSupportStudent/updateGroup")
+    public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO) {
+        if (studGroupService.getStudGroupByName(studGroupDTO.getGroupNameField()) != null) {
+            StudGroup studGroup = studGroupService.getStudGroupByName(studGroupDTO.getGroupNameField());
+            studGroup.setGroupNrFiled(studGroupDTO.getGroupNrFiled());
+            studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
+            studGroup.setClassNameField(studGroupDTO.getClassNameField());
+            studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
+            studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
+            studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
+            studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
+            studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
+            studGroupService.saveStudGroup(studGroup);
+        }
+        //to chyba mozna by wykorzystac dla succes lub fail pinizej
+        ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
 
 }

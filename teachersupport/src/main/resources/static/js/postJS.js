@@ -15,6 +15,10 @@ $(document).ready(
             event.preventDefault();
           ajaxPostContact()
         });
+ $("#groupUpdatePostButton").on('click',function (event) {
+            event.preventDefault();
+        ajaxPostUpdateGroup()
+        });
 
 
 //        $("#editStudGroupButton").on('click',function (event) {
@@ -26,22 +30,42 @@ $(document).ready(
 
  $("#editStudGroupButton").on('click', function () {
 var item=$('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
-                    alert(item);
+//                    alert(item);
 //                       event.preventDefault();
 //                      ajaxEditStudGroupButton()
 $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "/teacherSupportStudent/select",
+                        url: "/teacherSupportStudent/edit",
                         data:  item,
                         dataType: 'json',
                         success: function()
                         {
                         document.getElementById('edGroupFormGroupName').value=item;
+                        document.getElementById('dispGroupForResource').value=item;
                         }
 
                     });
                 });
+
+$("#deleteGroupButton").on('click', function () {
+var item=$('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
+                    alert(item);
+$.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportStudent/delete",
+                        data:  item,
+                        dataType: 'json',
+//                        success: function()
+//                        {
+//                           alert(item);
+//                        }
+
+                    });
+                });
+
+
 
 
      })
@@ -158,7 +182,47 @@ var formData = {
 
                 };
 
+function ajaxPostUpdateGroup() {
 
+            // PREPARE FORM DATA
+            var formData = {
+
+            groupNameField: $('#edGroupFormGroupName').val(),
+            facultyField: $('#facultyField').val(),
+            groupNrFiled: $('#groupNrFiled').val(),
+            classNameField: $('#classNameField').val(),
+            classDayFiled: $('#classDayFiled').val(),
+            timeFromFieldH: $('#timeFromFieldH').val(),
+             timeToFieldH: $('#timeToFieldH').val(),
+              timeFromFieldM: $('#timeFromFieldM').val(),
+              timeToFieldM: $('#timeToFieldM').val()
+            }
+
+            // DO POST
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/updateGroup",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (result) {
+                    if (result.status == "success") {
+
+                        $("#postResultDivGroupUpdate").html(
+                            "Success");
+
+                    } else {
+                        $("#postResultDivGroupUpdate").html("<strong>Error</strong>");
+                    }
+                    console.log(result);
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+
+        };
 
 //Zarombisty kod ktory bierze wszystkie zaznaczone
 //                    var checkbox_value = "";

@@ -21,8 +21,11 @@ public class StudGroup {
     private String groupNrFiled;
     private String classNameField;
     private String classDayFiled;
-    private Time timeFromField; //Typ time nowy nie wiemn czy odpowiedni
-    private Time timeToField;
+    private String timeFromFieldH;
+    private String timeToFieldH;
+    private String timeFromFieldM;
+    private String timeToFieldM;
+
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -38,9 +41,11 @@ public class StudGroup {
         this.groupNrFiled = Strings.EMPTY;
         this.classNameField = Strings.EMPTY;
         this.classDayFiled = Strings.EMPTY;
-        //Mozliwe ze te pola beda do zmiany7 bo nie wiem co tam ten zanacznik time zwraca
-        this.timeFromField = new Time(0); //to jest ten konstruktor z long w milisekundach bo ten zwykly moze zaostac usunietyt
-        this.timeToField = new Time(0);
+        this.timeFromFieldH=Strings.EMPTY;
+        this.timeToFieldH=Strings.EMPTY;
+        this.timeFromFieldM=Strings.EMPTY;
+        this.timeToFieldM=Strings.EMPTY;
+
         //---------------------------------------------------
     }
 
@@ -101,21 +106,7 @@ public class StudGroup {
         this.classDayFiled = classDayFiled;
     }
 
-    public Time getTimeFromField() {
-        return timeFromField;
-    }
 
-    public void setTimeFromField(Time timeFromField) {
-        this.timeFromField = timeFromField;
-    }
-
-    public Time getTimeToField() {
-        return timeToField;
-    }
-
-    public void setTimeToField(Time timeToField) {
-        this.timeToField = timeToField;
-    }
 
     public Person getGroupsOwner() {
         return groupsOwner;
@@ -143,5 +134,37 @@ public class StudGroup {
         if (groupResource.getResourceOwner() != this) {
             groupResource.setResourceOwner(this);
         }
+    }
+
+    public String getTimeFromFieldH() {
+        return timeFromFieldH;
+    }
+
+    public void setTimeFromFieldH(String timeFromFieldH) {
+        this.timeFromFieldH = timeFromFieldH;
+    }
+
+    public String getTimeToFieldH() {
+        return timeToFieldH;
+    }
+
+    public void setTimeToFieldH(String timeToFieldH) {
+        this.timeToFieldH = timeToFieldH;
+    }
+
+    public String getTimeFromFieldM() {
+        return timeFromFieldM;
+    }
+
+    public void setTimeFromFieldM(String timeFromFieldM) {
+        this.timeFromFieldM = timeFromFieldM;
+    }
+
+    public String getTimeToFieldM() {
+        return timeToFieldM;
+    }
+
+    public void setTimeToFieldM(String timeToFieldM) {
+        this.timeToFieldM = timeToFieldM;
     }
 }
