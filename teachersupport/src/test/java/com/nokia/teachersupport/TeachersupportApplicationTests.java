@@ -1,16 +1,26 @@
 package com.nokia.teachersupport;
 
+import com.nokia.teachersupport.admin.AdminDashboardServiceImpl;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import java.io.*;
+
+
+
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class TeachersupportApplicationTests {
+public class TeachersupportApplicationTests{
+
 
 	@Test
-	public void contextLoads() {
+	public void uploadFileTest() throws FileNotFoundException, IOException{
+
 	}
 
 }

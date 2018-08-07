@@ -6,9 +6,14 @@ import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.personSecurity.personRegister.RegisterDTO;
 import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
 import com.nokia.teachersupport.roles.SecutityRole;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface IAdminDashboardService {
     void deleteUserPersonDataAdminAction(Integer userID);
@@ -29,4 +34,5 @@ public interface IAdminDashboardService {
     void createVerificationToken(UserSecurityData user, String token);
     VerificationToken getVerificationToken(String VerificationToken);
     void deleteFacultyAdminAction(Faculty faculty);
+    boolean saveUsersFromFile(InputStream stream)throws IOException;
 }

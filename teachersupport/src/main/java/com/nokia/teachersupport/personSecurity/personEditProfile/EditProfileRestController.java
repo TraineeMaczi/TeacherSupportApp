@@ -22,48 +22,23 @@ import java.util.Collection;
 
 @RestController
 public class EditProfileRestController {
-    @Autowired
-    private IPersonService personService;
-    @Autowired
-    private IUserSecurityDataService userSecurityDataService;
+   EditProfileServerImpl editProfile;
     @PostMapping("/change/name/{name}/{surname}")
     public void changeName(@PathVariable String name, @PathVariable String surname){
-        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        person.setNameField(name);
-        person.setSurnameField(surname);
-        personService.savePerson(person);
+       editProfile.saveNameChange(name, surname);
     }
     @PostMapping("/change/email")
     public String changeEmail(@RequestParam String email, @RequestParam String confirmEmail ){
-        if(!email.equals(confirmEmail))
+        if(editProfile.saveEmailChange(email, confirmEmail))
+            return "SUCCES";
+        else
             return "Error "+confirmEmail+" is different than "+email;
-        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        UserSecurityData userSecurityData=person.getUserSecurityDataField();
-        userSecurityData.setEmail(email);
-        person.setUserSecurityDataField(userSecurityData);
-        userSecurityDataService.saveUserSecurityData(userSecurityData);
-        personService.savePerson(person);
-        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder
-                .getContext().getAuthentication().getAuthorities();
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, userSecurityData.getPassword(), nowAuthorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-       return "success";
     }
     @PostMapping("/change/password")
     public String changePassword(@RequestParam String password, @RequestParam String confirmPassword ){
-        if(!password.equals(confirmPassword))
+        if(editProfile.savePasswordChange(password, confirmPassword))
+            return "SUCCES";
+        else
             return "Error "+confirmPassword+" is different than "+password;
-        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        UserSecurityData userSecurityData=person.getUserSecurityDataField();
-        userSecurityData.setPassword(password);
-        person.setUserSecurityDataField(userSecurityData);
-        userSecurityDataService.saveUserSecurityData(userSecurityData);
-        personService.savePerson(person);
-        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder
-                .getContext().getAuthentication().getAuthorities();
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userSecurityData.getEmail(), password, nowAuthorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "success";
     }
 }
