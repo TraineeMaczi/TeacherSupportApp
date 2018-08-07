@@ -1,7 +1,11 @@
 package com.nokia.teachersupport.fileUpload;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface IFileService {
-    FileModel savefile(FileModel fileModel);
+    FileModel saveFile(FileModel fileModel);
+    boolean saveMultipartFile(MultipartFile file, String type)throws IOException;
 }
