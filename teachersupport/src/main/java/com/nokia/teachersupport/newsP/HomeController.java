@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
@@ -28,7 +29,8 @@ public class HomeController {
     }
 
     @GetMapping("/teacherSupportHome")
-    String tshome(Model model) {
+    String tshome(Model model) throws InterruptedException {
+
         Person person = new Person();
         person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("logInUser", person);
@@ -39,7 +41,6 @@ public class HomeController {
     }
 
     @PostMapping("/tshome/new")
-        //tu zmienilam z malych
     String addNewNews(News news) {
         String userName = CurrentUser.getCurrentUserName();
         UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
@@ -49,5 +50,10 @@ public class HomeController {
         personService.savePerson(tmpPerson);
         newsService.saveNews(news);
         return "redirect:/teacherSupportHome";
+    }
+    @PostMapping("/tshome/delete")
+    String deleteNews(@RequestParam("id") Integer id) {
+        newsService.deleteNews(id);
+        return "SUCCES";
     }
 }
