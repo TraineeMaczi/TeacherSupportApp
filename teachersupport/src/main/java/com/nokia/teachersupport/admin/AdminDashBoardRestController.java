@@ -17,9 +17,9 @@ public class AdminDashBoardRestController {
 
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminActionFromFile")
     String addNewUsersFromFile(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-      if(adminDashboardService.saveUsersFromFile(file.getInputStream()))
-          return "SUCCES";
-      else
-          return "FAIL!";
+        if (adminDashboardService.saveUsersFromFile(file.getInputStream()))
+            return "SUCCES";
+        else
+            return "FAIL!";
     }
 }

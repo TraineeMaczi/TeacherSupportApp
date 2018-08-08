@@ -16,6 +16,7 @@ public class FileServiceImpl implements IFileService {
     @Autowired
     private IUserSecurityDataService userSecurityDataService;
     private FileRepository fileRepository;
+
     @Autowired
     public FileServiceImpl(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
@@ -28,11 +29,11 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     public boolean saveMultipartFile(MultipartFile file, String type) throws IOException {
-        FileModel fileModel = new FileModel(file.getOriginalFilename(), type,file.getBytes(),
+        FileModel fileModel = new FileModel(file.getOriginalFilename(), type, file.getBytes(),
                 personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName())));
-        if(file.getOriginalFilename().equals(""))
+        if (file.getOriginalFilename().equals(""))
             return false;
         fileRepository.save(fileModel);
-            return true;
+        return true;
     }
 }

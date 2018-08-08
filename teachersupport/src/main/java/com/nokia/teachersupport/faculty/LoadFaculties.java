@@ -19,7 +19,7 @@ public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent>
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        List<String> umkFaculties=new ArrayList<>();
+        List<String> umkFaculties = new ArrayList<>();
 
         umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
         umkFaculties.add("Wydzial Chemii");
@@ -41,10 +41,9 @@ public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent>
         umkFaculties.add("Wydzial Teologiczny");
 
 
-        for(int i=umkFaculties.size()-1;i>=0;i--)
-        {
+        for (int i = umkFaculties.size() - 1; i >= 0; i--) {
             if (facultyRepo.findByFacultyNameField(umkFaculties.get(i)) == null) {
-                Faculty faculty=new Faculty();
+                Faculty faculty = new Faculty();
                 faculty.setFacultyNameField(umkFaculties.get(i));
                 facultyRepo.save(faculty);
             }
