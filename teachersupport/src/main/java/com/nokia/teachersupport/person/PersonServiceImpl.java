@@ -48,7 +48,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public Person setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person)
+    public void setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person)
     {
         if(!basicInfoDTO.getDegree().equals("")) person.setDegreeField(basicInfoDTO.getDegree());
 
@@ -64,7 +64,7 @@ public class PersonServiceImpl implements IPersonService {
 
         if(!basicInfoDTO.getPhone().equals("")) person.setPhoneNumberField(basicInfoDTO.getPhone());
 
-        return person;
+
     }
 
 }

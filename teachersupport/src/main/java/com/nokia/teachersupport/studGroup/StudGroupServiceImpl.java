@@ -37,7 +37,15 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public StudGroup studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO) {
-        return null;
+    public void studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO,StudGroup studGroup) {
+        studGroup.setGroupNrFiled(studGroupDTO.getGroupNrFiled());
+        studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
+        studGroup.setClassNameField(studGroupDTO.getClassNameField());
+        studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
+        studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
+        studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
+        studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
+        studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
+
     }
 }

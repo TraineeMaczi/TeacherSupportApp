@@ -21,7 +21,7 @@ public class AboutMeRESTController {
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        person=personService.setPersonBasicInfo(basicInfoDTO,person);
+        personService.setPersonBasicInfo(basicInfoDTO,person);
         personService.savePerson(person);
         ServiceResponse<BasicInfoDTO> response = new ServiceResponse<BasicInfoDTO>("success", basicInfoDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);

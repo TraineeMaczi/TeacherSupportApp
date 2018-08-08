@@ -53,15 +53,9 @@ public class StudGroupRESTController {
     @PostMapping("/teacherSupportStudent/updateGroup")
     public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO) {
         if (studGroupService.getStudGroupByName(studGroupDTO.getGroupNameField()) != null) {
-            StudGroup studGroup = studGroupService.getStudGroupByName(studGroupDTO.getGroupNameField());
-            studGroup.setGroupNrFiled(studGroupDTO.getGroupNrFiled());
-            studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
-            studGroup.setClassNameField(studGroupDTO.getClassNameField());
-            studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
-            studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
-            studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
-            studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
-            studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
+           StudGroup studGroup = studGroupService.getStudGroupByName(studGroupDTO.getGroupNameField());
+            studGroupService.studGroupDTOIntoStudGroup(studGroupDTO,studGroup);
+            studGroupService.studGroupDTOIntoStudGroup(studGroupDTO,studGroup);
             studGroupService.saveStudGroup(studGroup);
         }
         //to chyba mozna by wykorzystac dla succes lub fail pinizej
