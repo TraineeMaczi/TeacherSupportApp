@@ -279,4 +279,8 @@ public class Person {
     public void setPersonMeetMeDataList(List<MeetMe> personMeetMeDataList) {
         this.personMeetMeDataList = personMeetMeDataList;
     }
+
+    public void deleteStudGroup(StudGroup studGroup) {
+    personStudGroupList.remove(studGroup);
+    }
 }

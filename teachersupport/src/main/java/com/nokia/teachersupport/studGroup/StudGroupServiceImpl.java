@@ -35,4 +35,9 @@ public class StudGroupServiceImpl implements IStudGroupService {
     public List<StudGroup> listOfAllGroups() {
         return studGroupRepo.findAll();
     }
+
+    @Override
+    public StudGroup studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO) {
+        return null;
+    }
 }

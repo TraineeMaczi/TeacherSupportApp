@@ -7,5 +7,6 @@ void deleteStudGroupById(Integer studGroupId);
 StudGroup saveStudGroup(StudGroup studGroup);
 StudGroup getStudGroupByName(String studGroupName);
 List<StudGroup> listOfAllGroups();
+StudGroup studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO);
 
 }
