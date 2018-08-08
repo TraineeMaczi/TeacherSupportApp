@@ -12,8 +12,8 @@ import java.util.Objects;
 public class GenerateController {
 
     @GetMapping("/teacherSupportGenerate")
-    String generate(Model model){
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+    String generate(Model model) {
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         return "teacherSupportGenerate";
     }
 }

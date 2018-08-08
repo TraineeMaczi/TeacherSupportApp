@@ -20,24 +20,26 @@ public class PublicationsController {
     private IPublicationsService publicationService;
 
     @Autowired
-    public PublicationsController(IPublicationsService publicationService){this.publicationService=publicationService;}
+    public PublicationsController(IPublicationsService publicationService) {
+        this.publicationService = publicationService;
+    }
+
     @GetMapping("/teacherSupportPublications")
-    String publications(Model model)
-    {
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("publications",publicationService.listOfAllPublications());
-    model.addAttribute("newPublication",new Publications());
+    String publications(Model model) {
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("publications", publicationService.listOfAllPublications());
+        model.addAttribute("newPublication", new Publications());
         return "teacherSupportPublications";
     }
+
     @PostMapping("/publications/new")
-    String addNewPublications(Publications publications)
-    {
+    String addNewPublications(Publications publications) {
         publicationService.savePublications(publications);
         return "redirect:/teacherSupportPublications";
     }
+
     @PostMapping("/publications/delete")
-    String deletePublications(@RequestParam("id") Integer id)
-    {
+    String deletePublications(@RequestParam("id") Integer id) {
         publicationService.deletePublications(id);
         return "SUCCES";
     }

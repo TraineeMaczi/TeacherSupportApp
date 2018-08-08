@@ -17,6 +17,7 @@ import java.io.IOException;
 public class UpdateFileController {
     @Autowired
     FileServiceImpl fileService;
+
     @PostMapping("/upload/{type}")
     public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) throws IOException {
         if (fileService.saveMultipartFile(file, type))

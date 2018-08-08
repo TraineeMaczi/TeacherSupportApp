@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.admin;
 
+import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.FacultyRepo;
 import com.nokia.teachersupport.person.Person;
@@ -13,6 +14,7 @@ import com.nokia.teachersupport.roles.RoleRepo;
 import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Null;
@@ -22,7 +24,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 @Service
 public class AdminDashboardServiceImpl implements IAdminDashboardService {
 
@@ -59,22 +63,21 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
     public void setRoleRepo(RoleRepo roleRepo) {
         this.roleRepo = roleRepo;
     }
+
     @Override
     public void deleteUserPersonDataAdminAction(Integer userID) {
-    aDSPersonRepoInstance.deleteById(userID);
+        aDSPersonRepoInstance.deleteById(userID);
     }
 
     @Override
     public void deleteUserSecurityDataAdminAction(Integer userID) {
-aDSUserSecurityDataRepoInstance.deleteById(userID);
+        aDSUserSecurityDataRepoInstance.deleteById(userID);
     }
 
     @Override
     public void deleteUserFacultyDataAdminAction(Integer facultyID) {
         facultyRepo.deleteById(facultyID);
     }
-
-
 
 
     @Override
@@ -86,9 +89,6 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
     public SecutityRole saveUserRoleDataAdminAction(SecutityRole secutityRole) {
         return roleRepo.save(secutityRole);
     }
-
-
-
 
 
     @Override
@@ -121,7 +121,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public UserSecurityData getUserSecurityDataByEmail(String email) {
-        UserSecurityData usd=aDSUserSecurityDataRepoInstance.findByEmail(email);
+        UserSecurityData usd = aDSUserSecurityDataRepoInstance.findByEmail(email);
         return usd;
     }
 
@@ -132,7 +132,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public SecutityRole getRoleByName(String rName) {
-        SecutityRole secutityRole=roleRepo.findByRoleName(rName);
+        SecutityRole secutityRole = roleRepo.findByRoleName(rName);
         return secutityRole;
     }
 
@@ -143,7 +143,7 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
     @Override
     public UserSecurityData registerNewUserAction(RegisterDTO registerDTO) {
-        UserSecurityData userSecurityData=aDSUserSecurityDataRepoInstance.findByEmail(registerDTO.getUserName_Email());
+        UserSecurityData userSecurityData = aDSUserSecurityDataRepoInstance.findByEmail(registerDTO.getUserName_Email());
         userSecurityData.setActive(true);
         userSecurityData.setPassword(registerDTO.getUserPass());
         userSecurityData.setMatchingPassword(registerDTO.getUserConfirmPass());
@@ -184,11 +184,11 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
 
             do {
                 String[] parts = newline.split(",");
-                 myName = parts[0];
-                 mySurname = parts[1];
-                 myFaculty = parts[2];
-                 myRole = parts[3];
-                 myEmail = parts[4];
+                myName = parts[0];
+                mySurname = parts[1];
+                myFaculty = parts[2];
+                myRole = parts[3];
+                myEmail = parts[4];
                 if ((adminDashboardService.getUserSecurityDataByEmail(myEmail) == null) &&
                         (adminDashboardService.getFacultyByName(myFaculty) != null) &&
                         (adminDashboardService.getRoleByName(myRole) != null)) {
@@ -222,4 +222,55 @@ aDSUserSecurityDataRepoInstance.deleteById(userID);
             return false;
         }
     }
+
+    @Override
+    public void dashModel(Model model) {
+        model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
+        model.addAttribute("newFaculty", new Faculty());
+        model.addAttribute("hAllFaculty", adminDashboardService.listOfAllFaculties());
+        model.addAttribute("currentUsers", adminDashboardService.listOfAllPersons());
+        model.addAttribute("selectedFaculty", new Faculty()); // to zbiera wydzila do usuniecia
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+    }
+
+    @Override
+    public void addUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
+        //jak nie mam takiego e-mail w bazie jeszcze i jak wydzial istnieje i jesli rola istnieje
+        if ((adminDashboardService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null) &&
+                (adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserFacultyDTOField()) != null) &&
+                (adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField()) != null)) {
+
+            Person person = new Person();
+            UserSecurityData userSecurityData = new UserSecurityData();
+            Faculty faculty = adminDashboardService.getFacultyByName(userDTOForAdminActionDTO.getUserFacultyDTOField());
+            SecutityRole secutityRole = adminDashboardService.getRoleByName(userDTOForAdminActionDTO.getUserRoleDTOField());
+            //Tak samo jak dla faculty musi byc security rolke
+
+            person.setNameField(userDTOForAdminActionDTO.getUserNameDTOField());
+            person.setSurnameField(userDTOForAdminActionDTO.getUserSurnameDTOField());
+
+
+            faculty.addPersonToFaculty(person);//!
+            person.setFacultyField(faculty); //to nie wiem czy potrzebne bo sa zabezpieczenia w obie str
+
+            userSecurityData.setActive(false);
+            userSecurityData.setEmail(userDTOForAdminActionDTO.getUserEmailDTOField());
+            userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
+            userSecurityData.setMatchingPassword("NULL");
+
+            userSecurityData.addARole(secutityRole);
+            secutityRole.addUserSecurityDataToRole(userSecurityData);
+
+            person.setUserSecurityDataField(userSecurityData);
+
+
+            adminDashboardService.saveUserPersonDataAdminAction(person);
+            adminDashboardService.saveUserSecurityDataAdminAction(userSecurityData);
+
+            //Czy ja mam ten faculty i role  zapisywac XD ?
+            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+            adminDashboardService.saveUserRoleDataAdminAction(secutityRole);
+        }
+    }
+
 }
