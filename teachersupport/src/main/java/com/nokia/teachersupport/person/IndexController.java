@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
@@ -34,10 +36,14 @@ public class IndexController {
         return "teacherSupportIndex";
     }
     @PostMapping("/index/confirmFaculty")
-    void saveFaculty(@RequestParam("facultyName") String name) {
+    String saveFaculty(@RequestParam("facultyName") String name) {
        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
        person.setFacultyField(facultyService.findFaculty(name));
+       Faculty faculty=facultyService.findFaculty(name);
+       faculty.addPersonToFaculty(person);
+       facultyService.saveFaculty(faculty);
        personService.savePerson(person);
+       return "teacherSupportIndex";
     }
 
 }
