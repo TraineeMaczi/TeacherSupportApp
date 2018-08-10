@@ -10,12 +10,13 @@ import java.util.Optional;
 public class MeetMeServiceImpl implements IMeetMeService {
 
     private MeetMeRepo meetMeRepo;
-
-    public MeetMeServiceImpl(MeetMeRepo meetMeRepo) {
-        this.meetMeRepo = meetMeRepo;
-    }
+    private PersonRepo personRepo;
 
     @Autowired
+    public MeetMeServiceImpl(MeetMeRepo meetMeRepo, PersonRepo personRepo) {
+        this.meetMeRepo = meetMeRepo;
+        this.personRepo = personRepo;
+    }
 
     @Override
     public List<MeetMe> listOfAllMeetMe() {
@@ -28,6 +29,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
         MeetMe meetMe = Opt.orElse(new MeetMe());
         return meetMe;
     }
+
     @Override
     public MeetMe saveMeetMe(MeetMe meetMe) {
         return meetMeRepo.save(meetMe);
@@ -40,13 +42,18 @@ public class MeetMeServiceImpl implements IMeetMeService {
 
     @Override
     public MeetMe meetMeDTOIntoMeetMe(MeetMeDTO meetMeDTO) {
-        MeetMe meetMe=new MeetMe();
+        MeetMe meetMe = new MeetMe();
         meetMe.setPlaceField(meetMeDTO.getPlaceField());
         meetMe.setOfficeField(meetMeDTO.getOfficeField());
         meetMe.setDayField(meetMeDTO.getDayField());
-        meetMe.setTimeField(meetMeDTO.getTimeFromFieldH()+":"+meetMeDTO.getTimeFromFieldM()+"-"+meetMeDTO.getTimeToFieldH()+":"+meetMeDTO.getTimeToFieldM());
+        meetMe.setTimeField(meetMeDTO.getTimeFromFieldH() + ":" + meetMeDTO.getTimeFromFieldM() + "-" + meetMeDTO.getTimeToFieldH() + ":" + meetMeDTO.getTimeToFieldM());
         return meetMe;
     }
 
-
+    public void addContactInfo(Person person, MeetMe meetMe) {
+        meetMe.setMeetMeOwner(person);
+        person.addMeetMeToMyList(meetMe);
+        this.saveMeetMe(meetMe);
+        personRepo.save(person);
+    }
 }

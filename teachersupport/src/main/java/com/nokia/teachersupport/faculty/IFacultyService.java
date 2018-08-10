@@ -6,4 +6,5 @@ public interface IFacultyService {
     List<Faculty> listOfAllFaculties();
 
     Faculty findFaculty(String facultyName);
+    Faculty saveFaculty(Faculty faculty);
 }

@@ -36,4 +36,9 @@ public class FileServiceImpl implements IFileService {
         fileRepository.save(fileModel);
         return true;
     }
+
+    @Override
+    public FileModel findFileByName(String name) {
+        return fileRepository.findByName(name);
+    }
 }
