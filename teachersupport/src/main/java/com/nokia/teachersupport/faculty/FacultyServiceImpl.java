@@ -23,4 +23,9 @@ public class FacultyServiceImpl implements IFacultyService{
     public Faculty findFaculty(String facultyName) {
         return facultyRepo.findByFacultyNameField(facultyName);
     }
+
+    @Override
+    public Faculty saveFaculty(Faculty faculty) {
+        return facultyRepo.save(faculty);
+    }
 }

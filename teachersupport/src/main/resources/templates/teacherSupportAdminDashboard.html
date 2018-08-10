@@ -225,30 +225,16 @@
 
                 <div class="col">
                     <h3 class="mb-4">Add Faculty</h3>
-                    <form id="newFacultyForm" class="form-control bg-gray" th:object="${newFaculty}"
-                          th:action="@{/teacherSupportAdminDashboard/newFacultyAdminAction}" method="post">
-                        <input type="hidden" th:field="*{id}"/>
-                        <input type="hidden" th:field="*{version}"/>
-                        <input type="hidden" th:field="*{facultyAndPersonList}"/>
-                        <input type="hidden" th:field="*{checkedField}"/>
-                        <input type="text" th:field="*{facultyNameField}" class="form-control rounded text-center"/>
-
-                    </form>
-                    <div class="text-right mt-2">
-                        <button type="submit" form="newFacultyForm" class="btn mt-2 bg-changableColor text-white">Add
-                        </button>
-                    </div>
-
-                    <h3 class="mb-4">Add Faculty Picture</h3>
-
                     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                         <div class="form-group mt-4">
 
                             <div>
+                                <input id="facultyName" type="text" name="facultyName" class="form-control rounded text-center mb-2"/>
+
                                 <label for="facultyFotoAdd" class="btn text-white bg-changableColor rounded ">Add
                                     Faculty Foto</label>
                                 <div class="ml-4">
-                                    <input id="facultyFotoAdd" style="visibility:hidden;" type="file" name="uploadfile">
+                                    <input id="facultyFotoAdd" style="visibility:hidden;" type="file" name="uploadFile">
                                 </div>
                             </div>
                         </div>

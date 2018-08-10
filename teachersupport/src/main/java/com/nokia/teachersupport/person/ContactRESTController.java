@@ -28,12 +28,10 @@ private IMeetMeService meetMeService;
     public ResponseEntity<Object> addContactInfo(@RequestBody MeetMeDTO meetMeDTO) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         MeetMe meetMe=meetMeService.meetMeDTOIntoMeetMe(meetMeDTO);
-        meetMe.setMeetMeOwner(person);
-        person.addMeetMeToMyList(meetMe);
-        meetMeService.saveMeetMe(meetMe);
-        personService.savePerson(person);
-
+        meetMeService.addContactInfo(person, meetMe);
         ServiceResponse<MeetMeDTO> response = new ServiceResponse<MeetMeDTO>("success", meetMeDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
+
 }

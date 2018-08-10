@@ -19,14 +19,13 @@ function doAjax(formName, listFiles, typ) {
     event.preventDefault();
     formName='#'+formName;
     listFiles='#'+listFiles;
-
+    var facultyName= $('#facultyName').val()
     var form = $(formName)[0];
     var data = new FormData(form);
-
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: '/upload/'+typ,
+        url: '/addFaculty/'+facultyName,
         data: data,
 
         processData: false,

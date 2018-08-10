@@ -84,7 +84,7 @@
             </div>
             <div class="jumbotron text-center rounded-0 bg-white text-dark mb-0">
                     
-                   <form id="selectFaculty">
+                   <form id="selectFaculty" method="POST">
                            <div class="table-responsive">
                                <table class="table">
                                    <tbody>
@@ -95,7 +95,7 @@
                                        <td  th:text="${one.facultyNameField}"></td>
                                        <td>
                                            <div class="form-check ">
-                                            <img src="img/logo.jpg" class="rounded mt-1" alt="...">
+                                            <img  src="img/logo.jpg" th:id="${one.id}"  class="rounded mt-1" alt="...">
                                             <input class="form-check-input" type="radio" name="selectedFaculty" th:value="${one.facultyNameField}"/>
                                            </div>
                                        </td>
@@ -109,7 +109,7 @@
                     <button type="button" class=" btn text-white bg-changableColor btn-sm mt-3"id="confirmFacultyButton">Confirm Faculty</button>
                    </form>    
             </div>
-                    
+    <img  id="imageFaculty2" class="rounded mt-1" alt="...">
 <div class="jumbotron footer-copyright text-center py-3 rounded-0 bg-changableColor text-white">© 2018 Copyright: Karolina Makowska </div>
 
 </body>

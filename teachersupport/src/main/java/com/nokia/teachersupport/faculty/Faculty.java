@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.faculty;
 
+import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
 
@@ -22,13 +23,21 @@ public class Faculty {
 
     @OneToMany(mappedBy = "facultyField")
     private List<Person> facultyAndPersonList;   //A tu nie ma new czemu to dzila a przy many to many nie -.-
-
+    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    private FileModel file;
     public Faculty()
     {
         this.facultyNameField= Strings.EMPTY;
         this.checkedField=false;
     }
 
+    public FileModel getFile() {
+        return file;
+    }
+
+    public void setFile(FileModel file) {
+        this.file = file;
+    }
 
     public Integer getId() {
         return id;
