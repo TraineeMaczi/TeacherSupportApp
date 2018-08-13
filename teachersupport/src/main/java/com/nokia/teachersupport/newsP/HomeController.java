@@ -32,7 +32,7 @@ public class HomeController {
     @PostMapping("/tshome/delete")
     String deleteNews(@RequestParam("id") Integer id) {
         newsService.deleteNews(id);
-        return "SUCCES";
+        return "redirect:/teacherSupportHome";
     }
 
 }
