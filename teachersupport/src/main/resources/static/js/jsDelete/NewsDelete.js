@@ -1,8 +1,9 @@
 $(document).ready(
     function () {
-        $("#deleteNewsButton").on('click', function () {
-            var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
+        $("#deleteNewsButton").on('click', function (event) {
             event.preventDefault();
+            var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
+
             $.ajax({
                 type: "POST",
                 url: '/tshome/delete',
