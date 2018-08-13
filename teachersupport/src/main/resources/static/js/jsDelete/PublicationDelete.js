@@ -1,8 +1,8 @@
 $(document).ready(
     function () {
-        $("#publicationDeleteButton").on('click', function () {
-            var item = $('input[name=selectPublication]:checked', '#publicationDeleteForm').val();
+        $("#publicationDeleteButton").on('click', function (event) {
             event.preventDefault();
+            var item = $('input[name=selectPublication]:checked', '#publicationDeleteForm').val();
             $.ajax({
                 type: "POST",
                 url: '/publications/delete',
