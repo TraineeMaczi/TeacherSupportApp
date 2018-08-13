@@ -28,4 +28,9 @@ public class FacultyServiceImpl implements IFacultyService{
     public Faculty saveFaculty(Faculty faculty) {
         return facultyRepo.save(faculty);
     }
+
+    @Override
+    public Faculty findFacultyById(Integer Id) {
+        return facultyRepo.findByid(Id);
+    }
 }
