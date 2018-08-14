@@ -33,7 +33,7 @@ public class Person {
 
     private String facebookField;
     private String twitterField;
-
+    private String currentGroupName;
     //private String fotoField;
     //private String cvField;
 
@@ -55,12 +55,13 @@ public class Person {
     @OneToMany(mappedBy = "groupsOwner")
     private List<StudGroup> personStudGroupList;
 
-    @OneToMany(mappedBy = "filesOwner")
-    private List<FileModel> personFiles;
 
     @OneToMany(mappedBy = "meetMeOwner")
     private List<MeetMe> personMeetMeDataList;
-
+    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    private FileModel foto;
+    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    private FileModel CV;
     public Person() {
         this.degreeField = Strings.EMPTY;
         this.nameField = Strings.EMPTY;
@@ -93,12 +94,29 @@ public class Person {
 //        this.hobbyField = person.hobbyField;
 //    }
 
-    public List<FileModel> getPersonFiles() {
-        return personFiles;
+
+    public FileModel getCV() {
+        return CV;
     }
 
-    public void setPersonFiles(List<FileModel> personFiles) {
-        this.personFiles = personFiles;
+    public void setCV(FileModel CV) {
+        this.CV = CV;
+    }
+
+    public FileModel getFoto() {
+        return foto;
+    }
+
+    public void setFoto(FileModel foto) {
+        this.foto = foto;
+    }
+
+    public String getCurrentGroupName() {
+        return currentGroupName;
+    }
+
+    public void setCurrentGroupName(String currentGroupName) {
+        this.currentGroupName = currentGroupName;
     }
 
     public Integer getVersion() {

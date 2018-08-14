@@ -9,6 +9,7 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class StudGroupRESTController {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.studGroupService = studGroupService;
-        this.studGroupLocalInstanc = null;
+        this.studGroupLocalInstanc = new StudGroup();
     }
 
 
@@ -36,6 +37,8 @@ public class StudGroupRESTController {
     public ResponseEntity<Object> editGroup(@RequestBody String groupName) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
+        person.setCurrentGroupName(groupName);
+        personService.savePerson(person);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
