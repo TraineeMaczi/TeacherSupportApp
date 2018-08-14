@@ -3,6 +3,7 @@ package com.nokia.teachersupport.fileUpload;
 import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.studGroup.StudGroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class UpdateFileController {
 
     @PostMapping("/upload/{type}")
     public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) throws IOException {
-        if (fileService.saveMultipartFile(file, type))
+        if (!fileService.saveMultipartFile(file, type).getName().equals(""))
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
         else
             return "FAIL! \n" +

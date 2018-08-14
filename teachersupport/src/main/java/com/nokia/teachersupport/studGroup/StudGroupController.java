@@ -37,6 +37,10 @@ public class StudGroupController {
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        if(person.getCurrentGroupName()!=null) {
+            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(person.getCurrentGroupName()).getFileModels());
+            model.addAttribute("currentGroupName", person.getCurrentGroupName());
+        }
         return "teacherSupportStudent";
     }
 

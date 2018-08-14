@@ -1,10 +1,29 @@
 
 $(document).ready(
     function() {
+        $.ajax({
+            type: "GET",
+            url: '/givePhoto',
+            success: function (result) {
+                if (result.status == "success") {
+
+                    document.getElementById("personFoto").src=result.data;
+
+                } else {
+                    document.getElementById("personFoto").src=result.data;
+                }
+                console.log(result);
+            },
+            error: function (e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+
+        });
         $("#btn1").on('click', function (event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
-            doAjax('fileUploadForm', 'listFiles', 'foto');
+            doAjax2('fileUploadForm', 'listFiles', 'foto');
         });
         $("#btn2").on('click', function (event) {
             // Prevent the form from submitting via the browser.
@@ -25,7 +44,7 @@ function doAjax(formName, listFiles, typ) {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: '/upload/'+typ,
+        url: '/uploadCV',
         data: data,
 
         processData: false,
@@ -33,6 +52,51 @@ function doAjax(formName, listFiles, typ) {
         cache: false,
         success: (data) => {
         $(listFiles).text(data);
+},
+    error: (e) => {
+        $(listFiles).text(e.responseText);
+    }
+});
+}
+function doAjax2(formName, listFiles, typ) {
+
+
+    formName='#'+formName;
+    listFiles='#'+listFiles;
+
+    var form = $(formName)[0];
+    var data = new FormData(form);
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: '/uploadFoto',
+        data: data,
+
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: (data) => {
+        $(listFiles).text(data);
+        $.ajax({
+        type: "GET",
+        url: '/givePhoto',
+        success: function (result) {
+            if (result.status == "success") {
+
+                document.getElementById("personFoto").src=result.data;
+
+            } else {
+                document.getElementById("personFoto").src=result.data;
+            }
+            console.log(result);
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+
+    });
 },
     error: (e) => {
         $(listFiles).text(e.responseText);

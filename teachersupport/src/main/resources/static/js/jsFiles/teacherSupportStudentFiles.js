@@ -17,11 +17,11 @@ function doAjax(formName, listFiles, typ) {
 
     var form = $(formName)[0];
     var data = new FormData(form);
-
+    var id=document.getElementById('dispGroupForResource').value;
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: '/upload/'+typ,
+        url: '/upload/'+typ+id,
         data: data,
 
         processData: false,

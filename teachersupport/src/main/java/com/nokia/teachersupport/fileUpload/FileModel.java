@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.fileUpload;
 
 import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.studGroup.StudGroup;
 
 import javax.persistence.*;
 
@@ -11,7 +12,6 @@ public class FileModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "name")
     private String name;
     @Column(name = "type")
@@ -20,16 +20,23 @@ public class FileModel {
     @Column(name = "pic")
     private byte[] pic;
     @ManyToOne
-    Person filesOwner;
-
+    private StudGroup filesOfGroup;
     public FileModel() {
     }
 
-    public FileModel(String name, String type, byte[] pic, Person filesOwner) {
+    public FileModel(String name, String type, byte[] pic) {
         this.name = name;
         this.type = type;
         this.pic = pic;
-        this.filesOwner = filesOwner;
+
+    }
+
+    public StudGroup getFilesOfGroup() {
+        return filesOfGroup;
+    }
+
+    public void setFilesOfGroup(StudGroup filesOfGroup) {
+        this.filesOfGroup = filesOfGroup;
     }
 
     public String getType() {
@@ -40,13 +47,6 @@ public class FileModel {
         this.type = type;
     }
 
-    public Person getFilesOwner() {
-        return filesOwner;
-    }
-
-    public void setFilesOwner(Person filesOwner) {
-        this.filesOwner = filesOwner;
-    }
 
     public Long getId() {
         return this.id;

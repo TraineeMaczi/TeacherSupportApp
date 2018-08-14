@@ -21,7 +21,6 @@
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
 
-    <script src="/js/jsFiles/teacherSupportAboutMeFiles.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script
@@ -35,7 +34,7 @@
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
 
-
+    <script src="/js/jsFiles/teacherSupportStudentFiles.js"></script>
     <script href="../static/js/postJS.js" th:src="@{js/postJS.js}"
             type="text/javascript"></script>
 </head>
@@ -149,7 +148,7 @@
                             <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" id="edGroupFormGroupName" class="form-control rounded text-center d-inline" />
+                            <input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
@@ -233,7 +232,7 @@
             </div>
             <div class="col bg-white jumbotron text-dark mr-3">
 
-                <input type="text" class="form-control text-center" id="dispGroupForResource" disabled>
+                <input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${currentGroupName}" disabled>
 
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                     <div class="form-group mt-4">
@@ -257,9 +256,9 @@
                                 <tbody>
 
 
-                                <tr>
+                                <tr th:each="one : ${groupFiles}">
                                     <!--To kopiowac-->
-                                    <td>Sample Resource</td>
+                                    <td  th:text="${one.name}" ></td>
                                     <td>
                                         <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID" value="SAMPLE_VALUE">
                                     </td>
