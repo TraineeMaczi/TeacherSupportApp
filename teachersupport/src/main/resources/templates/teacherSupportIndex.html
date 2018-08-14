@@ -88,18 +88,17 @@
                     
                    <form id="selectFaculty" method="POST">
                            <div class="table-responsive">
-                               <div class="table-responsive makeMeScroll">
+                               <div class="table-responsive">
                                <table class="table">
                                    <tbody>
 
 
-                                   <tr th:each="one : ${facultyList}">
-                                       <!--To kopiowac-->
-                                       <td  th:text="${one.facultyNameField}"></td>
-                                       <td>
-                                           <div class="form-check ">
-                                            <img  src="img/logo.jpg" th:id="${one.id}"  class="rounded mt-1" alt="..." height="200" width="200">
-                                            <input class="form-check-input" type="radio" name="selectedFaculty" th:value="${one.facultyNameField}"/>
+                                   <tr>
+                                       <td th:each="one : ${facultyList}">
+                                           <div class="form-check">
+                                               <input class="form-check-input" type="radio" name="selectedFaculty" th:value="${one.facultyNameField}"/>
+                                            <img  src="img/logo.jpg" th:id="${one.id}"  class="rounded mt-1" alt="..." height="200" width="200"/>
+                                               <p class="mt-2" th:text="${one.facultyNameField}"></p>
                                            </div>
                                        </td>
                                        <!--...............................................-->

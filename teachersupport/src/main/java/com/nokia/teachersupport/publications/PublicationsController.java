@@ -41,7 +41,7 @@ public class PublicationsController {
     @PostMapping("/publications/delete")
     String deletePublications(@RequestParam("id") Integer id) {
         publicationService.deletePublications(id);
-        return "SUCCES";
+        return "redirect:/teacherSupportPublications";
     }
 }
 
