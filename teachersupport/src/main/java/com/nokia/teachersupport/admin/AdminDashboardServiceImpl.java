@@ -229,7 +229,6 @@ public class AdminDashboardServiceImpl implements IAdminDashboardService {
         model.addAttribute("newFaculty", new Faculty());
         model.addAttribute("hAllFaculty", adminDashboardService.listOfAllFaculties());
         model.addAttribute("currentUsers", adminDashboardService.listOfAllPersons());
-        model.addAttribute("selectedFaculty", new Faculty()); // to zbiera wydzila do usuniecia
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
     }
 
