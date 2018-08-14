@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
+import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
 
@@ -33,7 +34,8 @@ public class StudGroup {
 
     @OneToMany(mappedBy = "resourceOwner")
     private List<GroupResources> groupsResourcesList;
-
+    @OneToMany(mappedBy = "filesOfGroup" )
+    private List<FileModel>fileModels;
 
     public StudGroup() {
         this.groupNameField = Strings.EMPTY;
@@ -106,7 +108,13 @@ public class StudGroup {
         this.classDayFiled = classDayFiled;
     }
 
+    public List<FileModel> getFileModels() {
+        return fileModels;
+    }
 
+    public void setFileModels(List<FileModel> fileModels) {
+        this.fileModels = fileModels;
+    }
 
     public Person getGroupsOwner() {
         return groupsOwner;
