@@ -19,7 +19,7 @@ public class Faculty {
     private String facultyNameField;
     //Pole z fotka na razie brak
 
-    private boolean checkedField;
+
 
     @OneToMany(mappedBy = "facultyField")
     private List<Person> facultyAndPersonList;   //A tu nie ma new czemu to dzila a przy many to many nie -.-
@@ -28,7 +28,7 @@ public class Faculty {
     public Faculty()
     {
         this.facultyNameField= Strings.EMPTY;
-        this.checkedField=false;
+
     }
 
     public FileModel getFile() {
@@ -79,11 +79,5 @@ public void addPersonToFaculty(Person person)
 }
 
 
-    public boolean isCheckedField() {
-        return checkedField;
-    }
 
-    public void setCheckedField(boolean checkedField) {
-        this.checkedField = checkedField;
-    }
 }

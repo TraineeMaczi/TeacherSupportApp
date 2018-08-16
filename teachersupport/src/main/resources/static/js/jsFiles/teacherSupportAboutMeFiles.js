@@ -34,7 +34,6 @@ $(document).ready(
 
 function doAjax(formName, listFiles, typ) {
 
-
     formName='#'+formName;
     listFiles='#'+listFiles;
 
