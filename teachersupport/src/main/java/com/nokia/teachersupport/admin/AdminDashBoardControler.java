@@ -49,14 +49,14 @@ public class AdminDashBoardControler {
         return "redirect:/teacherSupportAdminDashboard";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
-    String addNewFaculty(Faculty faculty) {
-        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
-            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
-        }
-        return "redirect:/teacherSupportAdminDashboard";
-    }
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
+//    String addNewFaculty(Faculty faculty) {
+//        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
+//            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+//        }
+//        return "redirect:/teacherSupportAdminDashboard";
+//    }
 
 
 

@@ -72,11 +72,11 @@ $(document).ready(
                         contentType: "application/json",
                         url: "/teacherSupportAdminDashboard/deleteFacultyAdminAction",
                         data: item,
-                        dataType: 'json'
-//                                success: function()
-//                                {
-//                                   alert(item);
-//                                }
+                         dataType: 'json',
+                        success: function()
+                        {
+                          location.reload();
+                        }
 
                     });
                 });

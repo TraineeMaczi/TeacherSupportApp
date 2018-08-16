@@ -6,12 +6,12 @@ import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.person.ServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class AdminDashBoardRestController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
-    String deleteFaculty(String facultyName) {
+    public ResponseEntity<Object> deleteFacultySiteAction(@RequestBody String facultyName) {
         if (adminDashboardService.getFacultyByName(facultyName) != null) {
             Faculty faculty=adminDashboardService.getFacultyByName(facultyName);
 
@@ -61,11 +61,14 @@ public class AdminDashBoardRestController {
             for(Integer i=0;!myPersons.isEmpty();i++)
             {
                 Person currentPerson=myPersons.get(i);
-                currentPerson.setFacultyField(null);
-                myPersons.remove(i);
+                currentPerson.deleteFaculty(faculty);
+                myPersons.remove(currentPerson);
             }
             adminDashboardService.deleteFacultyAdminAction(faculty);
         }
-        return "redirect:/teacherSupportAdminDashboard";
+        ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 }
+
+
