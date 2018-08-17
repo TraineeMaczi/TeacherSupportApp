@@ -15,6 +15,7 @@ public interface INewsService
     void addNews(News news);
     News findNewsByContent(String content);
     News goEditNews(EditNewsDTO editNewsDTO);
+    void deleteNewsByContent(String newsContent);
 
 
 }

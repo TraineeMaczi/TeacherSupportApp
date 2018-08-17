@@ -29,11 +29,7 @@ public class HomeController {
         return "redirect:/teacherSupportHome";
     }
 
-    @PostMapping("/tshome/delete")
-    String deleteNews(@RequestParam("id") Integer id) {
-        newsService.deleteNews(id);
-        return "redirect:/teacherSupportHome";
-    }
+
 
     @PostMapping("/teacherSupportHome/editNews")
     String editNews(EditNewsDTO editNewsDTO) {

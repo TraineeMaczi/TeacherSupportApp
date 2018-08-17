@@ -10,4 +10,5 @@ public interface IPublicationsService {
     void deletePublications(Integer id);
     Publications getByPublicationsInfoField(String publicationsInfoField);
     Publications goEditPublications(EditPublicationDTO editPublicationDTO);
+    void deletePublicationByContent(String publiContent);
 }

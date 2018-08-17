@@ -52,5 +52,10 @@ public class PublicationsServiceImpl implements IPublicationsService {
         }
         return publication;
     }
+
+    @Override
+    public void deletePublicationByContent(String publiContent) {
+        publicationsRepo.delete(publicationsRepo.findByPublicationsInfoField(publiContent));
+    }
 }
 

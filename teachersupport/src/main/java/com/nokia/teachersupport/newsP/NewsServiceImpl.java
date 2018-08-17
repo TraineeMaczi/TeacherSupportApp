@@ -88,4 +88,9 @@ public class NewsServiceImpl implements INewsService {
         }
         return news;
     }
+
+    @Override
+    public void deleteNewsByContent(String newsContent) {
+        newsRepo.delete(newsRepo.findByNewsContentField(newsContent));
+    }
 }
