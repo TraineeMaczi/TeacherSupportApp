@@ -148,10 +148,10 @@
             <div class="modal-body">
                 <div class="container pt-3 pb-3  rounded bg-changableColor">
                     <form id="editNewsModalForm"  th:object="${editNewsPostObj}" th:action="@{/teacherSupportHome/editNews}" method="post">
-                        <input type="text" class="form-control bg-white border-0 d-inline text-center mb-3" placeholder="Old News Content" disabled/>
-                        <textarea class="form-control rounded text-center" id="editNewsModalContentOld" th:field="*{oldContent}" disabled></textarea>
-                        <!--<input type="text" class="form-control bg-white border-0 d-inline text-center mt-3" placeholder="New News Content" disabled/>-->
-                        <textarea class="form-control rounded text-center mt-3"  placeholder="Enter new text here ..."   th:field="*{newContent}"></textarea>
+
+                        <input type="hidden"th:field="*{oldContent}" id="editNewsModalContentOld" />
+                      
+                        <textarea class="form-control rounded text-center mt-3"  id="editNewsModalContentNew"   th:field="*{newContent}"></textarea>
 
                     </form>
                 </div>

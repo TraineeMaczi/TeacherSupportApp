@@ -31,6 +31,7 @@ $(document).ready(
             var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
 
               document.getElementById('editNewsModalContentOld').value=item;
+              document.getElementById('editNewsModalContentNew').value=item;
         });
 
 

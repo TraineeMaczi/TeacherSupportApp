@@ -80,8 +80,12 @@ public class NewsServiceImpl implements INewsService {
 
     public News goEditNews(EditNewsDTO editNewsDTO)
     {
-        newsRepo.findByNewsContentField(editNewsDTO.getOldContent());
-
-        return new News();
+        News news=new News();
+        if(newsRepo.findByNewsContentField(editNewsDTO.getOldContent())!=null) {
+            news = newsRepo.findByNewsContentField(editNewsDTO.getOldContent());
+            news.setNewsContentField(editNewsDTO.getNewContent());
+            newsRepo.save(news);
+        }
+        return news;
     }
 }
