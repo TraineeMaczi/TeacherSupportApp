@@ -27,6 +27,15 @@ $(document).ready(
 //                });
 
 
+ $("#editNewsButton").on('click', function () {
+            var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
+
+              document.getElementById('editNewsModalContentOld').value=item;
+        });
+
+
+
+
         $("#editStudGroupButton").on('click', function () {
             var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
 //                    alert(item);
@@ -184,6 +193,7 @@ function ajaxPostContact() {
             if (result.status == "success") {
                 $("#postResultDivContact").html(
                     "Success");
+                    location.reload();
             } else {
                 $("#postResultDivContact").html("<strong>Error</strong>");
             }

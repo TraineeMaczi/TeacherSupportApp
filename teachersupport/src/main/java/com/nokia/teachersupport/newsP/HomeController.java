@@ -35,4 +35,10 @@ public class HomeController {
         return "redirect:/teacherSupportHome";
     }
 
+    @PostMapping("/teacherSupportHome/editNews")
+    String editNews(EditNewsDTO editNewsDTO) {
+        newsService.goEditNews(editNewsDTO);
+        return "redirect:/teacherSupportHome";
+    }
+
 }
