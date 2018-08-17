@@ -41,7 +41,7 @@ public class StudGroupController {
         if(person.getCurrentGroupName()!=null) {
             model.addAttribute("groupFiles", studGroupService.getStudGroupByName(person.getCurrentGroupName()).getFileModels());
             model.addAttribute("currentGroupName", person.getCurrentGroupName());
-            session.getAttribute("arg1");
+            session.getAttribute("currentStudGroupName");
         }
         return "teacherSupportStudent";
     }

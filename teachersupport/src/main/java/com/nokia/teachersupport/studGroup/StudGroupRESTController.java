@@ -37,9 +37,9 @@ public class StudGroupRESTController {
     public ResponseEntity<Object> editGroup(@RequestBody String groupName,HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
-        person.setCurrentGroupName(groupName);
-        personService.savePerson(person);
-        session.setAttribute("arg1","Changed");
+//        person.setCurrentGroupName(groupName);
+//        personService.savePerson(person);
+        session.setAttribute("currentStudGroupName","groupName");
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
