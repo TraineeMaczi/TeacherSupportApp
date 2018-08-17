@@ -32,8 +32,7 @@ public class AdminDashBoardRestController {
     }
     @PostMapping("/addFaculty/{facultyName}")
     public String uploadMultipartFile(@RequestParam("uploadFile") MultipartFile file,@PathVariable("facultyName") String facultyName) throws IOException {
-        fileService.saveMultipartFile(file, "facultyFoto");
-        FileModel fileModel=fileService.findFileByName(file.getOriginalFilename());
+        FileModel fileModel= fileService.saveMultipartFile(file, "facultyFoto");
         Faculty faculty= new Faculty();
         faculty.setFacultyNameField(facultyName);
         faculty.setFile(fileModel);
