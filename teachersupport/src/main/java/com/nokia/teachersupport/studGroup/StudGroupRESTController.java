@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class StudGroupRESTController {
@@ -34,11 +34,12 @@ public class StudGroupRESTController {
 
 
     @PostMapping("/teacherSupportStudent/edit")
-    public ResponseEntity<Object> editGroup(@RequestBody String groupName) {
+    public ResponseEntity<Object> editGroup(@RequestBody String groupName,HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
         person.setCurrentGroupName(groupName);
         personService.savePerson(person);
+        session.setAttribute("arg1","Changed");
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

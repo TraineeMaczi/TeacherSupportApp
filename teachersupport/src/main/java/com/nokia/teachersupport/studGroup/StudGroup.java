@@ -3,6 +3,8 @@ package com.nokia.teachersupport.studGroup;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -175,4 +177,6 @@ public class StudGroup {
     public void setTimeToFieldM(String timeToFieldM) {
         this.timeToFieldM = timeToFieldM;
     }
+
+
 }
