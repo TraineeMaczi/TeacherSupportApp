@@ -41,7 +41,7 @@ public class Person {
     @JoinColumn(name="SecurityDataId")
     private UserSecurityData userSecurityDataField;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "faculty_id") //to jest nazwa kolumny tylko
     private Faculty facultyField;
 
@@ -301,4 +301,6 @@ public class Person {
     public void deleteStudGroup(StudGroup studGroup) {
     personStudGroupList.remove(studGroup);
     }
+
+    public void deleteFaculty(Faculty faculty){facultyField=null;}
 }

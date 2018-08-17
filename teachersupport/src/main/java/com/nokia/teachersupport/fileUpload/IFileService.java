@@ -10,4 +10,5 @@ public interface IFileService {
 
     FileModel saveMultipartFile(MultipartFile file, String type) throws IOException;
     FileModel findFileByName(String name);
+    void dleteFileById(Integer id);
 }

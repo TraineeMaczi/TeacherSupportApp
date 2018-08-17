@@ -55,4 +55,9 @@ public class FileServiceImpl implements IFileService {
     public FileModel findFileByName(String name) {
         return fileRepository.findByName(name);
     }
+
+    @Override
+    public void dleteFileById(Integer id) {
+        fileRepository.deleteById(id);
+    }
 }

@@ -3,6 +3,9 @@ package com.nokia.teachersupport.admin;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
+import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.roles.SecutityRole;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -22,10 +26,13 @@ import java.util.Objects;
 public class AdminDashBoardControler {
 
     private IAdminDashboardService adminDashboardService;
-
+    private IFileService fileService;
+    private IPersonService personService;
     @Autowired
-    public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice) {
+    public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice,IFileService fileService,IPersonService personService) {
         this.adminDashboardService = adminDashboardsSrvice;
+        this.fileService=fileService;
+        this.personService=personService;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -35,29 +42,22 @@ public class AdminDashBoardControler {
         return "teacherSupportAdminDashboard";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminAction")
     String addNewUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
         adminDashboardService.addUser(userDTOForAdminActionDTO);
         return "redirect:/teacherSupportAdminDashboard";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
-    String addNewFaculty(Faculty faculty) {
-        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
-            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
-        }
-        return "redirect:/teacherSupportAdminDashboard";
-    }
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
+//    String addNewFaculty(Faculty faculty) {
+//        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
+//            adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+//        }
+//        return "redirect:/teacherSupportAdminDashboard";
+//    }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
-    String deleteFaculty(Faculty faculty) {
-        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) != null) {
-            adminDashboardService.deleteFacultyAdminAction(faculty);
-        }
-        return "redirect:/teacherSupportAdminDashboard";
-    }
+
 
 }

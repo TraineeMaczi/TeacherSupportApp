@@ -65,6 +65,23 @@ $(document).ready(
             });
         });
 
+        $("#deleteFacultyButton").on('click', function () {
+                    var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/teacherSupportAdminDashboard/deleteFacultyAdminAction",
+                        data: item,
+                         dataType: 'json',
+                        success: function()
+                        {
+                          location.reload();
+                        }
+
+                    });
+                });
+
+
 
     })
 
