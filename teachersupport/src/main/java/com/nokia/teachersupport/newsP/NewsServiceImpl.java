@@ -59,6 +59,7 @@ public class NewsServiceImpl implements INewsService {
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("editNewsPostObj", new EditNewsDTO());
     }
 
     @Override
@@ -70,5 +71,26 @@ public class NewsServiceImpl implements INewsService {
         tmpPerson.addNewsToMyList(news);
         personService.savePerson(tmpPerson);
         newsRepo.save(news);
+    }
+
+    @Override
+    public News findNewsByContent(String content) {
+        return newsRepo.findByNewsContentField(content);
+    }
+
+    public News goEditNews(EditNewsDTO editNewsDTO)
+    {
+        News news=new News();
+        if(newsRepo.findByNewsContentField(editNewsDTO.getOldContent())!=null) {
+            news = newsRepo.findByNewsContentField(editNewsDTO.getOldContent());
+            news.setNewsContentField(editNewsDTO.getNewContent());
+            newsRepo.save(news);
+        }
+        return news;
+    }
+
+    @Override
+    public void deleteNewsByContent(String newsContent) {
+        newsRepo.delete(newsRepo.findByNewsContentField(newsContent));
     }
 }
