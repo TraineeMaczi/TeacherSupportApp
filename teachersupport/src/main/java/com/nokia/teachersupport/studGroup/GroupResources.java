@@ -11,6 +11,8 @@ public class GroupResources {
     @Version
     private Integer version;
 
+    private String resourceLink;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private StudGroup resourceOwner;
@@ -41,5 +43,13 @@ public class GroupResources {
         if (!resourceOwner.getGroupsResourcesList().contains(this)) {
             resourceOwner.getGroupsResourcesList().add(this);
         }
+    }
+
+    public String getResourceLink() {
+        return resourceLink;
+    }
+
+    public void setResourceLink(String resourceLink) {
+        this.resourceLink = resourceLink;
     }
 }

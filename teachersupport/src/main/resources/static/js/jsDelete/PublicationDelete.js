@@ -1,18 +1,15 @@
 $(document).ready(
     function () {
         $("#publicationDeleteButton").on('click', function (event) {
-            event.preventDefault();
-            var item = $('input[name=selectPublication]:checked', '#publicationDeleteForm').val();
+
+            var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
             $.ajax({
                 type: "POST",
+                contentType: "application/json",
                 url: '/publications/delete',
-                data: {
-                    "id": item
-                },
+                data: item,
+                dataType: 'json',
                 success: function () {
-                    location.reload();
-                },
-                error: function (e) {
                     location.reload();
                 }
             });

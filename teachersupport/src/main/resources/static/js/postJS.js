@@ -27,6 +27,21 @@ $(document).ready(
 //                });
 
 
+ $("#editNewsButton").on('click', function () {
+            var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
+
+              document.getElementById('editNewsModalContentOld').value=item;
+              document.getElementById('editNewsModalContentNew').value=item;
+        });
+ $("#editPubliButton").on('click', function () {
+            var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
+
+              document.getElementById('editPubliModalContentOld').value=item;
+              document.getElementById('editPubliModalContentNew').value=item;
+        });
+
+
+
         $("#editStudGroupButton").on('click', function () {
             var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
 //                    alert(item);
@@ -184,6 +199,7 @@ function ajaxPostContact() {
             if (result.status == "success") {
                 $("#postResultDivContact").html(
                     "Success");
+                    location.reload();
             } else {
                 $("#postResultDivContact").html("<strong>Error</strong>");
             }

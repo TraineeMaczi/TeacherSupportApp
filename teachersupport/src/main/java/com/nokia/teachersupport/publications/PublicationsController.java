@@ -1,8 +1,6 @@
 package com.nokia.teachersupport.publications;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
-import com.nokia.teachersupport.publications.Publications;
-import com.nokia.teachersupport.publications.IPublicationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +27,7 @@ public class PublicationsController {
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("publications", publicationService.listOfAllPublications());
         model.addAttribute("newPublication", new Publications());
+        model.addAttribute("editPubliPostObj",new EditPublicationDTO());
         return "teacherSupportPublications";
     }
 
@@ -38,9 +37,10 @@ public class PublicationsController {
         return "redirect:/teacherSupportPublications";
     }
 
-    @PostMapping("/publications/delete")
-    String deletePublications(@RequestParam("id") Integer id) {
-        publicationService.deletePublications(id);
+
+    @PostMapping("/teacherSupportPublications/editPubli")
+    String editPublications(EditPublicationDTO editPublicationDTO) {
+        publicationService.goEditPublications(editPublicationDTO);
         return "redirect:/teacherSupportPublications";
     }
 }

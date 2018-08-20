@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Controller
@@ -25,14 +27,13 @@ public class StudGroupController {
     @Autowired
     public StudGroupController(IUserSecurityDataService userSecurityDataService,IPersonService personService,IStudGroupService studGroupService)
     {
-
         this.studGroupService=studGroupService;
         this.personService=personService;
         this.userSecurityDataService=userSecurityDataService;
     }
 
     @GetMapping("/teacherSupportStudent")
-    String student(Model model){
+    String student(Model model, HttpSession session){
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
@@ -40,6 +41,7 @@ public class StudGroupController {
         if(person.getCurrentGroupName()!=null) {
             model.addAttribute("groupFiles", studGroupService.getStudGroupByName(person.getCurrentGroupName()).getFileModels());
             model.addAttribute("currentGroupName", person.getCurrentGroupName());
+            session.getAttribute("currentStudGroupName");
         }
         return "teacherSupportStudent";
     }
