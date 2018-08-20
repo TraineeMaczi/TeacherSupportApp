@@ -33,7 +33,7 @@ public class Person {
 
     private String facebookField;
     private String twitterField;
-    private String currentGroupName;
+//    private String currentGroupName;
     //private String fotoField;
     //private String cvField;
 
@@ -111,13 +111,13 @@ public class Person {
         this.foto = foto;
     }
 
-    public String getCurrentGroupName() {
-        return currentGroupName;
-    }
-
-    public void setCurrentGroupName(String currentGroupName) {
-        this.currentGroupName = currentGroupName;
-    }
+//    public String getCurrentGroupName() {
+//        return currentGroupName;
+//    }
+//
+//    public void setCurrentGroupName(String currentGroupName) {
+//        this.currentGroupName = currentGroupName;
+//    }
 
     public Integer getVersion() {
         return version;

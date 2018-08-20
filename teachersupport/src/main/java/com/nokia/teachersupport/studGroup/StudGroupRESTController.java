@@ -21,7 +21,7 @@ public class StudGroupRESTController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
     private IStudGroupService studGroupService;
-    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
+//    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
 
 
     @Autowired
@@ -29,17 +29,17 @@ public class StudGroupRESTController {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.studGroupService = studGroupService;
-        this.studGroupLocalInstanc = new StudGroup();
+//        this.studGroupLocalInstanc = new StudGroup();
     }
 
 
     @PostMapping("/teacherSupportStudent/edit")
     public ResponseEntity<Object> editGroup(@RequestBody String groupName,HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
+//        studGroupLocalInstanc = studGroupService.getStudGroupByName(groupName);
 //        person.setCurrentGroupName(groupName);
 //        personService.savePerson(person);
-        session.setAttribute("currentStudGroupName","groupName");
+        session.setAttribute("currentStudGroupName",groupName);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

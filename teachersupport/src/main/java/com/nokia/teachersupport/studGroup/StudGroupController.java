@@ -38,11 +38,15 @@ public class StudGroupController {
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        if(person.getCurrentGroupName()!=null) {
-            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(person.getCurrentGroupName()).getFileModels());
-            model.addAttribute("currentGroupName", person.getCurrentGroupName());
-            session.getAttribute("currentStudGroupName");
+//        if(person.getCurrentGroupName()!=null) {
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        if(groupName != null && !groupName.equals("")) {
+            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
         }
+//
+//  model.addAttribute("currentGroupName", person.getCurrentGroupName());
+           // session.getAttribute("currentStudGroupName");
+//        }
         return "teacherSupportStudent";
     }
 

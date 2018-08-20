@@ -54,9 +54,10 @@ $(document).ready(
                 data: item,
                 dataType: 'json',
                 success: function () {
-                   // document.getElementById('edGroupFormGroupName').value = item;
-                    //document.getElementById('dispGroupForResource').value = item;
-                    location.reload();
+ location.reload();
+//                    document.getElementById('edGroupFormGroupName').value = item;
+//                    document.getElementById('dispGroupForResource').value = item;
+
                 }
 
             });
