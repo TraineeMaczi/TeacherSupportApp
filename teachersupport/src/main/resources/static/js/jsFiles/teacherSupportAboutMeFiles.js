@@ -1,16 +1,15 @@
-
 $(document).ready(
-    function() {
+    function () {
         $.ajax({
             type: "GET",
             url: '/givePhoto',
             success: function (result) {
                 if (result.status == "success") {
 
-                    document.getElementById("personFoto").src=result.data;
+                    document.getElementById("personFoto").src = result.data;
 
                 } else {
-                    document.getElementById("personFoto").src=result.data;
+                    document.getElementById("personFoto").src = result.data;
                 }
                 console.log(result);
             },
@@ -33,9 +32,8 @@ $(document).ready(
     });
 
 function doAjax(formName, listFiles, typ) {
-
-    formName='#'+formName;
-    listFiles='#'+listFiles;
+    formName = '#' + formName;
+    listFiles = '#' + listFiles;
 
     var form = $(formName)[0];
     var data = new FormData(form);
@@ -49,19 +47,20 @@ function doAjax(formName, listFiles, typ) {
         processData: false,
         contentType: false,
         cache: false,
-        success: (data) => {
-        $(listFiles).text(data);
-},
-    error: (e) => {
-        $(listFiles).text(e.responseText);
-    }
-});
+        success: function (data) {
+            $(listFiles).text(data);
+        },
+        error: function (e) {
+            $(listFiles).text(e.responseText);
+        }
+    });
 }
+
 function doAjax2(formName, listFiles, typ) {
 
 
-    formName='#'+formName;
-    listFiles='#'+listFiles;
+    formName = '#' + formName;
+    listFiles = '#' + listFiles;
 
     var form = $(formName)[0];
     var data = new FormData(form);
@@ -75,30 +74,30 @@ function doAjax2(formName, listFiles, typ) {
         processData: false,
         contentType: false,
         cache: false,
-        success: (data) => {
-        $(listFiles).text(data);
-        $.ajax({
-        type: "GET",
-        url: '/givePhoto',
-        success: function (result) {
-            if (result.status == "success") {
+        success: function (data) {
+            $(listFiles).text(data);
+            $.ajax({
+                type: "GET",
+                url: '/givePhoto',
+                success: function (result) {
+                    if (result.status == "success") {
 
-                document.getElementById("personFoto").src=result.data;
+                        document.getElementById("personFoto").src = result.data;
 
-            } else {
-                document.getElementById("personFoto").src=result.data;
-            }
-            console.log(result);
+                    } else {
+                        document.getElementById("personFoto").src = result.data;
+                    }
+                    console.log(result);
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+
+            });
         },
         error: function (e) {
-            alert("Error!")
-            console.log("ERROR: ", e);
+            $(listFiles).text(e.responseText);
         }
-
     });
-},
-    error: (e) => {
-        $(listFiles).text(e.responseText);
-    }
-});
 }

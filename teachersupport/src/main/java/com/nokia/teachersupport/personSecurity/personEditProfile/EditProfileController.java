@@ -14,6 +14,7 @@ import java.util.Objects;
 public class EditProfileController {
 
     IModelService modelService;
+
     @Autowired
     public EditProfileController(IModelService modelService) {
         this.modelService = modelService;
@@ -22,8 +23,7 @@ public class EditProfileController {
     /* To cos to tak naprawde nie zwraca string tylko tutaj mamy parsowanie calej str html na string jakby
      * strone index on nam zparsuje na string ktory jest czytelny dla app  */
     @GetMapping("/teacherSupportEditProfile")
-    String editprofile(Model model)
-    {
+    String editprofile(Model model) {
         modelService.editProfileModel(model);
         return "teacherSupportEditProfile";
     }
