@@ -10,4 +10,5 @@ import java.io.File;
 @Transactional
 public interface FileRepository extends CrudRepository<FileModel, Integer> {
     FileModel findByName(String name);
+
 }

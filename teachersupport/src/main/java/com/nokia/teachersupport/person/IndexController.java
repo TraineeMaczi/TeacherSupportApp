@@ -27,6 +27,7 @@ public class IndexController {
     private IUserSecurityDataService userSecurityDataService;
     private IFacultyService facultyService;
     private IModelService modelService;
+
     @Autowired
     public IndexController( IFacultyService facultyService,IPersonService personService,IUserSecurityDataService userSecurityDataService, IModelService modelService) {
         this.personService = personService;

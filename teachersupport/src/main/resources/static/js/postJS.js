@@ -19,7 +19,10 @@ $(document).ready(
             event.preventDefault();
             ajaxPostUpdateGroup()
         });
-
+$("#addRemoteResourceButton").on('click', function (event) {
+            event.preventDefault();
+           ajaxPostAddRemoteResource();
+        });
 
 //        $("#editStudGroupButton").on('click',function (event) {
 //                    event.preventDefault();
@@ -72,13 +75,28 @@ $(document).ready(
                 url: "/teacherSupportStudent/delete",
                 data: item,
                 dataType: 'json',
-//                        success: function()
-//                        {
-//                           alert(item);
-//                        }
+                success: function () {
+                location.reload();
+              }
 
             });
         });
+  $("#deleteLocalResourceButton").on('click', function () {
+            var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
+            alert(item);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteLocalResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                location.reload();
+              }
+
+            });
+        });
+
 
         $("#deleteFacultyButton").on('click', function () {
             var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
@@ -252,6 +270,34 @@ function ajaxPostUpdateGroup() {
     });
 
 };
+
+function ajaxPostAddRemoteResource() {
+
+    // PREPARE FORM DATA
+    var formData = {
+
+        name: $('#remoteGroupName').val(),
+        link: $('#remoteGroupLink').val(),
+    }
+// DO POST
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/teacherSupportStudent/remoteResourceAdd",
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function (result) {
+         alert("Success add remote resource");
+        },
+        error: function (e) {
+            alert("Fail add remote resource");
+        }
+    });
+
+};
+
+
+
 
 //Zarombisty kod ktory bierze wszystkie zaznaczone
 //                    var checkbox_value = "";

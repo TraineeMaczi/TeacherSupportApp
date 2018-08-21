@@ -1,6 +1,5 @@
 package com.nokia.teachersupport.fileUpload;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
@@ -12,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FileServiceImpl implements IFileService {
@@ -58,5 +58,12 @@ public class FileServiceImpl implements IFileService {
     @Override
     public void dleteFileById(Integer id) {
         fileRepository.deleteById(id);
+    }
+
+    @Override
+    public FileModel findFileById(Integer id) {
+
+        return fileRepository.findById(id).orElse(new FileModel());
+
     }
 }

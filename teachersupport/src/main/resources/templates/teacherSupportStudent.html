@@ -4,15 +4,17 @@
 <head lang="en">
 
     <title>TeacherSupportStudent</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
 
     <script>
         $("#files").change(function() {
   filename = this.files[0].name
   console.log(filename);
 });
+
     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
@@ -40,257 +42,332 @@
 </head>
 
 <body>
-    <p>
-        <div class="text-right pr-3 pt-2 pb-2">
-            <form>
+<p>
+<div class="text-right pr-3 pt-2 pb-2">
+    <form>
 
-                <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right"  placeholder="Hello!" th:text="${currentUserName}" disabled/>
-                <br/>
-                <div class="d-inline pr-2">
-                    <a th:href="@{/logout}" type="button" class=" btn text-white bg-changableColor btn-sm">Log out</a>
+        <input type="text" class="form-control bg-white border-0 w-25 d-inline text-right" placeholder="Hello!"
+               th:text="${currentUserName}" disabled/>
+        <br/>
+        <div class="d-inline pr-2">
+            <a th:href="@{/logout}" type="button" class=" btn text-white bg-changableColor btn-sm">Log out</a>
+        </div>
+    </form>
+</div>
+</p>
+<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+    <h1>TeacherSupportApp</h1>
+    <h5>Make it easy</h5>
+    <!--<p th:text="${session.currentStudGroupName}"></p>-->
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/">TeacherSupportApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="/">Hello</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/teacherSupportHome">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherSupportAboutMe">About Me</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherSupportPublications">Publications</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/teacherSupportStudent">Student</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/teacherSupportContact">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherSupportGenerate">Generate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherSupportEditProfile">Edit Profile</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherSupportAdminDashboard">Admin Dashboard</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+
+    <div class="row">
+        <div class="col bg-white jumbotron text-dark mr-3">
+            <h4>Add Group</h4>
+            <form id="newGroupForm" th:object="${newStudGroupUserAction}"
+                  th:action="@{/teacherSupportStudent/addNewGroupUserAction}" method="post"
+                  class="form-control bg-gray">
+
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{version}"/>
+                <input type="text" class="form-control rounded text-center" th:field="*{groupNameField}"/>
+
+            </form>
+            <div class="text-right mt-2">
+                <button type="submit" form="newGroupForm" class="btn mt-2 bg-changableColor text-white">Add</button>
+            </div>
+
+            <form class="mt-3" id="edDeleteGroupForm">
+
+                <div class="table-responsive makeMeScroll">
+                    <table class="table">
+                        <tbody>
+
+                        <tr id="studGroupFormCheck" th:each="objStudGroup : ${currentGroups}">
+                            <td th:text="${objStudGroup.groupNameField}"></td>
+                            <td>
+                                <div class="form-check ">
+                                    <input type="radio" name="groupsED" class="form-check-input"
+                                           th:value="${objStudGroup.groupNameField}"/>
+                                </div>
+                            </td>
+                            <!--...............................................-->
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-right mt-2">
+                    <button id="editStudGroupButton" type="button" class="btn bg-changableColor text-white">Edit
+                    </button>
+                    <button type="button" id="deleteGroupButton" class="btn bg-changableColor text-white">Delete
+                    </button>
                 </div>
             </form>
         </div>
-    </p>
-    <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
-        <h1>TeacherSupportApp</h1>
-        <h5>Make it easy</h5>
-        <!--<p th:text="${session.currentStudGroupName}"></p>-->
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/">TeacherSupportApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ">
-                    <a class="nav-link" href="/">Hello</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="/teacherSupportHome">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/teacherSupportAboutMe">About Me</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/teacherSupportPublications">Publications</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/teacherSupportStudent">Student</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="/teacherSupportContact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/teacherSupportGenerate">Generate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/teacherSupportEditProfile">Edit Profile</a>
-                <li class="nav-item">
-                    <a class="nav-link" href="/teacherSupportAdminDashboard">Admin Dashboard</a>
-                </li>
-            </ul>
+
+    <div class="row">
+        <div class="col bg-white jumbotron text-dark mr-3 px-3 py-3">
+            <input type="text" class="form-control text-center" id="dispGroupForResource"
+                   th:value="${session.currentStudGroupName}" disabled>
         </div>
-    </nav>
+    </div>
 
-    <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
 
-        <div class="row">
-            <div class="col bg-white jumbotron text-dark mr-3">
-                <h4>Add Group</h4>
-                <form id="newGroupForm" th:object="${newStudGroupUserAction}" th:action="@{/teacherSupportStudent/addNewGroupUserAction}" method="post" class="form-control bg-gray">
+    <div class="row">
+        <div class="col bg-white jumbotron text-dark mr-3">
+            <form>
+                <div class="container bg-changableColor text-white mt-3 mb-2 rounded-2" id="postResultDivGroupUpdate"
+                     align="center"></div>
 
-                    <input type="hidden" th:field="*{id}"/>
-                    <input type="hidden" th:field="*{version}"/>
-                    <input type="text" class="form-control rounded text-center" th:field="*{groupNameField}" />
-
-                </form>
-                <div class="text-right mt-2">
-                    <button type="submit" form="newGroupForm" class="btn mt-2 bg-changableColor text-white">Add</button>
+                <div class="row">
+                    <div class="col ">
+                        <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
+                    </div>
+                    <div class="col">
+                        <!--<input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />-->
+                        <input type="text" id="edGroupFormGroupName" th:value="${session.currentStudGroupName}"
+                               class="form-control rounded text-center d-inline"/>
+                    </div>
                 </div>
 
-                <form class="mt-3" id="edDeleteGroupForm">
-
-                        <div class="table-responsive makeMeScroll">
-                            <table class="table">
-                                <tbody>
-
-                                <tr id="studGroupFormCheck" th:each="objStudGroup : ${currentGroups}">
-                                    <td th:text="${objStudGroup.groupNameField}"></td>
-                                    <td>
-                                        <div  class="form-check ">
-                                        <input type="radio" name="groupsED" class="form-check-input" th:value="${objStudGroup.groupNameField}"/>
-                                        </div>
-                                    </td>
-                                    <!--...............................................-->
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    <div class="text-right mt-2">
-                        <button id="editStudGroupButton" type="button" class="btn bg-changableColor text-white">Edit</button>
-                        <button type="button" id="deleteGroupButton" class="btn bg-changableColor text-white">Delete</button>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control text-center" placeholder="Group Nr: " disabled>
                     </div>
-                </form>
-            </div>
+                    <div class="col">
+                        <input type="text" id="groupNrFiled" class="form-control rounded text-center d-inline"/>
+                    </div>
+                </div>
 
-            <div class="col bg-white jumbotron text-dark mr-3">
-                <form >
-                    <div class="container bg-changableColor text-white mt-3 mb-2 rounded-2" id="postResultDivGroupUpdate" align="center"></div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control text-center" placeholder="Faculty: " disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="facultyField" class="form-control rounded text-center d-inline"/>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control text-center" placeholder="Class Name: " disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="classNameField" class="form-control rounded text-center d-inline"/>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control text-center" placeholder="Day: " disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline"/>
+                    </div>
+                </div>
+
+                <div class="container">
                     <div class="row">
-                        <div class="col ">
-                            <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
-                        </div>
-                        <div class="col">
-                            <!--<input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />-->
-                            <input type="text" id="edGroupFormGroupName" th:value="${session.currentStudGroupName}" class="form-control rounded text-center d-inline" />
-                        </div>
-                    </div>
 
+                        <input type="text" class="form-control text-center" placeholder="Time: " disabled>
+
+                    </div>
                     <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control text-center" placeholder="Group Nr: " disabled>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="groupNrFiled" class="form-control rounded text-center d-inline" />
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control text-center" placeholder="Faculty: " disabled>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="facultyField" class="form-control rounded text-center d-inline" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control text-center" placeholder="Class Name: " disabled>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="classNameField" class="form-control rounded text-center d-inline" />
-                        </div>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control text-center" placeholder="Day: " disabled>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline" />
-                        </div>
-                    </div>
-
-                    <div class="container">
-                        <div class="row">
-
-                                <input type="text" class="form-control text-center" placeholder="Time: " disabled>
-
-                        </div>
-                        <div class="row">
-
-                                <div class="input-group mb-3 ">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" >From</span>
-                                    </div>
-                                    <input id="timeFromFieldH" type="text" class="form-control  text-center "/>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" >:</span>
-                                    </div>
-                                    <input  id="timeFromFieldM" type="text" class="form-control  text-center"/>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" >To</span>
-                                    </div>
-                                    <input id="timeToFieldH" type="text" class="form-control  text-center "/>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" >:</span>
-                                    </div>
-                                    <input type="text" id="timeToFieldM" class="form-control  text-center"/>
-                                    <div class="input-group-prepend">
-                                    </div>
-                                </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="text-right mt-2">
-                        <button type="submit" id="groupUpdatePostButton" class="btn mt-2 bg-changableColor text-white">Update</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col bg-white jumbotron text-dark mr-3">
-
-                <!--<input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${currentGroupName}" disabled>-->
-                <input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${session.currentStudGroupName}" disabled>
-
-                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
-                    <div class="form-group mt-4">
-                        <h4>Add Resource</h4>
-                        <div>
-
-                            <label for="files" class="btn bg-changableColor rounded mt-2 text-white">Add Resource</label>
-                            <div class="ml-4">
-                            <input id="files" style="visibility:hidden;" type="file" name="uploadfile">
+                        <div class="input-group mb-3 ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">From</span>
+                            </div>
+                            <input id="timeFromFieldH" type="text" class="form-control  text-center "/>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">:</span>
+                            </div>
+                            <input id="timeFromFieldM" type="text" class="form-control  text-center"/>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">To</span>
+                            </div>
+                            <input id="timeToFieldH" type="text" class="form-control  text-center "/>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">:</span>
+                            </div>
+                            <input type="text" id="timeToFieldM" class="form-control  text-center"/>
+                            <div class="input-group-prepend">
                             </div>
                         </div>
+
                     </div>
-                    <button type="button" class="btn text-white bg-changableColor rounded " id="btn1">Upload</button>
-                    <div class="container bg-changableColor text-white mt-3 rounded-2" id="listFiles" align="center"></div>
-                </form>
-
-                <form class="mt-3">
-                    <div class="form-check ">
-                        <div class="table-responsive makeMeScroll">
-                            <table class="table">
-                                <tbody>
+                </div>
 
 
-                                <tr th:each="one : ${groupFiles}">
-                                    <!--To kopiowac-->
-                                    <td  th:text="${one.name}" ></td>
-                                    <td>
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID" value="SAMPLE_VALUE">
-                                    </td>
-                                    <!--...............................................-->
-                                </tr>
+                <div class="text-right mt-2">
+                    <button type="submit" id="groupUpdatePostButton" class="btn mt-2 bg-changableColor text-white">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
 
 
-                                </tbody>
-                            </table>
+
+        <div class="col bg-white jumbotron text-dark mr-3">
+
+            <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                <div class="form-group mt-4">
+                    <h4>Add Local Resource</h4>
+                    <div>
+
+                        <label for="files" class="btn bg-changableColor rounded mt-2 text-white">Add Resource</label>
+                        <div class="ml-4">
+                            <input id="files" style="visibility:hidden;" type="file" name="uploadfile">
                         </div>
                     </div>
-                    <div class="text-right mt-2">
-                        <button type="button" class="btn bg-changableColor text-white">Delete</button>
+                </div>
+                <button type="button" class="btn text-white bg-changableColor rounded " id="btn1">Upload</button>
+
+                <div class="container bg-changableColor text-white mt-3 rounded-2" id="listFiles" align="center"></div>
+            </form>
+
+            <form id="localResourceForm" class="mt-3">
+                <div class="form-check ">
+                    <div class="table-responsive makeMeScroll">
+                        <table class="table">
+                            <tbody>
+
+
+                            <tr th:each="one : ${groupFiles}">
+                                <!--To kopiowac-->
+                                <td th:text="${one.name}"></td>
+                                <td>
+                                    <input class="form-check-input" type="radio" name="localResourceChecked" th:value="${one.id}" >
+                                </td>
+                                <!--...............................................-->
+                            </tr>
+
+
+                            </tbody>
+                        </table>
                     </div>
-                </form>
-
-            </div>
-
+                </div>
+                <div class="text-right mt-2">
+                    <button type="button" id="deleteLocalResourceButton" class="btn bg-changableColor text-white">Delete</button>
+                </div>
+            </form>
 
         </div>
+
+
+        <div class="col bg-white jumbotron text-dark mr-3">
+            <h4 class="mt-4">Add Remote Resource Link</h4>
+
+            <form id="newRemoteResourceForm" class="form-control border-0">
+                <div class="row">
+                    <div class="col ">
+                        <input type="text" class="form-control text-center" placeholder="Resource Name: " disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="newRemoteResourceResourceName" class="form-control rounded text-center d-inline"/>
+                    </div>
+                </div>
+
+                   <div class="row">
+                       <div class="col ">
+                           <input type="text" class="form-control text-center" placeholder="Resource Link: " disabled>
+                       </div>
+                       <div class="col">
+                           <input type="text" id="newRemoteResourceResourceLink" class="form-control rounded text-center d-inline"/>
+                       </div>
+                   </div>
+
+            </form>
+            <div class="text-right mt-2">
+                <button type="button" id="addRemoteResourceButton" class="btn mt-2 bg-changableColor text-white">Add</button>
+            </div>
+
+            <form class="mt-3">
+                <div class="form-check ">
+                    <div class="table-responsive makeMeScroll">
+                        <table class="table">
+                            <tbody>
+
+                            <tr th:each="one : ${groupFiles}">
+                                <!--To kopiowac-->
+                                <td th:text="${one.name}"></td>
+                                <td>
+                                    <input class="form-check-input" type="radio"  >
+                                </td>
+                                <!--...............................................-->
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-right mt-2">
+                    <button type="button" class="btn bg-changableColor text-white">Delete</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
-
-    <p class="bg-white"> </p>
-
+</div>
 
 
+<p class="bg-white"></p>
 
-    <div class="jumbotron footer-copyright text-center py-3 rounded-0 bg-changableColor text-white">© 2018 Copyright: Karolina Makowska </div>
+
+<div class="jumbotron footer-copyright text-center py-3 rounded-0 bg-changableColor text-white">© 2018 Copyright:
+    Karolina Makowska
+</div>
 
 </body>
 

@@ -28,7 +28,9 @@ import java.util.Objects;
 public class AdminDashBoardControler {
 
     private IFileService fileService;
+
     private IPersonService personService;
+
     private IModelService modelService;
     @Autowired
     public AdminDashBoardControler(IFileService fileService, IPersonService personService, IModelService modelService) {
