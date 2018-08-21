@@ -96,4 +96,10 @@ public class StudGroupRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/teacherSupportStudent/remoteResourceAdd")
+    public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO) {
+
+        ServiceResponse<RemoteStudGroupResourceDTO> response = new ServiceResponse<RemoteStudGroupResourceDTO>("success", remoteStudGroupResourceDTO);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
 }

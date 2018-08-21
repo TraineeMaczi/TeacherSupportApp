@@ -3,11 +3,8 @@ package com.nokia.teachersupport.studGroup;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -35,7 +32,7 @@ public class StudGroup {
     private Person groupsOwner;
 
     @OneToMany(mappedBy = "resourceOwner")
-    private List<GroupResources> groupsResourcesList;
+    private List<GroupRemoteResource> groupsResourcesList;
 
     @OneToMany(mappedBy = "filesOfGroup" )
     private List<FileModel>fileModels;
@@ -131,15 +128,15 @@ public class StudGroup {
     }
 
 
-    public List<GroupResources> getGroupsResourcesList() {
+    public List<GroupRemoteResource> getGroupsResourcesList() {
         return groupsResourcesList;
     }
 
-    public void setGroupsResourcesList(List<GroupResources> groupsResourcesList) {
+    public void setGroupsResourcesList(List<GroupRemoteResource> groupsResourcesList) {
         this.groupsResourcesList = groupsResourcesList;
     }
 
-    public void addResourcesToMyList(GroupResources groupResource) {
+    public void addResourcesToMyList(GroupRemoteResource groupResource) {
         this.groupsResourcesList.add(groupResource);
 
         if (groupResource.getResourceOwner() != this) {

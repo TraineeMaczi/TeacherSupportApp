@@ -3,7 +3,7 @@ package com.nokia.teachersupport.studGroup;
 import javax.persistence.*;
 
 @Entity
-public class GroupResources {
+public class GroupRemoteResource {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
