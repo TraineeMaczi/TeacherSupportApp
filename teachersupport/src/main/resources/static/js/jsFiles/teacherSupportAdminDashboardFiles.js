@@ -70,7 +70,7 @@ $(document).ready(
 
 function doAjax(formName, listFiles, typ) {
 
-    event.preventDefault();
+
     formName = '#' + formName;
     listFiles = '#' + listFiles;
     var facultyName = $('#facultyName').val()
@@ -96,7 +96,7 @@ function doAjax(formName, listFiles, typ) {
 
 function doAjax2() {
 
-    event.preventDefault();
+
     var form = $('#fileUpload')[0];
     var data = new FormData(form);
 
@@ -119,8 +119,8 @@ function doAjax2() {
     });
 }
 
-function deleteUser(event) {
-    event.preventDefault();
+function deleteUser() {
+
     var userId = $('input[name=userToDelete]:checked', '#UsersForm').val();
     $.ajax({
         type: "POST",

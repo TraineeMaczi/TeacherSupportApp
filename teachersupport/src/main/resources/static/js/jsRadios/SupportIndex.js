@@ -1,20 +1,18 @@
-
 $(document).ready(
-
     function () {
 
-        var photo=[];
-        var id=[];
-         $.ajax({
+        var photo = [];
+        var id = [];
+        $.ajax({
             type: "GET",
             url: '/index/giveMePhoto',
             success: function (result) {
                 if (result.status == "success") {
 
-                    photo=result.data;
+                    photo = result.data;
 
                 } else {
-                    photo="img/logo.jpg" ;
+                    photo = "img/logo.jpg";
                 }
                 console.log(result);
 
@@ -24,16 +22,15 @@ $(document).ready(
                     success: function (result) {
                         if (result.status == "success") {
 
-                            id=result.data;
+                            id = result.data;
 
                         } else {
-                            id=result.data;
+                            id = result.data;
                         }
                         console.log(result);
-                        var i=0;
-                        while(id[i])
-                        {
-                            document.getElementById(id[i]).src=photo[i];
+                        var i = 0;
+                        while (id[i]) {
+                            document.getElementById(id[i]).src = photo[i];
                             i++;
                         }
                     },
@@ -46,7 +43,7 @@ $(document).ready(
 
             },
             error: function (e) {
-                photo="img/logo.jpg";
+                photo = "img/logo.jpg";
                 alert("Error!")
                 console.log("ERROR: ", e);
             }

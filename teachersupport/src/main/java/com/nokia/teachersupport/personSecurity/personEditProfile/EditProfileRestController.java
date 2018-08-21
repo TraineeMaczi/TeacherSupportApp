@@ -22,23 +22,31 @@ import java.util.Collection;
 
 @RestController
 public class EditProfileRestController {
-   EditProfileServerImpl editProfile;
+    private IEditProfileService editProfileService;
+
+    @Autowired
+    public EditProfileRestController(IEditProfileService editProfileService) {
+        this.editProfileService = editProfileService;
+    }
+
     @PostMapping("/change/name/{name}/{surname}")
-    public void changeName(@PathVariable String name, @PathVariable String surname){
-       editProfile.saveNameChange(name, surname);
+    public void changeName(@PathVariable String name, @PathVariable String surname) {
+        editProfileService.saveNameChange(name, surname);
     }
+
     @PostMapping("/change/email")
-    public String changeEmail(@RequestParam String email, @RequestParam String confirmEmail ){
-        if(editProfile.saveEmailChange(email, confirmEmail))
+    public String changeEmail(@RequestParam String email, @RequestParam String confirmEmail) {
+        if (editProfileService.saveEmailChange(email, confirmEmail))
             return "SUCCES";
         else
-            return "Error "+confirmEmail+" is different than "+email;
+            return "Error " + confirmEmail + " is different than " + email;
     }
+
     @PostMapping("/change/password")
-    public String changePassword(@RequestParam String password, @RequestParam String confirmPassword ){
-        if(editProfile.savePasswordChange(password, confirmPassword))
+    public String changePassword(@RequestParam String password, @RequestParam String confirmPassword) {
+        if (editProfileService.savePasswordChange(password, confirmPassword))
             return "SUCCES";
         else
-            return "Error "+confirmPassword+" is different than "+password;
+            return "Error " + confirmPassword + " is different than " + password;
     }
 }

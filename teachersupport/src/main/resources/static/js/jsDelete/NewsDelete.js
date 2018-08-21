@@ -8,12 +8,11 @@ $(document).ready(
                 type: "POST",
                 contentType: "application/json",
                 url: '/tshome/delete',
-                data:item,
+                data: item,
                 dataType: 'json',
-                success: function ()
-                {
-                                    location.reload();
-                                }
+                success: function () {
+                    location.reload();
+                }
 
             });
 
