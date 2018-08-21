@@ -16,7 +16,6 @@ $(document).ready(
 
     })
 function changeName() {
-    event.preventDefault();
     var name = $('#nameId').val();
     var surname = $('#surnameId').val();
     $.ajax({
@@ -25,7 +24,6 @@ function changeName() {
 });
 }
 function changeEmail() {
-    event.preventDefault();
     var email = $('#emailId').val();
     var confirmEmail = $('#emailConfirmId').val();
     $.ajax({
@@ -38,7 +36,7 @@ function changeEmail() {
 
         success: function (result) {
             if (result == "success") {
-
+                location.reload();
                 $("#postResultDivBasicInfo").html(
                     result);
 
@@ -55,7 +53,6 @@ function changeEmail() {
     });
 }
 function changePassword() {
-    event.preventDefault();
     var password = $('#password').val();
     var confirmPassword = $('#confirmPassword').val();
     $.ajax({
@@ -74,6 +71,7 @@ function changePassword() {
 
 
             } else {
+                location.reload();
                 $("#postResultChangePassword").html(result);
             }
             console.log(result);

@@ -30,19 +30,18 @@ $("#addRemoteResourceButton").on('click', function (event) {
 //                });
 
 
- $("#editNewsButton").on('click', function () {
+        $("#editNewsButton").on('click', function () {
             var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
 
-              document.getElementById('editNewsModalContentOld').value=item;
-              document.getElementById('editNewsModalContentNew').value=item;
+            document.getElementById('editNewsModalContentOld').value = item;
+            document.getElementById('editNewsModalContentNew').value = item;
         });
- $("#editPubliButton").on('click', function () {
+        $("#editPubliButton").on('click', function () {
             var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
 
-              document.getElementById('editPubliModalContentOld').value=item;
-              document.getElementById('editPubliModalContentNew').value=item;
+            document.getElementById('editPubliModalContentOld').value = item;
+            document.getElementById('editPubliModalContentNew').value = item;
         });
-
 
 
         $("#editStudGroupButton").on('click', function () {
@@ -57,7 +56,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
                 data: item,
                 dataType: 'json',
                 success: function () {
- location.reload();
+                    location.reload();
 //                    document.getElementById('edGroupFormGroupName').value = item;
 //                    document.getElementById('dispGroupForResource').value = item;
 
@@ -100,21 +99,19 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
 
         $("#deleteFacultyButton").on('click', function () {
-                    var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportAdminDashboard/deleteFacultyAdminAction",
-                        data: item,
-                         dataType: 'json',
-                        success: function()
-                        {
-                          location.reload();
-                        }
+            var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportAdminDashboard/deleteFacultyAdminAction",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                    location.reload();
+                }
 
-                    });
-                });
-
+            });
+        });
 
 
     })
@@ -218,7 +215,7 @@ function ajaxPostContact() {
             if (result.status == "success") {
                 $("#postResultDivContact").html(
                     "Success");
-                    location.reload();
+                location.reload();
             } else {
                 $("#postResultDivContact").html("<strong>Error</strong>");
             }

@@ -9,14 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-
+@Service
 public class EditProfileServerImpl implements IEditProfileService{
-    @Autowired
     private IPersonService personService;
-    @Autowired
     private IUserSecurityDataService userSecurityDataService;
+
+    @Autowired
+    public EditProfileServerImpl(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        this.personService = personService;
+        this.userSecurityDataService = userSecurityDataService;
+    }
+
+
     @Override
     public boolean saveNameChange(String name, String surname) {
         Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
