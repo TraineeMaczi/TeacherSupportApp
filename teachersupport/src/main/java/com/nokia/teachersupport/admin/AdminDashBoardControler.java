@@ -28,11 +28,12 @@ public class AdminDashBoardControler {
     private IAdminDashboardService adminDashboardService;
     private IFileService fileService;
     private IPersonService personService;
+
     @Autowired
-    public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice,IFileService fileService,IPersonService personService) {
+    public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice, IFileService fileService, IPersonService personService) {
         this.adminDashboardService = adminDashboardsSrvice;
-        this.fileService=fileService;
-        this.personService=personService;
+        this.fileService = fileService;
+        this.personService = personService;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -49,7 +50,7 @@ public class AdminDashBoardControler {
         return "redirect:/teacherSupportAdminDashboard";
     }
 
-//    @PreAuthorize("hasAnyRole('ADMIN')")
+    //    @PreAuthorize("hasAnyRole('ADMIN')")
 //    @PostMapping("/teacherSupportAdminDashboard/newFacultyAdminAction")
 //    String addNewFaculty(Faculty faculty) {
 //        if (adminDashboardService.getFacultyByName(faculty.getFacultyNameField()) == null) {
@@ -57,7 +58,30 @@ public class AdminDashBoardControler {
 //        }
 //        return "redirect:/teacherSupportAdminDashboard";
 //    }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteAll")
+    public String deleteAll() {
+        boolean czy;
+        List<Person> persons = adminDashboardService.listOfAllPersons();
+        for (Person person : persons) {
+            czy = true;
+            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+                if (securityRole.getRoleName().equals("ADMIN"))
+                    czy = false;
+            if (czy) {
+                System.out.println(person.getNameField());
+                Faculty faculty = person.getFacultyField();
+                faculty.getFacultyAndPersonList().remove(person);
+                person.deleteFaculty(faculty);
+                for (SecutityRole secutityRole : person.getUserSecurityDataField().getMyRoles())
+                    secutityRole.getSecurityInsAndRoles().remove(person.getUserSecurityDataField());
+                person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
+                adminDashboardService.deleteUserSecurityDataAdminAction(person.getUserSecurityDataField().getId());
+                adminDashboardService.deleteUserPersonDataAdminAction(person.getId());
+            }
+        }
+        return "redirect:/teacherSupportAdminDashboard";
+    }
 
 
 }

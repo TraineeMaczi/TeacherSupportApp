@@ -7,6 +7,8 @@ import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.ServiceResponse;
+import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
+import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +40,7 @@ public class AdminDashBoardRestController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/addFaculty/{facultyName}")
     public String uploadMultipartFile(@RequestParam("uploadFile") MultipartFile file,@PathVariable("facultyName") String facultyName) throws IOException {
-        fileService.saveMultipartFile(file, "facultyFoto");
-        FileModel fileModel=fileService.findFileByName(file.getOriginalFilename());
+        FileModel fileModel= fileService.saveMultipartFile(file, "facultyFoto");
         Faculty faculty= new Faculty();
         faculty.setFacultyNameField(facultyName);
         faculty.setFile(fileModel);
@@ -69,6 +70,7 @@ public class AdminDashBoardRestController {
         ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
 }
 
 
