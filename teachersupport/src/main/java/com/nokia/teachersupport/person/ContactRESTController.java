@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContactRESTController {
 
 
- private   IPersonService personService;
-private IUserSecurityDataService userSecurityDataService;
-private IMeetMeService meetMeService;
+    private IPersonService personService;
+    private IUserSecurityDataService userSecurityDataService;
+    private IMeetMeService meetMeService;
+
     @Autowired
-    public ContactRESTController(IPersonService personService,IMeetMeService meetMeService ,IUserSecurityDataService userSecurityDataService) {
+    public ContactRESTController(IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
-        this.userSecurityDataService=userSecurityDataService;
-        this.meetMeService=meetMeService;
+        this.userSecurityDataService = userSecurityDataService;
+        this.meetMeService = meetMeService;
     }
 
 
     @PostMapping("/teacherSupportContact/contact/new")
     public ResponseEntity<Object> addContactInfo(@RequestBody MeetMeDTO meetMeDTO) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        MeetMe meetMe=meetMeService.meetMeDTOIntoMeetMe(meetMeDTO);
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        MeetMe meetMe = meetMeService.meetMeDTOIntoMeetMe(meetMeDTO);
         meetMeService.addContactInfo(person, meetMe);
         ServiceResponse<MeetMeDTO> response = new ServiceResponse<MeetMeDTO>("success", meetMeDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);

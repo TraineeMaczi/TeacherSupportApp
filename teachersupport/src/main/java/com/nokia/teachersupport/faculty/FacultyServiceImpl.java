@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class FacultyServiceImpl implements IFacultyService{
+public class FacultyServiceImpl implements IFacultyService {
     FacultyRepo facultyRepo;
+
     @Autowired
     public FacultyServiceImpl(FacultyRepo facultyRepo) {
         this.facultyRepo = facultyRepo;
     }
-
 
 
     @Override
@@ -32,5 +33,10 @@ public class FacultyServiceImpl implements IFacultyService{
     @Override
     public Faculty findFacultyById(Integer Id) {
         return facultyRepo.findByid(Id);
+    }
+
+    @Override
+    public void deleteFaculty(Faculty faculty) {
+        facultyRepo.delete(faculty);
     }
 }

@@ -1,10 +1,10 @@
 package com.nokia.teachersupport.personSecurity.personRegister;
 
-import com.nokia.teachersupport.admin.IAdminDashboardService;
+
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,8 @@ public class RegistrationListener implements
         ApplicationListener<OnRegistrationCompleteEvent> {
 
     @Autowired
-    private IAdminDashboardService service;
+    private ITokenService service;
 
-    @Autowired
-    private MessageSource messages;
 
     @Autowired
     private JavaMailSender mailSender;

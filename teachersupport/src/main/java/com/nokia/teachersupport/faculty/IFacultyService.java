@@ -8,4 +8,5 @@ public interface IFacultyService {
     Faculty findFaculty(String facultyName);
     Faculty saveFaculty(Faculty faculty);
     Faculty findFacultyById(Integer Id);
+    void deleteFaculty(Faculty faculty);
 }
