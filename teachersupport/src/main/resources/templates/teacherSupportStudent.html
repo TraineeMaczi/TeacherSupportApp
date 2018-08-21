@@ -55,7 +55,7 @@
     <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
         <h1>TeacherSupportApp</h1>
         <h5>Make it easy</h5>
-        <!--<p th:text="${session.arg1}"></p>-->
+        <!--<p th:text="${session.currentStudGroupName}"></p>-->
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -149,7 +149,8 @@
                             <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
                         </div>
                         <div class="col">
-                            <input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />
+                            <!--<input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />-->
+                            <input type="text" id="edGroupFormGroupName" th:value="${session.currentStudGroupName}" class="form-control rounded text-center d-inline" />
                         </div>
                     </div>
 
@@ -233,7 +234,8 @@
             </div>
             <div class="col bg-white jumbotron text-dark mr-3">
 
-                <input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${currentGroupName}" disabled>
+                <!--<input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${currentGroupName}" disabled>-->
+                <input type="text" class="form-control text-center" id="dispGroupForResource" th:value="${session.currentStudGroupName}" disabled>
 
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                     <div class="form-group mt-4">

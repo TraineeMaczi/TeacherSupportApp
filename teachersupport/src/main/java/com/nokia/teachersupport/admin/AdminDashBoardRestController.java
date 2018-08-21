@@ -53,8 +53,6 @@ public class AdminDashBoardRestController {
     public ResponseEntity<Object> deleteFacultySiteAction(@RequestBody String facultyName) {
         if (adminDashboardService.getFacultyByName(facultyName) != null) {
             Faculty faculty=adminDashboardService.getFacultyByName(facultyName);
-
-
             fileService.dleteFileById(faculty.getFile().getId());
             faculty.setFile(null);
 
