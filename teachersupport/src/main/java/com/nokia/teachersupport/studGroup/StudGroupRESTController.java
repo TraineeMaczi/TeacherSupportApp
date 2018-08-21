@@ -25,15 +25,17 @@ public class StudGroupRESTController {
     private IUserSecurityDataService userSecurityDataService;
     private IStudGroupService studGroupService;
     private IFileService fileService;
+    private IGroupRemoteResourceService remoteResourceService;
 //    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
 
 
     @Autowired
-    public StudGroupRESTController(IFileService fileService,IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
+    public StudGroupRESTController(IGroupRemoteResourceService remoteResourceService,IFileService fileService,IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.studGroupService = studGroupService;
         this.fileService=fileService;
+        this.remoteResourceService=remoteResourceService;
 //        this.studGroupLocalInstanc = new StudGroup();
     }
 
@@ -97,8 +99,14 @@ public class StudGroupRESTController {
     }
 
     @PostMapping("/teacherSupportStudent/remoteResourceAdd")
-    public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO) {
-
+    public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO,HttpSession session) {
+        GroupRemoteResource remoteResource=remoteResourceService.resourceDTOIntoResource(remoteStudGroupResourceDTO);
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+        studGroup.addResourcesToMyList(remoteResource);
+        remoteResource.setResourceOwner(studGroup);
+        remoteResourceService.saveRemoteResource(remoteResource);
+        studGroupService.saveStudGroup(studGroup);
         ServiceResponse<RemoteStudGroupResourceDTO> response = new ServiceResponse<RemoteStudGroupResourceDTO>("success", remoteStudGroupResourceDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

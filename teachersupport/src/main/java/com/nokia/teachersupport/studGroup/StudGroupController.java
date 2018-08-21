@@ -42,6 +42,7 @@ public class StudGroupController {
         String groupName=(String)session.getAttribute("currentStudGroupName");
         if(groupName != null && !groupName.equals("")) {
             model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
+            model.addAttribute("groupRemoteFiles", studGroupService.getStudGroupByName(groupName).getGroupsResourcesList());
         }
 //
 //  model.addAttribute("currentGroupName", person.getCurrentGroupName());
