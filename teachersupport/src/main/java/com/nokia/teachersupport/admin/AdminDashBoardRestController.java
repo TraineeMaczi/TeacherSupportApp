@@ -5,6 +5,7 @@ import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.ServiceResponse;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
@@ -22,20 +23,21 @@ import java.util.List;
 
 @RestController
 public class AdminDashBoardRestController {
-    @Autowired
-    private IAdminDashboardService adminDashboardService;
-    @Autowired
     private IFileService fileService;
-    @Autowired
     private IFacultyService facultyService;
-
+    private IPersonService personService;
+    @Autowired
+    public AdminDashBoardRestController(IFileService fileService, IFacultyService facultyService, IPersonService personService) {
+        this.fileService = fileService;
+        this.facultyService = facultyService;
+        this.personService = personService;
+    }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminActionFromFile")
     String addNewUsersFromFile(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-        if (adminDashboardService.saveUsersFromFile(file.getInputStream()))
+        if (personService.savePersonsFromFile(file.getInputStream()))
             return "SUCCES";
-        else
-            return "FAIL!";
+        return "FAIL!";
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/addFaculty/{facultyName}")
@@ -44,15 +46,15 @@ public class AdminDashBoardRestController {
         Faculty faculty= new Faculty();
         faculty.setFacultyNameField(facultyName);
         faculty.setFile(fileModel);
-        adminDashboardService.saveUserFacultyDataAdminAction(faculty);
+        facultyService.saveFaculty(faculty);
         return "IT WORKS :)";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
     public ResponseEntity<Object> deleteFacultySiteAction(@RequestBody String facultyName) {
-        if (adminDashboardService.getFacultyByName(facultyName) != null) {
-            Faculty faculty=adminDashboardService.getFacultyByName(facultyName);
+        if (facultyService.findFaculty(facultyName) != null) {
+            Faculty faculty=facultyService.findFaculty(facultyName);
             fileService.dleteFileById(faculty.getFile().getId());
             faculty.setFile(null);
 
@@ -63,7 +65,7 @@ public class AdminDashBoardRestController {
                 currentPerson.deleteFaculty(faculty);
                 myPersons.remove(currentPerson);
             }
-            adminDashboardService.deleteFacultyAdminAction(faculty);
+            facultyService.deleteFaculty(faculty);
         }
         ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);

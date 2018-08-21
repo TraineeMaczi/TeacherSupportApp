@@ -4,6 +4,7 @@ import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.FileServiceImpl;
+import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,13 @@ import java.util.List;
 public class AboutMeRESTController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
-    @Autowired
-    private FileServiceImpl fileService;
+    private IFileService fileService;
 
     @Autowired
-    public AboutMeRESTController(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public AboutMeRESTController(IPersonService personService, IUserSecurityDataService userSecurityDataService, IFileService fileService) {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
+        this.fileService=fileService;
     }
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {

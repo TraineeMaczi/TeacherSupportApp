@@ -3,6 +3,7 @@ package com.nokia.teachersupport.fileUpload;
 import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.studGroup.StudGroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,16 @@ import java.util.List;
 
 @Service
 public class FileServiceImpl implements IFileService {
-    @Autowired
-    private IPersonService personService;
-    @Autowired
-    private IUserSecurityDataService userSecurityDataService;
+
     private FileRepository fileRepository;
+    private IStudGroupService studGroupService;
+
     @Autowired
-    StudGroupServiceImpl studGroupService;
-    @Autowired
-    public FileServiceImpl(FileRepository fileRepository) {
+    public FileServiceImpl(FileRepository fileRepository, IStudGroupService studGroupService) {
         this.fileRepository = fileRepository;
+        this.studGroupService = studGroupService;
     }
+
 
     @Override
     public FileModel saveFile(FileModel fileModel) {
@@ -34,13 +34,12 @@ public class FileServiceImpl implements IFileService {
     @Override
     public FileModel saveMultipartFile(MultipartFile file, String type) throws IOException {
         FileModel fileModel = new FileModel(file.getOriginalFilename(), type, file.getBytes());
-        if(type.contains("res")&&type.length()>8)
-        {
-            String pom=type.substring(8);
+        if (type.contains("res") && type.length() > 8) {
+            String pom = type.substring(8);
             System.out.println(pom);
             StudGroup studGroup = studGroupService.getStudGroupByName(pom);
             fileModel.setFilesOfGroup(studGroup);
-            List<FileModel>fileModels=studGroup.getFileModels();
+            List<FileModel> fileModels = studGroup.getFileModels();
             fileModels.add(fileModel);
             studGroup.setFileModels(fileModels);
             studGroupService.saveStudGroup(studGroup);

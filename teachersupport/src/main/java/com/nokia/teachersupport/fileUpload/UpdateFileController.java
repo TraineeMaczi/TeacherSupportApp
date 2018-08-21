@@ -13,8 +13,14 @@ import java.io.IOException;
 
 @RestController
 public class UpdateFileController {
+
+    private FileServiceImpl fileService;
+
     @Autowired
-    FileServiceImpl fileService;
+    public UpdateFileController(FileServiceImpl fileService) {
+        this.fileService = fileService;
+    }
+
 
     @PostMapping("/upload/{type}")
     public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) throws IOException {

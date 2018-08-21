@@ -282,8 +282,7 @@
                             </td>
                             <td th:text="${objPerson.userSecurityDataField.getActive()}"></td>
                             <td>
-                                <input class="form-check-input" type="radio" name="exampleRadios" th:id="${objPerson.id}"
-                                       value="SAMPLE_VALUE">
+                                <input class="form-check-input" type="radio" name="userToDelete" th:id="${objPerson.id}" th:value="${objPerson.id}">
                             </td>
                         </tr>
 
@@ -296,7 +295,7 @@
                 <button data-toggle="modal" data-target="#adminAddUserModal" type="button"
                         class="btn bg-changableColor text-white">Add
                 </button>
-                <button form="UsersForm" type="button" class="btn bg-changableColor text-white">Delete</button>
+                <button form="UsersForm" type="button" class="btn bg-changableColor text-white" id="buttonDelete">Delete</button>
                 <button type="button" class="btn bg-changableColor text-white" data-toggle="modal" data-target="#deleteConfirm">
                     Delete All
                 </button>
