@@ -1,19 +1,18 @@
-
 $(document).ready(
-    function() {
+    function () {
 
-        var photo=[];
-        var id=[];
+        var photo = [];
+        var id = [];
         $.ajax({
             type: "GET",
             url: '/index/giveMePhoto',
             success: function (result) {
                 if (result.status == "success") {
 
-                    photo=result.data;
+                    photo = result.data;
 
                 } else {
-                    photo="img/logo.jpg" ;
+                    photo = "img/logo.jpg";
                 }
                 console.log(result);
 
@@ -23,16 +22,15 @@ $(document).ready(
                     success: function (result) {
                         if (result.status == "success") {
 
-                            id=result.data;
+                            id = result.data;
 
                         } else {
-                            id=result.data;
+                            id = result.data;
                         }
                         console.log(result);
-                        var i=0;
-                        while(id[i])
-                        {
-                            document.getElementById(id[i]).src=photo[i];
+                        var i = 0;
+                        while (id[i]) {
+                            document.getElementById(id[i]).src = photo[i];
                             i++;
                         }
                     },
@@ -45,51 +43,57 @@ $(document).ready(
 
             },
             error: function (e) {
-                photo="img/logo.jpg";
+                photo = "img/logo.jpg";
                 alert("Error!")
                 console.log("ERROR: ", e);
             }
 
         });
 
-        $("#btn1").on('click',function (event) {
+        $("#btn1").on('click', function (event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
             doAjax('fileUploadForm', 'listFiles', 'facultyFoto');
         });
-        $("#newUserFromFile").on('click',function (event) {
+        $("#newUserFromFile").on('click', function (event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
             doAjax2();
         });
+        $("#buttonDelete").on('click', function (event) {
+            // Prevent the form from submitting via the browser.
+            event.preventDefault();
+            deleteUser(event);
+        });
     }
-    );
+);
 
 function doAjax(formName, listFiles, typ) {
 
     event.preventDefault();
-    formName='#'+formName;
-    listFiles='#'+listFiles;
-    var facultyName= $('#facultyName').val()
+    formName = '#' + formName;
+    listFiles = '#' + listFiles;
+    var facultyName = $('#facultyName').val()
     var form = $(formName)[0];
     var data = new FormData(form);
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: '/addFaculty/'+facultyName,
+        url: '/addFaculty/' + facultyName,
         data: data,
 
         processData: false,
         contentType: false,
         cache: false,
-        success: (data) => {
-        $(listFiles).text(data);
-},
-    error: (e) => {
-        $(listFiles).text(e.responseText);
-    }
-});
+        success: function (data) {
+            $(listFiles).text(data);
+        },
+        error: function (e) {
+            $(listFiles).text(e.responseText);
+        }
+    });
 }
+
 function doAjax2() {
 
     event.preventDefault();
@@ -106,11 +110,30 @@ function doAjax2() {
         processData: false,
         contentType: false,
         cache: false,
-        success: (data) => {
-        $('#listFiles2').text(data);
-},
-    error: (e) => {
-        $('#listFiles2').text(e.responseText);
-    }
-});
+        success: function (data) {
+            $('#listFiles2').text(data);
+        },
+        error: function (e) {
+            $('#listFiles2').text(e.responseText);
+        }
+    });
+}
+
+function deleteUser(event) {
+    event.preventDefault();
+    var userId = $('input[name=userToDelete]:checked', '#UsersForm').val();
+    $.ajax({
+        type: "POST",
+        url: '/teacherSupportAdminDashboard/deleteUser',
+        data: {
+            "userId": userId
+        },
+        success: function () {
+
+            location.reload();
+        },
+        error: function (e) {
+            location.reload();
+        }
+    });
 }

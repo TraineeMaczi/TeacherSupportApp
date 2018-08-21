@@ -1,8 +1,11 @@
 package com.nokia.teachersupport.personSecurity.personRegister;
 
-import com.nokia.teachersupport.admin.IAdminDashboardService;
+
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.ITokenService;
 import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
+import org.aspectj.weaver.patterns.IToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
@@ -26,15 +29,12 @@ public class RegisterController {
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
-
-    private IAdminDashboardService adminDashboardService;
-
+    @Autowired
+    IUserSecurityDataService userSecurityDataService;
+    @Autowired
+    ITokenService tokenService;
     //Z tego interesuje mnie tylko securityDataRepo
 
-    @Autowired
-    public RegisterController(IAdminDashboardService adminDashboardService) {
-        this.adminDashboardService = adminDashboardService;
-    }
 
     @GetMapping("/teacherSupportRegister")
     String goRegister(WebRequest request, Model model) {
@@ -51,12 +51,12 @@ public class RegisterController {
 //sprawdzic czy mamy takiego w repo po email i czy jedgo active jest 0
 
 
-        if((adminDashboardService.getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
-                (adminDashboardService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive()==false))
+        if((userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
+                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive()==false))
         {
             String appUrl = request.getContextPath();
 
-            UserSecurityData registered=adminDashboardService.getUserSecurityDataByEmail(registerDTO.getUserName_Email());
+            UserSecurityData registered=userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email());
 
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent
                     (registered, request.getLocale(), appUrl));
@@ -77,7 +77,7 @@ public class RegisterController {
 
         Locale locale = request.getLocale();
 
-        VerificationToken verificationToken = adminDashboardService.getVerificationToken(token);
+        VerificationToken verificationToken = tokenService.getVerificationToken(token);
         if (verificationToken == null) {
             return "redirect:/teacherSupportRegisterF";
         }
@@ -90,7 +90,7 @@ public class RegisterController {
         }
 
         user.setActive(true);
-        adminDashboardService.saveUserSecurityDataAdminAction(user);
+        userSecurityDataService.saveUserSecurityData(user);
 
         return "redirect:/teacherSupportRegisterS";
     }

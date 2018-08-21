@@ -4,6 +4,7 @@ import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,20 +26,19 @@ public class IndexController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
     private IFacultyService facultyService;
+    private IModelService modelService;
 
     @Autowired
-    public IndexController( IFacultyService facultyService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+    public IndexController( IFacultyService facultyService,IPersonService personService,IUserSecurityDataService userSecurityDataService, IModelService modelService) {
         this.personService = personService;
         this.userSecurityDataService=userSecurityDataService;
         this.facultyService=facultyService;
+        this.modelService=modelService;
     }
 
     @GetMapping("/")
     String index(Model model) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("currentUserPerson",person);
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("facultyList",facultyService.listOfAllFaculties());
+        modelService.indexModel(model);
         return "teacherSupportIndex";
     }
     @PostMapping("/index/confirmFaculty")

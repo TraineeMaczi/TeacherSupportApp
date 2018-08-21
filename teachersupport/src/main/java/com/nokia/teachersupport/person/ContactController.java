@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,20 +16,17 @@ public class ContactController {
 
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
-
+    private IModelService modelService;
     @Autowired
-    public ContactController (IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+    public ContactController (IPersonService personService,IUserSecurityDataService userSecurityDataService, IModelService modelService) {
         this.personService = personService;
         this.userSecurityDataService=userSecurityDataService;
+        this.modelService=modelService;
     }
 
     @GetMapping("/teacherSupportContact")
     String contact(Model model){
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("currentUserPerson",person);
-        model.addAttribute("meetMeDataList",person.getPersonMeetMeDataList());
-
+        modelService.contactModel(model);
         return "teacherSupportContact";
     }
 
