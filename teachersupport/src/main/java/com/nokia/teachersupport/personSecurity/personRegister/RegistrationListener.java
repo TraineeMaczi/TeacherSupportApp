@@ -39,7 +39,7 @@ public class RegistrationListener implements
         String subject = "Registration Confirmation";
         String confirmationUrl
                 = event.getAppUrl() + "/teacherSupportRegister/regitrationConfirm?token=" + token;
-       // String message = messages.getMessage("message.regSucc", null, event.getLocale());
+        // String message = messages.getMessage("message.regSucc", null, event.getLocale());
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);

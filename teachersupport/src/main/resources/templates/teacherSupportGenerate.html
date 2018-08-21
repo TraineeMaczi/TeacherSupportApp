@@ -13,7 +13,8 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jsRadios/SupportGenerate.js"></script>
     <link href="../static/css/teacherSupportCSS.css"
           th:href="@{css/teacherSupportCSS.css}" rel="stylesheet" media="screen"/>
 </head>
@@ -80,7 +81,7 @@
     <div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
 
         <div class="bg-white jumbotron text-dark mr-3 ml-3">
-                <button type="button" class=" btn text-white bg-changableColor ">Generate Html + CSS</button>
+                <button id="generateButton" type="button" class=" btn text-white bg-changableColor ">Generate Html + CSS</button>
                 <button type="button" class=" btn text-white bg-changableColor ">Generate for WordPress</button>
                 <button type="button" class=" btn text-white bg-changableColor ">Download Template</button>
         <p></p>
@@ -110,6 +111,18 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mt-4 text-dark">
+        <form id="selectPages">
+            <div class="table-responsive makeMeScroll bg-white" align="center">
+                    <input type="checkbox" id="Home" value="teacherSupportHome.html"> Home<br>
+                    <input type="checkbox" id="AboutMe" value="teacherSupportAboutMe.html"> AboutMe<br>
+                    <input type="checkbox" id="Publications" value="teacherSupportPublications.html"> Publications<br>
+                    <input type="checkbox" id="Student" value="teacherSupportStudent.html"> Student<br>
+                    <input type="checkbox" id="Contact" value="teacherSupportContact.html"> Contact<br>
+            </div>
+        </form>
+
     </div>
     <p class="bg-white"> </p>
     <div class="jumbotron footer-copyright text-center py-3 rounded-0 bg-changableColor text-white">© 2018 Copyright: Karolina Makowska </div>
