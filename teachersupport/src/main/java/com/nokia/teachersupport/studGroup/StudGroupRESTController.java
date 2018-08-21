@@ -1,6 +1,8 @@
 package com.nokia.teachersupport.studGroup;
 
 import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.IMeetMeService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 public class StudGroupRESTController {
@@ -21,14 +24,16 @@ public class StudGroupRESTController {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
     private IStudGroupService studGroupService;
+    private IFileService fileService;
 //    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
 
 
     @Autowired
-    public StudGroupRESTController(IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
+    public StudGroupRESTController(IFileService fileService,IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.studGroupService = studGroupService;
+        this.fileService=fileService;
 //        this.studGroupLocalInstanc = new StudGroup();
     }
 
@@ -45,11 +50,18 @@ public class StudGroupRESTController {
     }
 
     @PostMapping("/teacherSupportStudent/delete")
-    public ResponseEntity<Object> deleteGroup(@RequestBody String groupName) {
+    public ResponseEntity<Object> deleteGroup(@RequestBody String groupName,HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        person.deleteStudGroup(studGroupService.getStudGroupByName(groupName));
-        studGroupService.deleteStudGroupById(studGroupService.getStudGroupByName(groupName).getId());
+        StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+        person.deleteStudGroup(studGroup);
+        for(FileModel fileModel:studGroup.getFileModels())
+        {
+            fileModel.setFilesOfGroup(null);
+        }
+        studGroup.getFileModels().removeAll(studGroup.getFileModels());
+        studGroupService.deleteStudGroupById(studGroup.getId());
         personService.savePerson(person);
+        session.setAttribute("currentStudGroupName",null);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
@@ -64,6 +76,23 @@ public class StudGroupRESTController {
         }
         //to chyba mozna by wykorzystac dla succes lub fail pinizej
         ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
+    @PostMapping("/teacherSupportStudent/deleteLocalResource")
+    public ResponseEntity<Object> deleteGroupLocalResource(@RequestBody Integer id,HttpSession session) {
+   Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        FileModel file=fileService.findFileById(id);
+        if(groupName !=null)
+        {
+            StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+            studGroup.getFileModels().remove(file);
+            fileService.dleteFileById(id);
+            studGroupService.saveStudGroup(studGroup);
+            session.setAttribute("currentStudGroupName",null);
+
+        }
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", id );
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 

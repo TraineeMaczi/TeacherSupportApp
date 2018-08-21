@@ -11,6 +11,7 @@ public class GroupResources {
     @Version
     private Integer version;
 
+    private String studGroupResourceName;
     private String resourceLink;
 
     @ManyToOne
@@ -51,5 +52,13 @@ public class GroupResources {
 
     public void setResourceLink(String resourceLink) {
         this.resourceLink = resourceLink;
+    }
+
+    public String getStudGroupResourceName() {
+        return studGroupResourceName;
+    }
+
+    public void setStudGroupResourceName(String studGroupResourceName) {
+        this.studGroupResourceName = studGroupResourceName;
     }
 }

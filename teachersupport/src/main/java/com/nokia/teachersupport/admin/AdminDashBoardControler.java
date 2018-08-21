@@ -27,9 +27,10 @@ public class AdminDashBoardControler {
 
     private IAdminDashboardService adminDashboardService;
     private IFileService fileService;
+
     private IPersonService personService;
 
-    @Autowired
+   @Autowired
     public AdminDashBoardControler(IAdminDashboardService adminDashboardsSrvice, IFileService fileService, IPersonService personService) {
         this.adminDashboardService = adminDashboardsSrvice;
         this.fileService = fileService;

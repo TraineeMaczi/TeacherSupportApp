@@ -36,6 +36,7 @@ public class StudGroup {
 
     @OneToMany(mappedBy = "resourceOwner")
     private List<GroupResources> groupsResourcesList;
+
     @OneToMany(mappedBy = "filesOfGroup" )
     private List<FileModel>fileModels;
 

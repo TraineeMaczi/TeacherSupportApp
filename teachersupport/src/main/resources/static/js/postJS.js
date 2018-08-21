@@ -73,13 +73,28 @@ $(document).ready(
                 url: "/teacherSupportStudent/delete",
                 data: item,
                 dataType: 'json',
-//                        success: function()
-//                        {
-//                           alert(item);
-//                        }
+                success: function () {
+                location.reload();
+              }
 
             });
         });
+  $("#deleteLocalResourceButton").on('click', function () {
+            var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
+            alert(item);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteLocalResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                location.reload();
+              }
+
+            });
+        });
+
 
         $("#deleteFacultyButton").on('click', function () {
                     var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
