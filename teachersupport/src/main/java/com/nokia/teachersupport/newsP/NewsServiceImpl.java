@@ -51,16 +51,6 @@ public class NewsServiceImpl implements INewsService {
         newsRepo.deleteById(id);
     }
 
-    @Override
-    public void tshomemodel(Model model) throws InterruptedException {
-        Person person = new Person();
-        person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("logInUser", person);
-        model.addAttribute("news", person.getPersonNewsList());
-        model.addAttribute("newNews", new News());
-        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("editNewsPostObj", new EditNewsDTO());
-    }
 
     @Override
     public void addNews(News news) {

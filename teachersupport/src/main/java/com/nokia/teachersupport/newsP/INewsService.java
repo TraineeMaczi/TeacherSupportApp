@@ -11,7 +11,6 @@ public interface INewsService
     News getNews(Integer id);
     News saveNews(News news);
     void deleteNews(Integer id);
-    void tshomemodel(Model model)throws InterruptedException;
     void addNews(News news);
     News findNewsByContent(String content);
     News goEditNews(EditNewsDTO editNewsDTO);
