@@ -46,6 +46,10 @@ public class GroupRemoteResource {
         }
     }
 
+    public void deleteResourceOwner()
+    {
+        this.resourceOwner=null;
+    }
     public String getResourceLink() {
         return resourceLink;
     }
