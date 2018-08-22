@@ -35,23 +35,14 @@ public class StudGroupController {
 
     @GetMapping("/teacherSupportStudent")
     String student(Model model, HttpSession session){
-
         modelService.studGroupModel(model,session);
         return "teacherSupportStudent";
     }
-    
+
     @PostMapping("/teacherSupportStudent/addNewGroupUserAction")
     String addNewGroupUserAction(StudGroup studGroup)
     {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-
-        if(studGroupService.getStudGroupByName(studGroup.getGroupNameField())==null) {
-            studGroup.setGroupsOwner(person);
-            person.addGroupsToMyList(studGroup);
-
-            personService.savePerson(person);
-            studGroupService.saveStudGroup(studGroup);
-        }
+        studGroupService.addStudGroup(studGroup,personService,userSecurityDataService);
         return "redirect:/teacherSupportStudent";
     }
 }

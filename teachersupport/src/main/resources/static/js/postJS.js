@@ -69,7 +69,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
         $("#deleteGroupButton").on('click', function () {
             var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
-            alert(item);
+
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -86,7 +86,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
   $("#deleteLocalResourceButton").on('click', function () {
             var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
-            alert(item);
+
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -101,7 +101,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
         });
 $("#deleteRemoteResourceButton").on('click', function () {
             var item = $('input[name=remoteResourceChecked]:checked', '#remoteResourceForm').val();
-            alert(item);
+
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -305,7 +305,7 @@ function ajaxPostAddRemoteResource() {
         data: JSON.stringify(formData),
         dataType: 'json',
         success: function (result) {
-         alert("Success add remote resource");
+          location.reload();
         },
         error: function (e) {
             alert("Fail add remote resource");
