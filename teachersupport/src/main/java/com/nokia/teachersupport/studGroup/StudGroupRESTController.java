@@ -110,4 +110,16 @@ public class StudGroupRESTController {
         ServiceResponse<RemoteStudGroupResourceDTO> response = new ServiceResponse<RemoteStudGroupResourceDTO>("success", remoteStudGroupResourceDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/teacherSupportStudent/deleteRemoteResource")
+    public ResponseEntity<Object> remoteResourceDelete(@RequestBody Integer remoteResourceId,HttpSession session) {
+        GroupRemoteResource remoteResource=remoteResourceService.findRemoteResourceById(remoteResourceId);
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+        studGroup.getGroupsResourcesList().remove(remoteResource);
+        studGroupService.saveStudGroup(studGroup);
+        remoteResourceService.deleteRemoteResource(remoteResource);
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", remoteResourceId);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
 }

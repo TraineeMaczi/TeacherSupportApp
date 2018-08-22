@@ -99,7 +99,21 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
             });
         });
+$("#deleteRemoteResourceButton").on('click', function () {
+            var item = $('input[name=remoteResourceChecked]:checked', '#remoteResourceForm').val();
+            alert(item);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteRemoteResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                location.reload();
+              }
 
+            });
+        });
 
 
         $("#deleteFacultyButton").on('click', function () {

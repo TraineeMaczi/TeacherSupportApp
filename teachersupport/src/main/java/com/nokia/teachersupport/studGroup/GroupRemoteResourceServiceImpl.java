@@ -26,5 +26,15 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
         return remoteResourceRepo.save(remoteResource);
     }
 
+    @Override
+    public GroupRemoteResource findRemoteResourceById(Integer remoteResourceId) {
+        return remoteResourceRepo.findById(remoteResourceId).orElse(new GroupRemoteResource());
+    }
+
+    @Override
+    public void deleteRemoteResource(GroupRemoteResource remoteResource) {
+        remoteResourceRepo.delete(remoteResource);
+    }
+
 
 }
