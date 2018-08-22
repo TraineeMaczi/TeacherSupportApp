@@ -33,7 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/js/**",
                 "/css/**",
                 "/img/**",
-                "/webjars/**").permitAll()
+                "/webjars/**",
+                "/zipFiles/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/teacherSupportLogIn").defaultSuccessUrl("/", true)

@@ -21,7 +21,7 @@ public class GenerateRestController{
     @PostMapping("/generate/listOfPages")
     public String generatePages(@RequestParam("listOfPages") String listOfPages)throws Exception
     {
-        Generator.generate(listOfPages, contextService);
-        return "teacherSupportGenerate";
+        return Generator.generate(listOfPages, contextService);
+
     }
 }
