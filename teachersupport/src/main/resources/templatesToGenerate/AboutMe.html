@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>AboutMe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <style type="text/css">
+        .bg-changableColor
+        {
+            background-color:rgb(0, 21, 116) !important;
+        }
+        .makeMeScroll
+        {
+            display: inline-block;
+            overflow-y: scroll;
+            max-height:200px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+    <img th:src="${photo}" class="rounded mt-1" alt="..." height="100" width="100">
+    <img th:src="${facultyPhoto}"class="rounded mt-1" alt="..." height="100" width="100">
+    <div th:text="${name}"/>
+    <div th:text="${surname}"/>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/">TeacherSupportApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active ">
+                <a class="nav-link" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AboutMe.html">About Me</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Publications.html">Publications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Student.html">Student</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="Contact.html">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+    <div class="row">
+        <!--About Me Basic-->
+
+
+        <div class="col bg-white jumbotron text-dark">
+
+            <form id="basicInfoForm">
+                <h4>Basic Info</h4>
+
+                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivBasicInfo" align="center"></div>
+
+                <div class="container mt-2">
+
+                    <div class="row" >
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
+                        </div>
+
+
+                        <div class="col-sm">
+                            <input id="degree" name="degree" type="text"
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getDegreeField()}"disabled/>
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Name: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" class="form-control rounded text-center d-inline"
+                                   th:placeholder="${currentUserPerson.getNameField()}" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Surname: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" class="form-control rounded text-center d-inline"
+                                   th:placeholder="${currentUserPerson.getSurnameField()}" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Workplace: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input id="workplace" name="workplace" type="text"
+                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getWorkAddressField()}"disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Profession: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input id="profession" name="profession" type="text"
+                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getProfessionField()}"disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" class="form-control rounded text-center d-inline"
+                                   th:placeholder="${currentUserName}" disabled />
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-5 ">
+                            <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" id="phone" name="phone" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getPhoneNumberField()}"disabled/>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="My usos: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getUsosPersonProfileLinkField()}"disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Twitter: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input id="twitter" name="twitter" type="text"
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getTwitterField()}"disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control text-center" placeholder="Facebook: " disabled>
+                        </div>
+                        <div class="col-sm">
+                            <input id="facebook" name="facebook" type="text"
+                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getFacebookField()}"disabled/>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+        <!--......................................................-->
+
+        <!--Hobby-->
+        <div class="col bg-white jumbotron text-dark ml-3 ">
+            <h4>Hobby</h4>
+            <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivHobby" align="center"></div>
+            <form id="hobbyForm" class="form-control bg-gray mt-2">
+                <textarea class="form-control rounded text-center" id="hobbyContentID" rows="10" th:placeholder="${currentUserPerson.getHobbyField()}"disabled></textarea>
+            </form>
+        </div>
+        <!--.......................................................-->
+
+        <!--Foto-->
+        <div class="col bg-white jumbotron text-dark ml-3 ">
+            <h4>Foto and CV</h4>
+            <img id="personFoto" src="img/logo.jpg" class="rounde mt-2" width="200" high="200"/>
+
+        </div>
+
+        <!---->
+        <!--row end-->
+    </div>
+    <!--pink background div end-->
+
+</div>
+
+</body>
+</html>

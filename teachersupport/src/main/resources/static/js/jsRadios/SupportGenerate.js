@@ -24,7 +24,7 @@ $(document).ready(
                     location.reload();
                 },
                 error: function (e) {
-                    alert("ERRROERR");
+                    alert("I can't set the context");
                     location.reload();
                 }
             });
