@@ -1,7 +1,7 @@
 package com.nokia.teachersupport.model;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.newsP.EditNewsDTO;

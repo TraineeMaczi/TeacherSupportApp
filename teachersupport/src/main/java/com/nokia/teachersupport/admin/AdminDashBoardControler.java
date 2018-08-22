@@ -1,15 +1,9 @@
 package com.nokia.teachersupport.admin;
 
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
-import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.person.Person;
-import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.roles.SecutityRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Objects;
 
 
 @Controller

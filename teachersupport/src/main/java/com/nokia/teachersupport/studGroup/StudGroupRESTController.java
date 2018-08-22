@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.IMeetMeService;
@@ -11,11 +11,9 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @RestController
 public class StudGroupRESTController {
@@ -60,6 +58,7 @@ public class StudGroupRESTController {
         {
             fileModel.setFilesOfGroup(null);
         }
+
         studGroup.getFileModels().removeAll(studGroup.getFileModels());
         studGroupService.deleteStudGroupById(studGroup.getId());
         personService.savePerson(person);

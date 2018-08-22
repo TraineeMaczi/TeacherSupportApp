@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.currentUser;
+package com.nokia.teachersupport.tools;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
