@@ -1,14 +1,22 @@
 package com.nokia.teachersupport.studGroup;
 
+import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.person.IPersonService;
+import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
 public class StudGroupServiceImpl implements IStudGroupService {
 
     private StudGroupRepo studGroupRepo;
+
 
     @Autowired
     public void setStudGroupRepo(StudGroupRepo studGroupRepo) {
@@ -47,5 +55,54 @@ public class StudGroupServiceImpl implements IStudGroupService {
         studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
         studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
 
+    }
+
+    @Override
+    public StudGroup addStudGroup(StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+
+        if(studGroupRepo.findByGroupNameField(studGroup.getGroupNameField())==null) {
+            studGroup.setGroupsOwner(person);
+            person.addGroupsToMyList(studGroup);
+
+            personService.savePerson(person);
+            studGroupRepo.save(studGroup);
+        }
+        return studGroup;
+    }
+
+    @Override
+    public void deleteStudGroup(String groupName, IPersonService personService, IFileService fileService,
+                                IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        StudGroup studGroup=studGroupRepo.findByGroupNameField(groupName);
+        person.deleteStudGroup(studGroup);
+        for(FileModel fileModel:studGroup.getFileModels())
+        {
+            fileModel.setFilesOfGroup(null);
+            fileService.dleteFileById(fileModel.getId());
+
+        }
+
+        for(GroupRemoteResource remoteResource:studGroup.getGroupsResourcesList())
+        {
+            remoteResource.deleteResourceOwner();
+            remoteResourceService.deleteRemoteResource(remoteResource);
+        }
+        studGroup.getGroupsResourcesList().removeAll(studGroup.getGroupsResourcesList());
+        studGroup.getFileModels().removeAll(studGroup.getFileModels());
+        studGroupRepo.delete(studGroup);
+        personService.savePerson(person);
+        session.setAttribute("currentStudGroupName",null);
+    }
+
+    @Override
+    public void goStudGroupUpdate(StudGroupDTO studGroupDTO) {
+        if (studGroupRepo.findByGroupNameField(studGroupDTO.getGroupNameField()) != null) {
+            StudGroup studGroup = studGroupRepo.findByGroupNameField(studGroupDTO.getGroupNameField());
+            studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
+            studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
+            studGroupRepo.save(studGroup);
+        }
     }
 }
