@@ -15,8 +15,10 @@ public class HomeController {
     private INewsService newsService;
     private IModelService modelService;
     @Autowired
-    public HomeController(INewsService newsService) {
-        this.newsService = newsService;
+    public HomeController(INewsService newsServic, IModelService modelService)
+    {
+        this.modelService=modelService;
+        this.newsService=newsServic;
     }
 
     @GetMapping("/teacherSupportHome")
@@ -30,8 +32,6 @@ public class HomeController {
         newsService.addNews(news);
         return "redirect:/teacherSupportHome";
     }
-
-
 
     @PostMapping("/teacherSupportHome/editNews")
     String editNews(EditNewsDTO editNewsDTO) {

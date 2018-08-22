@@ -1,7 +1,7 @@
 package com.nokia.teachersupport.generate;
 
 import com.nokia.teachersupport.configuration.ThymeLeafConfig;
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
@@ -27,6 +27,7 @@ public class GenerateRestController{
         {
             System.out.println(obj);
         }
+
         Context context = new Context();
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         context.setVariable("news", person.getPersonNewsList());

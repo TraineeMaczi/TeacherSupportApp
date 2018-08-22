@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
@@ -42,6 +41,7 @@ public class StudGroupController {
         String groupName=(String)session.getAttribute("currentStudGroupName");
         if(groupName != null && !groupName.equals("")) {
             model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
+            model.addAttribute("groupRemoteFiles", studGroupService.getStudGroupByName(groupName).getGroupsResourcesList());
         }
 //
 //  model.addAttribute("currentGroupName", person.getCurrentGroupName());

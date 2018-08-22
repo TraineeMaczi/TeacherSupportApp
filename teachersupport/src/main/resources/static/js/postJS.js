@@ -36,6 +36,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
             document.getElementById('editNewsModalContentOld').value = item;
             document.getElementById('editNewsModalContentNew').value = item;
         });
+
         $("#editPubliButton").on('click', function () {
             var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
 
@@ -81,6 +82,8 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
             });
         });
+
+
   $("#deleteLocalResourceButton").on('click', function () {
             var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
             alert(item);
@@ -88,6 +91,21 @@ $("#addRemoteResourceButton").on('click', function (event) {
                 type: "POST",
                 contentType: "application/json",
                 url: "/teacherSupportStudent/deleteLocalResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                location.reload();
+              }
+
+            });
+        });
+$("#deleteRemoteResourceButton").on('click', function () {
+            var item = $('input[name=remoteResourceChecked]:checked', '#remoteResourceForm').val();
+            alert(item);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteRemoteResource",
                 data: item,
                 dataType: 'json',
                 success: function () {
@@ -276,8 +294,8 @@ function ajaxPostAddRemoteResource() {
     // PREPARE FORM DATA
     var formData = {
 
-        name: $('#remoteGroupName').val(),
-        link: $('#remoteGroupLink').val(),
+        name: $('#newRemoteResourceResourceName').val(),
+        link: $('#newRemoteResourceResourceLink').val(),
     }
 // DO POST
     $.ajax({

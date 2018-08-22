@@ -1,24 +1,11 @@
 package com.nokia.teachersupport.personSecurity.personEditProfile;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
-import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.person.Person;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-
-import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 @RestController
 public class EditProfileRestController {

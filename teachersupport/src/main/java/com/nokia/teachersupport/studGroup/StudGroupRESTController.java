@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.currentUser.CurrentUser;
+import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.IMeetMeService;
@@ -11,11 +11,9 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @RestController
 public class StudGroupRESTController {
@@ -25,15 +23,17 @@ public class StudGroupRESTController {
     private IUserSecurityDataService userSecurityDataService;
     private IStudGroupService studGroupService;
     private IFileService fileService;
+    private IGroupRemoteResourceService remoteResourceService;
 //    private StudGroup studGroupLocalInstanc; //nieladnie silna zelznosc
 
 
     @Autowired
-    public StudGroupRESTController(IFileService fileService,IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
+    public StudGroupRESTController(IGroupRemoteResourceService remoteResourceService,IFileService fileService,IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.studGroupService = studGroupService;
         this.fileService=fileService;
+        this.remoteResourceService=remoteResourceService;
 //        this.studGroupLocalInstanc = new StudGroup();
     }
 
@@ -58,6 +58,7 @@ public class StudGroupRESTController {
         {
             fileModel.setFilesOfGroup(null);
         }
+
         studGroup.getFileModels().removeAll(studGroup.getFileModels());
         studGroupService.deleteStudGroupById(studGroup.getId());
         personService.savePerson(person);
@@ -97,9 +98,27 @@ public class StudGroupRESTController {
     }
 
     @PostMapping("/teacherSupportStudent/remoteResourceAdd")
-    public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO) {
-
+    public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO,HttpSession session) {
+        GroupRemoteResource remoteResource=remoteResourceService.resourceDTOIntoResource(remoteStudGroupResourceDTO);
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+        studGroup.addResourcesToMyList(remoteResource);
+        remoteResource.setResourceOwner(studGroup);
+        remoteResourceService.saveRemoteResource(remoteResource);
+        studGroupService.saveStudGroup(studGroup);
         ServiceResponse<RemoteStudGroupResourceDTO> response = new ServiceResponse<RemoteStudGroupResourceDTO>("success", remoteStudGroupResourceDTO);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/teacherSupportStudent/deleteRemoteResource")
+    public ResponseEntity<Object> remoteResourceDelete(@RequestBody Integer remoteResourceId,HttpSession session) {
+        GroupRemoteResource remoteResource=remoteResourceService.findRemoteResourceById(remoteResourceId);
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        StudGroup studGroup=studGroupService.getStudGroupByName(groupName);
+        studGroup.getGroupsResourcesList().remove(remoteResource);
+        studGroupService.saveStudGroup(studGroup);
+        remoteResourceService.deleteRemoteResource(remoteResource);
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", remoteResourceId);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 }
