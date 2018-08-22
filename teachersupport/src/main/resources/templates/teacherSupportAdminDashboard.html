@@ -302,20 +302,15 @@
             </div>
         </form>
             </div>
-    <div class="col-xs">
-        <textarea class="form-control rounded text-center ml-4" rows="6" disabled>
-You can load user data from file.
-Remember to upload files in correct format.
-Name,Surname,Faculty,ROLE,email
-Incorrect data will be discarded.
-        </textarea>
-    </div>
       <div class="col-xs">
         <form method="POST" enctype="multipart/form-data" id="fileUpload">
             <div class="form-group mt-4">
 
                 <div>
-                    <label for="UsersAdd" class="btn text-white bg-changableColor rounded ">Add
+                    <label title="You can load user data from file.
+Remember to upload files in correct format.
+Name,Surname,Faculty,ROLE,email
+Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-changableColor rounded ">Add
                         Users From File</label>
                     <div class="ml-4">
                         <input id="UsersAdd" style="visibility:hidden;" type="file" name="uploadfile">

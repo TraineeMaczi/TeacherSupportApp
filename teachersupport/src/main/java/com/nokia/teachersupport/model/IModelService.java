@@ -10,4 +10,5 @@ public interface IModelService {
     void indexModel(Model model);
     void editProfileModel(Model model);
     void publicationsModel(Model model);
+    void homeModel(Model model);
 }

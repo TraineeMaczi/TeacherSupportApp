@@ -4,6 +4,8 @@ import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.currentUser.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
+import com.nokia.teachersupport.newsP.EditNewsDTO;
+import com.nokia.teachersupport.newsP.News;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
@@ -82,5 +84,15 @@ public class ModelServiceImpl implements IModelService {
         model.addAttribute("publications", publicationsService.listOfAllPublications());
         model.addAttribute("newPublication", new Publications());
         model.addAttribute("editPubliPostObj", new EditPublicationDTO());
+    }
+
+    @Override
+    public void homeModel(Model model) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        model.addAttribute("logInUser", person);
+        model.addAttribute("news", person.getPersonNewsList());
+        model.addAttribute("newNews", new News());
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("editNewsPostObj", new EditNewsDTO());
     }
 }
