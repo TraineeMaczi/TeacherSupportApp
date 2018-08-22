@@ -1,17 +1,19 @@
 package com.nokia.teachersupport.newsP;
 
+import com.nokia.teachersupport.model.IModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.model.IModel;
 
 
 @Controller
 public class HomeController {
     private INewsService newsService;
-
+    private IModelService modelService;
     @Autowired
     public HomeController(INewsService newsService) {
         this.newsService = newsService;
@@ -19,7 +21,7 @@ public class HomeController {
 
     @GetMapping("/teacherSupportHome")
     String tshome(Model model) throws InterruptedException {
-        newsService.tshomemodel(model);
+        modelService.homeModel(model);
         return "teacherSupportHome";
     }
 
