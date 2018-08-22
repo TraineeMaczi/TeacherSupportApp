@@ -1,14 +1,17 @@
 package com.nokia.teachersupport.fileUpload;
 
 import com.nokia.teachersupport.person.IPersonService;
+import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.studGroup.StudGroupServiceImpl;
+import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -65,5 +68,20 @@ public class FileServiceImpl implements IFileService {
 
         return fileRepository.findById(id).orElse(new FileModel());
 
+    }
+
+    @Override
+    public void goDeleteLocalResource(Integer id, HttpSession session, IPersonService personService, IUserSecurityDataService userSecurityDataService,IFileService fileService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        String groupName = (String) session.getAttribute("currentStudGroupName");
+        FileModel file = fileService.findFileById(id);
+        if (groupName != null) {
+            StudGroup studGroup = studGroupService.getStudGroupByName(groupName);
+            studGroup.getFileModels().remove(file);
+            fileService.dleteFileById(id);
+            studGroupService.saveStudGroup(studGroup);
+            session.setAttribute("currentStudGroupName", null);
+
+        }
     }
 }
