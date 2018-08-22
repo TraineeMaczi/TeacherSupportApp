@@ -1,6 +1,8 @@
 package com.nokia.teachersupport.model;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
+import com.nokia.teachersupport.studGroup.IStudGroupService;
+import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Service
@@ -25,13 +28,15 @@ public class ModelServiceImpl implements IModelService {
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
     private IPublicationsService publicationsService;
+    private IStudGroupService studGroupService;
 
     @Autowired
-    public ModelServiceImpl(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IPublicationsService publicationsService) {
+    public ModelServiceImpl(IStudGroupService studGroupService ,IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IPublicationsService publicationsService) {
         this.facultyService = facultyService;
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
         this.publicationsService = publicationsService;
+        this.studGroupService=studGroupService;
     }
 
 
@@ -94,5 +99,19 @@ public class ModelServiceImpl implements IModelService {
         model.addAttribute("newNews", new News());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("editNewsPostObj", new EditNewsDTO());
+    }
+
+    @Override
+    public void studGroupModel(Model model,HttpSession session) {
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        model.addAttribute("newStudGroupUserAction", new StudGroup());
+        model.addAttribute("currentGroups",person.getPersonStudGroupList());
+        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+
+        String groupName=(String)session.getAttribute("currentStudGroupName");
+        if(groupName != null && !groupName.equals("")) {
+            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
+            model.addAttribute("groupRemoteFiles", studGroupService.getStudGroupByName(groupName).getGroupsResourcesList());
+        }
     }
 }
