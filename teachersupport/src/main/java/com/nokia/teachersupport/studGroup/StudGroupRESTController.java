@@ -57,8 +57,16 @@ public class StudGroupRESTController {
         for(FileModel fileModel:studGroup.getFileModels())
         {
             fileModel.setFilesOfGroup(null);
+            fileService.dleteFileById(fileModel.getId());
+
         }
 
+        for(GroupRemoteResource remoteResource:studGroup.getGroupsResourcesList())
+        {
+            remoteResource.deleteResourceOwner();
+            remoteResourceService.deleteRemoteResource(remoteResource);
+        }
+        studGroup.getGroupsResourcesList().removeAll(studGroup.getGroupsResourcesList());
         studGroup.getFileModels().removeAll(studGroup.getFileModels());
         studGroupService.deleteStudGroupById(studGroup.getId());
         personService.savePerson(person);

@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
+import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -20,38 +21,25 @@ public class StudGroupController {
     private IStudGroupService studGroupService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
-
+    private IModelService modelService;
 
 
     @Autowired
-    public StudGroupController(IUserSecurityDataService userSecurityDataService,IPersonService personService,IStudGroupService studGroupService)
+    public StudGroupController(IModelService modelServicec,IUserSecurityDataService userSecurityDataService,IPersonService personService,IStudGroupService studGroupService)
     {
         this.studGroupService=studGroupService;
         this.personService=personService;
         this.userSecurityDataService=userSecurityDataService;
+        this.modelService=modelServicec;
     }
 
     @GetMapping("/teacherSupportStudent")
     String student(Model model, HttpSession session){
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        model.addAttribute("newStudGroupUserAction", new StudGroup());
-        model.addAttribute("currentGroups",person.getPersonStudGroupList());
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-//        if(person.getCurrentGroupName()!=null) {
-        String groupName=(String)session.getAttribute("currentStudGroupName");
-        if(groupName != null && !groupName.equals("")) {
-            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
-            model.addAttribute("groupRemoteFiles", studGroupService.getStudGroupByName(groupName).getGroupsResourcesList());
-        }
-//
-//  model.addAttribute("currentGroupName", person.getCurrentGroupName());
-           // session.getAttribute("currentStudGroupName");
-//        }
+
+        modelService.studGroupModel(model,session);
         return "teacherSupportStudent";
     }
-
-
-
+    
     @PostMapping("/teacherSupportStudent/addNewGroupUserAction")
     String addNewGroupUserAction(StudGroup studGroup)
     {

@@ -2,6 +2,8 @@ package com.nokia.teachersupport.model;
 
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
+
 public interface IModelService {
     void adminDashboardModel(Model model);
     void generateModel(Model model);
@@ -11,4 +13,5 @@ public interface IModelService {
     void editProfileModel(Model model);
     void publicationsModel(Model model);
     void homeModel(Model model);
+    void studGroupModel(Model model, HttpSession session);
 }
