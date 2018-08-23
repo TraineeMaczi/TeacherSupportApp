@@ -29,6 +29,26 @@ $("#addRemoteResourceButton").on('click', function (event) {
 //                    ajaxEditStudGroupButton()
 //                });
 
+ $("#deleteContactInfoButton").on('click', function () {
+            var item = $('input[name=checkedContactInfo]:checked', '#dispContactForm').val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportContact/deleteContactInfo",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                alert(item);
+                location.reload();
+              }
+
+            });
+        });
+
+
+
+
+
 
         $("#editNewsButton").on('click', function () {
             var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();

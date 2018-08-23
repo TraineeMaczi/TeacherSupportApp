@@ -34,5 +34,15 @@ public class ContactRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/teacherSupportContact/deleteContactInfo")
+    public ResponseEntity<Object> deleteContactInfo(@RequestBody Integer contactInfoId) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+       MeetMe meetMe=meetMeService.getMeetMe(contactInfoId);
+        person.getPersonMeetMeDataList().remove(meetMe);
+        meetMeService.deleteMeetMe(contactInfoId);
+        personService.savePerson(person);
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", contactInfoId);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
 
 }
