@@ -24,17 +24,12 @@ import java.util.Optional;
 public class PersonServiceImpl implements IPersonService {
 
     private PersonRepo personRepo;
-    private IUserSecurityDataService userSecurityDataService;
-    private IFacultyService facultyService;
-    private IRoleService roleService;
+
 
     @Autowired
-    public PersonServiceImpl(PersonRepo personRepo, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService) {
+    public PersonServiceImpl(PersonRepo personRepo) {
         this.personRepo = personRepo;
-        this.userSecurityDataService = userSecurityDataService;
-        this.facultyService = facultyService;
-        this.roleService = roleService;
-    }
+        }
 
     @Override
     public List<Person> listOfAllPersons() {
@@ -54,7 +49,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deletePerson(Person person) {
+    public void deletePerson(Person person,IUserSecurityDataService userSecurityDataService) {
         Faculty faculty = person.getFacultyField();
         faculty.getFacultyAndPersonList().remove(person);
         person.deleteFaculty(faculty);
@@ -90,7 +85,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deleteAllPersons() {
+    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService) {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;
@@ -98,12 +93,12 @@ public class PersonServiceImpl implements IPersonService {
                 if (securityRole.getRoleName().equals("ADMIN"))
                     toDelete = false;
             if (toDelete)
-                deletePerson(person);
+                deletePerson(person,userSecurityDataService);
         }
     }
 
     @Override
-    public boolean savePersonsFromFile(InputStream stream) {
+    public boolean savePersonsFromFile(InputStream stream, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService) {
         String myName;
         String mySurname;
         String myFaculty;
@@ -155,7 +150,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void addUser(UserDTOForAdminAction userDTOForAdminActionDTO) {
+    public void addUser(UserDTOForAdminAction userDTOForAdminActionDTO, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService,IRoleService roleService) {
         //jak nie mam takiego e-mail w bazie jeszcze i jak wydzial istnieje i jesli rola istnieje
         if ((userSecurityDataService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null) &&
                 (facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField()) != null) &&

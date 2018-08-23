@@ -203,9 +203,9 @@
                         <tr th:each="objPerson : ${currentUsers}">
                             <td th:text="${objPerson.nameField}"></td>
                             <td th:text="${objPerson.surnameField}"></td>
-                            <td th:text="${objPerson.facultyField.getFacultyNameField()}"></td>
-                            <td th:text="${objPerson.userSecurityDataField.getEmail()}"></td>
-                            <td th:text="${objPerson.userSecurityDataField.getPassword()}"></td>
+                            <td th:text="${objPerson?.facultyField?.facultyNameField}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.email}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.password}"></td>
 
                             <td>
 
