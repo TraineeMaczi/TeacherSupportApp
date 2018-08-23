@@ -107,7 +107,7 @@ public class ModelServiceImpl implements IModelService {
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-
+        model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
         String groupName=(String)session.getAttribute("currentStudGroupName");
         if(groupName != null && !groupName.equals("")) {
             model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
