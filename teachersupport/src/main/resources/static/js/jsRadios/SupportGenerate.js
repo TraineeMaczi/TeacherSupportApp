@@ -13,18 +13,18 @@ $(document).ready(
                 listOfPages = listOfPages + ($("#Student").val() + ',');
             if ($("#Contact").is(":checked"))
                 listOfPages = listOfPages + ($("#Contact").val() + ',');
+
             $.ajax({
                 type: "POST",
                 url: 'generate/listOfPages',
                 data: {
                     "listOfPages": listOfPages
                 },
-                success: function () {
-
-                    location.reload();
+                success: function (data) {
+                    document.getElementById("download").href=data;
                 },
                 error: function (e) {
-                    alert("I can't set the context");
+                    alert("Can't set the context");
                     location.reload();
                 }
             });
