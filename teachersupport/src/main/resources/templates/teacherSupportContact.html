@@ -197,7 +197,7 @@
 
                                 <td>
                                     <div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="SAMPLE_ID111" value="SAMPLE_VALUE1">
+                                    <input class="form-check-input" type="radio" name="checkedContactInfo" th:value="${objMeetMe.id}">
                                     </div>
                                 </td>
                                 <!--...............................................-->
@@ -209,8 +209,7 @@
                     </div>
 
                 <div class="text-right mt-2">
-                    <button type="button" class="btn bg-changableColor text-white">Edit</button>
-                    <button type="button" class="btn bg-changableColor text-white">Delete</button>
+                    <button type="button" id="deleteContactInfoButton" class="btn bg-changableColor text-white">Delete</button>
                 </div>
             </form>
         </div>

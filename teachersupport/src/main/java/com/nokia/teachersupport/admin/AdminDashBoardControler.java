@@ -7,7 +7,9 @@ import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.person.IPersonService;
 
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.roles.IRoleService;
+import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,11 +39,18 @@ public class AdminDashBoardControler {
         this.userSecurityDataService = userSecurityDataService;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+  //  @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
-        modelService.adminDashboardModel(model);
-        return "teacherSupportAdminDashboard";
+       UserSecurityData user= userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName());
+       if(userSecurityDataService.isAdmin(user)) {
+           modelService.adminDashboardModel(model);
+           return "teacherSupportAdminDashboard";
+       }
+       else
+           {
+               return "teacherSupportAdminDashboardInvalid";
+           }
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

@@ -27,49 +27,31 @@ public class AboutMeRESTController {
     }
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        personService.setPersonBasicInfo(basicInfoDTO,person);
-        personService.savePerson(person);
+personService.goAddBasicInfo(basicInfoDTO,userSecurityDataService,personService);
         ServiceResponse<BasicInfoDTO> response = new ServiceResponse<BasicInfoDTO>("success", basicInfoDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @PostMapping("/teacherSupportAboutMe/hobby/new")
     public ResponseEntity<Object> addHobbyInfo(@RequestBody String hobbyInfo) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-
-        if (!hobbyInfo.equals(""))person.setHobbyField(hobbyInfo);
-
-        personService.savePerson(person);
-
+        personService.goAddHobbyInfo(hobbyInfo,personService,userSecurityDataService);
         ServiceResponse<String> response = new ServiceResponse<String>("success", hobbyInfo);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
     @PostMapping("/uploadFoto")
     public String uploadPhoto(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-        FileModel fileModel=fileService.saveMultipartFile(file, "personFoto");
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        person.setFoto(fileModel);
-        personService.savePerson(person);
+       personService.goUploadPhoto(file,fileService,personService,userSecurityDataService);
         return "SUCCES";
     }
     @GetMapping("/givePhoto")
     ResponseEntity<Object> giveMyPhoto() {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        String pom;
-        if(person.getFoto()==null)
-            pom="img/logo.jpg";
-        else
-            pom="data:image/jpeg;base64,"+ Base64.getEncoder().encodeToString(person.getFoto().getPic());
+       String pom= personService.goGivePhoto(personService,userSecurityDataService);
         ServiceResponse<String> response = new ServiceResponse<>("success", pom);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
     @PostMapping("/uploadCV")
     public String uploadCV(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-        FileModel fileModel=fileService.saveMultipartFile(file, "personCV");
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        person.setCV(fileModel);
-        personService.savePerson(person);
+    personService.goUploadCv(file,fileService,personService,userSecurityDataService);
         return "SUCCES";
     }
 }

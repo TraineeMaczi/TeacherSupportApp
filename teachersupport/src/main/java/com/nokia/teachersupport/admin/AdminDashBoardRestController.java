@@ -40,6 +40,7 @@ public class AdminDashBoardRestController {
         this.userSecurityDataService = userSecurityDataService;
     }
 
+    //Te zostawiam tak jak jest
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminActionFromFile")
     String addNewUsersFromFile(@RequestParam("uploadfile") MultipartFile file) throws IOException {
@@ -52,29 +53,15 @@ public class AdminDashBoardRestController {
     @PostMapping("/addFaculty/{facultyName}")
     public String uploadMultipartFile(@RequestParam("uploadFile") MultipartFile file, @PathVariable("facultyName") String facultyName) throws IOException {
         FileModel fileModel = fileService.saveMultipartFile(file, "facultyFoto");
-        Faculty faculty = new Faculty();
-        faculty.setFacultyNameField(facultyName);
-        faculty.setFile(fileModel);
-        facultyService.saveFaculty(faculty);
+        fileService.goUploadMultipartFile(fileModel,facultyName,fileService,facultyService);
         return "IT WORKS :)";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
     public ResponseEntity<Object> deleteFacultySiteAction(@RequestBody String facultyName) {
-        if (facultyService.findFaculty(facultyName) != null) {
-            Faculty faculty = facultyService.findFaculty(facultyName);
-            fileService.dleteFileById(faculty.getFile().getId());
-            faculty.setFile(null);
 
-            List<Person> myPersons = faculty.getFacultyAndPersonList();
-            for (Integer i = 0; !myPersons.isEmpty(); i++) {
-                Person currentPerson = myPersons.get(i);
-                currentPerson.deleteFaculty(faculty);
-                myPersons.remove(currentPerson);
-            }
-            facultyService.deleteFaculty(faculty);
-        }
+       facultyService.goDeleteFacultySiteAction(facultyName,facultyService,fileService);
         ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
