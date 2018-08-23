@@ -1,5 +1,7 @@
 package com.nokia.teachersupport.person;
 
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+
 import java.util.List;
 
 public interface IMeetMeService {
@@ -8,6 +10,8 @@ public interface IMeetMeService {
     MeetMe saveMeetMe(MeetMe meetMe);
     void deleteMeetMe(Integer id);
     MeetMe meetMeDTOIntoMeetMe(MeetMeDTO meetMeDTO);
-    public void addContactInfo(Person person, MeetMe meetMe);
+    void addContactInfo(Person person, MeetMe meetMe);
+    MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService);
+    Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService,IPersonService personService);
 
 }

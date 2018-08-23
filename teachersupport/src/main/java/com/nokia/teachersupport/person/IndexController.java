@@ -39,37 +39,18 @@ public class IndexController {
     }
     @PostMapping("/index/confirmFaculty")
     String saveFaculty(@RequestParam("facultyName") String name) {
-       Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-       person.setFacultyField(facultyService.findFaculty(name));
-       Faculty faculty=facultyService.findFaculty(name);
-       faculty.addPersonToFaculty(person);
-       facultyService.saveFaculty(faculty);
-       personService.savePerson(person);
-       return "teacherSupportIndex";
+        personService.goSaveMyFaculty(name,personService,facultyService,userSecurityDataService);
+        return "teacherSupportIndex";
     }
     @GetMapping("/index/giveMePhoto")
     ResponseEntity<Object> giveFacultyPhoto() {
-        List<Faculty>faculties=facultyService.listOfAllFaculties();
-        List<String>pic= new ArrayList<>();
-        String pom;
-        for (Faculty faculty: faculties)
-        {
-            if(faculty.getFile()!=null) {
-                pom = Base64.getEncoder().encodeToString(faculty.getFile().getPic());
-                pom = "data:image/jpeg;base64,"+pom;
-            }
-            else pom = "img/logo.jpg";
-            pic.add(pom);
-        }
+        List<String>pic=personService.goGiveMeFacultyPhoto(facultyService);
         ServiceResponse<List<String>> response = new ServiceResponse<>("success", pic);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
     @GetMapping("/index/giveMeId")
     ResponseEntity<Object> giveFacultyId() {
-        List<Faculty>faculties=facultyService.listOfAllFaculties();
-        List<Integer>Id= new ArrayList<>();
-        for (Faculty faculty: faculties)
-            Id.add(faculty.getId());
+        List<Integer>Id= personService.goGiveMeFacultyId(facultyService);
         ServiceResponse<List<Integer>> response = new ServiceResponse<>("success", Id);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

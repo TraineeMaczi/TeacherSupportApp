@@ -38,8 +38,7 @@ $("#addRemoteResourceButton").on('click', function (event) {
                 data: item,
                 dataType: 'json',
                 success: function () {
-                alert(item);
-                location.reload();
+            location.reload();
               }
 
             });

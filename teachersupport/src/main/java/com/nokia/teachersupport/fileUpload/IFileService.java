@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.fileUpload;
 
 
+import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,4 +22,5 @@ public interface IFileService {
     FileModel findFileById(Integer id);
 
     void goDeleteLocalResource(Integer id, HttpSession session, IPersonService personService, IUserSecurityDataService userSecurityDataService,IFileService fileService);
+    void goUploadMultipartFile(FileModel fileModel, String facultyName, IFileService fileService, IFacultyService facultyService);
 }
