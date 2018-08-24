@@ -47,10 +47,7 @@ public class AdminDashBoardControler {
            modelService.adminDashboardModel(model);
            return "teacherSupportAdminDashboard";
        }
-       else
-           {
-               return "teacherSupportAdminDashboardInvalid";
-           }
+       return "teacherSupportAdminDashboardInvalid";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
