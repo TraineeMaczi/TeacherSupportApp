@@ -1,24 +1,32 @@
 package com.nokia.teachersupport.faculty;
 
+import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.fileUpload.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent> {
     private FacultyRepo facultyRepo;
+    private IFileService fileService;
 
     @Autowired
-    public LoadFaculties(FacultyRepo facultyRepoo) {
-        this.facultyRepo = facultyRepoo;
+    public LoadFaculties(FacultyRepo facultyRepo, IFileService fileService) {
+        this.facultyRepo = facultyRepo;
+        this.fileService = fileService;
     }
 
+
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent)  {
         List<String> umkFaculties = new ArrayList<>();
 
         umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
@@ -39,13 +47,24 @@ public class LoadFaculties implements ApplicationListener<ApplicationReadyEvent>
         umkFaculties.add("Wydzial Prawa i Administracji");
         umkFaculties.add("Wydzial Sztuk Pieknych");
         umkFaculties.add("Wydzial Teologiczny");
-
-
         for (int i = umkFaculties.size() - 1; i >= 0; i--) {
             if (facultyRepo.findByFacultyNameField(umkFaculties.get(i)) == null) {
+                File file = new File("src\\main\\resources\\static\\images\\logo.jpg");
                 Faculty faculty = new Faculty();
                 faculty.setFacultyNameField(umkFaculties.get(i));
+                FileModel fileModel = new FileModel();
+                fileModel.setName(umkFaculties.get(i));
+                try {
+                    fileModel.setPic(Files.readAllBytes(file.toPath()));
+                }catch(IOException e){
+                    System.out.println("Cos nie dziala");
+                }
+                fileModel.setType("facultyFoto");
+                fileService.saveFile(fileModel);
                 facultyRepo.save(faculty);
+                faculty.setFile(fileService.findFileById(fileModel.getId()));
+                facultyRepo.save(faculty);
+
             }
         }
 

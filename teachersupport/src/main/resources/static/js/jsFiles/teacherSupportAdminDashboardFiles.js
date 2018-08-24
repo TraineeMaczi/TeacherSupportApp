@@ -86,11 +86,12 @@ function doAjax(formName, listFiles, typ) {
         contentType: false,
         cache: false,
         success: function (data) {
-            $(listFiles).text(data);
-            location.reload();
+            $('#resultOfAddingFaculty').text(data);
+            if(data.equals("SUCCES"))
+                location.reload();
         },
         error: function (e) {
-            $(listFiles).text(e.responseText);
+            $('#resultOfAddingFaculty').text(e.responseText);
         }
     });
 }

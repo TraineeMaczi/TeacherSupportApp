@@ -20,7 +20,23 @@ function changeName() {
     var surname = $('#surnameId').val();
     $.ajax({
         type: "POST",
-        url: '/change/name/'+name+'/'+surname
+        url: '/change/name/'+name+'/'+surname,
+        success: function (result) {
+            if (result == "success") {
+                location.reload();
+                $("#postResultChangeName").html(
+                    result);
+
+
+            } else {
+                $("#postResultChangeName").html(result);
+            }
+            console.log(result);
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
 });
 }
 function changeEmail() {
