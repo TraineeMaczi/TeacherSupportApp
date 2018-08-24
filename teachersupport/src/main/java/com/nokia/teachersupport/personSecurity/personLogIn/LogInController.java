@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LogInController {
-    @RequestMapping(value = "/teacherSupportLogIn",method = RequestMethod.GET)
 
+    @RequestMapping(value = "/teacherSupportLogIn",method = RequestMethod.GET)
     public String login(){
         return "teacherSupportLogIn";
     }

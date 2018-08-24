@@ -53,7 +53,7 @@ public class StudGroupRESTController {
     @PostMapping("/teacherSupportStudent/updateGroup")
     public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO) {
         studGroupService.goStudGroupUpdate(studGroupDTO);
-        //to chyba mozna by wykorzystac dla succes lub fail pinizej
+
         ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

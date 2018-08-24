@@ -1,5 +1,7 @@
 package com.nokia.teachersupport.person;
 
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +57,23 @@ public class MeetMeServiceImpl implements IMeetMeService {
         person.addMeetMeToMyList(meetMe);
         this.saveMeetMe(meetMe);
         personRepo.save(person);
+    }
+
+    @Override
+    public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        MeetMe meetMe = meetMeDTOIntoMeetMe(meetMeDTO);
+        addContactInfo(person, meetMe);
+        return meetMeDTO;
+    }
+
+    @Override
+    public Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+       MeetMe meetMe=getMeetMe(id);
+        person.getPersonMeetMeDataList().remove(meetMe);
+        deleteMeetMe(id);
+        personService.savePerson(person);
+        return id;
     }
 }

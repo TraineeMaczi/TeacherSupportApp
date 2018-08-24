@@ -1,5 +1,7 @@
 package com.nokia.teachersupport.fileUpload;
 
+import com.nokia.teachersupport.faculty.Faculty;
+import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
@@ -83,5 +85,13 @@ public class FileServiceImpl implements IFileService {
             session.setAttribute("currentStudGroupName", null);
 
         }
+    }
+
+    @Override
+    public void goUploadMultipartFile(FileModel fileModel, String facultyName, IFileService fileService, IFacultyService facultyService) {
+        Faculty faculty = new Faculty();
+        faculty.setFacultyNameField(facultyName);
+        faculty.setFile(fileModel);
+        facultyService.saveFaculty(faculty);
     }
 }

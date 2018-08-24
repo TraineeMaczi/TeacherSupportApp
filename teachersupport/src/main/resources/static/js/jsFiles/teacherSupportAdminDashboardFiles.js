@@ -87,6 +87,7 @@ function doAjax(formName, listFiles, typ) {
         cache: false,
         success: function (data) {
             $(listFiles).text(data);
+            location.reload();
         },
         error: function (e) {
             $(listFiles).text(e.responseText);

@@ -186,14 +186,14 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control text-center" placeholder="Faculty: " disabled>
-                    </div>
-                    <div class="col">
-                        <input type="text" id="facultyField" class="form-control rounded text-center d-inline"/>
-                    </div>
-                </div>
+
+
+
+
+
+
+
+
 
                 <div class="row">
                     <div class="col">
@@ -212,6 +212,19 @@
                     <div class="col">
                         <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline"/>
                     </div>
+                </div>
+                <div class="row mr-0 ml-0">
+
+                    <input type="text" class="form-control text-center" placeholder="Faculty: "
+                           disabled>
+                </div>
+                <div class="row mr-0 ml-0 ">
+
+                    <select class="col" id="facultyField">
+
+                        <option th:each="f :${hAllFaculty}" th:text="${f.facultyNameField}" ></option>
+
+                    </select>
                 </div>
 
                 <div class="container">

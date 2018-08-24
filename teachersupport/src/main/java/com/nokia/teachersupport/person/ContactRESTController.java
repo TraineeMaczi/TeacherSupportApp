@@ -27,12 +27,16 @@ public class ContactRESTController {
 
     @PostMapping("/teacherSupportContact/contact/new")
     public ResponseEntity<Object> addContactInfo(@RequestBody MeetMeDTO meetMeDTO) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        MeetMe meetMe = meetMeService.meetMeDTOIntoMeetMe(meetMeDTO);
-        meetMeService.addContactInfo(person, meetMe);
+        meetMeService.goAddContactInfo(meetMeDTO,personService,userSecurityDataService);
         ServiceResponse<MeetMeDTO> response = new ServiceResponse<MeetMeDTO>("success", meetMeDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/teacherSupportContact/deleteContactInfo")
+    public ResponseEntity<Object> deleteContactInfo(@RequestBody Integer contactInfoId) {
+        meetMeService.goDeleteContactInfo(contactInfoId,userSecurityDataService,personService);
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", contactInfoId);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
 
 }

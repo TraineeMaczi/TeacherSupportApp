@@ -203,14 +203,20 @@
                         <tr th:each="objPerson : ${currentUsers}">
                             <td th:text="${objPerson.nameField}"></td>
                             <td th:text="${objPerson.surnameField}"></td>
-                            <td th:text="${objPerson.facultyField.getFacultyNameField()}"></td>
-                            <td th:text="${objPerson.userSecurityDataField.getEmail()}"></td>
-                            <td th:text="${objPerson.userSecurityDataField.getPassword()}"></td>
+                            <td th:text="${objPerson?.facultyField?.facultyNameField}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.email}"></td>
+                            <td th:text="${objPerson.userSecurityDataField.password}"></td>
+
                             <td>
-                                <select>
-                                    <option >ROLE_USER</option>
+
+                                <select >
+                                    <span th:each="objRole: ${objPerson.userSecurityDataField.myRoles}" >
+                                    <option th:text="${objRole.roleName}"></option>
+                                    </span>
                                 </select>
+
                             </td>
+
                             <td th:text="${objPerson.userSecurityDataField.getActive()}"></td>
                             <td>
                                 <input class="form-check-input" type="radio" name="userToDelete" th:id="${objPerson.id}" th:value="${objPerson.id}">
@@ -221,6 +227,18 @@
                     </table>
                 </div>
             </div>
+
+
+            <!--<table>-->
+    <!--<span th:each="word : ${glossary.words}">-->
+        <!--<td>-->
+            <!--<tr th:each="relatedWord: ${word.relatedWords}">-->
+                <!--<p th:text="${relatedWord.name}"></p>-->
+            <!--</tr>-->
+        <!--<td>-->
+    <!--</span>-->
+            <!--</table>-->
+            <!---->
 
             <div class="text-right mt-2 ">
                 <button data-toggle="modal" data-target="#adminAddUserModal" type="button"
@@ -270,7 +288,19 @@ Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-chang
 
 
                             <form id="InnerAddNewUserForm" th:object="${userDataForAdminAction}" th:action="@{/teacherSupportAdminDashboard/newUserAdminAction}" method="post">
+                                <div class="row">
+                                    <div class="col-xs">
+                                        <input type="text" class="form-control text-center" placeholder="Role: " disabled>
+                                    </div>
 
+                                    <!--<div class="col-sm" >-->
+                                    <select class="col-5 ml-3"  th:field="*{userRoleDTOField}">
+                                        <option th:value="USER">USER</option>
+                                        <option th:value="ADMIN">ADMIN</option>
+                                        <!--<input type="text" class="form-control rounded text-center d-inline" th:field="*{userRoleDTOField}"/>-->
+                                    </select>
+                                    <!--</div>-->
+                                </div>
                                 <div class="row">
                                     <div class="col-xs ">
                                         <input type="text" class="form-control text-center" placeholder="Name: "
@@ -289,23 +319,7 @@ Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-chang
                                         <input type="text" class="form-control rounded text-center d-inline" th:field="*{userSurnameDTOField}"/>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs ">
-                                        <input type="text" class="form-control text-center" placeholder="Faculty: "
-                                               disabled>
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userFacultyDTOField}" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs ">
-                                        <input type="text" class="form-control text-center" placeholder="Role: " disabled>
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="text" class="form-control rounded text-center d-inline" th:field="*{userRoleDTOField}"/>
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="col-xs ">
                                         <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
@@ -314,6 +328,21 @@ Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-chang
                                         <input type="email" class="form-control rounded text-center d-inline" th:field="*{userEmailDTOField}"/>
                                     </div>
                                 </div>
+
+                                <div class="row mr-0">
+
+                                    <input type="text" class="form-control text-center" placeholder="Faculty: "
+                                           disabled>
+                                </div>
+                                <div class="row mr-0 ">
+
+                                    <select class="col-xs" th:field="*{userFacultyDTOField}">
+
+                                                <option th:each="f :${hAllFaculty}" th:value="${f.facultyNameField}" th:text="${f.facultyNameField}"/>
+
+                                    </select>
+                                </div>
+
                             </form>
                         </div>
 
