@@ -13,5 +13,6 @@ public interface IMeetMeService {
     void addContactInfo(Person person, MeetMe meetMe);
     MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService);
     Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService,IPersonService personService);
+    boolean checkMeetMeDTOIntegrity(MeetMeDTO meetMeDTO);
 
 }

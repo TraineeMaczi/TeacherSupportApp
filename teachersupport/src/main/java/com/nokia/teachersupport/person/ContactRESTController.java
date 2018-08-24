@@ -27,9 +27,19 @@ public class ContactRESTController {
 
     @PostMapping("/teacherSupportContact/contact/new")
     public ResponseEntity<Object> addContactInfo(@RequestBody MeetMeDTO meetMeDTO) {
-        meetMeService.goAddContactInfo(meetMeDTO,personService,userSecurityDataService);
-        ServiceResponse<MeetMeDTO> response = new ServiceResponse<MeetMeDTO>("success", meetMeDTO);
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
+        ServiceResponse<MeetMeDTO> response;
+if(meetMeService.checkMeetMeDTOIntegrity(meetMeDTO)) {
+    meetMeService.goAddContactInfo(meetMeDTO, personService, userSecurityDataService);
+    response = new ServiceResponse<MeetMeDTO>("success", meetMeDTO);
+    return new ResponseEntity<Object>(response, HttpStatus.OK);
+}
+else
+{
+    response = new ServiceResponse<MeetMeDTO>("error", meetMeDTO);
+    return new ResponseEntity<Object>(response, HttpStatus.OK);
+}
+
+
     }
 
     @PostMapping("/teacherSupportContact/deleteContactInfo")
