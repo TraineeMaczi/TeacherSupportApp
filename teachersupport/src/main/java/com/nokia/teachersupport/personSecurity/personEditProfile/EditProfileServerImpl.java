@@ -26,6 +26,8 @@ public class EditProfileServerImpl implements IEditProfileService{
 
     @Override
     public boolean saveNameChange(String name, String surname) {
+        if(name.equals("")||surname.equals(""))
+            return  false;
         Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         person.setNameField(name);
         person.setSurnameField(surname);
