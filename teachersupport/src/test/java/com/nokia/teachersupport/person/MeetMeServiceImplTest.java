@@ -12,8 +12,6 @@ import static org.junit.Assert.*;
 public class MeetMeServiceImplTest {
     @InjectMocks
     MeetMeServiceImpl meetMeService;
-    @Mock
-    MeetMeRepo meetMeRepo;
 
     @Test
     public void meetMeDTOIntoMeetMe() {

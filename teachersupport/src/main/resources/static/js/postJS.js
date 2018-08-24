@@ -1,3 +1,4 @@
+//------------------------------DOCUMENT REDY--------------------------------------
 $(document).ready(
     function () {
 
@@ -5,6 +6,16 @@ $(document).ready(
             event.preventDefault();
             ajaxPostHobby()
         });
+
+//         $("#addNewStudGroupButton").on('click', function (event) {
+//                    event.preventDefault();
+//                    validateGroupName();
+//                    document.getElementById("newGroupForm").submit();
+//
+//
+//
+//                });
+
 
         $("#basicInfoButton").on('click', function (event) {
             event.preventDefault();
@@ -43,12 +54,6 @@ $("#addRemoteResourceButton").on('click', function (event) {
 
             });
         });
-
-
-
-
-
-
         $("#editNewsButton").on('click', function () {
             var item = $('input[name=selectedNews]:checked', '#deleteNewsForm').val();
 
@@ -165,7 +170,8 @@ $("#deleteRemoteResourceButton").on('click', function () {
 //                    });
 //                };
 
-
+//-------------------------DOCUMENT REDY END---------------------------------------------------------
+//-------------------------FUNKCJE AJAX--------------------------------------------------------------
 function ajaxPostBasicInfo() {
 
     // PREPARE FORM DATA
@@ -332,10 +338,6 @@ function ajaxPostAddRemoteResource() {
     });
 
 };
-
-
-
-
 //Zarombisty kod ktory bierze wszystkie zaznaczone
 //                    var checkbox_value = "";
 //                    $(":checkbox").each(function () {
@@ -344,3 +346,16 @@ function ajaxPostAddRemoteResource() {
 //                            checkbox_value += $(this).val() ;
 //                        }
 //                    });
+//-----------------------FUNKCJE AJAX END---------------------------------------------------------------------
+
+//-----------------------FUNKCJE VALIDATOROW------------------------------------------------------------------
+//function validateGroupName()
+//    {
+//        var groupName=document.getElementById(newGroupNameId);
+//        if (groupName==null || groupName()=="")
+//        {
+//            alert("Enter Group Name");
+//            return false;
+//        }
+//    }
+
