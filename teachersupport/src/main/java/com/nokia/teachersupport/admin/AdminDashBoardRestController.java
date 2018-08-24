@@ -52,9 +52,11 @@ public class AdminDashBoardRestController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/addFaculty/{facultyName}")
     public String uploadMultipartFile(@RequestParam("uploadFile") MultipartFile file, @PathVariable("facultyName") String facultyName) throws IOException {
+        if(file.isEmpty())
+            return "Firstly you must upload faculty photo";
         FileModel fileModel = fileService.saveMultipartFile(file, "facultyFoto");
         fileService.goUploadMultipartFile(fileModel,facultyName,fileService,facultyService);
-        return "IT WORKS :)";
+        return "SUCCES";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
