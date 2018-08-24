@@ -5,6 +5,7 @@ import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,9 @@ public class StudGroup {
     @Version
     private Integer version;
 
+
     private String groupNameField;
+
     private String facultyField;
     private String groupNrFiled;
     private String classNameField;

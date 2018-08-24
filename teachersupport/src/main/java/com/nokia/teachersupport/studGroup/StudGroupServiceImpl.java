@@ -8,8 +8,10 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -60,6 +62,10 @@ public class StudGroupServiceImpl implements IStudGroupService {
     @Override
     public StudGroup addStudGroup(StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+
+        if(studGroup.getGroupNameField()==null || studGroup.getGroupNameField().equals(""))
+        {
+        }
 
         if(studGroupRepo.findByGroupNameField(studGroup.getGroupNameField())==null) {
             studGroup.setGroupsOwner(person);
