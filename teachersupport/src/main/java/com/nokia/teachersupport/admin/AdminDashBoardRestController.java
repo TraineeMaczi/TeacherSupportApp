@@ -63,7 +63,7 @@ public class AdminDashBoardRestController {
     @PostMapping("/teacherSupportAdminDashboard/deleteFacultyAdminAction")
     public ResponseEntity<Object> deleteFacultySiteAction(@RequestBody String facultyName) {
 
-       facultyService.goDeleteFacultySiteAction(facultyName,facultyService,fileService);
+       facultyService.goDeleteFacultySiteAction(facultyName,fileService);
         ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.Id;
+
 @RestController
 public class NewsRESTController {
 
@@ -17,7 +19,7 @@ public class NewsRESTController {
     public NewsRESTController(INewsService newsService) {
         this.newsService = newsService;
     }
-
+    
     @PostMapping("/tshome/delete")
     public ResponseEntity<Object> deleteNews(@RequestBody String newsContent) {
         newsService.deleteNewsByContent(newsContent);
@@ -25,6 +27,5 @@ public class NewsRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
-
 }
 

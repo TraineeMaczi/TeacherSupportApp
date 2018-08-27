@@ -70,6 +70,7 @@ fabric.properties
 # End of https://www.gitignore.io/api/intellij
 teachersupport/src/main/resources/application.properties
 teachersupport/target/
+teachersupport/src/main/resources/zip
 
 
 

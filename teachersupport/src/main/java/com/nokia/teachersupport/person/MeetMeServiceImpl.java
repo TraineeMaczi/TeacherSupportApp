@@ -76,4 +76,36 @@ public class MeetMeServiceImpl implements IMeetMeService {
         personService.savePerson(person);
         return id;
     }
+
+    @Override
+    public boolean checkMeetMeDTOIntegrity(MeetMeDTO meetMeDTO) {
+        if(meetMeDTO.getPlaceField().equals("") || meetMeDTO.getOfficeField().equals("")|| meetMeDTO.getDayField().equals("")|| meetMeDTO.getTimeFromFieldH().equals("") ||
+                meetMeDTO.getTimeFromFieldM().equals("") || meetMeDTO.getTimeToFieldM().equals("")||meetMeDTO.getTimeToFieldH().equals("")){
+            return false;
+        }
+        else
+        {
+            try
+            {
+                double fromH = Double.parseDouble(meetMeDTO.getTimeFromFieldH());
+                double fromM = Double.parseDouble(meetMeDTO.getTimeFromFieldM());
+                double toH = Double.parseDouble(meetMeDTO.getTimeToFieldH());
+                double toM = Double.parseDouble(meetMeDTO.getTimeToFieldM());
+                if(toM<0||toH<0||fromH<0||fromM<0)
+                {
+                    return false;
+                }
+                if(toM>24||toH>24||fromH>24||fromM>24)
+                {
+                    return false;
+                }
+
+            }
+            catch(NumberFormatException nfe)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
 }

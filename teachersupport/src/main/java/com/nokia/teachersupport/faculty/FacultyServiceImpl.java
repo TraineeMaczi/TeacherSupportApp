@@ -43,10 +43,10 @@ public class FacultyServiceImpl implements IFacultyService {
     }
 
     @Override
-    public void goDeleteFacultySiteAction(String facultyName, IFacultyService facultyService, IFileService fileService) {
+    public void goDeleteFacultySiteAction(String facultyName, IFileService fileService) {
 
-        if (facultyService.findFaculty(facultyName) != null) {
-            Faculty faculty = facultyService.findFaculty(facultyName);
+        if (findFaculty(facultyName) != null) {
+            Faculty faculty = findFaculty(facultyName);
             fileService.dleteFileById(faculty.getFile().getId());
             faculty.setFile(null);
 
@@ -56,7 +56,7 @@ public class FacultyServiceImpl implements IFacultyService {
                 currentPerson.deleteFaculty(faculty);
                 myPersons.remove(currentPerson);
             }
-            facultyService.deleteFaculty(faculty);
+            deleteFaculty(faculty);
         }
 
     }
