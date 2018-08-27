@@ -18,6 +18,6 @@ void studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO,StudGroup studGroup);
 StudGroup addStudGroup( StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService);
 void deleteStudGroup(String groupName, IPersonService personService, IFileService fileService,
                      IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session);
-void goStudGroupUpdate(StudGroupDTO studGroupDTO);
+void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session);
 
 }

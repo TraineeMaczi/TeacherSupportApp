@@ -51,8 +51,8 @@ public class StudGroupRESTController {
     }
 
     @PostMapping("/teacherSupportStudent/updateGroup")
-    public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO) {
-        studGroupService.goStudGroupUpdate(studGroupDTO);
+    public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO,HttpSession session) {
+        studGroupService.goStudGroupUpdate(studGroupDTO,session);
 
         ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);

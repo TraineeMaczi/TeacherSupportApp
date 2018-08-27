@@ -45,7 +45,7 @@ public class PublicationsServiceImpl implements IPublicationsService {
     @Override
     public Publications goEditPublications(EditPublicationDTO editPublicationDTO) {
         Publications publication = new Publications();
-        if (publicationsRepo.findByPublicationsInfoField(editPublicationDTO.oldContent) != null) {
+        if (publicationsRepo.findByPublicationsInfoField(editPublicationDTO.oldContent) != null && !editPublicationDTO.getNewContent().equals("")) {
         publication=publicationsRepo.findByPublicationsInfoField(editPublicationDTO.oldContent);
         publication.setPublicationsInfoField(editPublicationDTO.getNewContent());
         publicationsRepo.save(publication);

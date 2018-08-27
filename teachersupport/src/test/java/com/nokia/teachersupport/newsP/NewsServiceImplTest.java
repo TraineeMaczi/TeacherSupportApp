@@ -17,10 +17,10 @@ public class NewsServiceImplTest {
 
     EditNewsDTO editNewsDTO=new EditNewsDTO();
     News news=new News();
-
+News newsNew=new News();
 
     @InjectMocks
-    INewsService newsService;
+    NewsServiceImpl newsService;
 
     @Mock
     NewsRepo newsRepo;
@@ -28,6 +28,7 @@ public class NewsServiceImplTest {
     @Before
     public void SetUp()
     {
+        newsNew.setNewsContentField("New Content");
         news.setNewsContentField(editNewsDTO.getOldContent());
         editNewsDTO.setOldContent("Old Content");
         editNewsDTO.setNewContent("New Content");
@@ -36,19 +37,8 @@ public class NewsServiceImplTest {
     @Test
     public void goEditNews() {
 
-        //assertEquals(,newsService.goEditNews(editNewsDTO));
+        assertEquals(newsNew.getNewsContentField(),newsService.goEditNews(editNewsDTO).getNewsContentField());
 
     }
 }
 
-
-//    public News goEditNews(EditNewsDTO editNewsDTO)
-//    {
-//        News news=new News();
-//        if(newsRepo.findByNewsContentField(editNewsDTO.getOldContent())!=null) {
-//            news = newsRepo.findByNewsContentField(editNewsDTO.getOldContent());
-//            news.setNewsContentField(editNewsDTO.getNewContent());
-//            newsRepo.save(news);
-//        }
-//        return news;
-//    }
