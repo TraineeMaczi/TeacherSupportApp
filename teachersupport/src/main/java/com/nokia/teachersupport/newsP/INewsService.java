@@ -2,6 +2,7 @@ package com.nokia.teachersupport.newsP;
 
 import org.springframework.ui.Model;
 
+import javax.persistence.Id;
 import java.util.List;
 
 public interface INewsService
@@ -15,6 +16,5 @@ public interface INewsService
     News findNewsByContent(String content);
     News goEditNews(EditNewsDTO editNewsDTO);
     void deleteNewsByContent(String newsContent);
-
-
+    void deleteNewsById(Integer newsId);
 }

@@ -82,8 +82,7 @@ public class FileServiceImpl implements IFileService {
             studGroup.getFileModels().remove(file);
             fileService.dleteFileById(id);
             studGroupService.saveStudGroup(studGroup);
-            session.setAttribute("currentStudGroupName", null);
-
+//            session.setAttribute("currentStudGroupName", null);
         }
     }
 

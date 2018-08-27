@@ -28,7 +28,9 @@ public class PublicationsController {
 
     @PostMapping("/publications/new")
     String addNewPublications(Publications publications) {
-        publicationService.savePublications(publications);
+        if(publicationService.publicationExists(publications)) {
+            publicationService.savePublications(publications);
+        }
         return "redirect:/teacherSupportPublications";
     }
 

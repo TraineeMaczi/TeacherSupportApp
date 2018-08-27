@@ -99,7 +99,7 @@ public class StudGroupServiceImpl implements IStudGroupService {
         studGroup.getFileModels().removeAll(studGroup.getFileModels());
         studGroupRepo.delete(studGroup);
         personService.savePerson(person);
-        session.setAttribute("currentStudGroupName",null);
+//        session.setAttribute("currentStudGroupName",null);
     }
 
     @Override

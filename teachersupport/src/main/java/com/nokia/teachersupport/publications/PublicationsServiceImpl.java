@@ -57,5 +57,10 @@ public class PublicationsServiceImpl implements IPublicationsService {
     public void deletePublicationByContent(String publiContent) {
         publicationsRepo.delete(publicationsRepo.findByPublicationsInfoField(publiContent));
     }
+
+    @Override
+    public boolean publicationExists(Publications publications) {
+        return publicationsRepo.findByPublicationsInfoField(publications.getPublicationsInfoField()) == null;
+    }
 }
 
