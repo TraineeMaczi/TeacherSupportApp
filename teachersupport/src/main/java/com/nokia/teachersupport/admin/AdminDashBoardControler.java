@@ -39,15 +39,15 @@ public class AdminDashBoardControler {
         this.userSecurityDataService = userSecurityDataService;
     }
 
-  //  @PreAuthorize("hasAnyRole('ADMIN')")
+    //  @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/teacherSupportAdminDashboard")
     String dash(Model model) {
-       UserSecurityData user= userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName());
-       if(userSecurityDataService.isAdmin(user)) {
-           modelService.adminDashboardModel(model);
-           return "teacherSupportAdminDashboard";
-       }
-       return "teacherSupportAdminDashboardInvalid";
+        UserSecurityData user = userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName());
+        if (userSecurityDataService.isAdmin(user)) {
+            modelService.adminDashboardModel(model);
+            return "teacherSupportAdminDashboard";
+        }
+        return "teacherSupportAdminDashboardInvalid";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

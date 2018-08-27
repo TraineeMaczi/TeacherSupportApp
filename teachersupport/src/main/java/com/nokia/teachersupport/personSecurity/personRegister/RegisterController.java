@@ -58,8 +58,10 @@ public class RegisterController {
 
             UserSecurityData registered=userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email());
 
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent
-                    (registered, request.getLocale(), appUrl));
+          //!!UWAGA
+            /*  eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+                    (registered, request.getLocale(), appUrl));*/
+
             //Tu trzeba wyslac e-mail potwierdzajacy
         return new ModelAndView("teacherSupportRegisterS");
         }

@@ -8,6 +8,7 @@ import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,13 +53,15 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public void addNews(News news) {
-        String userName = CurrentUser.getCurrentUserName();
-        UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
-        Person tmpPerson = personService.getPersonByUserSecurityData(userSecurityData);
-        news.setNewsOwner(tmpPerson);
-        tmpPerson.addNewsToMyList(news);
-        personService.savePerson(tmpPerson);
-        newsRepo.save(news);
+        if(newsRepo.findByNewsContentField(news.getNewsContentField())==null) {
+            String userName = CurrentUser.getCurrentUserName();
+            UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
+            Person tmpPerson = personService.getPersonByUserSecurityData(userSecurityData);
+            news.setNewsOwner(tmpPerson);
+            tmpPerson.addNewsToMyList(news);
+            personService.savePerson(tmpPerson);
+            newsRepo.save(news);
+        }
     }
 
     @Override
@@ -80,5 +83,10 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public void deleteNewsByContent(String newsContent) {
         newsRepo.delete(newsRepo.findByNewsContentField(newsContent));
+    }
+
+    @Override
+    public void deleteNewsById(Integer newsId) {
+        newsRepo.deleteById(newsId);
     }
 }

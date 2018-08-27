@@ -71,6 +71,10 @@ fabric.properties
 teachersupport/src/main/resources/application.properties
 teachersupport/target/
 teachersupport/src/main/resources/zip
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6aa5253b9c83684b9f748f0fb35a87d6dd67db6
 
 
 ### IntelliJ IDEA ###

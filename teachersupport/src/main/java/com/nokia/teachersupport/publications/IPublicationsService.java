@@ -11,4 +11,5 @@ public interface IPublicationsService {
     Publications getByPublicationsInfoField(String publicationsInfoField);
     Publications goEditPublications(EditPublicationDTO editPublicationDTO);
     void deletePublicationByContent(String publiContent);
+    boolean publicationExists(Publications publications);
 }

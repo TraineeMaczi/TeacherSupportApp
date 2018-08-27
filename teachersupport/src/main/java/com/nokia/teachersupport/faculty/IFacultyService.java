@@ -11,5 +11,5 @@ public interface IFacultyService {
     Faculty saveFaculty(Faculty faculty);
     Faculty findFacultyById(Integer Id);
     void deleteFaculty(Faculty faculty);
-    void goDeleteFacultySiteAction(String facultyName, IFacultyService facultyService, IFileService fileService);
+    void goDeleteFacultySiteAction(String facultyName, IFileService fileService);
 }

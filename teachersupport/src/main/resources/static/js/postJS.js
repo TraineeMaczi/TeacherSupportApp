@@ -258,9 +258,9 @@ function ajaxPostContact() {
             if (result.status == "success") {
                 $("#postResultDivContact").html(
                     "Success");
-                location.reload();
+               // location.reload();
             } else {
-                $("#postResultDivContact").html("<strong>Error</strong>");
+                $("#postResultDivContact").html("Invalid Input !");
             }
             console.log(result);
         },
