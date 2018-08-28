@@ -31,21 +31,21 @@ public class PersonServiceImplTest {
 //    List<SecutityRole> secutityRoles = new ArrayList<>();
 //    @InjectMocks
 //    UserSecurityDataServiceImpl userSecurityDataService;
-//    @InjectMocks
+//    @Mock
 //    PersonServiceImpl personService;
 //    @Mock
 //    PersonRepo personRepo;
-//    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService) {
-//        boolean toDelete;
-//        for (Person person : personRepo.findAll()) {
-//            toDelete = true;
-//            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
-//                if (securityRole.getRoleName().equals("ADMIN"))
-//                    toDelete = false;
-//            if (toDelete)
-//                deletePerson(person,userSecurityDataService);
-//        }
-//    }
+////    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService) {
+////        boolean toDelete;
+////        for (Person person : personRepo.findAll()) {
+////            toDelete = true;
+////            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+////                if (securityRole.getRoleName().equals("ADMIN"))
+////                    toDelete = false;
+////            if (toDelete)
+////                deletePerson(person,userSecurityDataService);
+////        }
+////    }
 //    @Before
 //    public void SetUp() {
 //        secutityRole.setRoleName("ADMIN");
