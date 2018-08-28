@@ -1,50 +1,78 @@
-//package com.nokia.teachersupport.person;
-//
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.MockitoJUnitRunner;
-//
-//
-//import static org.junit.Assert.*;
-//@RunWith(MockitoJUnitRunner.class)
-//public class PersonServiceImplTest {
-//
+package com.nokia.teachersupport.person;
+
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
+import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
+import com.nokia.teachersupport.roles.SecutityRole;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RunWith(MockitoJUnitRunner.class)
+public class PersonServiceImplTest {
+//    Person person1 = new Person();
+//    Person person2 = new Person();
+//    Person person3 = new Person();
+//    List<Person> persons = new ArrayList<>();
+//    List<Person> admins = new ArrayList<>();
+//    UserSecurityData userSecurityData = new UserSecurityData();
+//    SecutityRole secutityRole = new SecutityRole();
+//    List<SecutityRole> secutityRoles = new ArrayList<>();
 //    @InjectMocks
+//    UserSecurityDataServiceImpl userSecurityDataService;
+//    @Mock
 //    PersonServiceImpl personService;
 //    @Mock
 //    PersonRepo personRepo;
-//
+////    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService) {
+////        boolean toDelete;
+////        for (Person person : personRepo.findAll()) {
+////            toDelete = true;
+////            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+////                if (securityRole.getRoleName().equals("ADMIN"))
+////                    toDelete = false;
+////            if (toDelete)
+////                deletePerson(person,userSecurityDataService);
+////        }
+////    }
+//    @Before
+//    public void SetUp() {
+//        secutityRole.setRoleName("ADMIN");
+//        secutityRoles.add(secutityRole);
+//        userSecurityData.setMyRoles(secutityRoles);
+//        person1.setUserSecurityDataField(userSecurityData);
+//        persons.add(person1);
+//        admins.add(person1);
+//        secutityRole.setRoleName("USER");
+//        secutityRoles.clear();
+//        secutityRoles.add(secutityRole);
+//        userSecurityData.setMyRoles(secutityRoles);
+//        person2.setUserSecurityDataField(userSecurityData);
+//        persons.add(person2);
+//        userSecurityData.setMyRoles(secutityRoles);
+//        person3.setUserSecurityDataField(userSecurityData);
+//        persons.add(person3);
+//        when(personRepo.findAll()).thenReturn(persons);
+//        for (Person person : persons) {
+//            when(personService.deletePerson(person, userSecurityDataService)).thenReturn(persons.remove(person));
+//        }
+//    }
 //
 //    @Test
-//    public void setPersonBasicInfoSettingFieldsTest() {
+//    public void deleteAllPersons() {
+//        personService.deleteAllPersons(userSecurityDataService);
+//        assertEquals(admins, persons);
 //
-//        Person person=new Person();
-//        person.setPhoneNumberField("1234");
-//        person.setFacebookField("fb");
-//        person.setTwitterField("t");
-//        person.setUsosPersonProfileLinkField("usos");
-//        person.setProfessionField("profession");
-//        person.setDegreeField("degree");
-//        person.setWorkAddressField("work");
-//
-//       BasicInfoDTO basicInfoDTO=new BasicInfoDTO();
-//        basicInfoDTO.setPhone("1234");
-//        basicInfoDTO.setFacebook("fb");
-//        basicInfoDTO.setTwitter("t");
-//        basicInfoDTO.setUsos("usos");
-//        basicInfoDTO.setProfession("profession");
-//        basicInfoDTO.setDegree("degree");
-//        basicInfoDTO.setWorkplace("work");
-//
-//        Person personAfterSet=personService.setPersonBasicInfo(basicInfoDTO,new Person());
-//        assertEquals(person.getFacebookField(),personAfterSet.getFacebookField());
-//        assertEquals(person.getPhoneNumberField(),personAfterSet.getPhoneNumberField());
-//        assertEquals(person.getTwitterField(),personAfterSet.getTwitterField());
-//        assertEquals(person.getUsosPersonProfileLinkField(),personAfterSet.getUsosPersonProfileLinkField());
-//        assertEquals(person.getProfessionField(),personAfterSet.getProfessionField());
-//        assertEquals(person.getDegreeField(),personAfterSet.getDegreeField());
-//        assertEquals(person.getWorkAddressField(),personAfterSet.getWorkAddressField());
 //    }
-//}
+}
