@@ -177,6 +177,7 @@ public class PersonServiceImpl implements IPersonService {
             Person person = new Person();
             UserSecurityData userSecurityData = new UserSecurityData();
             Faculty faculty = facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField());
+
             SecutityRole secutityRole;
             if (userDTOForAdminActionDTO.getUserRoleDTOField().equals("BOTH")) {
                 secutityRole=roleService.findByRoleName("USER");
@@ -188,6 +189,7 @@ public class PersonServiceImpl implements IPersonService {
             } else {
                 secutityRole = roleService.findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
             }
+
             //Tak samo jak dla faculty musi byc security rolke
 
             person.setNameField(userDTOForAdminActionDTO.getUserNameDTOField());
