@@ -167,6 +167,7 @@ if(faculty !=null) {
             Person person = new Person();
             UserSecurityData userSecurityData = new UserSecurityData();
             Faculty faculty = facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField());
+
             SecutityRole secutityRole = roleService.findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
             //Tak samo jak dla faculty musi byc security rolke
 
