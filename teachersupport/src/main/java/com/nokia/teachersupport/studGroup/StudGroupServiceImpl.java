@@ -48,15 +48,17 @@ public class StudGroupServiceImpl implements IStudGroupService {
 
     @Override
     public void studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO,StudGroup studGroup) {
-        studGroup.setGroupNrFiled(studGroupDTO.getGroupNrFiled());
-        studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
-        studGroup.setClassNameField(studGroupDTO.getClassNameField());
-        studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
-        studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
-        studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
-        studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
-        studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
-
+        if(!studGroupDTO.getGroupNameField().equals("")) {
+            studGroup.setGroupNameField(studGroupDTO.getGroupNameField());
+            studGroup.setGroupNrFiled(studGroupDTO.getGroupNrFiled());
+            studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
+            studGroup.setClassNameField(studGroupDTO.getClassNameField());
+            studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
+            studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
+            studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
+            studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
+            studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
+        }
     }
 
     @Override
@@ -103,12 +105,13 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public void goStudGroupUpdate(StudGroupDTO studGroupDTO) {
-        if (studGroupRepo.findByGroupNameField(studGroupDTO.getGroupNameField()) != null) {
-            StudGroup studGroup = studGroupRepo.findByGroupNameField(studGroupDTO.getGroupNameField());
-            studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
-            studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
-            studGroupRepo.save(studGroup);
-        }
+    public void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session) {
+            String groupName = (String) session.getAttribute("currentStudGroupName");
+            if(studGroupRepo.findByGroupNameField(groupName) !=null) {
+                StudGroup studGroup = studGroupRepo.findByGroupNameField(groupName);
+                studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
+                studGroupRepo.save(studGroup);
+                session.setAttribute("currentStudGroupName",studGroup.getGroupNameField());
+            }
     }
 }
