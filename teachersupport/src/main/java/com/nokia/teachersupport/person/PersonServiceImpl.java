@@ -55,7 +55,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deletePerson(Person person,IUserSecurityDataService userSecurityDataService) {
+    public boolean deletePerson(Person person,IUserSecurityDataService userSecurityDataService) {
         Faculty faculty = person.getFacultyField();
 if(faculty !=null) {
     faculty.getFacultyAndPersonList().remove(person);
@@ -66,6 +66,7 @@ if(faculty !=null) {
         person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
         userSecurityDataService.deleteUserSecurityData(person.getUserSecurityDataField().getId());
         personRepo.delete(person);
+        return true;
     }
 
     @Override

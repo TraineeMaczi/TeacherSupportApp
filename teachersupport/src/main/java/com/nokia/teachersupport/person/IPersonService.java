@@ -19,7 +19,7 @@ public interface IPersonService {
 
     Person getPerson(Integer id);
     Person savePerson(Person person);
-    void deletePerson(Person person, IUserSecurityDataService userSecurityDataService);
+    boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService);
     Person getPersonByUserSecurityData(UserSecurityData userSecurityData);
     void setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person);
     void deleteAllPersons(IUserSecurityDataService userSecurityDataService);
