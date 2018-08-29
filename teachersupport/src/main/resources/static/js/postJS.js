@@ -17,6 +17,18 @@ $(document).ready(
 //                });
 
 
+     $("#edGroupFormGroupName")
+         .popover({ title: 'Important !', content: "This is the first thing,the student will see,so choose a clear name." })
+         .blur(function () {
+             $(this).popover('hide');
+         });
+
+$("#newGroupNameId")
+         .popover({ title: 'Important !', content: "This is the first thing,the student will see,so choose a clear name." })
+         .blur(function () {
+             $(this).popover('hide');
+         });
+
         $("#basicInfoButton").on('click', function (event) {
             event.preventDefault();
             ajaxPostBasicInfo()

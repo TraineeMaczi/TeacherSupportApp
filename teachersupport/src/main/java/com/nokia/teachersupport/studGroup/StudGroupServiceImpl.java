@@ -65,11 +65,11 @@ public class StudGroupServiceImpl implements IStudGroupService {
     public StudGroup addStudGroup(StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
-        if(studGroup.getGroupNameField()==null || studGroup.getGroupNameField().equals(""))
-        {
-        }
+//        if(studGroup.getGroupNameField()==null || studGroup.getGroupNameField().equals(""))
+//        {
+//        }
 
-        if(studGroupRepo.findByGroupNameField(studGroup.getGroupNameField())==null) {
+        if(!person.getPersonStudGroupList().contains(studGroup)) {
             studGroup.setGroupsOwner(person);
             person.addGroupsToMyList(studGroup);
 

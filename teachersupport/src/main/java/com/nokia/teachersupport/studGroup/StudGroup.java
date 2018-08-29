@@ -179,5 +179,11 @@ public class StudGroup {
         this.timeToFieldM = timeToFieldM;
     }
 
+    public static String dispTime(String FromH,String FromM,String ToH,String ToM)
+    {
+        String time=FromH+":"+FromM+"-"+ToH+":"+ToM;
+    return time;
+    }
+
 
 }

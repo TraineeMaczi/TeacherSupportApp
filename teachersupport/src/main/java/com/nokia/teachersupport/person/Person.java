@@ -303,4 +303,9 @@ public class Person {
     }
 
     public void deleteFaculty(Faculty faculty){facultyField=null;}
+
+    public static boolean DoIHaveAGroupWithName(String name)
+    {
+    return true;
+    }
 }
