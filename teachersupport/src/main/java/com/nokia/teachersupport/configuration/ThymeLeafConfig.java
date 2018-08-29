@@ -8,7 +8,7 @@ public enum ThymeLeafConfig {
     private ThymeLeafConfig(){
         FileTemplateResolver templateResolver = new FileTemplateResolver();
         templateResolver.setPrefix(getTemplatePath());
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
     }

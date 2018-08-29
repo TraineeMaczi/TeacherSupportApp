@@ -75,7 +75,6 @@ function doAjax2(formName, listFiles, typ) {
         contentType: false,
         cache: false,
         success: function (data) {
-            $(listFiles).text(data);
             $.ajax({
                 type: "GET",
                 url: '/givePhoto',
@@ -97,7 +96,6 @@ function doAjax2(formName, listFiles, typ) {
             });
         },
         error: function (e) {
-            $(listFiles).text(e.responseText);
         }
     });
 }

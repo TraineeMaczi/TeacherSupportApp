@@ -155,6 +155,13 @@
                 <div class="col">
                     <h3 class="mb-4">Add Faculty</h3>
                     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                                <div class="container bg-changableColor text-white mt-3 mb-2 rounded pr-0 pl-0" id="resultOfAddingFaculty" align="center"></div>
+                            </div>
+                            <div class="col"></div>
+                        </div>
                         <div class="form-group mt-4">
 
                             <div>
@@ -168,7 +175,6 @@
                             </div>
                         </div>
                         <button title="Firstly you must add faculty phoho" type="button" class="btn text-white bg-changableColor rounded " id="btn1">Add Faculty</button>
-                        <div class="container bg-changableColor text-white mt-3 rounded-2" id="resultOfAddingFaculty" align="center"></div>
                     </form>
 
                 </div>
@@ -252,6 +258,13 @@
             </div>
       <div class="col-xs">
         <form method="POST" enctype="multipart/form-data" id="fileUpload">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="container bg-changableColor text-white mt-3 mb-2 rounded pr-0 pl-0" id="listFiles2" align="center"></div>
+                </div>
+                <div class="col"></div>
+            </div>
             <div class="form-group mt-4">
 
                 <div>
@@ -265,7 +278,6 @@ Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-chang
                 </div>
             </div>
             <button type="button" class="btn text-white bg-changableColor rounded " id="newUserFromFile">Add Users From File</button>
-            <div class="container bg-changableColor text-white mt-3 rounded-2" id="listFiles2" align="center"></div>
         </form>
       </div>
 </div>
@@ -295,7 +307,6 @@ Incorrect data will be discarded." for="UsersAdd" class="btn text-white bg-chang
                                     <select class="col-5 ml-3"  th:field="*{userRoleDTOField}">
                                         <option th:value="USER">USER</option>
                                         <option th:value="ADMIN">ADMIN</option>
-                                        <option th:value="BOTH">BOTH</option>
                                         <!--<input type="text" class="form-control rounded text-center d-inline" th:field="*{userRoleDTOField}"/>-->
                                     </select>
                                     <!--</div>-->
