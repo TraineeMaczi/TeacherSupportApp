@@ -13,19 +13,31 @@ $(document).ready(
                 listOfPages = listOfPages + ($("#Student").val() + ',');
             if ($("#Contact").is(":checked"))
                 listOfPages = listOfPages + ($("#Contact").val() + ',');
-
+            $("#listFiles").html("Please Wait");
             $.ajax({
                 type: "POST",
                 url: 'generate/listOfPages',
                 data: {
                     "listOfPages": listOfPages
                 },
-                success: function (data) {
-                    document.getElementById("download").href=data;
-                },
-                error: function (e) {
-                    alert("Can't set the context");
-                    location.reload();
+                success: function() {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "generate/getListOfPages",
+
+                        success: function (data) {
+                            $("#listFiles").html("");
+                            $.each(data, function (index, fileUrl) {
+                                var filename = fileUrl.split('\\').pop().split('/').pop();
+                                $("#listFiles").append('<a href=' + fileUrl + '>' + 'Download' + '</a>');
+                            });
+                        }
+                        ,
+                        error: function (err) {
+                            $("#listFiles").html(err.responseText);
+                        }
+                    });
                 }
             });
 
