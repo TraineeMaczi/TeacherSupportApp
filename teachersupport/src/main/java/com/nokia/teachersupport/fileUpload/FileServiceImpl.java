@@ -23,11 +23,16 @@ public class FileServiceImpl implements IFileService {
 
     private FileRepository fileRepository;
     private IStudGroupService studGroupService;
+    private IPersonService personService;
+    private IUserSecurityDataService userSecurityDataService;
+
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository, IStudGroupService studGroupService) {
+    public FileServiceImpl(FileRepository fileRepository, IStudGroupService studGroupService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         this.fileRepository = fileRepository;
         this.studGroupService = studGroupService;
+        this.personService = personService;
+        this.userSecurityDataService = userSecurityDataService;
     }
 
 
@@ -39,58 +44,66 @@ public class FileServiceImpl implements IFileService {
     @Override
     public FileModel saveMultipartFile(MultipartFile file, String type) throws IOException {
         FileModel fileModel = new FileModel(file.getOriginalFilename(), type, file.getBytes());
-        if (type.contains("res") && type.length() > 8) {
+        if (type.contains("res") ) {
             String pom = type.substring(8);
             System.out.println(pom);
-            StudGroup studGroup = studGroupService.getStudGroupByName(pom);
+
+            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            StudGroup studGroup = person.doIHaveAGroupWithName(pom);
+
             fileModel.setFilesOfGroup(studGroup);
             List<FileModel> fileModels = studGroup.getFileModels();
             fileModels.add(fileModel);
             studGroup.setFileModels(fileModels);
             studGroupService.saveStudGroup(studGroup);
+            if (pom.equals(""))
+                return fileModel;
         }
-        if (file.getOriginalFilename().equals(""))
+            if (file.getOriginalFilename().equals("") )
+                return fileModel;
+            fileRepository.save(fileModel);
+
             return fileModel;
-        fileRepository.save(fileModel);
-        return fileModel;
-    }
+        }
 
-    @Override
-    public FileModel findFileByName(String name) {
-        return fileRepository.findByName(name);
-    }
+        @Override
+        public FileModel findFileByName (String name){
+            return fileRepository.findByName(name);
+        }
 
-    @Override
-    public void dleteFileById(Integer id) {
-        fileRepository.deleteById(id);
-    }
+        @Override
+        public void dleteFileById (Integer id){
+            fileRepository.deleteById(id);
+        }
 
-    @Override
-    public FileModel findFileById(Integer id) {
+        @Override
+        public FileModel findFileById (Integer id){
 
-        return fileRepository.findById(id).orElse(new FileModel());
+            return fileRepository.findById(id).orElse(new FileModel());
 
-    }
+        }
 
-    @Override
-    public void goDeleteLocalResource(Integer id, HttpSession session, IPersonService personService, IUserSecurityDataService userSecurityDataService,IFileService fileService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        String groupName = (String) session.getAttribute("currentStudGroupName");
-        FileModel file = fileService.findFileById(id);
-        if (groupName != null) {
-            StudGroup studGroup = studGroupService.getStudGroupByName(groupName);
-            studGroup.getFileModels().remove(file);
-            fileService.dleteFileById(id);
-            studGroupService.saveStudGroup(studGroup);
+        @Override
+        public void goDeleteLocalResource (Integer id, HttpSession session, IPersonService
+        personService, IUserSecurityDataService userSecurityDataService, IFileService fileService){
+            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            String groupName = (String) session.getAttribute("currentStudGroupName");
+            FileModel file = fileService.findFileById(id);
+            if (groupName != null) {
+                StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
+                studGroup.getFileModels().remove(file);
+                fileService.dleteFileById(id);
+                studGroupService.saveStudGroup(studGroup);
 //            session.setAttribute("currentStudGroupName", null);
+            }
+        }
+
+        @Override
+        public void goUploadMultipartFile (FileModel fileModel, String facultyName, IFileService
+        fileService, IFacultyService facultyService){
+            Faculty faculty = new Faculty();
+            faculty.setFacultyNameField(facultyName);
+            faculty.setFile(fileModel);
+            facultyService.saveFaculty(faculty);
         }
     }
-
-    @Override
-    public void goUploadMultipartFile(FileModel fileModel, String facultyName, IFileService fileService, IFacultyService facultyService) {
-        Faculty faculty = new Faculty();
-        faculty.setFacultyNameField(facultyName);
-        faculty.setFile(fileModel);
-        facultyService.saveFaculty(faculty);
-    }
-}

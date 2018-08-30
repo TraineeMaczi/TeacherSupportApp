@@ -11,7 +11,7 @@ public interface IGroupRemoteResourceService {
     GroupRemoteResource saveRemoteResource(GroupRemoteResource remoteResource);
     GroupRemoteResource findRemoteResourceById(Integer remoteResourceId);
     void deleteRemoteResource(GroupRemoteResource remoteResource);
-    void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session,IStudGroupService studGroupService);
-    RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO,HttpSession session,IStudGroupService studGroupService);
+    void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session,IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService);
+    RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO,HttpSession session,IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService);
 
 }

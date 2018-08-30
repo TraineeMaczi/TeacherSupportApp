@@ -45,10 +45,11 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
     }
 
     @Override
-    public void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session, IStudGroupService studGroupService) {
+    public void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session, IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         GroupRemoteResource remoteResource = findRemoteResourceById(remoteResourceId);
         String groupName = (String) session.getAttribute("currentStudGroupName");
-        StudGroup studGroup = studGroupService.getStudGroupByName(groupName);
+        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
         studGroup.getGroupsResourcesList().remove(remoteResource);
         studGroupService.saveStudGroup(studGroup);
         deleteRemoteResource(remoteResource);
@@ -56,14 +57,17 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
 
 
     @Override
-    public RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session, IStudGroupService studGroupService) {
+    public RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session, IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         GroupRemoteResource remoteResource = resourceDTOIntoResource(remoteStudGroupResourceDTO);
         String groupName = (String) session.getAttribute("currentStudGroupName");
-        StudGroup studGroup = studGroupService.getStudGroupByName(groupName);
-        studGroup.addResourcesToMyList(remoteResource);
-        remoteResource.setResourceOwner(studGroup);
-        remoteResourceRepo.save(remoteResource);
-        studGroupService.saveStudGroup(studGroup);
+        if(groupName !=null && !groupName.equals("")) {
+            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
+            studGroup.addResourcesToMyList(remoteResource);
+            remoteResource.setResourceOwner(studGroup);
+            remoteResourceRepo.save(remoteResource);
+            studGroupService.saveStudGroup(studGroup);
+        }
         return remoteStudGroupResourceDTO;
     }
 

@@ -1,5 +1,9 @@
 package com.nokia.teachersupport.publications;
 
+import com.nokia.teachersupport.person.IPersonService;
+import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +47,11 @@ public class PublicationsServiceImpl implements IPublicationsService {
     }
 
     @Override
-    public Publications goEditPublications(EditPublicationDTO editPublicationDTO) {
+    public Publications goEditPublications(EditPublicationDTO editPublicationDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         Publications publication = new Publications();
-        if (publicationsRepo.findByPublicationsInfoField(editPublicationDTO.oldContent) != null && !editPublicationDTO.getNewContent().equals("")) {
-        publication=publicationsRepo.findByPublicationsInfoField(editPublicationDTO.oldContent);
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        if (person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent()) != null && !editPublicationDTO.getNewContent().equals("")) {
+        publication=person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent());
         publication.setPublicationsInfoField(editPublicationDTO.getNewContent());
         publicationsRepo.save(publication);
         }
@@ -54,13 +59,24 @@ public class PublicationsServiceImpl implements IPublicationsService {
     }
 
     @Override
-    public void deletePublicationByContent(String publiContent) {
-        publicationsRepo.delete(publicationsRepo.findByPublicationsInfoField(publiContent));
+    public void deletePublicationByContent(String publiContent, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Publications publi=person.doIHaveAPublicationWithContent(publiContent);
+        publicationsRepo.delete(publi);
     }
 
     @Override
-    public boolean publicationExists(Publications publications) {
-        return publicationsRepo.findByPublicationsInfoField(publications.getPublicationsInfoField()) == null;
+    public void addNewPublication(Publications publications, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        if(person.doIHaveAPublicationWithContent(publications.getPublicationsInfoField())==null) {
+            publications.setPublicationOwner(person);
+            person.addPubicationsToMyList(publications);
+            personService.savePerson(person);
+            publicationsRepo.save(publications);
+        }
+
     }
+
+
 }
 

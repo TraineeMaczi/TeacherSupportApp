@@ -304,8 +304,42 @@ public class Person {
 
     public void deleteFaculty(Faculty faculty){facultyField=null;}
 
-    public static boolean DoIHaveAGroupWithName(String name)
+    public StudGroup doIHaveAGroupWithName(String name)
     {
-    return true;
+        for(StudGroup studGroup: this.getPersonStudGroupList())
+        {
+            if(studGroup.getGroupNameField().equals(name))
+            {
+                return studGroup;
+            }
+
+        }
+        return null;
     }
+    public News doIHaveANewsWithContent(String content)
+    {
+        for(News news: this.getPersonNewsList())
+        {
+            if(news.getNewsContentField().equals(content))
+            {
+                return news;
+            }
+
+        }
+        return null;
+    }
+
+    public Publications doIHaveAPublicationWithContent(String content)
+    {
+        for(Publications publi: this.getPersonPublicationsList())
+        {
+            if(publi.getPublicationsInfoField().equals(content))
+            {
+                return publi;
+            }
+
+        }
+        return null;
+    }
+
 }
