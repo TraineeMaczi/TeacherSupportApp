@@ -54,10 +54,10 @@ public class StudGroupServiceImpl implements IStudGroupService {
             studGroup.setFacultyField(studGroupDTO.getFacultyField()); //tu by bylo fajnie zeby faculty nie wpisywac tylko pobrac z listy
             studGroup.setClassNameField(studGroupDTO.getClassNameField());
             studGroup.setClassDayFiled(studGroupDTO.getClassDayFiled());
-            studGroup.setTimeFromFieldH(studGroupDTO.getTimeFromFieldH());
-            studGroup.setTimeFromFieldM(studGroupDTO.getTimeFromFieldM());
-            studGroup.setTimeToFieldH(studGroupDTO.getTimeToFieldH());
-            studGroup.setTimeToFieldM(studGroupDTO.getTimeToFieldM());
+            studGroup.setTimeFromFieldH(((studGroupDTO.getTimeFromFieldH().length()==1)?"0":"")+studGroupDTO.getTimeFromFieldH());
+            studGroup.setTimeFromFieldM(((studGroupDTO.getTimeFromFieldM().length()==1)?"0":"")+studGroupDTO.getTimeFromFieldM());
+            studGroup.setTimeToFieldH(((studGroupDTO.getTimeToFieldH().length()==1)?"0":"")+studGroupDTO.getTimeToFieldH());
+            studGroup.setTimeToFieldM(((studGroupDTO.getTimeToFieldM().length()==1)?"0":"")+studGroupDTO.getTimeToFieldM());
         }
     }
 
