@@ -87,8 +87,13 @@
 
             <form id="basicInfoForm">
                 <h4>Basic Info</h4>
-
-                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivBasicInfo" align="center"></div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <div class="container bg-changableColor text-white mt-3 mb-2 rounded pr-0 pl-0" id="postResultDivBasicInfo" align="center"></div>
+                    </div>
+                    <div class="col"></div>
+                </div>
 
                 <div class="container mt-2">
 
@@ -213,7 +218,13 @@
         <!--Hobby-->
         <div class="col bg-white jumbotron text-dark ml-3 ">
             <h4>Hobby</h4>
-            <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivHobby" align="center"></div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="container bg-changableColor text-white mt-3 mb-2 rounded pr-0 pl-0" id="postResultDivHobby" align="center"></div>
+                </div>
+                <div class="col"></div>
+            </div>
             <form id="hobbyForm" class="form-control bg-gray mt-2">
                 <textarea class="form-control rounded text-center" id="hobbyContentID" rows="10" th:placeholder="${currentUserPerson.getHobbyField()}"></textarea>
             </form>
