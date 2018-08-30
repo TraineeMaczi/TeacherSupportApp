@@ -77,9 +77,9 @@ public class Generator {
             }
             if (obj.equals("Student.html")) {
                 contextService.studentContext(context);
-                ZipEntry e = new ZipEntry("ForStudentPage.html");
+                ZipEntry e = new ZipEntry("Student.html");
                 out.putNextEntry(e);
-                byte[] data = ThymeLeafConfig.getTemplateEngine().process("ForStudentPage.html", context).getBytes();
+                byte[] data = ThymeLeafConfig.getTemplateEngine().process("Student.html", context).getBytes();
                 out.write(data, 0, data.length);
                 out.closeEntry();
             }
