@@ -71,6 +71,7 @@ fabric.properties
 teachersupport/src/main/resources/application.properties
 teachersupport/target/
 teachersupport/src/main/resources/zip
+teachersupport/filestorage
 <<<<<<< HEAD
 =======
 
