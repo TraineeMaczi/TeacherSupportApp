@@ -75,7 +75,6 @@ public class Generator {
             IOUtils.copy(input, os);
         } catch (IOException ex) {
         }
-
         MultipartFile result = new CommonsMultipartFile(fileItem);
         return result;
     }

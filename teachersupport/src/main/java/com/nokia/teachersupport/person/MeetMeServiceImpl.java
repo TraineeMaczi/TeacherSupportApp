@@ -48,7 +48,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
         meetMe.setPlaceField(meetMeDTO.getPlaceField());
         meetMe.setOfficeField(meetMeDTO.getOfficeField());
         meetMe.setDayField(meetMeDTO.getDayField());
-        meetMe.setTimeField(meetMeDTO.getTimeFromFieldH() + ":" + meetMeDTO.getTimeFromFieldM() + "-" + meetMeDTO.getTimeToFieldH() + ":" + meetMeDTO.getTimeToFieldM());
+        meetMe.setTimeField(((meetMeDTO.getTimeFromFieldH().length()==1)?"0":"")+meetMeDTO.getTimeFromFieldH() + ":" +((meetMeDTO.getTimeFromFieldM().length()==1)?"0":"")+meetMeDTO.getTimeFromFieldM() + "-" + ((meetMeDTO.getTimeToFieldH().length()==1)?"0":"")+meetMeDTO.getTimeToFieldH() + ":" + ((meetMeDTO.getTimeToFieldM().length()==1)?"0":"")+meetMeDTO.getTimeToFieldM());
         return meetMe;
     }
 
