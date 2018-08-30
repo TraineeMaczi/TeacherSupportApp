@@ -30,7 +30,7 @@ $(document).ready(
                             $("#listFiles").html("");
                             $.each(data, function (index, fileUrl) {
                                 var filename = fileUrl.split('\\').pop().split('/').pop();
-                                $("#listFiles").append('<a href=' + fileUrl + '>' + 'Download' + '</a>');
+                                $("#listFiles").append('<a href=' + fileUrl + ' class=" btn text-white bg-changableColor ">' + 'Download' + '</a>');
                             });
                         }
                         ,

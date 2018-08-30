@@ -88,7 +88,7 @@ public class PersonServiceImpl implements IPersonService {
 
         if (!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(basicInfoDTO.getFacebook());
 
-        if (!basicInfoDTO.getPhone().equals("")) person.setPhoneNumberField(basicInfoDTO.getPhone());
+        if (!basicInfoDTO.getPhone().equals("")&&basicInfoDTO.getPhone().length()==9) person.setPhoneNumberField(basicInfoDTO.getPhone());
 
 
     }
