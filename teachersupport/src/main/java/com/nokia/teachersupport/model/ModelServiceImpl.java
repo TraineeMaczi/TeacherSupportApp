@@ -85,8 +85,9 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void publicationsModel(Model model) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("publications", publicationsService.listOfAllPublications());
+        model.addAttribute("publications", person.getPersonPublicationsList());
         model.addAttribute("newPublication", new Publications());
         model.addAttribute("editPubliPostObj", new EditPublicationDTO());
     }
@@ -110,8 +111,8 @@ public class ModelServiceImpl implements IModelService {
         model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
         String groupName=(String)session.getAttribute("currentStudGroupName");
         if(groupName != null && !groupName.equals("")) {
-            model.addAttribute("groupFiles", studGroupService.getStudGroupByName(groupName).getFileModels());
-            model.addAttribute("groupRemoteFiles", studGroupService.getStudGroupByName(groupName).getGroupsResourcesList());
+            model.addAttribute("groupFiles", person.doIHaveAGroupWithName(groupName).getFileModels());
+            model.addAttribute("groupRemoteFiles",person.doIHaveAGroupWithName(groupName).getGroupsResourcesList());
         }
     }
 }

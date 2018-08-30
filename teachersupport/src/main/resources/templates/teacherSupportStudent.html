@@ -15,8 +15,6 @@
   console.log(filename);
 });
 
-
-
     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
@@ -175,9 +173,10 @@
                         <input type="text" class="form-control text-center" placeholder="Group Name: " disabled>
                     </div>
                     <div class="col">
-                        <!--<input type="text" id="edGroupFormGroupName" th:value="${currentGroupName}" class="form-control rounded text-center d-inline" />-->
+
                         <input type="text" id="edGroupFormGroupName" th:value="${session.currentStudGroupName}"
-                               class="form-control rounded text-center d-inline"/>
+                              placeholder="Example: Green Group IT 1 Year " class="form-control rounded text-center d-inline" />
+
                     </div>
                 </div>
 
@@ -186,7 +185,7 @@
                         <input type="text" class="form-control text-center" placeholder="Group Nr: " disabled>
                     </div>
                     <div class="col">
-                        <input type="text" id="groupNrFiled" class="form-control rounded text-center d-inline"/>
+                        <input type="text" id="groupNrFiled" placeholder="Enter usos group number." class="form-control rounded text-center d-inline"/>
                     </div>
                 </div>
 
@@ -196,7 +195,7 @@
                         <input type="text" class="form-control text-center" placeholder="Class Name: " disabled>
                     </div>
                     <div class="col">
-                        <input type="text" id="classNameField" class="form-control rounded text-center d-inline"/>
+                        <input type="text" id="classNameField" class="form-control rounded text-center d-inline" placeholder="Example: Mathematics"/>
                     </div>
                 </div>
 
@@ -206,7 +205,7 @@
                         <input type="text" class="form-control text-center" placeholder="Day: " disabled>
                     </div>
                     <div class="col">
-                        <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline"/>
+                        <input type="text" id="classDayFiled" class="form-control rounded text-center d-inline" />
                     </div>
                 </div>
                 <div class="row mr-0 ml-0">

@@ -65,11 +65,11 @@ public class StudGroupServiceImpl implements IStudGroupService {
     public StudGroup addStudGroup(StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 
-        if(studGroup.getGroupNameField()==null || studGroup.getGroupNameField().equals(""))
-        {
-        }
+//        if(studGroup.getGroupNameField()==null || studGroup.getGroupNameField().equals(""))
+//        {
+//        }
 
-        if(studGroupRepo.findByGroupNameField(studGroup.getGroupNameField())==null) {
+        if(person.doIHaveAGroupWithName(studGroup.getGroupNameField())==null) {
             studGroup.setGroupsOwner(person);
             person.addGroupsToMyList(studGroup);
 
@@ -83,7 +83,8 @@ public class StudGroupServiceImpl implements IStudGroupService {
     public void deleteStudGroup(String groupName, IPersonService personService, IFileService fileService,
                                 IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        StudGroup studGroup=studGroupRepo.findByGroupNameField(groupName);
+        StudGroup studGroup=person.doIHaveAGroupWithName(groupName);
+
         person.deleteStudGroup(studGroup);
         for(FileModel fileModel:studGroup.getFileModels())
         {
@@ -105,10 +106,11 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session) {
+    public void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session,IUserSecurityDataService userSecurityDataService,IPersonService personService) {
             String groupName = (String) session.getAttribute("currentStudGroupName");
-            if(studGroupRepo.findByGroupNameField(groupName) !=null) {
-                StudGroup studGroup = studGroupRepo.findByGroupNameField(groupName);
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            if(person.doIHaveAGroupWithName(groupName) !=null) {
+                StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
                 studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
                 studGroupRepo.save(studGroup);
                 session.setAttribute("currentStudGroupName",studGroup.getGroupNameField());

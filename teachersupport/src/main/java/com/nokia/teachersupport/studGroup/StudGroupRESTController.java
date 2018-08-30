@@ -38,7 +38,7 @@ public class StudGroupRESTController {
     @PostMapping("/teacherSupportStudent/edit")
     public ResponseEntity<Object> editGroup(@RequestBody String groupName, HttpSession session) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        session.setAttribute("currentStudGroupName", groupName);
+        session.setAttribute("currentStudGroupName", person.doIHaveAGroupWithName(groupName).getGroupNameField());
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
@@ -52,7 +52,7 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/updateGroup")
     public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO,HttpSession session) {
-        studGroupService.goStudGroupUpdate(studGroupDTO,session);
+        studGroupService.goStudGroupUpdate(studGroupDTO,session,userSecurityDataService,personService);
 
         ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
@@ -67,14 +67,14 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/remoteResourceAdd")
     public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session) {
-        remoteResourceService.goAddRemoteResource(remoteStudGroupResourceDTO,session,studGroupService);
+        remoteResourceService.goAddRemoteResource(remoteStudGroupResourceDTO,session,studGroupService,personService,userSecurityDataService);
         ServiceResponse<RemoteStudGroupResourceDTO> response = new ServiceResponse<RemoteStudGroupResourceDTO>("success", remoteStudGroupResourceDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @PostMapping("/teacherSupportStudent/deleteRemoteResource")
     public ResponseEntity<Object> remoteResourceDelete(@RequestBody Integer remoteResourceId, HttpSession session) {
-remoteResourceService.goDeleteStudGroupRemoteResource(remoteResourceId,session,studGroupService);
+remoteResourceService.goDeleteStudGroupRemoteResource(remoteResourceId,session,studGroupService,personService,userSecurityDataService);
         ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", remoteResourceId);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

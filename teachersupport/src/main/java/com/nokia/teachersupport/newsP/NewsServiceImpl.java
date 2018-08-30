@@ -6,6 +6,7 @@ import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
@@ -16,10 +17,7 @@ import java.util.Optional;
 public class NewsServiceImpl implements INewsService {
 
     private NewsRepo newsRepo;
-    @Autowired
-    private IPersonService personService;
-    @Autowired
-    private IUserSecurityDataService userSecurityDataService;
+
     @Autowired
     public void setNewsRepo(NewsRepo newsRepo) {
         this.newsRepo = newsRepo;
@@ -52,8 +50,9 @@ public class NewsServiceImpl implements INewsService {
 
 
     @Override
-    public void addNews(News news) {
-        if(newsRepo.findByNewsContentField(news.getNewsContentField())==null) {
+    public void addNews(News news,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        if(person.doIHaveANewsWithContent(news.getNewsContentField())==null) {
             String userName = CurrentUser.getCurrentUserName();
             UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
             Person tmpPerson = personService.getPersonByUserSecurityData(userSecurityData);
@@ -69,11 +68,14 @@ public class NewsServiceImpl implements INewsService {
         return newsRepo.findByNewsContentField(content);
     }
 
-    public News goEditNews(EditNewsDTO editNewsDTO)
+    @Override
+    public News goEditNews(EditNewsDTO editNewsDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService)
     {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         News news=new News();
-        if(newsRepo.findByNewsContentField(editNewsDTO.getOldContent())!=null && !editNewsDTO.getNewContent().equals("")) {
-            news = newsRepo.findByNewsContentField(editNewsDTO.getOldContent());
+
+        if(person.doIHaveANewsWithContent(editNewsDTO.getOldContent())!=null && !editNewsDTO.getNewContent().equals("")) {
+            news = person.doIHaveANewsWithContent(editNewsDTO.getOldContent());
             news.setNewsContentField(editNewsDTO.getNewContent());
             newsRepo.save(news);
         }
@@ -81,8 +83,10 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void deleteNewsByContent(String newsContent) {
-        newsRepo.delete(newsRepo.findByNewsContentField(newsContent));
+    public void deleteNewsByContent(String newsContent,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        News news=person.doIHaveANewsWithContent(newsContent);
+        newsRepo.delete(news);
     }
 
     @Override

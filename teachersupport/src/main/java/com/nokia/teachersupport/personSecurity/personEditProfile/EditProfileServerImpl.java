@@ -41,7 +41,12 @@ public class EditProfileServerImpl implements IEditProfileService{
             return false;
         Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         UserSecurityData userSecurityData=person.getUserSecurityDataField();
-        userSecurityData.setPassword(password);
+        //UWAGA Zmiana chcialam zeby sprawdzal tez czy pass jest rowne temu co wprowadzil i ustawiac oba
+        if(password.equals(confirmPassword)) {
+            userSecurityData.setPassword(password);
+            userSecurityData.setMatchingPassword(confirmPassword);
+        }
+
         person.setUserSecurityDataField(userSecurityData);
         userSecurityDataService.saveUserSecurityData(userSecurityData);
         personService.savePerson(person);
