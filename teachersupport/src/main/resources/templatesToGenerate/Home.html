@@ -1,77 +1,147 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
 
     <title>Home</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <style type="text/css">
-        .bg-changableColor
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+    .hoverNavLight:hover
         {
-            background-color:rgb(0, 21, 116) !important;
+            color:white !important;
+            border-radius:50px;
         }
-        .makeMeScroll
+        .hoverA
         {
+            border-style: solid;
+            border-color: #ffca05;
+            border-width: 0px 0px 3px 0px;
+
+
+        }
+        .hoverA:hover {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .bg-gray {
+            background-color: #e9ecef !important;
+        }
+
+        .bg-lightBlue {
+            background-color: #d6f3ff !important;
+        }
+
+        .bg-changableColor {
+            background-color: rgb(0, 21, 116) !important;
+        }
+
+        .makeMeScroll {
             display: inline-block;
             overflow-y: scroll;
-            max-height:200px;
+            max-height: 200px;
 
         }
-    </style>
-</head>
-<body>
+        .makeMeScrollBig {
+            display: inline-block;
+            overflow-y: scroll;
+            max-height: 297px;
 
-<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
-    <img th:src="${photo}" class="rounded mt-1" alt="..." height="100" width="100">
-    <img th:src="${facultyPhoto}"class="rounded mt-1" alt="..." height="100" width="100">
-    <div th:text="${name}"/>
-    <div th:text="${surname}"/>
+        }
+        .navbarBorderYellow {
+            border-color: #ffca05 !important;
+            border-style: solid;
+            border-width: 2px 0px 3px 0px;
+        }
+
+        .BorderTopYellow {
+            border-color: #ffca05 !important;
+            border-style: solid;
+            border-width: 5px 0px 0px 0px;
+        }
+    </style>
+    <script>
+
+    var oldGroup="helloForStudent";
+
+        function showDiv(x){
+        document.getElementById(oldGroup).style.display="none";
+        document.getElementById(x).style.display = "block";
+        oldGroup=x;
+        }
+    </script>
+</head>
+
+<body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
+
+
+<div class="jumbotron text-center rounded-0 bg-white mb-0 ">
+    <div class="row">
+        <div class="col">
+            <img width="200px"  height="200px" th:src="${facultyPhoto}"/>
+        </div>
+        <div class="col-xl pt-5">
+            <h1 th:text="${who.nameField}+' '+${who.surnameField}"></h1>
+            <h5>Student</h5>
+        </div>
+        <div class="col"></div>
+
+    </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-light">
 
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-changableColor navbarBorderYellow" >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active ">
-                <a class="nav-link" href="Home.html">Home</a>
+            <li class="nav-item">
+                <a class="nav-link hoverNavLight active" href="Home.html">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AboutMe.html">About Me</a>
+                <a class="nav-link hoverNavLight" href="AboutMe.html">About Me</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Publications.html">Publications</a>
+                <a class="nav-link hoverNavLight" href="Publications.html">Publications</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Student.html">Student</a>
+            <li class="nav-item" >
+                <a class="nav-link hoverNavLight" href="Student.html">Student</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="Contact.html">Contact</a>
+            <li style="float:right" class="nav-item ">
+                <a class="nav-link hoverNavLight" href="Contact.html">Contact</a>
             </li>
         </ul>
     </div>
 </nav>
 
+<div class="jumbotron text-center rounded-0 bg-white p-3 mb-0">
 
-<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
+    <div class="jumbotron m-3 p-3 shadow" >
+        <h4>News</h4>
+    </div>
 
-    <h4>Recent News</h4>
-    <div class="mt-4 text-dark">
-        <form id="deleteNewsForm">
-            <div class="table-responsive makeMeScroll bg-white">
-                <table class="table">
-                    <tbody>
-                    <tr th:each="objNews : ${news}">
-                        <td th:text="${objNews.newsContentField}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </form>
+    <div class="jumbotron m-3 p-2">
+        <div class="jumbotron bg-white mx-5 mt-4 p-3 border  font-italic shadow" th:each="objNews: ${news}">
+            <i class="fas fa-clipboard-list"></i>
+            <p class="d-inline" th:text="${objNews.newsContentField}"></p>
+        </div>
     </div>
 </div>
+<div class="jumbotron footer text-center py-3 rounded-0 bg-lightBlue text-white BorderTopYellow"/>
 </body>
 </html>
 

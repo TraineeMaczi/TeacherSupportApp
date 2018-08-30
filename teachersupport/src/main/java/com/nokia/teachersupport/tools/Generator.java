@@ -11,6 +11,7 @@ import org.thymeleaf.context.Context;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -22,6 +23,24 @@ public class Generator {
         Context context = new Context();
         File f = new File("src\\main\\resources\\zip\\pages.zip");
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
+        File f2= new File("src\\main\\resources\\static\\css\\Style.css");
+        Path file=f2.toPath();
+        String inputFileName = file.toFile().getPath();
+        try (FileInputStream inputStream = new FileInputStream(inputFileName)) {
+            ZipEntry entry = new ZipEntry(file.toFile().getName());
+            out.putNextEntry(entry);
+             byte[] readBuffer = new byte[2048];
+            int amountRead;
+            int written = 0;
+            while ((amountRead = inputStream.read(readBuffer)) > 0) {
+                out.write(readBuffer, 0, amountRead);
+                written += amountRead;
+            }
+            out.closeEntry();
+        }
+        catch(IOException e) {
+            System.out.println("BLADDD");
+        }
         for (String obj : lista) {
 
             if (obj.equals("Home.html")) {

@@ -178,6 +178,8 @@ public class Person {
     }
 
     public String getPhoneNumberField() {
+        if(phoneNumberField.length()==9)
+         return phoneNumberField.substring(0,3)+" "+phoneNumberField.substring(3,6)+" "+phoneNumberField.substring(6,9);
         return phoneNumberField;
     }
 
