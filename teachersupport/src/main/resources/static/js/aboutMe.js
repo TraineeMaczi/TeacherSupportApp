@@ -11,7 +11,6 @@ $(document).ready(
                 } else {
                     document.getElementById("personFoto").src = result.data;
                 }
-                console.log(result);
             },
             error: function (e) {
                 alert("Error!")
@@ -19,6 +18,15 @@ $(document).ready(
             }
 
         });
+         $("#foAdd").change(function () {
+                    filename = this.files[0].name
+                    console.log(filename);
+                });
+
+                $("#cvAdd").change(function () {
+                    filename = this.files[0].name
+                    console.log(filename);
+                });
         $("#btn1").on('click', function (event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
@@ -29,6 +37,15 @@ $(document).ready(
             event.preventDefault();
             doAjax('fileUploadForm2', 'listFiles2', 'cv');
         });
+         $("#hobbyButton").on('click', function (event) {
+                    event.preventDefault();
+                    ajaxPostHobby()
+         });
+         $("#basicInfoButton").on('click', function (event) {
+                    event.preventDefault();
+                    ajaxPostBasicInfo()
+         });
+
     });
 
 function doAjax(formName, listFiles, typ) {
@@ -99,3 +116,66 @@ function doAjax2(formName, listFiles, typ) {
         }
     });
 }
+function ajaxPostHobby() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/teacherSupportAboutMe/hobby/new",
+        data: $('#hobbyContentID').val(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.status == "success") {
+                $("#postResultDivHobby").html(
+                    "Success");
+            } else {
+                $("#postResultDivHobby").html("<strong>Error</strong>");
+            }
+            console.log(result);
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    });
+
+};
+function ajaxPostBasicInfo() {
+
+    // PREPARE FORM DATA
+    var formData = {
+        degree: $('#degree').val(),
+        workplace: $('#workplace').val(),
+        profession: $('#profession').val(),
+        usos: $('#usos').val(),
+        twitter: $('#twitter').val(),
+        facebook: $('#facebook').val(),
+        phone: $('#phone').val()
+    }
+
+    // DO POST
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/teacherSupportAboutMe/BasicInfo/new",
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function (result) {
+            if (result.status == "success") {
+
+                $("#postResultDivBasicInfo").html(
+                    "Success");
+
+
+            } else {
+                $("#postResultDivBasicInfo").html("<strong>Error</strong>");
+            }
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    });
+
+};
+
