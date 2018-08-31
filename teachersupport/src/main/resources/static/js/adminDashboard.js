@@ -65,6 +65,34 @@ $(document).ready(
             event.preventDefault();
             deleteUser(event);
         });
+ $("#fotoAdd").change(function () {
+                    filename = this.files[0].name
+                    console.log(filename);
+                });
+
+                $("#cvAdd").change(function () {
+                    filename = this.files[0].name
+                    console.log(filename);
+                });
+
+                 $("#facultyFotoAdd").change(function () {
+                    filename = this.files[0].name
+                    console.log(filename);
+                });
+           $("#deleteFacultyButton").on('click', function () {
+                     var item = $('input[name=facultyDe]:checked', '#edDeleteFacultyForm').val();
+                     $.ajax({
+                         type: "POST",
+                         contentType: "application/json",
+                         url: "/teacherSupportAdminDashboard/deleteFacultyAdminAction",
+                         data: item,
+                         dataType: 'json',
+                         success: function () {
+                             location.reload();
+                         }
+
+                     });
+                 });
     }
 );
 
