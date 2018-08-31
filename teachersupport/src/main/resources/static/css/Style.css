@@ -54,12 +54,9 @@
             border-width: 5px 0px 0px 0px;
         }
 
-        .border-dash {
-            border-color: #ffca05 !important;
-            border-style: dashed;
-            border-width: 4px;
-        }
-
+        .bg-myYellow{
+ 	    background-color: #ffca05 !important;
+	    }
 
 
 

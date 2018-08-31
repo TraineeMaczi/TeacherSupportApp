@@ -45,6 +45,22 @@ $(document).ready(
                     event.preventDefault();
                     ajaxPostBasicInfo()
          });
+          $("#facebook")
+                             .popover({ title: 'Important !', content: "Provide your Facebook profile link" })
+                             .blur(function () {
+                                 $(this).popover('hide');
+                             });
+
+          $("#usos")
+                 .popover({ title: 'Important !', content: "Provide your Usos profile link" })
+                                      .blur(function () {
+                                          $(this).popover('hide');
+                                      });
+         $("#twitter")
+                          .popover({ title: 'Important !', content: "Provide your Twitter profile link" })
+                                               .blur(function () {
+                                                   $(this).popover('hide');
+                                               });
 
     });
 

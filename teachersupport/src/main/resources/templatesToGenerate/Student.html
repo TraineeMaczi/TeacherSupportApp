@@ -25,16 +25,7 @@
 
     <script href="../static/js/postJS.js" th:src="@{js/postJS.js}" type="text/javascript"></script>
     <link href="Style.css" th:href="Style.css" rel="stylesheet" media="screen"/>
-    <script>
 
-    var oldGroup="helloForStudent";
-
-        function showDiv(x){
-        document.getElementById(oldGroup).style.display="none";
-        document.getElementById(x).style.display = "block";
-        oldGroup=x;
-        }
-    </script>
 </head>
 
 <body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
@@ -96,7 +87,7 @@
             </div>
         </div>
         <div class="col text-center">
-            <div  id="helloForStudent" class="jumbotron mt-4 mr-4" style="display:block;">
+            <div  id="helloForStudent" class="jumbotron mt-4 mr-4 " style="display:block;">
                 <p> Hello dear student.</p>
                 <p>On this page you can download resources for your classes.</p>
                 <p> Please select your group.</p>
@@ -104,7 +95,7 @@
             </div>
 
             <span th:each="groupDetail : ${generatorPersonAllGroups}">
-            <div  th:id="${groupDetail.id}" class="jumbotron mt-4 mr-4" style="display:none;">
+            <div  th:id="${groupDetail.id}" class="jumbotron mt-4 mr-4 bg-myYellow py-2" style="display:none;">
                 <div class="row">
                     <div class="col-4">
 
@@ -181,5 +172,14 @@
 
 
 </body>
+<script>
 
+    var oldGroup="helloForStudent";
+
+        function showDiv(x){
+        document.getElementById(oldGroup).style.display="none";
+        document.getElementById(x).style.display = "block";
+        oldGroup=x;
+        }
+    </script>
 </html>

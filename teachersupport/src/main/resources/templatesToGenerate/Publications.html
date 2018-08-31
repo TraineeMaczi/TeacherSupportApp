@@ -14,16 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link href="Style.css" th:href="Style.css" rel="stylesheet" media="screen"/>
-    <script>
 
-    var oldGroup="helloForStudent";
-
-        function showDiv(x){
-        document.getElementById(oldGroup).style.display="none";
-        document.getElementById(x).style.display = "block";
-        oldGroup=x;
-        }
-    </script>
 </head>
 
 <body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
@@ -72,16 +63,16 @@
     </div>
 </nav>
 
-<div class="jumbotron text-center rounded-0 bg-white p-3 mb-0">
+<div class="jumbotron text-center rounded-0 bg-white p-2 mb-0">
 
-    <div class="jumbotron m-3 p-3 shadow" >
+    <div class="jumbotron mt-2 mb-3 mx-3 p-3 shadow  bg-changableColor text-white" >
         <h4>My Publications</h4>
     </div>
 
-    <div class="jumbotron m-3 p-2">
-                <div class="jumbotron bg-white mx-5 mt-4 p-3 border  font-italic shadow" th:each="objPublications: ${publications}">
+    <div class="jumbotron m-3 p-1 bg-myYellow" th:each="objPublications: ${publications}">
+                <div class="jumbotron bg-white mx-5 my-2 p-3 border  font-italic" >
                     <i class="fas fa-pencil-alt "></i>
-                    <p class="d-inline" th:text="${objPublications.publicationsInfoField}"></p>
+                    <p class="d-inline" th:text="' '+${objPublications.publicationsInfoField}"></p>
                 </div>
     </div>
 </div>
