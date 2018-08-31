@@ -138,32 +138,32 @@
     <div class="jumbotron mb-0 py-3">
         <div class="row">
             <!--..................................TH EACH.............................................-->
-            <div class="col">
+            <div class="col" th:each="contactData : ${who.getPersonMeetMeDataList()}">
                 <div class="bg-white shadow-lg" >
 
                     <table class="table">
                         <tbody>
                         <tr>
                             <th scope="row"><i class="fas fa-briefcase"></i></th>
-                            <td class="text-left font-weight-bold"><p >Wydzial Fizyki,Astronomii i Informatyki Stosowanej</p>
-                                <p class="font-weight-bold">Office: 7</p></td>
+                            <td class="text-left font-weight-bold"><p th:text="${contactData.placeField}"></p>
+                                <p class="font-weight-bold" th:text="${contactData.officeField}"></p></td>
 
 
                         </tr>
                         <tr>
                             <th scope="row"><i class="far fa-calendar-alt"></i></th>
-                            <td class="text-left font-weight-bold"><p>Wtorek</p>
-                                <p>10:15-12:45</p></td>
+                            <td class="text-left font-weight-bold" th:text="${contactData.dayField}"><p></p>
+                                <p th:text="${contactData.timeField}"></p></td>
 
                         </tr>
                         <tr>
                             <th scope="row"><i class="fas fa-phone"></i></th>
-                            <td class="text-left font-weight-bold"><p>735 742 137</p></td>
+                            <td class="text-left font-weight-bold"><p th:text="${who.getFormatPhoneNumberField()}"></p></td>
                         </tr>
 
                         <tr>
                             <th scope="row"><i class="fab fa-telegram-plane"></i></th>
-                            <td class="text-left font-weight-bold"><p>sample@mail.com</p></td>
+                            <td class="text-left font-weight-bold"><p th:text="${who.getUserSecurityDataField().email}"></p></td>
                         </tr>
                         </tbody>
                     </table>
