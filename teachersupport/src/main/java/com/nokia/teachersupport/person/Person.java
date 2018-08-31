@@ -37,8 +37,8 @@ public class Person {
     //private String fotoField;
     //private String cvField;
 
-    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
-    @JoinColumn(name="SecurityDataId")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "SecurityDataId")
     private UserSecurityData userSecurityDataField;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -58,10 +58,11 @@ public class Person {
 
     @OneToMany(mappedBy = "meetMeOwner")
     private List<MeetMe> personMeetMeDataList;
-    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private FileModel foto;
-    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private FileModel CV;
+
     public Person() {
         this.degreeField = Strings.EMPTY;
         this.nameField = Strings.EMPTY;
@@ -72,13 +73,12 @@ public class Person {
         this.phoneNumberField = Strings.EMPTY;
         this.usosPersonProfileLinkField = Strings.EMPTY;
         this.hobbyField = Strings.EMPTY;
-        this.facebookField=Strings.EMPTY;
-        this.twitterField=Strings.EMPTY;
+        this.facebookField = Strings.EMPTY;
+        this.twitterField = Strings.EMPTY;
 
         //private String fotoField;
         //private String cvField;
     }
-
 
 
 //    //copy const for user details
@@ -160,7 +160,6 @@ public class Person {
     }
 
 
-
     public String getWorkAddressField() {
         return workAddressField;
     }
@@ -177,9 +176,13 @@ public class Person {
         this.professionField = professionField;
     }
 
+    public String getFormatPhoneNumberField() {
+        if (phoneNumberField.length() == 9)
+            return phoneNumberField.substring(0, 3) + " " + phoneNumberField.substring(3, 6) + " " + phoneNumberField.substring(6, 9);
+        return phoneNumberField;
+    }
+
     public String getPhoneNumberField() {
-        if(phoneNumberField.length()==9)
-         return phoneNumberField.substring(0,3)+" "+phoneNumberField.substring(3,6)+" "+phoneNumberField.substring(6,9);
         return phoneNumberField;
     }
 
@@ -249,6 +252,7 @@ public class Person {
             group.setGroupsOwner(this);
         }
     }
+
     public void addMeetMeToMyList(MeetMe meetMe) {
         this.personMeetMeDataList.add(meetMe);
         if (meetMe.getMeetMeOwner() != this) {
@@ -301,29 +305,26 @@ public class Person {
     }
 
     public void deleteStudGroup(StudGroup studGroup) {
-    personStudGroupList.remove(studGroup);
+        personStudGroupList.remove(studGroup);
     }
 
-    public void deleteFaculty(Faculty faculty){facultyField=null;}
+    public void deleteFaculty(Faculty faculty) {
+        facultyField = null;
+    }
 
-    public StudGroup doIHaveAGroupWithName(String name)
-    {
-        for(StudGroup studGroup: this.getPersonStudGroupList())
-        {
-            if(studGroup.getGroupNameField().equals(name))
-            {
+    public StudGroup doIHaveAGroupWithName(String name) {
+        for (StudGroup studGroup : this.getPersonStudGroupList()) {
+            if (studGroup.getGroupNameField().equals(name)) {
                 return studGroup;
             }
 
         }
         return null;
     }
-    public News doIHaveANewsWithContent(String content)
-    {
-        for(News news: this.getPersonNewsList())
-        {
-            if(news.getNewsContentField().equals(content))
-            {
+
+    public News doIHaveANewsWithContent(String content) {
+        for (News news : this.getPersonNewsList()) {
+            if (news.getNewsContentField().equals(content)) {
                 return news;
             }
 
@@ -331,12 +332,9 @@ public class Person {
         return null;
     }
 
-    public Publications doIHaveAPublicationWithContent(String content)
-    {
-        for(Publications publi: this.getPersonPublicationsList())
-        {
-            if(publi.getPublicationsInfoField().equals(content))
-            {
+    public Publications doIHaveAPublicationWithContent(String content) {
+        for (Publications publi : this.getPersonPublicationsList()) {
+            if (publi.getPublicationsInfoField().equals(content)) {
                 return publi;
             }
 
