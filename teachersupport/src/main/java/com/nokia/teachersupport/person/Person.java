@@ -33,9 +33,7 @@ public class Person {
 
     private String facebookField;
     private String twitterField;
-//    private String currentGroupName;
-    //private String fotoField;
-    //private String cvField;
+
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "SecurityDataId")

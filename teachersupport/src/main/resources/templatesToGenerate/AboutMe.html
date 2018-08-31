@@ -1,205 +1,261 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
 
-    <title>AboutMe</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <style type="text/css">
-        .bg-changableColor
-        {
-            background-color:rgb(0, 21, 116) !important;
+    <title>Contact</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <style>
+        .hoverNavLight:hover {
+            color: white !important;
+            border-radius: 50px;
         }
-        .makeMeScroll
-        {
+
+        .hoverA {
+            border-style: solid;
+            border-color: #ffca05;
+            border-width: 0px 0px 3px 0px;
+
+
+        }
+
+        .hoverA:hover {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .bg-gray {
+            background-color: #e9ecef !important;
+        }
+
+        .bg-lightBlue {
+            background-color: #d6f3ff !important;
+        }
+
+        .bg-changableColor {
+            background-color: rgb(0, 21, 116) !important;
+        }
+
+        .makeMeScroll {
             display: inline-block;
             overflow-y: scroll;
-            max-height:200px;
+            max-height: 200px;
 
         }
+
+        .makeMeScrollBig {
+            display: inline-block;
+            overflow-y: scroll;
+            max-height: 297px;
+
+        }
+
+        .navbarBorderYellow {
+            border-color: #ffca05 !important;
+            border-style: solid;
+            border-width: 2px 0px 3px 0px;
+        }
+
+        .BorderTopYellow {
+            border-color: #ffca05 !important;
+            border-style: solid;
+            border-width: 5px 0px 0px 0px;
+        }
+
+        .border-dash {
+            border-color: #ffca05 !important;
+            border-style: dashed;
+            border-width: 4px;
+        }
     </style>
+    <script>
+
+        var oldGroup = "helloForStudent";
+
+        function showDiv(x) {
+            document.getElementById(oldGroup).style.display = "none";
+            document.getElementById(x).style.display = "block";
+            oldGroup = x;
+        }
+    </script>
 </head>
-<body>
-<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
-    <img th:src="${photo}" class="rounded mt-1" alt="..." height="100" width="100">
-    <img th:src="${facultyPhoto}"class="rounded mt-1" alt="..." height="100" width="100">
-    <div th:text="${name}"/>
-    <div th:text="${surname}"/>
+
+<body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
+
+
+<div class="jumbotron text-center rounded-0 bg-white mb-0 ">
+    <div class="row">
+        <div class="col">
+            <img width="200px" height="200px" th:src="${facultyPhoto}" />
+        </div>
+        <div class="col-xl pt-5">
+            <h1 th:text="${who.nameField}+' '+${who.surnameField}"></h1>
+            <h5>About Me</h5>
+        </div>
+        <div class="col"></div>
+
+    </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-changableColor navbarBorderYellow">
+    <a class="navbar-brand" href="Home.html" th:text="${who.nameField}+' '+${who.surnameField}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active ">
-                <a class="nav-link" href="Home.html">Home</a>
+            <li class="nav-item">
+                <a class="nav-link hoverNavLight" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link hoverNavLight" href="AboutMe.html">About Me</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AboutMe.html">About Me</a>
+                <a class="nav-link hoverNavLight" href="Publications.html">Publications</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Publications.html">Publications</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Student.html">Student</a>
+                <a class="nav-link hoverNavLight" href="Student.html">Student</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="Contact.html">Contact</a>
+                <a class="nav-link hoverNavLight" href="Contact.html">Contact</a>
             </li>
         </ul>
     </div>
 </nav>
-<div class="jumbotron text-center rounded-0 bg-changableColor text-white mb-0">
-    <div class="row">
-        <!--About Me Basic-->
+
+<div class="jumbotron text-center rounded-0 p-3 bg-white mb-0">
+    <div class="jumbotron py-3 shadow">
+        <p class="h4">This is a piece of information about Me.</p>
+        <p class="h4">Here you can find basic information about who I am and my hobbies.</p>
+        <p class="h4">You can also download my CV here.</p>
+    </div>
+
+    <div class="jumbotron mb-0 py-3">
+        <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class="col">
+
+                <div class="bg-white shadow-lg">
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th scope="row">
+                                <i class="fas fa-user-circle"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <p th:text="${who.professionField}+' '+${who.nameField}+' '+${who.surnameField}"></p>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <i class="fas fa-briefcase"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <p th:text="${who.workAddressField}"></p>
+                                <p th:text="${who.professionField}"></p>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <i class="fas fa-book"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <a th:href="usosPersonProfileLinkField">Usos</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <i class="fas fa-sticky-note"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <a href="">CV</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <i class="fab fa-twitter"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <a href="https://twitter.com/?lang=pl">Twitter</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                <i class="fab fa-facebook-square"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <a href="https://pl-pl.facebook.com/">Facebook</a>
+                            </td>
+                        </tr>
 
 
-        <div class="col bg-white jumbotron text-dark">
-
-            <form id="basicInfoForm">
-                <h4>Basic Info</h4>
-
-                <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivBasicInfo" align="center"></div>
-
-                <div class="container mt-2">
-
-                    <div class="row" >
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Degree: " disabled>
-                        </div>
-
-
-                        <div class="col-sm">
-                            <input id="degree" name="degree" type="text"
-                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getDegreeField()}"disabled/>
-                        </div>
-
-                    </div>
-
-                    <div class="row ">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Name: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline"
-                                   th:placeholder="${currentUserPerson.getNameField()}" disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Surname: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline"
-                                   th:placeholder="${currentUserPerson.getSurnameField()}" disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Workplace: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input id="workplace" name="workplace" type="text"
-                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getWorkAddressField()}"disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Profession: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input id="profession" name="profession" type="text"
-                                   class="form-control rounded text-center d-inline"  th:placeholder="${currentUserPerson.getProfessionField()}"disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="e-mail: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control rounded text-center d-inline"
-                                   th:placeholder="${currentUserName}" disabled />
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-5 ">
-                            <input type="text" class="form-control text-center" placeholder="Phone Number: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" id="phone" name="phone" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getFormatPhoneNumberField()}"disabled/>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="My usos: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input id="usos" name="usos" type="text" class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getUsosPersonProfileLinkField()}"disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Twitter: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input id="twitter" name="twitter" type="text"
-                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getTwitterField()}"disabled/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control text-center" placeholder="Facebook: " disabled>
-                        </div>
-                        <div class="col-sm">
-                            <input id="facebook" name="facebook" type="text"
-                                   class="form-control rounded text-center d-inline" th:placeholder="${currentUserPerson.getFacebookField()}"disabled/>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
 
-            </form>
+            </div>
+            <div class="col">
+                <img class="rounded shadow-lg border-dash" width="300" height="375" src="LogoX.png" alt="my photo" />
+            </div>
+            <div class="col-1">
+
+            </div>
+
+
 
         </div>
+        <div class="row mt-4">
+            <div class="col-1">
 
+            </div>
+            <div class="col bg-white shadow-lg">
 
+                <table class="table ">
+                    <tbody>
+                    <tr>
+                        <th scope="row">
+                            <i class="fas fa-football-ball"></i>
+                        </th>
+                        <td class="text-left ">
+                            <p class="font-weight-bold">This is my hobby !</p>
+                            <p>Cos tam cos tam </p>
 
-        <!--......................................................-->
+                    </tr>
 
-        <!--Hobby-->
-        <div class="col bg-white jumbotron text-dark ml-3 ">
-            <h4>Hobby</h4>
-            <div class="container bg-changableColor text-white mt-3 rounded-2" id="postResultDivHobby" align="center"></div>
-            <form id="hobbyForm" class="form-control bg-gray mt-2">
-                <textarea class="form-control rounded text-center" id="hobbyContentID" rows="10" th:placeholder="${currentUserPerson.getHobbyField()}"disabled></textarea>
-            </form>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1">
+
+            </div>
         </div>
-        <!--.......................................................-->
-
-        <!--Foto-->
-        <div class="col bg-white jumbotron text-dark ml-3 ">
-            <h4>Foto and CV</h4>
-            <img id="personFoto" src="img/logo.jpg" class="rounde mt-2" width="200" high="200"/>
-
-        </div>
-
-        <!---->
-        <!--row end-->
     </div>
-    <!--pink background div end-->
-
+</div>
+<div class="jumbotron footer text-center py-3 rounded-0 bg-lightBlue text-white BorderTopYellow">
 </div>
 
 </body>
+
 </html>
+
+<!--  Free Icons https://fontawesome.com/icons?d=gallery&m=free -->
