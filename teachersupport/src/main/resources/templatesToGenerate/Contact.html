@@ -13,63 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <style>
-        .hoverNavLight:hover {
-            color: white !important;
-            border-radius: 50px;
-        }
-
-        .hoverA {
-            border-style: solid;
-            border-color: #ffca05;
-            border-width: 0px 0px 3px 0px;
-
-
-        }
-
-        .hoverA:hover {
-            background-color: white !important;
-            color: black !important;
-        }
-
-        .bg-gray {
-            background-color: #e9ecef !important;
-        }
-
-        .bg-lightBlue {
-            background-color: #d6f3ff !important;
-        }
-
-        .bg-changableColor {
-            background-color: rgb(0, 21, 116) !important;
-        }
-
-        .makeMeScroll {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 200px;
-
-        }
-
-        .makeMeScrollBig {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 297px;
-
-        }
-
-        .navbarBorderYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 2px 0px 3px 0px;
-        }
-
-        .BorderTopYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 5px 0px 0px 0px;
-        }
-    </style>
+    <link href="Style.css" th:href="Style.css" rel="stylesheet" media="screen"/>
     <script>
 
         var oldGroup = "helloForStudent";
@@ -152,7 +96,7 @@
                         </tr>
                         <tr>
                             <th scope="row"><i class="far fa-calendar-alt"></i></th>
-                            <td class="text-left font-weight-bold" th:text="${contactData.dayField}"><p></p>
+                            <td class="text-left font-weight-bold" ><p th:text="${contactData.dayField}"></p>
                                 <p th:text="${contactData.timeField}"></p></td>
 
                         </tr>
