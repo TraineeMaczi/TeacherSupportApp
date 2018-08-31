@@ -14,79 +14,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
           crossorigin="anonymous">
-    <style>
-        .hoverNavLight:hover {
-            color: white !important;
-            border-radius: 50px;
-        }
+    <link href="Style.css" th:href="Style.css" rel="stylesheet" media="screen"/>
 
-        .hoverA {
-            border-style: solid;
-            border-color: #ffca05;
-            border-width: 0px 0px 3px 0px;
-
-
-        }
-
-        .hoverA:hover {
-            background-color: white !important;
-            color: black !important;
-        }
-
-        .bg-gray {
-            background-color: #e9ecef !important;
-        }
-
-        .bg-lightBlue {
-            background-color: #d6f3ff !important;
-        }
-
-        .bg-changableColor {
-            background-color: rgb(0, 21, 116) !important;
-        }
-
-        .makeMeScroll {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 200px;
-
-        }
-
-        .makeMeScrollBig {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 297px;
-
-        }
-
-        .navbarBorderYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 2px 0px 3px 0px;
-        }
-
-        .BorderTopYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 5px 0px 0px 0px;
-        }
-
-        .border-dash {
-            border-color: #ffca05 !important;
-            border-style: dashed;
-            border-width: 4px;
-        }
-    </style>
-    <script>
-
-        var oldGroup = "helloForStudent";
-
-        function showDiv(x) {
-            document.getElementById(oldGroup).style.display = "none";
-            document.getElementById(x).style.display = "block";
-            oldGroup = x;
-        }
-    </script>
 </head>
 
 <body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
@@ -137,13 +66,13 @@
 </nav>
 
 <div class="jumbotron text-center rounded-0 p-3 bg-white mb-0">
-    <div class="jumbotron py-3 shadow">
+    <div class="jumbotron bg-changableColor text-white py-3 shadow">
         <p class="h4">This is a piece of information about Me.</p>
         <p class="h4">Here you can find basic information about who I am and my hobbies.</p>
         <p class="h4">You can also download my CV here.</p>
     </div>
 
-    <div class="jumbotron mb-0 py-3">
+    <div class="jumbotron bg-myYellow mb-0 py-3">
         <div class="row">
             <div class="col-1">
 
@@ -159,7 +88,7 @@
                                 <i class="fas fa-user-circle"></i>
                             </th>
                             <td class="text-left font-weight-bold">
-                                <p th:text="${who.professionField}+' '+${who.nameField}+' '+${who.surnameField}"></p>
+                                <p th:text="${who.degreeField}+' '+${who.nameField}+' '+${who.surnameField}"></p>
 
                         </tr>
                         <tr>
@@ -177,7 +106,7 @@
                                 <i class="fas fa-book"></i>
                             </th>
                             <td class="text-left font-weight-bold">
-                                <a th:href="usosPersonProfileLinkField">Usos</a>
+                                <a th:href="who.usosPersonProfileLinkField">Usos</a>
                             </td>
                         </tr>
 
@@ -195,7 +124,7 @@
                                 <i class="fab fa-twitter"></i>
                             </th>
                             <td class="text-left font-weight-bold">
-                                <a href="https://twitter.com/?lang=pl">Twitter</a>
+                                <a th:href="who.twitterField">Twitter</a>
                             </td>
                         </tr>
 
@@ -204,7 +133,7 @@
                                 <i class="fab fa-facebook-square"></i>
                             </th>
                             <td class="text-left font-weight-bold">
-                                <a href="https://pl-pl.facebook.com/">Facebook</a>
+                                <a th:href="who.facebookField">Facebook</a>
                             </td>
                         </tr>
 
@@ -215,7 +144,7 @@
 
             </div>
             <div class="col">
-                <img class="rounded shadow-lg border-dash" width="300" height="375" src="LogoX.png" alt="my photo" />
+                <img class="rounded shadow-lg " width="300" height="375" th:src="${photo}" alt="my photo" />
             </div>
             <div class="col-1">
 
@@ -238,7 +167,7 @@
                         </th>
                         <td class="text-left ">
                             <p class="font-weight-bold">This is my hobby !</p>
-                            <p>Cos tam cos tam </p>
+                            <p th:text="${who.hobbyField}"></p>
 
                     </tr>
 

@@ -12,77 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <style>
-        .hoverNavLight:hover {
-            color: white !important;
-            border-radius: 50px;
-        }
+    <link href="Style.css" th:href="Style.css" rel="stylesheet" media="screen"/>
 
-        .hoverA {
-            border-style: solid;
-            border-color: #ffca05;
-            border-width: 0px 0px 3px 0px;
-
-
-        }
-
-        .hoverA:hover {
-            background-color: white !important;
-            color: black !important;
-        }
-
-        .bg-gray {
-            background-color: #e9ecef !important;
-        }
-
-        .bg-lightBlue {
-            background-color: #d6f3ff !important;
-        }
-
-        .bg-changableColor {
-            background-color: rgb(0, 21, 116) !important;
-        }
-
-        .makeMeScroll {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 200px;
-
-        }
-
-        .makeMeScrollBig {
-            display: inline-block;
-            overflow-y: scroll;
-            max-height: 297px;
-
-        }
-
-        .navbarBorderYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 2px 0px 3px 0px;
-        }
-
-        .BorderTopYellow {
-            border-color: #ffca05 !important;
-            border-style: solid;
-            border-width: 5px 0px 0px 0px;
-        }
-
-    </style>
-    <script>
-
-        var oldGroup = "helloForStudent";
-
-        function showDiv(x) {
-            document.getElementById(oldGroup).style.display = "none";
-            document.getElementById(x).style.display = "block";
-            oldGroup = x;
-        }
-
-    </script>
 </head>
 
 <body class="jumbotron bg-lightBlue pl-5 pr-5 pt-0">
@@ -133,36 +67,48 @@
 </nav>
 
 <div class="jumbotron text-center rounded-0 p-3 bg-white mb-0">
-    <div class="jumbotron py-3 shadow">
-        <p class="h4">Do you need face to face meeting ? Please come in those hours.</p>
-        <p class="h4">I also provide my email and phone contact info.</p>
-    </div>
-
-    <div class="jumbotron mb-0 py-3">
+    <div class="jumbotron bg-changableColor  py-3 shadow">
         <div class="row">
-<div class="col"></div>
-            <div class="col">
+            <div class="col p-5 text-white">
+                <p class="h4">Do you need face to face meeting ? Please come in those hours.</p>
+                <p class="h4">I also provide my email and phone contact info.</p>
+            </div>
+            <div class="col-3">
                 <div class="bg-white shadow-lg ">
 
                     <table class="table">
+                        <thead>
+                        <p class="text-center font-weight-bold mt-2">Call Me / Mail Me</p>
+
+                        </thead>
                         <tbody>
+
                         <tr>
-                            <th scope="row"><i class="fas fa-phone"></i></th>
-                            <td class="text-left font-weight-bold"><p th:text="${who.getFormatPhoneNumberField()}"></p>
+                            <th scope="row">
+                                <i class="fas fa-phone"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <p th:text="${who.getFormatPhoneNumberField()}"></p>
                             </td>
                         </tr>
 
                         <tr>
-                            <th scope="row"><i class="fab fa-telegram-plane"></i></th>
-                            <td class="text-left font-weight-bold"><p
-                                    th:text="${who.getUserSecurityDataField().email}"></p></td>
+                            <th scope="row">
+                                <i class="fab fa-telegram-plane"></i>
+                            </th>
+                            <td class="text-left font-weight-bold">
+                                <p th:text="${who.getUserSecurityDataField().email}"></p>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col-2"></div>
         </div>
+    </div>
+
+    <div class="jumbotron bg-myYellow mb-0 py-3">
 
         <div class="row">
             <!--..................................TH EACH.............................................-->
@@ -174,13 +120,13 @@
                         <tr>
                             <th scope="row"><i class="fas fa-briefcase"></i></th>
                             <td class="text-left font-weight-bold"><p th:text="${contactData.placeField}"></p>
-                                <p class="font-weight-bold" th:text="${contactData.officeField}"></p></td>
+                                <p class="font-weight-bold" th:text="'Office:'+${contactData.officeField}"></p></td>
 
 
                         </tr>
                         <tr>
                             <th scope="row"><i class="far fa-calendar-alt"></i></th>
-                            <td class="text-left font-weight-bold" th:text="${contactData.dayField}"><p></p>
+                            <td class="text-left font-weight-bold"><p th:text="${contactData.dayField}"></p>
                                 <p th:text="${contactData.timeField}"></p></td>
 
                         </tr>
