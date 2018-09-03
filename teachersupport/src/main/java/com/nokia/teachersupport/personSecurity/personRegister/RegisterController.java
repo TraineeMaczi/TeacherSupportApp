@@ -52,7 +52,7 @@ public class RegisterController {
 
 
         if((userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
-                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive()==false))
+                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive().equals(0)))
         {
             String appUrl = request.getContextPath();
 

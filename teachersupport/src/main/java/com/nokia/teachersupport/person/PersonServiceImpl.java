@@ -203,7 +203,7 @@ public class PersonServiceImpl implements IPersonService {
             userSecurityData.setEmail(userDTOForAdminActionDTO.getUserEmailDTOField());
             userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
             userSecurityData.setMatchingPassword("NULL");
-
+            userSecurityDataService.saveUserSecurityData(userSecurityData);
             userSecurityData.addARole(secutityRole);
             secutityRole.addUserSecurityDataToRole(userSecurityData);
             roleService.save(secutityRole);
@@ -211,7 +211,7 @@ public class PersonServiceImpl implements IPersonService {
 
 
             personRepo.save(person);
-            userSecurityDataService.saveUserSecurityData(userSecurityData);
+           // userSecurityDataService.saveUserSecurityData(userSecurityData);
             facultyService.saveFaculty(faculty);
         }
     }
