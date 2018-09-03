@@ -9,14 +9,17 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
     private String appUrl;
     private Locale locale;
     private UserSecurityData user;
+        private String password;
+
 
     public OnRegistrationCompleteEvent(
-            UserSecurityData user, Locale locale, String appUrl) {
+            UserSecurityData user, Locale locale, String appUrl,String password) {
         super(user);
-
+        this.password=password;
         this.user = user;
         this.locale = locale;
         this.appUrl = appUrl;
+
     }
 
 
@@ -42,5 +45,14 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     public void setUser(UserSecurityData user) {
         this.user = user;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

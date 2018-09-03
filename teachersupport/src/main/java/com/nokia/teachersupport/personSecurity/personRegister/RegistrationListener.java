@@ -31,7 +31,7 @@ public class RegistrationListener implements
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         UserSecurityData user = event.getUser();
         String token = UUID.randomUUID().toString();
-        service.createVerificationToken(user, token);
+        service.createVerificationToken(user, token, event.getPassword());
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
@@ -42,7 +42,7 @@ public class RegistrationListener implements
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(/*message +*/ " rn" + "http:/localhost:9000" + confirmationUrl);
+        email.setText("http://localhost:9000" + confirmationUrl);
         mailSender.send(email);
     }
 }

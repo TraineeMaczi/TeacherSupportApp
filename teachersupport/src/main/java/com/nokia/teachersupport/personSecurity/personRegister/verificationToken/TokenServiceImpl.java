@@ -14,8 +14,8 @@ public class TokenServiceImpl implements ITokenService {
     }
 
     @Override
-    public void createVerificationToken(UserSecurityData user, String token) {
-        VerificationToken myToken = new VerificationToken(token, user);
+    public void createVerificationToken(UserSecurityData user, String token,String password) {
+        VerificationToken myToken = new VerificationToken(token, user,password);
         tokenRepo.save(myToken);
     }
 }
