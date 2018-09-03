@@ -95,7 +95,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
                 {
                     return false;
                 }
-                if(toM>24||toH>24||fromH>24||fromM>24)
+                if(toM>60||toH>24||fromH>24||fromM>60)
                 {
                     return false;
                 }
