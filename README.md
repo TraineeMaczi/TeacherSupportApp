@@ -20,6 +20,11 @@ spring.mail.test-connection=false
 mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 
+spring.servlet.multipart.enabled=true
+spring.servlet.multipart.file-size-threshold=2KB
+spring.servlet.multipart.max-file-size=200MB
+spring.servlet.multipart.max-request-size=215MB
+file.upload-dir=./uploads
 
 
 #MySQL Base (temporary)
