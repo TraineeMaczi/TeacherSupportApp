@@ -17,6 +17,8 @@ public class VerificationToken {
 
     private String token;
 
+private String password;
+
     @OneToOne(targetEntity = UserSecurityData.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private UserSecurityData user;
@@ -30,9 +32,13 @@ public class VerificationToken {
         return new Date(cal.getTime().getTime());
     }
 
-    public VerificationToken(final String token, final UserSecurityData user) {
-        super();
+    public VerificationToken()
+    {
 
+    }
+    public VerificationToken(final String token, final UserSecurityData user,String password) {
+       // super();
+this.password=password;
         this.token = token;
         this.user = user;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
@@ -67,5 +73,13 @@ public class VerificationToken {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

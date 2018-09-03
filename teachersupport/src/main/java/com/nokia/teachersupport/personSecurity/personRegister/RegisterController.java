@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +30,7 @@ public class RegisterController {
     IUserSecurityDataService userSecurityDataService;
     @Autowired
     ITokenService tokenService;
+
     //Z tego interesuje mnie tylko securityDataRepo
 
 
@@ -52,15 +50,19 @@ public class RegisterController {
 
 
         if((userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
-                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive()==false))
+                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive().equals(false)))
         {
             String appUrl = request.getContextPath();
 
             UserSecurityData registered=userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email());
 
           //!!UWAGA
-            /*  eventPublisher.publishEvent(new OnRegistrationCompleteEvent
-                    (registered, request.getLocale(), appUrl));*/
+           if(registerDTO.getUserPass().equals(registerDTO.getUserConfirmPass()))
+                eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+                        (registered, request.getLocale(), appUrl,registerDTO.getUserPass()));
+          else
+               return new ModelAndView("teacherSupportRegisterF");
+
 
             //Tu trzeba wyslac e-mail potwierdzajacy
         return new ModelAndView("teacherSupportRegisterS");
@@ -91,6 +93,8 @@ public class RegisterController {
             return "redirect:/teacherSupportRegisterF";
         }
 
+        user.setPassword(verificationToken.getPassword());
+        user.setMatchingPassword( verificationToken.getPassword());
         user.setActive(true);
         userSecurityDataService.saveUserSecurityData(user);
 
