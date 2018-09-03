@@ -27,6 +27,11 @@ $(document).ready(
                     filename = this.files[0].name
                     console.log(filename);
                 });
+                 $("#addFotoId")
+                                    .popover({ title: 'Important !', content: "The size of the photo should be 375 X 300, otherwise the quality of the picture will get worse." })
+                                    .blur(function () {
+                                        $(this).popover('hide');
+                                    });
         $("#btn1").on('click', function (event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
