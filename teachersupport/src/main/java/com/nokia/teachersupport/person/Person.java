@@ -62,17 +62,17 @@ public class Person {
     private FileModel CV;
 
     public Person() {
-        this.degreeField = Strings.EMPTY;
-        this.nameField = Strings.EMPTY;
-        this.surnameField = Strings.EMPTY;
+        this.degreeField =  "-";
+        this.nameField =  "-";
+        this.surnameField =  "-";
 
-        this.workAddressField = Strings.EMPTY;
-        this.professionField = Strings.EMPTY;
-        this.phoneNumberField = Strings.EMPTY;
-        this.usosPersonProfileLinkField = Strings.EMPTY;
-        this.hobbyField = Strings.EMPTY;
-        this.facebookField = Strings.EMPTY;
-        this.twitterField = Strings.EMPTY;
+        this.workAddressField = "-";
+        this.professionField =  "-";
+        this.phoneNumberField =  "-";
+        this.usosPersonProfileLinkField =  "-";
+        this.hobbyField =  "-";
+        this.facebookField = "-";
+        this.twitterField =  "-";
 
         //private String fotoField;
         //private String cvField;
