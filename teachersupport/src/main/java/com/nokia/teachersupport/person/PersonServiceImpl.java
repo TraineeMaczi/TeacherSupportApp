@@ -154,7 +154,7 @@ public class PersonServiceImpl implements IPersonService {
                     personRepo.save(person);
                     userSecurityDataService.saveUserSecurityData(userSecurityData);
                     facultyService.saveFaculty(faculty);
-                    roleService.save(secutityRole);
+                        roleService.save(secutityRole);
                 }
                 newline = bufferedReader.readLine();
 

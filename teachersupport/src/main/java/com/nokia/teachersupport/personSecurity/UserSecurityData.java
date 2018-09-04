@@ -30,7 +30,7 @@ public class UserSecurityData {
 
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL , fetch=FetchType.EAGER)
     @JoinTable(
             name="securityUserDataAndSecurityRole",
             joinColumns=@JoinColumn( referencedColumnName="DataId"),

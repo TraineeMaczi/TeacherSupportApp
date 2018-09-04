@@ -1,9 +1,11 @@
 package com.nokia.teachersupport.configuration;
 
+import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.FacultyRepo;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
@@ -32,16 +34,16 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     private TokenRepo tokenRepo;
 
     private UserSecurityDataRepo userSecurityDataRepo;
-    private PersonRepo personRepo;
+
 
     @Autowired
-    public PreLoader(TokenRepo tokenRepo, FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo,PersonRepo personRepo,UserSecurityDataRepo userSecurityDataRepo) {
+    public PreLoader(TokenRepo tokenRepo,FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo,UserSecurityDataRepo userSecurityDataRepo) {
         this.facultyRepo = facultyRepo;
         this.fileService = fileService;
         this.myRoleRepoInstance = roleRepo;
         this.tokenRepo=tokenRepo;
-        this.personRepo=personRepo;
         this.userSecurityDataRepo=userSecurityDataRepo;
+
     }
 
 
@@ -126,23 +128,11 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
 
         private void LoadTswaPrimeAdmin()
         {
-            String primeAdminEMail="tswpPrime@mail.com";
+            String primeAdminEMail="tswa@mail.com";
             if(userSecurityDataRepo.findByEmail(primeAdminEMail)==null)
             {
 
-                UserSecurityData primeUser=new UserSecurityData();
-                primeUser.setActive(true);
-                primeUser.setEmail(primeAdminEMail);
-                primeUser.setPassword("pass");
-                primeUser.setMatchingPassword("pass");
-                userSecurityDataRepo.save(primeUser);
-                primeUser.addARole(myRoleRepoInstance.findByRoleName("ADMIN"));
 
-                Person primePerson=new Person();
-                primePerson.setUserSecurityDataField(primeUser);
-                primePerson.setNameField("User");
-                primePerson.setSurnameField("Prime");
-                personRepo.save(primePerson);
 
             }
         }
