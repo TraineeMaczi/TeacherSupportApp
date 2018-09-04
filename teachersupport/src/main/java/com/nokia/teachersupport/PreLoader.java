@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.configuration;
+package com.nokia.teachersupport;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.faculty.Faculty;
@@ -19,6 +19,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,18 +33,18 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     private IFileService fileService;
     private RoleRepo myRoleRepoInstance;
     private TokenRepo tokenRepo;
-
+private PersonRepo personRepo;
     private UserSecurityDataRepo userSecurityDataRepo;
 
 
     @Autowired
-    public PreLoader(TokenRepo tokenRepo,FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo,UserSecurityDataRepo userSecurityDataRepo) {
+    public PreLoader(PersonRepo personRepo,TokenRepo tokenRepo,FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo,UserSecurityDataRepo userSecurityDataRepo) {
         this.facultyRepo = facultyRepo;
         this.fileService = fileService;
         this.myRoleRepoInstance = roleRepo;
         this.tokenRepo=tokenRepo;
         this.userSecurityDataRepo=userSecurityDataRepo;
-
+this.personRepo=personRepo;
     }
 
 
@@ -131,7 +132,29 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
             String primeAdminEMail="tswa@mail.com";
             if(userSecurityDataRepo.findByEmail(primeAdminEMail)==null)
             {
+//                UserSecurityData userSecurityData=new UserSecurityData();
+//                userSecurityData.setActive(true);
+//                userSecurityData.setMatchingPassword("pass");
+//                userSecurityData.setPassword("pass");
+//                userSecurityData.setEmail(primeAdminEMail);
+//                userSecurityDataRepo.save(userSecurityData);
+                Person person=new Person();
+                person.setNameField("TSWA");
+                person.setSurnameField("TSWA");
+                UserSecurityData userSecurityData=new UserSecurityData();
+                userSecurityData.setActive(true);
+                userSecurityData.setMatchingPassword("pass");
+                userSecurityData.setPassword("pass");
+                userSecurityData.setEmail(primeAdminEMail);
+                person.setUserSecurityDataField(userSecurityData);
 
+
+                personRepo.save(person);
+                userSecurityDataRepo.save(userSecurityData);
+                SecutityRole secutityRole=myRoleRepoInstance.findByRoleName("ADMIN");
+                userSecurityData.addARole(secutityRole);
+                secutityRole.addUserSecurityDataToRole(userSecurityData);
+                myRoleRepoInstance.save(secutityRole);
 
 
             }

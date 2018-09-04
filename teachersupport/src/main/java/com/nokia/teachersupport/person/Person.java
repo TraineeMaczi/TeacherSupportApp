@@ -65,7 +65,7 @@ public class Person {
         this.degreeField = Strings.EMPTY;
         this.nameField = Strings.EMPTY;
         this.surnameField = Strings.EMPTY;
-
+        this.facultyField=null;
         this.workAddressField = Strings.EMPTY;
         this.professionField = Strings.EMPTY;
         this.phoneNumberField = Strings.EMPTY;
