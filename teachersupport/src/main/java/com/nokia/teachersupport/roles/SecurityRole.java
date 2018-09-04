@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class SecutityRole {
+public class SecurityRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="RoleId")
@@ -21,7 +21,7 @@ public class SecutityRole {
     @ManyToMany(mappedBy="myRoles", cascade =CascadeType.ALL ,fetch=FetchType.EAGER)
     private List<UserSecurityData> securityInsAndRoles=new ArrayList<>();
 
-    public SecutityRole()
+    public SecurityRole()
     {
         roleName="ROLE_USER";
 

@@ -1,10 +1,8 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
-import com.nokia.teachersupport.roles.SecutityRole;
+import com.nokia.teachersupport.roles.SecurityRole;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +25,8 @@ public class PersonServiceImplTest {
     List<Person> persons = new ArrayList<>();
     List<Person> admins = new ArrayList<>();
     UserSecurityData userSecurityData = new UserSecurityData();
-    SecutityRole secutityRole = new SecutityRole();
-    List<SecutityRole> secutityRoles = new ArrayList<>();
+    SecurityRole securityRole = new SecurityRole();
+    List<SecurityRole> securityRoles = new ArrayList<>();
     @InjectMocks
     UserSecurityDataServiceImpl userSecurityDataService;
     @Mock
@@ -39,7 +37,7 @@ public class PersonServiceImplTest {
 //        boolean toDelete;
 //        for (Person person : personRepo.findAll()) {
 //            toDelete = true;
-//            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+//            for (SecurityRole securityRole : person.getUserSecurityDataField().getMyRoles())
 //                if (securityRole.getRoleName().equals("ADMIN"))
 //                    toDelete = false;
 //            if (toDelete)
@@ -48,19 +46,19 @@ public class PersonServiceImplTest {
 //    }
     @Before
     public void SetUp() {
-        secutityRole.setRoleName("ADMIN");
-        secutityRoles.add(secutityRole);
-        userSecurityData.setMyRoles(secutityRoles);
+        securityRole.setRoleName("ADMIN");
+        securityRoles.add(securityRole);
+        userSecurityData.setMyRoles(securityRoles);
         person1.setUserSecurityDataField(userSecurityData);
         persons.add(person1);
         admins.add(person1);
-        secutityRole.setRoleName("USER");
-        secutityRoles.clear();
-        secutityRoles.add(secutityRole);
-        userSecurityData.setMyRoles(secutityRoles);
+        securityRole.setRoleName("USER");
+        securityRoles.clear();
+        securityRoles.add(securityRole);
+        userSecurityData.setMyRoles(securityRoles);
         person2.setUserSecurityDataField(userSecurityData);
         persons.add(person2);
-        userSecurityData.setMyRoles(secutityRoles);
+        userSecurityData.setMyRoles(securityRoles);
         person3.setUserSecurityDataField(userSecurityData);
         persons.add(person3);
         when(personRepo.findAll()).thenReturn(persons);

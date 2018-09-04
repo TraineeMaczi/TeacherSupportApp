@@ -1,17 +1,13 @@
 package com.nokia.teachersupport.admin;
 
 
-import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.ServiceResponse;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
 import com.nokia.teachersupport.roles.IRoleService;
-import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 
 @RestController

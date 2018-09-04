@@ -1,11 +1,9 @@
-package com.nokia.teachersupport;
+package com.nokia.teachersupport.tools;
 
-import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.FacultyRepo;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
@@ -13,7 +11,7 @@ import com.nokia.teachersupport.personSecurity.UserSecurityDataRepo;
 import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.TokenRepo;
 import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
 import com.nokia.teachersupport.roles.RoleRepo;
-import com.nokia.teachersupport.roles.SecutityRole;
+import com.nokia.teachersupport.roles.SecurityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -59,13 +57,13 @@ this.personRepo=personRepo;
 
     private void PreLoadRoles() {
         if (myRoleRepoInstance.findByRoleName("ADMIN") == null) {
-            SecutityRole admin = new SecutityRole();
+            SecurityRole admin = new SecurityRole();
             admin.setRoleName("ADMIN");
             myRoleRepoInstance.save(admin);
         }
 
         if (myRoleRepoInstance.findByRoleName("USER") == null) {
-            SecutityRole user = new SecutityRole();
+            SecurityRole user = new SecurityRole();
             user.setRoleName("USER");
             myRoleRepoInstance.save(user);
         }
@@ -132,12 +130,7 @@ this.personRepo=personRepo;
             String primeAdminEMail="tswa@mail.com";
             if(userSecurityDataRepo.findByEmail(primeAdminEMail)==null)
             {
-//                UserSecurityData userSecurityData=new UserSecurityData();
-//                userSecurityData.setActive(true);
-//                userSecurityData.setMatchingPassword("pass");
-//                userSecurityData.setPassword("pass");
-//                userSecurityData.setEmail(primeAdminEMail);
-//                userSecurityDataRepo.save(userSecurityData);
+
                 Person person=new Person();
                 person.setNameField("TSWA");
                 person.setSurnameField("TSWA");
@@ -151,10 +144,10 @@ this.personRepo=personRepo;
 
                 personRepo.save(person);
                 userSecurityDataRepo.save(userSecurityData);
-                SecutityRole secutityRole=myRoleRepoInstance.findByRoleName("ADMIN");
-                userSecurityData.addARole(secutityRole);
-                secutityRole.addUserSecurityDataToRole(userSecurityData);
-                myRoleRepoInstance.save(secutityRole);
+                SecurityRole securityRole =myRoleRepoInstance.findByRoleName("ADMIN");
+                userSecurityData.addARole(securityRole);
+                securityRole.addUserSecurityDataToRole(userSecurityData);
+                myRoleRepoInstance.save(securityRole);
 
 
             }

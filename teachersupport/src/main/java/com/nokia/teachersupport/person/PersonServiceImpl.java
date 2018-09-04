@@ -7,13 +7,10 @@ import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.personSecurity.UserSecurityDataServiceImpl;
 import com.nokia.teachersupport.roles.IRoleService;
-import com.nokia.teachersupport.roles.RoleRepo;
-import com.nokia.teachersupport.roles.SecutityRole;
+import com.nokia.teachersupport.roles.SecurityRole;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,8 +58,8 @@ public class PersonServiceImpl implements IPersonService {
             faculty.getFacultyAndPersonList().remove(person);
             person.deleteFaculty(faculty);
         }
-        for (SecutityRole secutityRole : person.getUserSecurityDataField().getMyRoles())
-            secutityRole.getSecurityInsAndRoles().remove(person.getUserSecurityDataField());
+        for (SecurityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+            securityRole.getSecurityInsAndRoles().remove(person.getUserSecurityDataField());
         person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
         userSecurityDataService.deleteUserSecurityData(person.getUserSecurityDataField().getId());
         personRepo.delete(person);
@@ -98,7 +95,7 @@ public class PersonServiceImpl implements IPersonService {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;
-            for (SecutityRole securityRole : person.getUserSecurityDataField().getMyRoles())
+            for (SecurityRole securityRole : person.getUserSecurityDataField().getMyRoles())
                 if (securityRole.getRoleName().equals("ADMIN"))
                     toDelete = false;
             if (toDelete)
@@ -124,7 +121,7 @@ public class PersonServiceImpl implements IPersonService {
                 myFaculty = parts[2];
                 myRole = parts[3];
                 myEmail = parts[4];
-                SecutityRole secutityRole;
+                SecurityRole securityRole;
                 if ((userSecurityDataService.getUserSecurityDataByEmail(myEmail) == null) &&
                         (facultyService.findFaculty(myFaculty) != null) &&
                         ((roleService.findByRoleName(myRole) != null)||myRole.equals("BOTH"))) {
@@ -133,13 +130,13 @@ public class PersonServiceImpl implements IPersonService {
                     Faculty faculty = facultyService.findFaculty(myFaculty);
                     if(myRole.equals("BOTH"))
                     {
-                        secutityRole = roleService.findByRoleName("USER");
-                        userSecurityData.addARole(secutityRole);
-                        secutityRole.addUserSecurityDataToRole(userSecurityData);
-                        roleService.save(secutityRole);
+                        securityRole = roleService.findByRoleName("USER");
+                        userSecurityData.addARole(securityRole);
+                        securityRole.addUserSecurityDataToRole(userSecurityData);
+                        roleService.save(securityRole);
                         myRole="ADMIN";
                     }
-                    secutityRole = roleService.findByRoleName(myRole);
+                    securityRole = roleService.findByRoleName(myRole);
                     person.setNameField(myName);
                     person.setSurnameField(mySurname);
                     faculty.addPersonToFaculty(person);
@@ -148,13 +145,13 @@ public class PersonServiceImpl implements IPersonService {
                     userSecurityData.setEmail(myEmail);
                     userSecurityData.setPassword("NULL");
                     userSecurityData.setMatchingPassword("NULL");
-                    userSecurityData.addARole(secutityRole);
-                    secutityRole.addUserSecurityDataToRole(userSecurityData);
+                    userSecurityData.addARole(securityRole);
+                    securityRole.addUserSecurityDataToRole(userSecurityData);
                     person.setUserSecurityDataField(userSecurityData);
                     personRepo.save(person);
                     userSecurityDataService.saveUserSecurityData(userSecurityData);
                     facultyService.saveFaculty(faculty);
-                        roleService.save(secutityRole);
+                        roleService.save(securityRole);
                 }
                 newline = bufferedReader.readLine();
 
@@ -178,16 +175,16 @@ public class PersonServiceImpl implements IPersonService {
             UserSecurityData userSecurityData = new UserSecurityData();
             Faculty faculty = facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField());
 
-            SecutityRole secutityRole;
+            SecurityRole securityRole;
             if (userDTOForAdminActionDTO.getUserRoleDTOField().equals("BOTH")) {
-                secutityRole=roleService.findByRoleName("USER");
-                userSecurityData.addARole(secutityRole);
-                secutityRole.addUserSecurityDataToRole(userSecurityData);
-                roleService.save(secutityRole);
-                secutityRole = roleService.findByRoleName("ADMIN");
+                securityRole =roleService.findByRoleName("USER");
+                userSecurityData.addARole(securityRole);
+                securityRole.addUserSecurityDataToRole(userSecurityData);
+                roleService.save(securityRole);
+                securityRole = roleService.findByRoleName("ADMIN");
 
             } else {
-                secutityRole = roleService.findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
+                securityRole = roleService.findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
             }
 
             //Tak samo jak dla faculty musi byc security rolke
@@ -204,9 +201,9 @@ public class PersonServiceImpl implements IPersonService {
             userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
             userSecurityData.setMatchingPassword("NULL");
             userSecurityDataService.saveUserSecurityData(userSecurityData);
-            userSecurityData.addARole(secutityRole);
-            secutityRole.addUserSecurityDataToRole(userSecurityData);
-            roleService.save(secutityRole);
+            userSecurityData.addARole(securityRole);
+            securityRole.addUserSecurityDataToRole(userSecurityData);
+            roleService.save(securityRole);
             person.setUserSecurityDataField(userSecurityData);
 
 

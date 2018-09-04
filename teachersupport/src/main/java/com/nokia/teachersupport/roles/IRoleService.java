@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.roles;
 
 public interface IRoleService {
-    void save(SecutityRole secutityRole);
-    SecutityRole findByRoleName(String roleName);
+    void save(SecurityRole securityRole);
+    SecurityRole findByRoleName(String roleName);
 }

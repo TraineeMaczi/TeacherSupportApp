@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RoleRepo extends CrudRepository<SecutityRole, Integer> {
-    List<SecutityRole> findAll();
-    SecutityRole findByRoleName(String roleName);
+public interface RoleRepo extends CrudRepository<SecurityRole, Integer> {
+    List<SecurityRole> findAll();
+    SecurityRole findByRoleName(String roleName);
 }
 
