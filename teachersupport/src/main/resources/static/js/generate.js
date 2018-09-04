@@ -20,7 +20,7 @@ $(document).ready(
                 data: {
                     "listOfPages": listOfPages
                 },
-                success: function() {
+                success: function () {
                     $.ajax({
                         type: "GET",
                         dataType: "json",

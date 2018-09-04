@@ -7,9 +7,9 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 public interface IFileStorage {
-	public void store(MultipartFile file);
-	public Resource loadFile(String filename);
-	public void deleteAll();
-	public void init();
-	public Stream<Path> loadFiles();
+    void store(MultipartFile file);
+    Resource loadFile(String filename);
+    void deleteAll();
+    void init();
+    Stream<Path> loadFiles();
 }

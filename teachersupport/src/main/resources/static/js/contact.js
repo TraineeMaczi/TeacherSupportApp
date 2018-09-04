@@ -1,15 +1,12 @@
-
 $(document).ready(
     function () {
 
 
-
-
-$("#contactPostButton").on('click', function (event) {
+        $("#contactPostButton").on('click', function (event) {
             event.preventDefault();
             ajaxPostContact()
         });
- $("#deleteContactInfoButton").on('click', function () {
+        $("#deleteContactInfoButton").on('click', function () {
             var item = $('input[name=checkedContactInfo]:checked', '#dispContactForm').val();
             $.ajax({
                 type: "POST",
@@ -18,16 +15,16 @@ $("#contactPostButton").on('click', function (event) {
                 data: item,
                 dataType: 'json',
                 success: function () {
-            location.reload();
-              }
+                    location.reload();
+                }
 
             });
         });
 
-})
+    })
+
 function ajaxPostContact() {
     var formData = {
-
         placeField: $('#placeField').val(),
         officeField: $('#officeField').val(),
         dayField: $('#dayField').val(),
@@ -46,7 +43,7 @@ function ajaxPostContact() {
             if (result.status == "success") {
                 $("#postResultDivContact").html(
                     "Success");
-               // location.reload();
+                // location.reload();
             } else {
                 $("#postResultDivContact").html("Invalid Input !");
             }
