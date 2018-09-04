@@ -18,17 +18,17 @@ public class LoadMyRoles implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
- if (MyRoleRepoInstance.findByRoleName("ADMIN") == null) {
-            SecutityRole admin=new SecutityRole();
+        if (MyRoleRepoInstance.findByRoleName("ADMIN") == null) {
+            SecutityRole admin = new SecutityRole();
             admin.setRoleName("ADMIN");
             MyRoleRepoInstance.save(admin);
-  }
+        }
 
- if (MyRoleRepoInstance.findByRoleName("USER") == null) {
-            SecutityRole user=new SecutityRole();
+        if (MyRoleRepoInstance.findByRoleName("USER") == null) {
+            SecutityRole user = new SecutityRole();
             user.setRoleName("USER");
             MyRoleRepoInstance.save(user);
- }
+        }
 
     }
 }

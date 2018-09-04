@@ -13,12 +13,10 @@ $(document).ready(
                     location.reload();
                 }
             });
-
         });
-         $("#editPubliButton").on('click', function () {
-                    var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
-
-                    document.getElementById('editPubliModalContentOld').value = item;
-                    document.getElementById('editPubliModalContentNew').value = item;
-                });
+        $("#editPubliButton").on('click', function () {
+            var item = $('input[name=selectedPubli]:checked', '#publicationDeleteForm').val();
+            document.getElementById('editPubliModalContentOld').value = item;
+            document.getElementById('editPubliModalContentNew').value = item;
+        });
     })

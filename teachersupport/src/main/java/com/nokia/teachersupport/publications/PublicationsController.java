@@ -18,12 +18,13 @@ public class PublicationsController {
     private IModelService modelService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
+
     @Autowired
-    public PublicationsController(IPublicationsService publicationService, IModelService modelService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+    public PublicationsController(IPublicationsService publicationService, IModelService modelService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         this.publicationService = publicationService;
-        this.modelService=modelService;
-        this.personService=personService;
-        this.userSecurityDataService=userSecurityDataService;
+        this.modelService = modelService;
+        this.personService = personService;
+        this.userSecurityDataService = userSecurityDataService;
     }
 
     @GetMapping("/teacherSupportPublications")
@@ -34,16 +35,14 @@ public class PublicationsController {
 
     @PostMapping("/publications/new")
     String addNewPublications(Publications publications) {
-
-        publicationService.addNewPublication(publications,personService,userSecurityDataService);
-
+        publicationService.addNewPublication(publications, personService, userSecurityDataService);
         return "redirect:/teacherSupportPublications";
     }
 
 
     @PostMapping("/teacherSupportPublications/editPubli")
     String editPublications(EditPublicationDTO editPublicationDTO) {
-        publicationService.goEditPublications(editPublicationDTO,personService,userSecurityDataService);
+        publicationService.goEditPublications(editPublicationDTO, personService, userSecurityDataService);
         return "redirect:/teacherSupportPublications";
     }
 }
