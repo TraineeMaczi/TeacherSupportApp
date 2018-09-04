@@ -1,11 +1,9 @@
 package com.nokia.teachersupport.personSecurity;
 
-import com.nokia.teachersupport.roles.SecutityRole;
+import com.nokia.teachersupport.roles.SecurityRole;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +28,12 @@ public class UserSecurityData {
 
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL , fetch=FetchType.EAGER)
     @JoinTable(
             name="securityUserDataAndSecurityRole",
             joinColumns=@JoinColumn( referencedColumnName="DataId"),
             inverseJoinColumns=@JoinColumn( referencedColumnName="RoleId"))
-    private List<SecutityRole> myRoles=new ArrayList<>();
+    private List<SecurityRole> myRoles=new ArrayList<>();
 
     public UserSecurityData(UserSecurityData userSecurityData) {
     this.id=userSecurityData.id;
@@ -48,11 +46,11 @@ public class UserSecurityData {
     }
 
 
-    public void addARole(SecutityRole secutityRole)
+    public void addARole(SecurityRole securityRole)
     {
-        this.myRoles.add(secutityRole);
-        if (!secutityRole.getSecurityInsAndRoles().contains(this)) {
-            secutityRole.addUserSecurityDataToRole(this);
+        this.myRoles.add(securityRole);
+        if (!securityRole.getSecurityInsAndRoles().contains(this)) {
+            securityRole.addUserSecurityDataToRole(this);
         }
     }
 
@@ -110,11 +108,11 @@ public class UserSecurityData {
     }
 
 
-    public List<SecutityRole> getMyRoles() {
+    public List<SecurityRole> getMyRoles() {
         return myRoles;
     }
 
-    public void setMyRoles(List<SecutityRole> myRoles) {
+    public void setMyRoles(List<SecurityRole> myRoles) {
         this.myRoles = myRoles;
     }
 

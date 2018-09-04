@@ -39,7 +39,7 @@ suppose admin role is 200
 
 you can check table content by typing ---->  select * from usersecuritydata;
 
-insert into usersecuritydata values(1,1,"activeAdmin1@email.com","pass","pass",0);
+insert into usersecuritydata values(10,1,"test@email.com","pass","pass",0);
 
 second arg is active 1 allow you to logIn 0 means exsisting in basa but can't login
 
@@ -47,9 +47,9 @@ second arg is active 1 allow you to logIn 0 means exsisting in basa but can't lo
 
 you can check table content by typing ----> select * from securityuserdataandsecurityrole;
 
-insert into securityuserdataandsecurityrole values(1,200);
+insert into securityuserdataandsecurityrole values(10,200);
 
-1 - security data id 
+10 - security data id 
 200 -role admin id 
 
 4)Create Person
@@ -58,10 +58,11 @@ you can check table content by typing ----> select * from person;
 
 Faculty id is required too so check what faculties you have by typing ----> select * from faculty;
 
+insert into person values(10,"Degree","www.facebook.com","My hobby is ...","Name","777999111","Profession","Surname","www.twitter.com","usos profile url",0,"Work Adr",null,2,null,10);
 
-insert into person values(1,null,null,"Bob",null,null,"Kowalski",null,0,null,5,1);
 
-(id,other data ,other data ,name,other data,other data,surname,other data,version,other data,faculty id,user security data id)
+
+
 
 
 

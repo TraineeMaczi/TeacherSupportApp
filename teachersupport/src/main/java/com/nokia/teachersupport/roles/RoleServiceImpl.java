@@ -12,12 +12,12 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void save(SecutityRole secutityRole) {
-        roleRepo.save(secutityRole);
+    public void save(SecurityRole securityRole) {
+        roleRepo.save(securityRole);
     }
 
     @Override
-    public SecutityRole findByRoleName(String roleName) {
+    public SecurityRole findByRoleName(String roleName) {
         return roleRepo.findByRoleName(roleName);
     }
 }

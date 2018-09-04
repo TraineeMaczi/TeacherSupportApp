@@ -1,13 +1,8 @@
 package com.nokia.teachersupport.personSecurity;
 
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.roles.IRoleService;
-import com.nokia.teachersupport.roles.SecutityRole;
+import com.nokia.teachersupport.roles.SecurityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +45,7 @@ userSecurityDataRepo.deleteById(id);
 
     @Override
     public boolean isAdmin(UserSecurityData user) {
-        for(SecutityRole role:user.getMyRoles())
+        for(SecurityRole role:user.getMyRoles())
         {
             if(role.getRoleName().equals("ADMIN"))
             {

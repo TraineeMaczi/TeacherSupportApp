@@ -62,10 +62,11 @@ public class Person {
     private FileModel CV;
 
     public Person() {
+
         this.degreeField =  "-";
         this.nameField =  "-";
         this.surnameField =  "-";
-
+        this.facultyField=null;
         this.workAddressField = "-";
         this.professionField =  "-";
         this.phoneNumberField =  "-";
@@ -73,6 +74,7 @@ public class Person {
         this.hobbyField =  "-";
         this.facebookField = "-";
         this.twitterField =  "-";
+
 
         //private String fotoField;
         //private String cvField;
