@@ -16,61 +16,61 @@ $(document).ready(
                 alert("Error!")
                 console.log("ERROR: ", e);
             }
-
         });
-         $("#foAdd").change(function () {
-                    filename = this.files[0].name
-                    console.log(filename);
-                });
-
-                $("#cvAdd").change(function () {
-                    filename = this.files[0].name
-                    console.log(filename);
-                });
+        $("#foAdd").change(function () {
+            filename = this.files[0].name
+            console.log(filename);
+        });
+        $("#cvAdd").change(function () {
+            filename = this.files[0].name
+            console.log(filename);
+        });
+        $("#addFotoId")
+            .popover({
+                title: 'Important !',
+                content: "The size of the photo should be 375 X 300, otherwise the quality of the picture will get worse."
+            })
+            .blur(function () {
+                $(this).popover('hide');
+            });
         $("#btn1").on('click', function (event) {
-            // Prevent the form from submitting via the browser.
             event.preventDefault();
             doAjax2('fileUploadForm', 'listFiles', 'foto');
         });
         $("#btn2").on('click', function (event) {
-            // Prevent the form from submitting via the browser.
             event.preventDefault();
             doAjax('fileUploadForm2', 'listFiles2', 'cv');
         });
-         $("#hobbyButton").on('click', function (event) {
-                    event.preventDefault();
-                    ajaxPostHobby()
-         });
-         $("#basicInfoButton").on('click', function (event) {
-                    event.preventDefault();
-                    ajaxPostBasicInfo()
-         });
-          $("#facebook")
-                             .popover({ title: 'Important !', content: "Provide your Facebook profile link" })
-                             .blur(function () {
-                                 $(this).popover('hide');
-                             });
-
-          $("#usos")
-                 .popover({ title: 'Important !', content: "Provide your Usos profile link" })
-                                      .blur(function () {
-                                          $(this).popover('hide');
-                                      });
-         $("#twitter")
-                          .popover({ title: 'Important !', content: "Provide your Twitter profile link" })
-                                               .blur(function () {
-                                                   $(this).popover('hide');
-                                               });
-
+        $("#hobbyButton").on('click', function (event) {
+            event.preventDefault();
+            ajaxPostHobby()
+        });
+        $("#basicInfoButton").on('click', function (event) {
+            event.preventDefault();
+            ajaxPostBasicInfo()
+        });
+        $("#facebook")
+            .popover({title: 'Important !', content: "Provide your Facebook profile link"})
+            .blur(function () {
+                $(this).popover('hide');
+            });
+        $("#usos")
+            .popover({title: 'Important !', content: "Provide your Usos profile link"})
+            .blur(function () {
+                $(this).popover('hide');
+            });
+        $("#twitter")
+            .popover({title: 'Important !', content: "Provide your Twitter profile link"})
+            .blur(function () {
+                $(this).popover('hide');
+            });
     });
 
 function doAjax(formName, listFiles, typ) {
     formName = '#' + formName;
     listFiles = '#' + listFiles;
-
     var form = $(formName)[0];
     var data = new FormData(form);
-
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
@@ -90,14 +90,10 @@ function doAjax(formName, listFiles, typ) {
 }
 
 function doAjax2(formName, listFiles, typ) {
-
-
     formName = '#' + formName;
     listFiles = '#' + listFiles;
-
     var form = $(formName)[0];
     var data = new FormData(form);
-
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
@@ -113,9 +109,7 @@ function doAjax2(formName, listFiles, typ) {
                 url: '/givePhoto',
                 success: function (result) {
                     if (result.status == "success") {
-
                         document.getElementById("personFoto").src = result.data;
-
                     } else {
                         document.getElementById("personFoto").src = result.data;
                     }
@@ -125,13 +119,13 @@ function doAjax2(formName, listFiles, typ) {
                     alert("Error!")
                     console.log("ERROR: ", e);
                 }
-
             });
         },
         error: function (e) {
         }
     });
 }
+
 function ajaxPostHobby() {
 
     $.ajax({
@@ -156,9 +150,8 @@ function ajaxPostHobby() {
     });
 
 };
-function ajaxPostBasicInfo() {
 
-    // PREPARE FORM DATA
+function ajaxPostBasicInfo() {
     var formData = {
         degree: $('#degree').val(),
         workplace: $('#workplace').val(),
@@ -168,8 +161,6 @@ function ajaxPostBasicInfo() {
         facebook: $('#facebook').val(),
         phone: $('#phone').val()
     }
-
-    // DO POST
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -181,8 +172,6 @@ function ajaxPostBasicInfo() {
 
                 $("#postResultDivBasicInfo").html(
                     "Success");
-
-
             } else {
                 $("#postResultDivBasicInfo").html("<strong>Error</strong>");
             }

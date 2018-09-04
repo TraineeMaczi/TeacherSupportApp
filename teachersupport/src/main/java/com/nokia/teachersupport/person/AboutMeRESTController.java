@@ -23,35 +23,39 @@ public class AboutMeRESTController {
     public AboutMeRESTController(IPersonService personService, IUserSecurityDataService userSecurityDataService, IFileService fileService) {
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
-        this.fileService=fileService;
+        this.fileService = fileService;
     }
+
     @PostMapping("/teacherSupportAboutMe/BasicInfo/new")
     public ResponseEntity<Object> addBasicInfo(@RequestBody BasicInfoDTO basicInfoDTO) {
-personService.goAddBasicInfo(basicInfoDTO,userSecurityDataService,personService);
+        personService.goAddBasicInfo(basicInfoDTO, userSecurityDataService, personService);
         ServiceResponse<BasicInfoDTO> response = new ServiceResponse<BasicInfoDTO>("success", basicInfoDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @PostMapping("/teacherSupportAboutMe/hobby/new")
     public ResponseEntity<Object> addHobbyInfo(@RequestBody String hobbyInfo) {
-        personService.goAddHobbyInfo(hobbyInfo,personService,userSecurityDataService);
+        personService.goAddHobbyInfo(hobbyInfo, personService, userSecurityDataService);
         ServiceResponse<String> response = new ServiceResponse<String>("success", hobbyInfo);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
     @PostMapping("/uploadFoto")
     public String uploadPhoto(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-       personService.goUploadPhoto(file,fileService,personService,userSecurityDataService);
+        personService.goUploadPhoto(file, fileService, personService, userSecurityDataService);
         return "SUCCES";
     }
+
     @GetMapping("/givePhoto")
     ResponseEntity<Object> giveMyPhoto() {
-       String pom= personService.goGivePhoto(personService,userSecurityDataService);
+        String pom = personService.goGivePhoto(personService, userSecurityDataService);
         ServiceResponse<String> response = new ServiceResponse<>("success", pom);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
     @PostMapping("/uploadCV")
     public String uploadCV(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-    personService.goUploadCv(file,fileService,personService,userSecurityDataService);
+        personService.goUploadCv(file, fileService, personService, userSecurityDataService);
         return "SUCCES";
     }
 }

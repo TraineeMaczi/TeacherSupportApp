@@ -26,6 +26,7 @@ spring.servlet.multipart.max-file-size=200MB
 spring.servlet.multipart.max-request-size=215MB
 file.upload-dir=./uploads
 
+
 #MySQL Base (temporary)
 
 1) Check your role id's:

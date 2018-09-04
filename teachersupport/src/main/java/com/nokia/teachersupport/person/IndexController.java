@@ -25,11 +25,11 @@ public class IndexController {
     private IModelService modelService;
 
     @Autowired
-    public IndexController( IFacultyService facultyService,IPersonService personService,IUserSecurityDataService userSecurityDataService, IModelService modelService) {
+    public IndexController(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IModelService modelService) {
         this.personService = personService;
-        this.userSecurityDataService=userSecurityDataService;
-        this.facultyService=facultyService;
-        this.modelService=modelService;
+        this.userSecurityDataService = userSecurityDataService;
+        this.facultyService = facultyService;
+        this.modelService = modelService;
     }
 
     @GetMapping("/")
@@ -37,20 +37,23 @@ public class IndexController {
         modelService.indexModel(model);
         return "teacherSupportIndex";
     }
+
     @PostMapping("/index/confirmFaculty")
     String saveFaculty(@RequestParam("facultyName") String name) {
-        personService.goSaveMyFaculty(name,personService,facultyService,userSecurityDataService);
+        personService.goSaveMyFaculty(name, personService, facultyService, userSecurityDataService);
         return "teacherSupportIndex";
     }
+
     @GetMapping("/index/giveMePhoto")
     ResponseEntity<Object> giveFacultyPhoto() {
-        List<String>pic=personService.goGiveMeFacultyPhoto(facultyService);
+        List<String> pic = personService.goGiveMeFacultyPhoto(facultyService);
         ServiceResponse<List<String>> response = new ServiceResponse<>("success", pic);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
+
     @GetMapping("/index/giveMeId")
     ResponseEntity<Object> giveFacultyId() {
-        List<Integer>Id= personService.goGiveMeFacultyId(facultyService);
+        List<Integer> Id = personService.goGiveMeFacultyId(facultyService);
         ServiceResponse<List<Integer>> response = new ServiceResponse<>("success", Id);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

@@ -15,19 +15,18 @@ $(document).ready(
         });
 
     })
+
 function changeName() {
     var name = $('#nameId').val();
     var surname = $('#surnameId').val();
     $.ajax({
         type: "POST",
-        url: '/change/name/'+name+'/'+surname,
+        url: '/change/name/' + name + '/' + surname,
         success: function (result) {
             if (result == "success") {
                 location.reload();
                 $("#postResultChangeName").html(
                     result);
-
-
             } else {
                 $("#postResultChangeName").html(result);
             }
@@ -37,8 +36,9 @@ function changeName() {
             alert("Error!")
             console.log("ERROR: ", e);
         }
-});
+    });
 }
+
 function changeEmail() {
     var email = $('#emailId').val();
     var confirmEmail = $('#emailConfirmId').val();
@@ -49,7 +49,6 @@ function changeEmail() {
             "email": email,
             "confirmEmail": confirmEmail
         },
-
         success: function (result) {
             if (result == "success") {
                 location.reload();
@@ -68,6 +67,7 @@ function changeEmail() {
         }
     });
 }
+
 function changePassword() {
     var password = $('#password').val();
     var confirmPassword = $('#confirmPassword').val();
@@ -82,11 +82,8 @@ function changePassword() {
         success: function (result) {
             if (result == "success") {
                 location.reload();
-
                 $("#postResultChangePassword").html(
                     result);
-
-
             } else {
                 location.reload();
                 $("#postResultChangePassword").html(result);

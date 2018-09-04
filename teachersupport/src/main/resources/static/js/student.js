@@ -5,106 +5,105 @@ $(document).ready(
             event.preventDefault();
             doAjax('fileUploadForm', 'listFiles', 'resource');
         });
-        $("#files").change(function() {
-          filename = this.files[0].name
-          console.log(filename);
+        $("#files").change(function () {
+            filename = this.files[0].name
+            console.log(filename);
         });
-         $("#edGroupFormGroupName")
-                    .popover({ title: 'Important !', content: "This is the first thing,the student will see,so choose a clear name." })
-                    .blur(function () {
-                        $(this).popover('hide');
-                    });
+        $("#edGroupFormGroupName")
+            .popover({
+                title: 'Important !',
+                content: "This is the first thing,the student will see,so choose a clear name."
+            })
+            .blur(function () {
+                $(this).popover('hide');
+            });
 
-           $("#newGroupNameId")
-                    .popover({ title: 'Important !', content: "This is the first thing,the student will see,so choose a clear name." })
-                    .blur(function () {
-                        $(this).popover('hide');
-                    });
+        $("#newGroupNameId")
+            .popover({
+                title: 'Important !',
+                content: "This is the first thing,the student will see,so choose a clear name."
+            })
+            .blur(function () {
+                $(this).popover('hide');
+            });
 
 
-                $("#groupUpdatePostButton").on('click', function (event) {
-                    event.preventDefault();
-                    ajaxPostUpdateGroup()
-                });
+        $("#groupUpdatePostButton").on('click', function (event) {
+            event.preventDefault();
+            ajaxPostUpdateGroup()
+        });
         $("#addRemoteResourceButton").on('click', function (event) {
-                    event.preventDefault();
-                   ajaxPostAddRemoteResource();
-                });
+            event.preventDefault();
+            ajaxPostAddRemoteResource();
+        });
 
 
+        $("#editStudGroupButton").on('click', function () {
+            var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
+            //                    alert(item);
+            //                       event.preventDefault();
+            //                      ajaxEditStudGroupButton()
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/edit",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                    location.reload();
+                }
+
+            });
+
+        });
+
+        $("#deleteGroupButton").on('click', function () {
+            var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/delete",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                    location.reload();
+                }
+
+            });
+        });
 
 
+        $("#deleteLocalResourceButton").on('click', function () {
+            var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
 
-                $("#editStudGroupButton").on('click', function () {
-                    var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
-        //                    alert(item);
-        //                       event.preventDefault();
-        //                      ajaxEditStudGroupButton()
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportStudent/edit",
-                        data: item,
-                        dataType: 'json',
-                        success: function () {
-                            location.reload();
-        //                    document.getElementById('edGroupFormGroupName').value = item;
-        //                    document.getElementById('dispGroupForResource').value = item;
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteLocalResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                    location.reload();
+                }
 
-                        }
-
-                    });
-
-                });
-
-                $("#deleteGroupButton").on('click', function () {
-                    var item = $('input[name=groupsED]:checked', '#edDeleteGroupForm').val();
-
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportStudent/delete",
-                        data: item,
-                        dataType: 'json',
-                        success: function () {
-                        location.reload();
-                      }
-
-                    });
-                });
-
-
-          $("#deleteLocalResourceButton").on('click', function () {
-                    var item = $('input[name=localResourceChecked]:checked', '#localResourceForm').val();
-
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportStudent/deleteLocalResource",
-                        data: item,
-                        dataType: 'json',
-                        success: function () {
-                        location.reload();
-                      }
-
-                    });
-                });
+            });
+        });
         $("#deleteRemoteResourceButton").on('click', function () {
-                    var item = $('input[name=remoteResourceChecked]:checked', '#remoteResourceForm').val();
+            var item = $('input[name=remoteResourceChecked]:checked', '#remoteResourceForm').val();
 
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "/teacherSupportStudent/deleteRemoteResource",
-                        data: item,
-                        dataType: 'json',
-                        success: function () {
-                        location.reload();
-                      }
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacherSupportStudent/deleteRemoteResource",
+                data: item,
+                dataType: 'json',
+                success: function () {
+                    location.reload();
+                }
 
-                    });
-                });
-
+            });
+        });
 
 
     });
@@ -194,7 +193,7 @@ function ajaxPostAddRemoteResource() {
         data: JSON.stringify(formData),
         dataType: 'json',
         success: function (result) {
-          location.reload();
+            location.reload();
         },
         error: function (e) {
             alert("Fail add remote resource");
