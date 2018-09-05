@@ -39,6 +39,17 @@ public class GenerateRestController {
 
         }
     }
+    @GetMapping("/generate/templates")
+    public void generatePages() throws Exception {
+        fileStorage.deleteAll();
+        fileStorage.init();
+        try {
+            MultipartFile multipartFile = Generator.generateTemplates(contextService);
+            fileStorage.store(multipartFile);
+        } catch (Exception e) {
+
+        }
+    }
     @GetMapping("/generate/getListOfPages")
     public List<String> getListPages() {
         return fileStorage.loadFiles().map(
