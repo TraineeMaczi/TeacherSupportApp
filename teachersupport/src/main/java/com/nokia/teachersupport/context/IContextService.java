@@ -8,4 +8,5 @@ public interface IContextService {
     void publicationsContext(Context context);
     void studentContext(Context context);
     void contactContext(Context context);
+    void nullContext(Context context);
 }

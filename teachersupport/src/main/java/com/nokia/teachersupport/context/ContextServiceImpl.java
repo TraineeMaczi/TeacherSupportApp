@@ -3,6 +3,7 @@ package com.nokia.teachersupport.context;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,5 +102,24 @@ public class ContextServiceImpl implements IContextService {
         context.setVariable("facultyPhoto",pictureCode);
 
 
+    }
+
+    @Override
+    public void nullContext(Context context) {
+        context.clearVariables();
+        Person person = new Person();
+        UserSecurityData userSecurityData = new UserSecurityData();
+        person.setUserSecurityDataField(userSecurityData);
+        context.setVariable("who", person);
+        context.setVariable("news", person.getPersonNewsList());
+        context.setVariable("facultyPhoto",null);
+        context.setVariable("photo",null);
+        context.setVariable("name", null);
+        context.setVariable("surname", null);
+        context.setVariable("currentUserPerson", null);
+        context.setVariable("currentUserName",null);
+        context.setVariable("publications", person.getPersonPublicationsList());
+        context.setVariable("generatorPersonAllGroups", person.getPersonStudGroupList());
+        context.setVariable("meetMeDataList", person.getPersonMeetMeDataList());
     }
 }
