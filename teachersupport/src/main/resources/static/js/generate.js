@@ -42,4 +42,69 @@ $(document).ready(
             });
 
         });
+         $("#generateAllButton").on('click', function () {
+         var listOfPages = '';
+
+                         listOfPages = listOfPages + ($("#Home").val() + ',');
+                         listOfPages = listOfPages + ($("#AboutMe").val() + ',');
+                         listOfPages = listOfPages + ($("#Publications").val() + ',');
+                         listOfPages = listOfPages + ($("#Student").val() + ',');
+                         listOfPages = listOfPages + ($("#Contact").val() + ',');
+                     $("#listFiles").html("Please Wait");
+                     $.ajax({
+                         type: "POST",
+                         url: 'generate/listOfPages',
+                         data: {
+                             "listOfPages": listOfPages
+                         },
+                         success: function () {
+                             $.ajax({
+                                 type: "GET",
+                                 dataType: "json",
+                                 url: "generate/getListOfPages",
+
+                                 success: function (data) {
+                                     $("#listFiles").html("");
+                                     $.each(data, function (index, fileUrl) {
+                                         var filename = fileUrl.split('\\').pop().split('/').pop();
+                                         $("#listFiles").append('<a href="' + fileUrl + '"class="btn text-white bg-changableColor">' + 'Download' + '</a>');
+                                     });
+                                 }
+                                 ,
+                                 error: function (err) {
+                                     $("#listFiles").html(err.responseText);
+                                 }
+                             });
+                         }
+                     });
+
+                 });
+                  $("#generateTemplateButton").on('click', function () {
+
+                                      $("#listFiles").html("Please Wait");
+                                      $.ajax({
+                                          type: "GET",
+                                          url: 'generate/templates',
+                                          success: function () {
+                                              $.ajax({
+                                                  type: "GET",
+                                                  dataType: "json",
+                                                  url: "generate/getListOfPages",
+
+                                                  success: function (data) {
+                                                      $("#listFiles").html("");
+                                                      $.each(data, function (index, fileUrl) {
+                                                          var filename = fileUrl.split('\\').pop().split('/').pop();
+                                                          $("#listFiles").append('<a href="' + fileUrl + '"class="btn text-white bg-changableColor">' + 'Download' + '</a>');
+                                                      });
+                                                  }
+                                                  ,
+                                                  error: function (err) {
+                                                      $("#listFiles").html(err.responseText);
+                                                  }
+                                              });
+                                          }
+                                      });
+
+                                  });
     })

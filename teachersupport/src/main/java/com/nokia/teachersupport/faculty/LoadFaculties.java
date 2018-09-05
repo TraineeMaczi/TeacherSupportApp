@@ -2,6 +2,9 @@ package com.nokia.teachersupport.faculty;
 
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.roles.SecutityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;

@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -64,13 +65,14 @@ public class PersonServiceImplTest {
         person3.setUserSecurityDataField(userSecurityData);
         persons.add(person3);
         when(personRepo.findAll()).thenReturn(persons);
-        for (Person person : persons) {
-            when(personService.deletePerson(person, userSecurityDataService)).thenReturn(persons.remove(person));
-        }
+        when(personService.deletePerson(person1, userSecurityDataService)).thenReturn(persons.remove(person1));
+        when(personService.deletePerson(person2, userSecurityDataService)).thenReturn(persons.remove(person2));
+        when(personService.deletePerson(person3, userSecurityDataService)).thenReturn(persons.remove(person3));
     }
 
     @Test
     public void deleteAllPersons() {
+
         personService.deleteAllPersons(userSecurityDataService);
         assertEquals(admins, persons);
 

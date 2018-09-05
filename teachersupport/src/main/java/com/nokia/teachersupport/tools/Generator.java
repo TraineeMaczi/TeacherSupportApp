@@ -23,13 +23,13 @@ public class Generator {
         Context context = new Context();
         File f = new File("src\\main\\resources\\zip\\pages.zip");
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
-        File f2= new File("src\\main\\resources\\static\\css\\Style.css");
-        Path file=f2.toPath();
+        File f2 = new File("src\\main\\resources\\static\\css\\Style.css");
+        Path file = f2.toPath();
         String inputFileName = file.toFile().getPath();
         try (FileInputStream inputStream = new FileInputStream(inputFileName)) {
             ZipEntry entry = new ZipEntry(file.toFile().getName());
             out.putNextEntry(entry);
-             byte[] readBuffer = new byte[2048];
+            byte[] readBuffer = new byte[2048];
             int amountRead;
             int written = 0;
             while ((amountRead = inputStream.read(readBuffer)) > 0) {
@@ -37,8 +37,7 @@ public class Generator {
                 written += amountRead;
             }
             out.closeEntry();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("BLADDD");
         }
         for (String obj : lista) {
@@ -84,6 +83,67 @@ public class Generator {
                 out.closeEntry();
             }
         }
+        out.close();
+
+        FileItem fileItem = new DiskFileItem("pages.zip", Files.probeContentType(f.toPath()), false, f.getName(), (int) f.length(), f.getParentFile());
+
+        try {
+            InputStream input = new FileInputStream(f);
+            OutputStream os = fileItem.getOutputStream();
+            IOUtils.copy(input, os);
+        } catch (IOException ex) {
+        }
+        MultipartFile result = new CommonsMultipartFile(fileItem);
+        return result;
+    }
+
+    public static MultipartFile generateTemplates(IContextService contextService) throws Exception {
+        Context context = new Context();
+        File f = new File("src\\main\\resources\\zip\\pages.zip");
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
+        File f2 = new File("src\\main\\resources\\static\\css\\Style.css");
+        Path file = f2.toPath();
+        String inputFileName = file.toFile().getPath();
+        try (FileInputStream inputStream = new FileInputStream(inputFileName)) {
+            ZipEntry entry = new ZipEntry(file.toFile().getName());
+            out.putNextEntry(entry);
+            byte[] readBuffer = new byte[2048];
+            int amountRead;
+            int written = 0;
+            while ((amountRead = inputStream.read(readBuffer)) > 0) {
+                out.write(readBuffer, 0, amountRead);
+                written += amountRead;
+            }
+            out.closeEntry();
+        } catch (IOException e) {
+            System.out.println("BLADDD");
+        }
+        contextService.nullContext(context);
+        ZipEntry e = new ZipEntry("Home.html");
+        out.putNextEntry(e);
+        byte[] data = ThymeLeafConfig.getTemplateEngine().process("Home.html", context).getBytes();
+        out.write(data, 0, data.length);
+        out.closeEntry();
+        e = new ZipEntry("AboutMe.html");
+        out.putNextEntry(e);
+        data = ThymeLeafConfig.getTemplateEngine().process("AboutMe.html", context).getBytes();
+        out.write(data, 0, data.length);
+        out.closeEntry();
+        e = new ZipEntry("Publications.html");
+        out.putNextEntry(e);
+        data = ThymeLeafConfig.getTemplateEngine().process("Publications.html", context).getBytes();
+        out.write(data, 0, data.length);
+        out.closeEntry();
+        e = new ZipEntry("Contact.html");
+        out.putNextEntry(e);
+        data = ThymeLeafConfig.getTemplateEngine().process("Contact.html", context).getBytes();
+        out.write(data, 0, data.length);
+        out.closeEntry();
+        e = new ZipEntry("Student.html");
+        out.putNextEntry(e);
+        data = ThymeLeafConfig.getTemplateEngine().process("Student.html", context).getBytes();
+        out.write(data, 0, data.length);
+        out.closeEntry();
         out.close();
 
         FileItem fileItem = new DiskFileItem("pages.zip", Files.probeContentType(f.toPath()), false, f.getName(), (int) f.length(), f.getParentFile());
