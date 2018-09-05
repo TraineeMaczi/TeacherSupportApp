@@ -63,7 +63,7 @@ public class Person {
 
     public Person() {
 
-        this.degreeField =  "-";
+        this.degreeField = Strings.EMPTY;
         this.nameField =  "-";
         this.surnameField =  "-";
         this.facultyField=null;
