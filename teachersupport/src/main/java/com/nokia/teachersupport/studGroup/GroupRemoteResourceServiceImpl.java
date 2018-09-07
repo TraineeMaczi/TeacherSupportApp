@@ -4,6 +4,7 @@ import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.tools.CurrentUser;
+import com.nokia.teachersupport.tools.GenerateLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
     public GroupRemoteResource resourceDTOIntoResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO) {
         GroupRemoteResource groupRemoteResource=new GroupRemoteResource();
         groupRemoteResource.setStudGroupResourceName(remoteStudGroupResourceDTO.getName());
-        groupRemoteResource.setResourceLink(remoteStudGroupResourceDTO.getLink());
+        groupRemoteResource.setResourceLink(GenerateLink.goGenerateLink(remoteStudGroupResourceDTO.getLink()));
         return groupRemoteResource;
     }
 

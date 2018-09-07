@@ -80,29 +80,35 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public void deleteStudGroup(String groupName, IPersonService personService, IFileService fileService,
+    public void deleteStudGroup(Person person,String groupName, IPersonService personService, IFileService fileService,
                                 IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-        StudGroup studGroup=person.doIHaveAGroupWithName(groupName);
+        //Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
+
+if(studGroup !=null){
+        person.deleteStudGroup(studGroup);
+        if (studGroup.getFileModels() != null) {
+            for (FileModel fileModel : studGroup.getFileModels()) {
+                fileModel.setFilesOfGroup(null);
+                fileService.dleteFileById(fileModel.getId());
+
+            }
+        }
+        if (studGroup.getGroupsResourcesList() != null) {
+            for (GroupRemoteResource remoteResource : studGroup.getGroupsResourcesList()) {
+                remoteResource.deleteResourceOwner();
+                remoteResourceService.deleteRemoteResource(remoteResource);
+            }
+        }
+        studGroup.getGroupsResourcesList().clear();
+        studGroup.getFileModels().removeAll(studGroup.getFileModels());
+
 
         person.deleteStudGroup(studGroup);
-        for(FileModel fileModel:studGroup.getFileModels())
-        {
-            fileModel.setFilesOfGroup(null);
-            fileService.dleteFileById(fileModel.getId());
-
-        }
-
-        for(GroupRemoteResource remoteResource:studGroup.getGroupsResourcesList())
-        {
-            remoteResource.deleteResourceOwner();
-            remoteResourceService.deleteRemoteResource(remoteResource);
-        }
-        studGroup.getGroupsResourcesList().removeAll(studGroup.getGroupsResourcesList());
-        studGroup.getFileModels().removeAll(studGroup.getFileModels());
-        studGroupRepo.delete(studGroup);
+    studGroupRepo.delete(studGroup);
         personService.savePerson(person);
-//        session.setAttribute("currentStudGroupName",null);
+    }
+        //        session.setAttribute("currentStudGroupName",null);
     }
 
     @Override
@@ -115,5 +121,17 @@ public class StudGroupServiceImpl implements IStudGroupService {
                 studGroupRepo.save(studGroup);
                 session.setAttribute("currentStudGroupName",studGroup.getGroupNameField());
             }
+    }
+
+    @Override
+    public List<StudGroup> cleanMyStudGrops(Person person, IPersonService personService,IFileService fileService,
+                                            IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
+        List<StudGroup> studGroupsPersonList=person.getPersonStudGroupList();
+        for(Integer i=0;!studGroupsPersonList.isEmpty();) {
+         StudGroup sd=studGroupsPersonList.get(i);
+         deleteStudGroup(person, sd.getGroupNameField(), personService, fileService, remoteResourceService, userSecurityDataService, session);
+
+        }
+        return studGroupsPersonList;
     }
 }
