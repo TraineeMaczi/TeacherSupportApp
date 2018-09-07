@@ -130,8 +130,7 @@ if(studGroup !=null){
         for(Integer i=0;!studGroupsPersonList.isEmpty();) {
          StudGroup sd=studGroupsPersonList.get(i);
          deleteStudGroup(person, sd.getGroupNameField(), personService, fileService, remoteResourceService, userSecurityDataService, session);
-
-        }
+         }
         return studGroupsPersonList;
     }
 }
