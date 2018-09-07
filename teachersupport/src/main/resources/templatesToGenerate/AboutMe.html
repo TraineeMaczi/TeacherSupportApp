@@ -115,7 +115,7 @@
                                 <i class="fas fa-sticky-note"></i>
                             </th>
                             <td class="text-left font-weight-bold">
-                                <a href="">CV</a>
+                                <a th:href="${cv}" th:download="${who.nameField}+'_'+${who.surnameField}+'_CV.pdf'">CV</a>
                             </td>
                         </tr>
 

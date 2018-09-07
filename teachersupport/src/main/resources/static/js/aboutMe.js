@@ -33,6 +33,14 @@ $(document).ready(
             .blur(function () {
                 $(this).popover('hide');
             });
+         $("#addCVId")
+                    .popover({
+                        title: 'Important !',
+                        content: "The file must be in pdf format"
+                    })
+                    .blur(function () {
+                        $(this).popover('hide');
+                    });
         $("#btn1").on('click', function (event) {
             event.preventDefault();
             doAjax2('fileUploadForm', 'listFiles', 'foto');
@@ -74,7 +82,7 @@ function doAjax(formName, listFiles, typ) {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: '/uploadCV',
+        url: '/upload/CV',
         data: data,
 
         processData: false,

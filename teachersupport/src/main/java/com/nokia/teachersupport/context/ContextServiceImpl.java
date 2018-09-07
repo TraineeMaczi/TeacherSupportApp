@@ -54,6 +54,13 @@ public class ContextServiceImpl implements IContextService {
             pictureCode = "data:image/jpeg;base64," + pictureCode;
         }
         context.setVariable("facultyPhoto",pictureCode);
+        String cVCode="";
+        if(person.getCV()!=null)
+        {
+            cVCode=Base64.getEncoder().encodeToString(person.getCV().getPic());
+            cVCode="data:application/pdf;base64,"+cVCode;
+        }
+        context.setVariable("cv", cVCode);
         context.setVariable("name", person.getNameField());
         context.setVariable("surname", person.getSurnameField());
         context.setVariable("currentUserPerson", person);
