@@ -145,7 +145,7 @@
 
                                     <tr th:each="resource: ${groupDetail.groupsResourcesList}">
                                         <td th:text="${resource.studGroupResourceName}"></td>
-                                        <td><a th:href="'https://'+${resource.resourceLink}">Get Me</a></td>
+                                        <td><a th:href="${resource.resourceLink}">Get Me</a></td>
                                     </tr>
                                     <tr>
                                         <td>Local File</td>

@@ -5,15 +5,21 @@ import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.newsP.INewsService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
+import com.nokia.teachersupport.publications.IPublicationsService;
 import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.roles.SecurityRole;
+import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
+import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.tools.CurrentUser;
+import com.nokia.teachersupport.tools.GenerateLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -52,7 +58,9 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService) {
+    public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
+                                INewsService newsService, IPublicationsService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
+                                HttpSession session) {
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
             faculty.getFacultyAndPersonList().remove(person);
@@ -61,6 +69,14 @@ public class PersonServiceImpl implements IPersonService {
         for (SecurityRole securityRole : person.getUserSecurityDataField().getMyRoles())
             securityRole.getSecurityInsAndRoles().remove(person.getUserSecurityDataField());
         person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
+//TO DO wyczysc news publi i meetme
+
+        meetMeService.cleanMyMeetMeData(person,this);
+        newsService.cleanMyNews(person,this);
+        publicationsService.cleanMyPublications(person,this);
+        studGroupService.cleanMyStudGrops(person,this,fileService,remoteResourceService,userSecurityDataService,session);
+
+
         userSecurityDataService.deleteUserSecurityData(person.getUserSecurityDataField().getId());
         personRepo.delete(person);
         return true;
@@ -79,11 +95,11 @@ public class PersonServiceImpl implements IPersonService {
 
         if (!basicInfoDTO.getProfession().equals("")) person.setProfessionField(basicInfoDTO.getProfession());
 
-        if (!basicInfoDTO.getUsos().equals("")) person.setUsosPersonProfileLinkField(basicInfoDTO.getUsos());
+        if (!basicInfoDTO.getUsos().equals("")) person.setUsosPersonProfileLinkField(GenerateLink.goGenerateLink(basicInfoDTO.getUsos()));
 
-        if (!basicInfoDTO.getTwitter().equals("")) person.setTwitterField(basicInfoDTO.getTwitter());
+        if (!basicInfoDTO.getTwitter().equals("")) person.setTwitterField(GenerateLink.goGenerateLink(basicInfoDTO.getTwitter()));
 
-        if (!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(basicInfoDTO.getFacebook());
+        if (!basicInfoDTO.getFacebook().equals("")) person.setFacebookField(GenerateLink.goGenerateLink(basicInfoDTO.getFacebook()));
 
         if (!basicInfoDTO.getPhone().equals("")&&basicInfoDTO.getPhone().length()==9) person.setPhoneNumberField(basicInfoDTO.getPhone());
 
@@ -91,7 +107,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService) {
+    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService,IMeetMeService meetMeService,INewsService newsService,
+                                 IPublicationsService publicationsService,IStudGroupService studGroupService,IFileService fileService,IGroupRemoteResourceService remoteResourceService,HttpSession session) {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;
@@ -99,7 +116,7 @@ public class PersonServiceImpl implements IPersonService {
                 if (securityRole.getRoleName().equals("ADMIN"))
                     toDelete = false;
             if (toDelete)
-                deletePerson(person, userSecurityDataService);
+                deletePerson(person, userSecurityDataService,meetMeService,newsService,publicationsService,studGroupService,fileService,remoteResourceService,session);
         }
     }
 
