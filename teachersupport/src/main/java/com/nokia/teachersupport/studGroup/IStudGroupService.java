@@ -22,4 +22,5 @@ void deleteStudGroup(Person person,String groupName, IPersonService personServic
 void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session,IUserSecurityDataService userSecurityDataService,IPersonService personService);
 List<StudGroup> cleanMyStudGrops(Person person, IPersonService personService,IFileService fileService,
                                  IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session);
+boolean checkStudGroupDTOIntegrity(StudGroupDTO studGroupDTO);
 }

@@ -333,9 +333,9 @@ public class Person {
     }
 
     public Publication doIHaveAPublicationWithContent(String content) {
-        for (Publication publi : this.getPersonPublicationList()) {
-            if (publi.getPublicationInfoField().equals(content)) {
-                return publi;
+        for (Publication publication : this.getPersonPublicationList()) {
+            if (publication.getPublicationInfoField().equals(content)) {
+                return publication;
             }
 
         }

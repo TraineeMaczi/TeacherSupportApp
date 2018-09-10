@@ -165,7 +165,7 @@ function ajaxPostUpdateGroup() {
                     "Success");
 
             } else {
-                $("#postResultDivGroupUpdate").html("<strong>Error</strong>");
+                $("#postResultDivGroupUpdate").html("Invalid Input !");
             }
             console.log(result);
         },

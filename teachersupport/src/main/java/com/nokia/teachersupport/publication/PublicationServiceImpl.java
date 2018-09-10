@@ -49,7 +49,7 @@ public class PublicationServiceImpl implements IPublicationService {
     @Override
     public Publication goEditPublication(EditPublicationDTO editPublicationDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         Publication publication = new Publication();
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         if (person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent()) != null && !editPublicationDTO.getNewContent().equals("")) {
         publication=person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent());
         publication.setPublicationInfoField(editPublicationDTO.getNewContent());
@@ -60,7 +60,7 @@ public class PublicationServiceImpl implements IPublicationService {
 
     @Override
     public void deletePublicationByContent(String publiContent, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         Publication publi=person.doIHaveAPublicationWithContent(publiContent);
         publicationRepo.delete(publi);
     }
@@ -79,7 +79,7 @@ public class PublicationServiceImpl implements IPublicationService {
 
     @Override
     public void addNewPublication(Publication publication, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         if(person.doIHaveAPublicationWithContent(publication.getPublicationInfoField())==null) {
             publication.setPublicationOwner(person);
             person.addPubicationsToMyList(publication);

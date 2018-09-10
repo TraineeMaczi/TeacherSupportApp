@@ -61,7 +61,7 @@ public class PersonServiceImpl implements IPersonService {
     public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
                                 INewsService newsService, IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
                                 HttpSession session) {
-        if(person.equals(getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()))))
+        if(person.equals(getCurrentPerson(userSecurityDataService)))
             return false;
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
@@ -234,7 +234,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public Faculty goSaveMyFaculty(String facultyName, IPersonService personService, IFacultyService facultyService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         person.setFacultyField(facultyService.findFaculty(facultyName));
         Faculty faculty = facultyService.findFaculty(facultyName);
         faculty.addPersonToFaculty(person);
@@ -269,7 +269,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         personService.setPersonBasicInfo(basicInfoDTO, person);
         personService.savePerson(person);
         return basicInfoDTO;
@@ -278,7 +278,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public String goAddHobbyInfo(String hobbyInfo, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
 
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
 
         if (!hobbyInfo.equals("")) person.setHobbyField(hobbyInfo);
 
@@ -291,7 +291,7 @@ public class PersonServiceImpl implements IPersonService {
     public void goUploadPhoto(MultipartFile file, IFileService fileService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         try {
             FileModel fileModel = fileService.saveMultipartFile(file, "personFoto");
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            Person person =getCurrentPerson(userSecurityDataService);
             person.setFoto(fileModel);
             personService.savePerson(person);
         } catch (Exception ignored) {
@@ -300,7 +300,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public String goGivePhoto(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         String pom;
         if (person.getFoto() == null)
             pom = "img/logo.jpg";
@@ -320,6 +320,8 @@ public class PersonServiceImpl implements IPersonService {
         }
     }
 
-
-
+    @Override
+    public Person getCurrentPerson(IUserSecurityDataService userSecurityDataService) {
+        return getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+    }
 }

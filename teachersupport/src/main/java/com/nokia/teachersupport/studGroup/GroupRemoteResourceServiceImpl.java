@@ -47,7 +47,7 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
     public void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session, IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
         GroupRemoteResource remoteResource = findRemoteResourceById(remoteResourceId);
         String groupName = (String) session.getAttribute("currentStudGroupName");
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person=personService.getCurrentPerson(userSecurityDataService);
         StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
         studGroup.getGroupsResourcesList().remove(remoteResource);
         studGroupService.saveStudGroup(studGroup);
@@ -60,7 +60,7 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
         GroupRemoteResource remoteResource = resourceDTOIntoResource(remoteStudGroupResourceDTO);
         String groupName = (String) session.getAttribute("currentStudGroupName");
         if(groupName !=null && !groupName.equals("")) {
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            Person person = personService.getCurrentPerson(userSecurityDataService);
             StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
             studGroup.addResourcesToMyList(remoteResource);
             remoteResource.setResourceOwner(studGroup);

@@ -40,5 +40,5 @@ public interface IPersonService {
     void goUploadPhoto(MultipartFile file, IFileService fileService,IPersonService personService,IUserSecurityDataService userSecurityDataService);
     String goGivePhoto(IPersonService personService,IUserSecurityDataService userSecurityDataService);
     void goUploadCv(MultipartFile file,IFileService fileService,IPersonService personService,IUserSecurityDataService userSecurityDataService);
-
+    Person getCurrentPerson(IUserSecurityDataService userSecurityDataService);
 }

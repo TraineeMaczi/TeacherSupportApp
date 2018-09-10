@@ -27,16 +27,14 @@ public class ModelServiceImpl implements IModelService {
     private IFacultyService facultyService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
-    private IPublicationService publicationsService;
-    private IStudGroupService studGroupService;
+
 
     @Autowired
-    public ModelServiceImpl(IStudGroupService studGroupService ,IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IPublicationService publicationsService) {
+    public ModelServiceImpl(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         this.facultyService = facultyService;
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
-        this.publicationsService = publicationsService;
-        this.studGroupService=studGroupService;
+
     }
 
 
@@ -56,7 +54,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void aboutMeModel(Model model) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
 
@@ -64,7 +62,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void contactModel(Model model) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person =  personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("meetMeDataList", person.getPersonMeetMeDataList());
@@ -72,7 +70,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void indexModel(Model model) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person =  personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("facultyList", facultyService.listOfAllFaculties());
@@ -85,7 +83,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void publicationModel(Model model) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person =  personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("publication", person.getPersonPublicationList());
         model.addAttribute("newPublication", new Publication());
@@ -94,7 +92,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void homeModel(Model model) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person =  personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("logInUser", person);
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
@@ -104,7 +102,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void studGroupModel(Model model,HttpSession session) {
-        Person person=personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person= personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups",person.getPersonStudGroupList());
         model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));

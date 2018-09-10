@@ -61,7 +61,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
 
     @Override
     public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         MeetMe meetMe = meetMeDTOIntoMeetMe(meetMeDTO);
         addContactInfo(person, meetMe);
         return meetMeDTO;
@@ -69,7 +69,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
 
     @Override
     public Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
        MeetMe meetMe=getMeetMe(id);
         person.getPersonMeetMeDataList().remove(meetMe);
         deleteMeetMe(id);

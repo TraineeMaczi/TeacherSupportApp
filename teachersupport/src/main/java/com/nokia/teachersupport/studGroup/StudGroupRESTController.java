@@ -37,7 +37,7 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/edit")
     public ResponseEntity<Object> editGroup(@RequestBody String groupName, HttpSession session) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         session.setAttribute("currentStudGroupName", person.doIHaveAGroupWithName(groupName).getGroupNameField());
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
@@ -45,7 +45,7 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/delete")
     public ResponseEntity<Object> deleteGroup(@RequestBody String groupName, HttpSession session) {
-        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person= personService.getCurrentPerson(userSecurityDataService);
         studGroupService.deleteStudGroup(person,groupName, personService, fileService, remoteResourceService, userSecurityDataService, session);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
@@ -53,9 +53,12 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/updateGroup")
     public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO, HttpSession session) {
-        studGroupService.goStudGroupUpdate(studGroupDTO, session, userSecurityDataService, personService);
-
-        ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
+        if(studGroupService.checkStudGroupDTOIntegrity(studGroupDTO)) {
+            studGroupService.goStudGroupUpdate(studGroupDTO, session, userSecurityDataService, personService);
+            ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
+            return new ResponseEntity<Object>(response, HttpStatus.OK);
+        }
+        ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("error", studGroupDTO);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 

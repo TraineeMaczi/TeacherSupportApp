@@ -51,7 +51,7 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public void addNews(News news,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         if(person.doIHaveANewsWithContent(news.getNewsContentField())==null) {
             String userName = CurrentUser.getCurrentUserName();
             UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
@@ -71,7 +71,7 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public News goEditNews(EditNewsDTO editNewsDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService)
     {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person =personService.getCurrentPerson(userSecurityDataService);
         News news=new News();
 
         if(person.doIHaveANewsWithContent(editNewsDTO.getOldContent())!=null && !editNewsDTO.getNewContent().equals("")) {
@@ -84,7 +84,7 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public void deleteNewsByContent(String newsContent,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         News news=person.doIHaveANewsWithContent(newsContent);
         newsRepo.delete(news);
     }
