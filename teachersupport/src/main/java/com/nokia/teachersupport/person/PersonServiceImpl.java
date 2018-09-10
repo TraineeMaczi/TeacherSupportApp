@@ -310,17 +310,6 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void goUploadCv(MultipartFile file, IFileService fileService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        try {
-            FileModel fileModel = fileService.saveMultipartFile(file, "personCV");
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-            person.setCV(fileModel);
-            personService.savePerson(person);
-        } catch (Exception ignored) {
-        }
-    }
-
-    @Override
     public Person getCurrentPerson(IUserSecurityDataService userSecurityDataService) {
         return getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
     }

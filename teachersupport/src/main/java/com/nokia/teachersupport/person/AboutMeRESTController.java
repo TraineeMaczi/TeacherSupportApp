@@ -52,12 +52,7 @@ public class AboutMeRESTController {
         ServiceResponse<String> response = new ServiceResponse<>("success", pom);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
-
-    @PostMapping("/uploadCV")
-    public String uploadCV(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-        personService.goUploadCv(file, fileService, personService, userSecurityDataService);
-        return "SUCCES";
-    }
+    
 }
 
 

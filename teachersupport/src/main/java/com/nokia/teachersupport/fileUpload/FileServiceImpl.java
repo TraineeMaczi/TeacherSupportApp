@@ -22,12 +22,13 @@ import java.util.Optional;
 public class FileServiceImpl implements IFileService {
 
     private FileRepository fileRepository;
-
-
-
+    private IPersonService personService;
+    private IUserSecurityDataService userSecurityDataService;
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository) {
+    public FileServiceImpl(FileRepository fileRepository, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        this.personService=personService;
         this.fileRepository = fileRepository;
+        this.userSecurityDataService= userSecurityDataService;
     }
 
 
@@ -42,7 +43,11 @@ public class FileServiceImpl implements IFileService {
             if (file.getOriginalFilename().equals("") )
                 return fileModel;
             fileRepository.save(fileModel);
-
+            if(fileModel.getType().equals("CV")) {
+                Person person = personService.getCurrentPerson(userSecurityDataService);
+                person.setCV(fileModel);
+                personService.savePerson(person);
+            }
             return fileModel;
         }
 
