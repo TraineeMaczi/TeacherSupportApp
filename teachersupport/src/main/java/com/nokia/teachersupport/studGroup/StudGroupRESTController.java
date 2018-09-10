@@ -45,7 +45,8 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/delete")
     public ResponseEntity<Object> deleteGroup(@RequestBody String groupName, HttpSession session) {
-        studGroupService.deleteStudGroup(groupName, personService, fileService, remoteResourceService, userSecurityDataService, session);
+        Person person= personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        studGroupService.deleteStudGroup(person,groupName, personService, fileService, remoteResourceService, userSecurityDataService, session);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

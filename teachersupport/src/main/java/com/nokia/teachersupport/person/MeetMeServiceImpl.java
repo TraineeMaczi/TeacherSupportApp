@@ -108,4 +108,17 @@ public class MeetMeServiceImpl implements IMeetMeService {
             return true;
         }
     }
+
+    @Override
+    public List<MeetMe> cleanMyMeetMeData(Person person,IPersonService personService) {
+        List<MeetMe> personMeetMeList=person.getPersonMeetMeDataList();
+
+        for(MeetMe mm :personMeetMeList) {
+            meetMeRepo.delete(mm);
+        }
+        personMeetMeList.clear();
+        personService.savePerson(person);
+
+        return personMeetMeList;
+    }
 }

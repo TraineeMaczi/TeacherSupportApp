@@ -14,5 +14,5 @@ public interface IMeetMeService {
     MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService);
     Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService,IPersonService personService);
     boolean checkMeetMeDTOIntegrity(MeetMeDTO meetMeDTO);
-
+    List<MeetMe> cleanMyMeetMeData(Person person,IPersonService personService);
 }

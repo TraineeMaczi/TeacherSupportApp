@@ -66,6 +66,18 @@ public class PublicationsServiceImpl implements IPublicationsService {
     }
 
     @Override
+    public List<Publications> cleanMyPublications(Person person, IPersonService personService) {
+        List<Publications> publicationsList=person.getPersonPublicationsList();
+        for(Publications publi:publicationsList)
+        {
+            publicationsRepo.delete(publi);
+        }
+        publicationsList.clear();
+        personService.savePerson(person);
+        return publicationsList;
+    }
+
+    @Override
     public void addNewPublication(Publications publications, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         if(person.doIHaveAPublicationWithContent(publications.getPublicationsInfoField())==null) {

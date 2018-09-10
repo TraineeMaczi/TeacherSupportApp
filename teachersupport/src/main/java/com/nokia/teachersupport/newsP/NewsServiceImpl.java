@@ -93,4 +93,16 @@ public class NewsServiceImpl implements INewsService {
     public void deleteNewsById(Integer newsId) {
         newsRepo.deleteById(newsId);
     }
+
+    @Override
+    public List<News> cleanMyNews(Person person,IPersonService personService) {
+        List<News>newsPersonList=person.getPersonNewsList();
+        for(News news:newsPersonList)
+        {
+            newsRepo.delete(news);
+        }
+        newsPersonList.clear();
+        personService.savePerson(person);
+        return newsPersonList;
+    }
 }
