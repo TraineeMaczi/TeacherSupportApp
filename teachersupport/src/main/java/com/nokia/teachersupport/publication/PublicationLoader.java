@@ -1,6 +1,5 @@
-package com.nokia.teachersupport.publications;
+package com.nokia.teachersupport.publication;
 
-import com.nokia.teachersupport.publications.PublicationsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -8,12 +7,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class PublicationsLoader implements ApplicationListener<ApplicationReadyEvent> {
-    private PublicationsRepo publicationsRepo;
+public class PublicationLoader implements ApplicationListener<ApplicationReadyEvent> {
+    private PublicationRepo publicationRepo;
 
     @Autowired
-    public PublicationsLoader(PublicationsRepo publicationsRepo) {
-        this.publicationsRepo = publicationsRepo;
+    public PublicationLoader(PublicationRepo publicationRepo) {
+        this.publicationRepo = publicationRepo;
     }
 
     @Override
@@ -23,12 +22,12 @@ public class PublicationsLoader implements ApplicationListener<ApplicationReadyE
 
     @Transactional
     private void insertNewPublications() {
-//        Publications newPublications1 = new Publications();
+//        Publication newPublications1 = new Publication();
 //        newPublications1.setPublicationsInfoField("Publication 1 Hi I am Publication !");
-//        publicationsRepo.save(newPublications1);
+//        publicationRepo.save(newPublications1);
 //
-//        Publications newPublications2 = new Publications();
+//        Publication newPublications2 = new Publication();
 //        newPublications2.setPublicationsInfoField("Publication 2 Hi I am Publication !");
-//        publicationsRepo.save(newPublications2);
+//        publicationRepo.save(newPublications2);
     }
 }

@@ -22,17 +22,12 @@ import java.util.Optional;
 public class FileServiceImpl implements IFileService {
 
     private FileRepository fileRepository;
-    private IStudGroupService studGroupService;
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
+
 
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository, IStudGroupService studGroupService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public FileServiceImpl(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
-        this.studGroupService = studGroupService;
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
     }
 
 
@@ -44,21 +39,6 @@ public class FileServiceImpl implements IFileService {
     @Override
     public FileModel saveMultipartFile(MultipartFile file, String type) throws IOException {
         FileModel fileModel = new FileModel(file.getOriginalFilename(), type, file.getBytes());
-        if (type.contains("res") ) {
-            String pom = type.substring(8);
-            System.out.println(pom);
-
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-            StudGroup studGroup = person.doIHaveAGroupWithName(pom);
-
-            fileModel.setFilesOfGroup(studGroup);
-            List<FileModel> fileModels = studGroup.getFileModels();
-            fileModels.add(fileModel);
-            studGroup.setFileModels(fileModels);
-            studGroupService.saveStudGroup(studGroup);
-            if (pom.equals(""))
-                return fileModel;
-        }
             if (file.getOriginalFilename().equals("") )
                 return fileModel;
             fileRepository.save(fileModel);
@@ -66,13 +46,9 @@ public class FileServiceImpl implements IFileService {
             return fileModel;
         }
 
-        @Override
-        public FileModel findFileByName (String name){
-            return fileRepository.findByName(name);
-        }
 
         @Override
-        public void dleteFileById (Integer id){
+        public void deleteFileById (Integer id){
             fileRepository.deleteById(id);
         }
 
@@ -83,20 +59,6 @@ public class FileServiceImpl implements IFileService {
 
         }
 
-        @Override
-        public void goDeleteLocalResource (Integer id, HttpSession session, IPersonService
-        personService, IUserSecurityDataService userSecurityDataService, IFileService fileService){
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-            String groupName = (String) session.getAttribute("currentStudGroupName");
-            FileModel file = fileService.findFileById(id);
-            if (groupName != null) {
-                StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
-                studGroup.getFileModels().remove(file);
-                fileService.dleteFileById(id);
-                studGroupService.saveStudGroup(studGroup);
-//            session.setAttribute("currentStudGroupName", null);
-            }
-        }
 
         @Override
         public void goUploadMultipartFile (FileModel fileModel, String facultyName, IFileService

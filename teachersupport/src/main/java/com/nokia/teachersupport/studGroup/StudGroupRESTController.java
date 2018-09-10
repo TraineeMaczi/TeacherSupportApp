@@ -59,12 +59,6 @@ public class StudGroupRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/teacherSupportStudent/deleteLocalResource")
-    public ResponseEntity<Object> deleteGroupLocalResource(@RequestBody Integer id, HttpSession session) {
-        fileService.goDeleteLocalResource(id, session, personService, userSecurityDataService, fileService);
-        ServiceResponse<Integer> response = new ServiceResponse<Integer>("success", id);
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
-    }
 
     @PostMapping("/teacherSupportStudent/remoteResourceAdd")
     public ResponseEntity<Object> remoteResourceAdd(@RequestBody RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session) {

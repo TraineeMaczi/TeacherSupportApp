@@ -8,7 +8,7 @@ import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.newsP.INewsService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publications.IPublicationsService;
+import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.roles.SecurityRole;
 import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
@@ -59,8 +59,10 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
-                                INewsService newsService, IPublicationsService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
+                                INewsService newsService, IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
                                 HttpSession session) {
+        if(person.equals(getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()))))
+            return false;
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
             faculty.getFacultyAndPersonList().remove(person);
@@ -107,8 +109,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService,IMeetMeService meetMeService,INewsService newsService,
-                                 IPublicationsService publicationsService,IStudGroupService studGroupService,IFileService fileService,IGroupRemoteResourceService remoteResourceService,HttpSession session) {
+    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService, INewsService newsService,
+                                 IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService, HttpSession session) {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;

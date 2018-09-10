@@ -87,13 +87,6 @@ public class StudGroupServiceImpl implements IStudGroupService {
 
 if(studGroup !=null){
         person.deleteStudGroup(studGroup);
-        if (studGroup.getFileModels() != null) {
-            for (FileModel fileModel : studGroup.getFileModels()) {
-                fileModel.setFilesOfGroup(null);
-                fileService.dleteFileById(fileModel.getId());
-
-            }
-        }
         if (studGroup.getGroupsResourcesList() != null) {
             for (GroupRemoteResource remoteResource : studGroup.getGroupsResourcesList()) {
                 remoteResource.deleteResourceOwner();
@@ -101,7 +94,6 @@ if(studGroup !=null){
             }
         }
         studGroup.getGroupsResourcesList().clear();
-        studGroup.getFileModels().removeAll(studGroup.getFileModels());
 
 
         person.deleteStudGroup(studGroup);

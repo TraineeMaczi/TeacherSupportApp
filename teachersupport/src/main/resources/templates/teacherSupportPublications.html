@@ -76,11 +76,11 @@
     <div>
 
         <h4>Add Publication</h4>
-        <form id="newPubliForm" class="form-control" th:object="${newPublication}" th:action="@{/publications/new}"
+        <form id="newPubliForm" class="form-control" th:object="${newPublication}" th:action="@{/publication/new}"
               method="post">
             <input type="hidden" th:field="*{id}"/>
             <input type="hidden" th:field="*{version}"/>
-            <textarea class="form-control rounded text-center" rows="5" th:field="*{publicationsInfoField}"
+            <textarea class="form-control rounded text-center" rows="5" th:field="*{publicationInfoField}"
                       form="newPubliForm"> </textarea>
         </form>
         <div class="text-right mt-2">
@@ -97,12 +97,12 @@
                     <tbody>
 
 
-                    <tr th:each="one : ${publications}">
-                        <td th:text="${one.publicationsInfoField}"></td>
+                    <tr th:each="one : ${publication}">
+                        <td th:text="${one.publicationInfoField}"></td>
                         <td>
                             <div class="form-check ">
                                 <input class="form-check-input" type="radio" name="selectedPubli"
-                                       th:value="${one.publicationsInfoField}"/>
+                                       th:value="${one.publicationInfoField}"/>
                             </div>
                         </td>
                         <!--...............................................-->
@@ -162,6 +162,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.js"></script>
-<script src="/js/publications.js"></script>
+<script src="/js/publication.js"></script>
 </html>
        

@@ -33,11 +33,6 @@ public class FacultyServiceImpl implements IFacultyService {
     }
 
     @Override
-    public Faculty findFacultyById(Integer Id) {
-        return facultyRepo.findByid(Id);
-    }
-
-    @Override
     public void deleteFaculty(Faculty faculty) {
         facultyRepo.delete(faculty);
     }
@@ -47,7 +42,7 @@ public class FacultyServiceImpl implements IFacultyService {
 
         if (findFaculty(facultyName) != null) {
             Faculty faculty = findFaculty(facultyName);
-            fileService.dleteFileById(faculty.getFile().getId());
+            fileService.deleteFileById(faculty.getFile().getId());
             faculty.setFile(null);
 
             List<Person> myPersons = faculty.getFacultyAndPersonList();

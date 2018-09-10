@@ -69,10 +69,10 @@
         <h4>My Publications</h4>
     </div>
 
-    <div class="jumbotron m-3 p-1 bg-myYellow" th:each="objPublications: ${publications}">
+    <div class="jumbotron m-3 p-1 bg-myYellow" th:each="objPublications: ${publication}">
                 <div class="jumbotron bg-white mx-5 my-2 p-3 border  font-italic" >
                     <i class="fas fa-pencil-alt "></i>
-                    <p class="d-inline" th:text="' '+${objPublications.publicationsInfoField}"></p>
+                    <p class="d-inline" th:text="' '+${objPublications.publicationInfoField}"></p>
                 </div>
     </div>
 </div>

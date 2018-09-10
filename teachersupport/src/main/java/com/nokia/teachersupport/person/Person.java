@@ -3,9 +3,9 @@ package com.nokia.teachersupport.person;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.newsP.News;
+import com.nokia.teachersupport.publication.Publication;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publications.Publications;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
@@ -48,7 +48,7 @@ public class Person {
     private List<News> personNewsList;
 
     @OneToMany(mappedBy = "publicationOwner")
-    private List<Publications> personPublicationsList;
+    private List<Publication> personPublicationList;
 
     @OneToMany(mappedBy = "groupsOwner")
     private List<StudGroup> personStudGroupList;
@@ -223,16 +223,16 @@ public class Person {
         }
     }
 
-    public List<Publications> getPersonPublicationsList() {
-        return personPublicationsList;
+    public List<Publication> getPersonPublicationList() {
+        return personPublicationList;
     }
 
-    public void setPersonPublicationsList(List<Publications> personPublicationsList) {
-        this.personPublicationsList = personPublicationsList;
+    public void setPersonPublicationList(List<Publication> personPublicationList) {
+        this.personPublicationList = personPublicationList;
     }
 
-    public void addPubicationsToMyList(Publications publication) {
-        this.personPublicationsList.add(publication);
+    public void addPubicationsToMyList(Publication publication) {
+        this.personPublicationList.add(publication);
         if (publication.getPublicationOwner() != this) {
             publication.setPublicationOwner(this);
         }
@@ -332,9 +332,9 @@ public class Person {
         return null;
     }
 
-    public Publications doIHaveAPublicationWithContent(String content) {
-        for (Publications publi : this.getPersonPublicationsList()) {
-            if (publi.getPublicationsInfoField().equals(content)) {
+    public Publication doIHaveAPublicationWithContent(String content) {
+        for (Publication publi : this.getPersonPublicationList()) {
+            if (publi.getPublicationInfoField().equals(content)) {
                 return publi;
             }
 

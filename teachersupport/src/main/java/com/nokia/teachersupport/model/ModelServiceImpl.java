@@ -1,6 +1,8 @@
 package com.nokia.teachersupport.model;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
+import com.nokia.teachersupport.publication.IPublicationService;
+import com.nokia.teachersupport.publication.Publication;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.tools.CurrentUser;
@@ -11,9 +13,7 @@ import com.nokia.teachersupport.newsP.News;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-import com.nokia.teachersupport.publications.EditPublicationDTO;
-import com.nokia.teachersupport.publications.IPublicationsService;
-import com.nokia.teachersupport.publications.Publications;
+import com.nokia.teachersupport.publication.EditPublicationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -27,11 +27,11 @@ public class ModelServiceImpl implements IModelService {
     private IFacultyService facultyService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
-    private IPublicationsService publicationsService;
+    private IPublicationService publicationsService;
     private IStudGroupService studGroupService;
 
     @Autowired
-    public ModelServiceImpl(IStudGroupService studGroupService ,IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IPublicationsService publicationsService) {
+    public ModelServiceImpl(IStudGroupService studGroupService ,IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IPublicationService publicationsService) {
         this.facultyService = facultyService;
         this.personService = personService;
         this.userSecurityDataService = userSecurityDataService;
@@ -84,11 +84,11 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void publicationsModel(Model model) {
+    public void publicationModel(Model model) {
         Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("publications", person.getPersonPublicationsList());
-        model.addAttribute("newPublication", new Publications());
+        model.addAttribute("publication", person.getPersonPublicationList());
+        model.addAttribute("newPublication", new Publication());
         model.addAttribute("editPubliPostObj", new EditPublicationDTO());
     }
 
@@ -111,7 +111,6 @@ public class ModelServiceImpl implements IModelService {
         model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
         String groupName=(String)session.getAttribute("currentStudGroupName");
         if(groupName != null && !groupName.equals("")) {
-            model.addAttribute("groupFiles", person.doIHaveAGroupWithName(groupName).getFileModels());
             model.addAttribute("groupRemoteFiles",person.doIHaveAGroupWithName(groupName).getGroupsResourcesList());
         }
     }

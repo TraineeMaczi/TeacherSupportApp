@@ -99,6 +99,8 @@ public class MeetMeServiceImpl implements IMeetMeService {
                 {
                     return false;
                 }
+                if(fromH*60+fromM>toH*60+toM)
+                    return false;
 
             }
             catch(NumberFormatException nfe)
