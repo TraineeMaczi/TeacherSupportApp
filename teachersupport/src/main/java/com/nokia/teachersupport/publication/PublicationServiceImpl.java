@@ -19,32 +19,6 @@ public class PublicationServiceImpl implements IPublicationService {
         this.publicationRepo = publicationRepo;
     }
 
-    @Override
-    public List<Publication> listOfAllPublications() {
-        return publicationRepo.findAll();
-    }
-
-    @Override
-    public Publication getPublication(Integer id) {
-        Optional<Publication> publicationsOpt = publicationRepo.findById(id);
-        Publication publication = publicationsOpt.orElse(new Publication());
-        return publication;
-    }
-
-    @Override
-    public Publication savePublication(Publication publication) {
-        return publicationRepo.save(publication);
-    }
-
-    @Override
-    public void deletePublication(Integer id) {
-        publicationRepo.deleteById(id);
-    }
-
-    @Override
-    public Publication getByPublicationInfoField(String publicationsInfoField) {
-        return publicationRepo.findByPublicationInfoField(publicationsInfoField);
-    }
 
     @Override
     public Publication goEditPublication(EditPublicationDTO editPublicationDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {

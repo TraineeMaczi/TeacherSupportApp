@@ -27,24 +27,10 @@ public class StudGroupServiceImpl implements IStudGroupService {
 
 
     @Override
-    public void deleteStudGroupById(Integer studGroupId) {
-        studGroupRepo.deleteById(studGroupId);
-    }
-
-    @Override
     public StudGroup saveStudGroup(StudGroup studGroup) {
         return studGroupRepo.save(studGroup);
     }
 
-    @Override
-    public StudGroup getStudGroupByName(String studGroupName) {
-        return studGroupRepo.findByGroupNameField(studGroupName);
-    }
-
-    @Override
-    public List<StudGroup> listOfAllGroups() {
-        return studGroupRepo.findAll();
-    }
 
     @Override
     public void studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO, StudGroup studGroup) {

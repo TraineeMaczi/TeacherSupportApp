@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface StudGroupRepo extends CrudRepository<StudGroup, Integer> {
     List<StudGroup> findAll();
-    StudGroup findByGroupNameField(String groupNameField);
 }

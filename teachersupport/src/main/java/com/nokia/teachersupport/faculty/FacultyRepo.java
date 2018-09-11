@@ -8,8 +8,6 @@ import java.util.List;
 @Repository
 public interface FacultyRepo extends CrudRepository<Faculty, Integer> {
     List<Faculty> findAll();
-
-    Faculty findByFacultyNameField(String facultyName); //!UWAGA NA  TO
-    Faculty findByid(Integer Id);
+    Faculty findByFacultyNameField(String facultyName);
 }
 

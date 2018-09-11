@@ -8,6 +8,5 @@ import java.util.List;
 @Repository
 public interface PublicationRepo extends CrudRepository<Publication, Integer> {
     List<Publication> findAll();
-    Publication findByPublicationInfoField(String publicationInfoField);
 }
 
