@@ -45,7 +45,7 @@ $(document).ready(
 
         });
 
-        $("#btn1").on('click', function (event) {
+        $("#uploadFacultyFoto").on('click', function (event) {
             event.preventDefault();
             doAjax('fileUploadForm', 'listFiles', 'facultyFoto');
         });

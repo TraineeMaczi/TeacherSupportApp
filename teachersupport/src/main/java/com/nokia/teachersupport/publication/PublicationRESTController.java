@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.publications;
+package com.nokia.teachersupport.publication;
 
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.ServiceResponse;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PublicationsRESTController {
+public class PublicationRESTController {
 
-    private IPublicationsService publicationService;
+    private IPublicationService publicationService;
     private IPersonService personService;
     private IUserSecurityDataService userSecurityDataService;
 
     @Autowired
-    public PublicationsRESTController(IPublicationsService publicationsService,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+    public PublicationRESTController(IPublicationService publicationsService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         this.publicationService = publicationsService;
         this.personService=personService;
         this.userSecurityDataService=userSecurityDataService;
@@ -26,7 +26,7 @@ public class PublicationsRESTController {
 
 
 
-    @PostMapping("/publications/delete")
+    @PostMapping("/publication/delete")
     public ResponseEntity<Object> deletePublications(@RequestBody String publiContent) {
         publicationService.deletePublicationByContent(publiContent,personService,userSecurityDataService);
         ServiceResponse<String> response = new ServiceResponse<String>("success", publiContent);

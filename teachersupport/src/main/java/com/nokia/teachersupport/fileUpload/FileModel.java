@@ -19,8 +19,7 @@ public class FileModel {
     @Lob
     @Column(name = "pic")
     private byte[] pic;
-    @ManyToOne
-    private StudGroup filesOfGroup;
+
     public FileModel() {
     }
 
@@ -31,14 +30,6 @@ public class FileModel {
 
     }
 
-    public StudGroup getFilesOfGroup() {
-        return filesOfGroup;
-    }
-
-    public void setFilesOfGroup(StudGroup filesOfGroup) {
-        this.filesOfGroup = filesOfGroup;
-    }
-
     public String getType() {
         return type;
     }
@@ -46,9 +37,6 @@ public class FileModel {
     public void setType(String type) {
         this.type = type;
     }
-
-
-
 
     public String getName() {
         return this.name;

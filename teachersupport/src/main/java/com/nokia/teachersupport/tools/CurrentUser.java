@@ -12,4 +12,6 @@ public class CurrentUser {
             return currentUserName;
         } else return null;
     }
+
+
 }

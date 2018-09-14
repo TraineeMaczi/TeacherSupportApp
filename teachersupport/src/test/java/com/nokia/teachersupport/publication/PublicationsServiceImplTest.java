@@ -1,7 +1,7 @@
 //
-////package com.nokia.teachersupport.publications;
+////package com.nokia.teachersupport.publication;
 //
-//package com.nokia.teachersupport.publications;
+//package com.nokia.teachersupport.publication;
 //
 //import org.junit.Before;
 //import org.junit.Test;
@@ -16,14 +16,14 @@
 //@RunWith(MockitoJUnitRunner.class)
 //public class PublicationsServiceImplTest {
 //    EditPublicationDTO editPublicationDTO=new EditPublicationDTO();
-//    Publications oldPuli=new Publications();
-//    Publications newPubli=new Publications();
+//    Publication oldPuli=new Publication();
+//    Publication newPubli=new Publication();
 //
 //    @InjectMocks
-//    PublicationsServiceImpl publicationsService;
+//    PublicationServiceImpl publicationsService;
 //
 //    @Mock
-//    PublicationsRepo publicationsRepo;
+//    PublicationRepo publicationsRepo;
 //    @Before
 //    public void SetUp()
 //    {
@@ -54,14 +54,14 @@
 //@RunWith(MockitoJUnitRunner.class)
 //public class PublicationsServiceImplTest {
 //    EditPublicationDTO editPublicationDTO=new EditPublicationDTO();
-//    Publications oldPuli=new Publications();
-//    Publications newPubli=new Publications();
+//    Publication oldPuli=new Publication();
+//    Publication newPubli=new Publication();
 //
 //    @InjectMocks
-//    PublicationsServiceImpl publicationsService;
+//    PublicationServiceImpl publicationsService;
 //
 //    @Mock
-//    PublicationsRepo publicationsRepo;
+//    PublicationRepo publicationsRepo;
 //    @Before
 //    public void SetUp()
 //    {
@@ -79,8 +79,8 @@
 //
 ////
 ////    @Override
-////    public Publications goEditPublications(EditPublicationDTO editPublicationDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
-////        Publications publication = new Publications();
+////    public Publication goEditPublications(EditPublicationDTO editPublicationDTO,IPersonService personService,IUserSecurityDataService userSecurityDataService) {
+////        Publication publication = new Publication();
 ////        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
 ////        if (person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent()) != null && !editPublicationDTO.getNewContent().equals("")) {
 ////            publication=person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent());

@@ -24,11 +24,12 @@ public class UpdateFileController {
 
     @PostMapping("/upload/{type}")
     public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable String type) throws IOException {
-        if (!fileService.saveMultipartFile(file, type).getName().equals(""))
-            return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
-        else
-            return "FAIL! \n" +
-                    "You did not choose a file.";
+        if ((type.equals("CV") && !file.getOriginalFilename().contains(".pdf")))
+            return "Fail! You must upload file in pdf format";
+        if (file.getOriginalFilename().equals(""))
+            return "Fail! Your file is empty";
+        fileService.saveMultipartFile(file, type);
+        return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
     }
 
 }

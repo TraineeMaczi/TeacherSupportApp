@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.publications;
+package com.nokia.teachersupport.publication;
 
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
@@ -6,7 +6,7 @@ import org.apache.logging.log4j.util.Strings;
 import javax.persistence.*;
 
 @Entity
-public class Publications {
+public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -14,10 +14,10 @@ public class Publications {
     @Version
     private Integer version;
 
-    private String publicationsInfoField;
+    private String publicationInfoField;
 
-    public Publications() {
-        this.publicationsInfoField = Strings.EMPTY;
+    public Publication() {
+        this.publicationInfoField = Strings.EMPTY;
     }
 
     @ManyToOne
@@ -40,18 +40,18 @@ public class Publications {
         this.id = id;
     }
 
-    public String getPublicationsInfoField() {
-        return publicationsInfoField;
+    public String getPublicationInfoField() {
+        return publicationInfoField;
     }
 
-    public void setPublicationsInfoField(String publicationsInfoField) {
-        this.publicationsInfoField = publicationsInfoField;
+    public void setPublicationInfoField(String publicationInfoField) {
+        this.publicationInfoField = publicationInfoField;
     }
 
     public void setPublicationOwner(Person publicationOwner) {
         this.publicationOwner = publicationOwner;
-        if (!publicationOwner.getPersonPublicationsList().contains(this)) {
-            publicationOwner.getPersonPublicationsList().add(this);
+        if (!publicationOwner.getPersonPublicationList().contains(this)) {
+            publicationOwner.getPersonPublicationList().add(this);
         }
     }
 

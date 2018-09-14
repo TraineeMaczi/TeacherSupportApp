@@ -20,14 +20,13 @@ public class Faculty {
     //Pole z fotka na razie brak
 
 
-
     @OneToMany(mappedBy = "facultyField")
     private List<Person> facultyAndPersonList;   //A tu nie ma new czemu to dzila a przy many to many nie -.-
-    @OneToOne(fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private FileModel file;
-    public Faculty()
-    {
-        this.facultyNameField= Strings.EMPTY;
+
+    public Faculty() {
+        this.facultyNameField = Strings.EMPTY;
 
     }
 
@@ -70,14 +69,13 @@ public class Faculty {
     public void setFacultyAndPersonList(List<Person> facultyAndPersonList) {
         this.facultyAndPersonList = facultyAndPersonList;
     }
-public void addPersonToFaculty(Person person)
-{
-    this.facultyAndPersonList.add(person);
-    if (person.getFacultyField() != this) {
-        person.setFacultyField(this);
-    }
-}
 
+    public void addPersonToFaculty(Person person) {
+        this.facultyAndPersonList.add(person);
+        if (person.getFacultyField() != this) {
+            person.setFacultyField(this);
+        }
+    }
 
 
 }

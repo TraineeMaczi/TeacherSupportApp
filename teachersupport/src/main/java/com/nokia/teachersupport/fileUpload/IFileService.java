@@ -15,12 +15,9 @@ public interface IFileService {
 
     FileModel saveMultipartFile(MultipartFile file, String type) throws IOException;
 
-    FileModel findFileByName(String name);
-
-    void dleteFileById(Integer id);
+    void deleteFileById(Integer id);
 
     FileModel findFileById(Integer id);
 
-    void goDeleteLocalResource(Integer id, HttpSession session, IPersonService personService, IUserSecurityDataService userSecurityDataService,IFileService fileService);
     void goUploadMultipartFile(FileModel fileModel, String facultyName, IFileService fileService, IFacultyService facultyService);
 }

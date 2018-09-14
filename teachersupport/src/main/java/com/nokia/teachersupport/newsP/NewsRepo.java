@@ -8,6 +8,5 @@ import java.util.List;
 @Repository
 public interface NewsRepo extends CrudRepository<News, Integer>{
     List<News> findAll();
-    News findByNewsContentField(String newsContent);
 }
 

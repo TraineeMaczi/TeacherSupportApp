@@ -11,10 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface IStudGroupService {
-void deleteStudGroupById(Integer studGroupId);
 StudGroup saveStudGroup(StudGroup studGroup);
-StudGroup getStudGroupByName(String studGroupName);
-List<StudGroup> listOfAllGroups();
 void studGroupDTOIntoStudGroup(StudGroupDTO studGroupDTO,StudGroup studGroup);
 StudGroup addStudGroup( StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService);
 void deleteStudGroup(Person person,String groupName, IPersonService personService, IFileService fileService,
@@ -22,4 +19,5 @@ void deleteStudGroup(Person person,String groupName, IPersonService personServic
 void goStudGroupUpdate(StudGroupDTO studGroupDTO,HttpSession session,IUserSecurityDataService userSecurityDataService,IPersonService personService);
 List<StudGroup> cleanMyStudGrops(Person person, IPersonService personService,IFileService fileService,
                                  IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session);
+boolean checkStudGroupDTOIntegrity(StudGroupDTO studGroupDTO);
 }

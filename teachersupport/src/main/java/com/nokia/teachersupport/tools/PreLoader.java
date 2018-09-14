@@ -31,18 +31,18 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     private IFileService fileService;
     private RoleRepo myRoleRepoInstance;
     private TokenRepo tokenRepo;
-private PersonRepo personRepo;
+    private PersonRepo personRepo;
     private UserSecurityDataRepo userSecurityDataRepo;
 
 
     @Autowired
-    public PreLoader(PersonRepo personRepo,TokenRepo tokenRepo,FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo,UserSecurityDataRepo userSecurityDataRepo) {
+    public PreLoader(PersonRepo personRepo, TokenRepo tokenRepo, FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo, UserSecurityDataRepo userSecurityDataRepo) {
         this.facultyRepo = facultyRepo;
         this.fileService = fileService;
         this.myRoleRepoInstance = roleRepo;
-        this.tokenRepo=tokenRepo;
-        this.userSecurityDataRepo=userSecurityDataRepo;
-this.personRepo=personRepo;
+        this.tokenRepo = tokenRepo;
+        this.userSecurityDataRepo = userSecurityDataRepo;
+        this.personRepo = personRepo;
     }
 
 
@@ -125,32 +125,30 @@ this.personRepo=personRepo;
         }
     }
 
-        private void LoadTswaPrimeAdmin()
-        {
-            String primeAdminEMail="tswa@mail.com";
-            if(userSecurityDataRepo.findByEmail(primeAdminEMail)==null)
-            {
+    private void LoadTswaPrimeAdmin() {
+        String primeAdminEMail = "tswa@mail.com";
+        if (userSecurityDataRepo.findByEmail(primeAdminEMail) == null) {
 
-                Person person=new Person();
-                person.setNameField("TSWA");
-                person.setSurnameField("TSWA");
-                UserSecurityData userSecurityData=new UserSecurityData();
-                userSecurityData.setActive(true);
-                userSecurityData.setMatchingPassword("pass");
-                userSecurityData.setPassword("pass");
-                userSecurityData.setEmail(primeAdminEMail);
-                person.setUserSecurityDataField(userSecurityData);
+            Person person = new Person();
+            person.setNameField("TSWA");
+            person.setSurnameField("TSWA");
+            UserSecurityData userSecurityData = new UserSecurityData();
+            userSecurityData.setActive(true);
+            userSecurityData.setMatchingPassword("pass");
+            userSecurityData.setPassword("pass");
+            userSecurityData.setEmail(primeAdminEMail);
+            person.setUserSecurityDataField(userSecurityData);
 
 
-                personRepo.save(person);
-                userSecurityDataRepo.save(userSecurityData);
-                SecurityRole securityRole =myRoleRepoInstance.findByRoleName("ADMIN");
-                userSecurityData.addARole(securityRole);
-                securityRole.addUserSecurityDataToRole(userSecurityData);
-                myRoleRepoInstance.save(securityRole);
+            personRepo.save(person);
+            userSecurityDataRepo.save(userSecurityData);
+            SecurityRole securityRole = myRoleRepoInstance.findByRoleName("ADMIN");
+            userSecurityData.addARole(securityRole);
+            securityRole.addUserSecurityDataToRole(userSecurityData);
+            myRoleRepoInstance.save(securityRole);
 
 
-            }
         }
+    }
 
 }

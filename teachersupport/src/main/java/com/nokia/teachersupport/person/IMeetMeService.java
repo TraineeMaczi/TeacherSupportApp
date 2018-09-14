@@ -5,7 +5,6 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import java.util.List;
 
 public interface IMeetMeService {
-    List<MeetMe> listOfAllMeetMe();
     MeetMe getMeetMe(Integer id);
     MeetMe saveMeetMe(MeetMe meetMe);
     void deleteMeetMe(Integer id);

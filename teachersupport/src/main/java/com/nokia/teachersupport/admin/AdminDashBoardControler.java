@@ -10,7 +10,7 @@ import com.nokia.teachersupport.person.IPersonService;
 
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publications.IPublicationsService;
+import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
@@ -38,15 +38,15 @@ public class AdminDashBoardControler {
     private IRoleService roleService;
     private IMeetMeService meetMeService;
     private INewsService newsService;
-    private IPublicationsService publicationsService;
+    private IPublicationService publicationsService;
     private IStudGroupService studGroupService;
     private IFileService fileService;
     private IGroupRemoteResourceService remoteResourceService;
 
     @Autowired
     public AdminDashBoardControler(IRoleService roleService, IFacultyService facultyService, IUserSecurityDataService userSecurityDataService,
-                                   IPersonService personService, IModelService modelService,IMeetMeService meetMeService,INewsService newsService,IPublicationsService publicationsService,
-                                   IStudGroupService studGroupService,IFileService fileService,IGroupRemoteResourceService remoteResourceService) {
+                                   IPersonService personService, IModelService modelService, IMeetMeService meetMeService, INewsService newsService, IPublicationService publicationsService,
+                                   IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService) {
         this.roleService = roleService;
         this.facultyService = facultyService;
         this.personService = personService;

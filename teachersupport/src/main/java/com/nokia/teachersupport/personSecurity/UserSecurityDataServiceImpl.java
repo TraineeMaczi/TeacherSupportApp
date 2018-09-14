@@ -17,25 +17,13 @@ public class UserSecurityDataServiceImpl implements IUserSecurityDataService {
     }
 
     @Override
-    public List<UserSecurityData> listOfAllNews() {
-        return userSecurityDataRepo.findAll();
-    }
-
-    @Override
-    public UserSecurityData getUserSecurityData(Integer id) {
-        Optional<UserSecurityData> opt = userSecurityDataRepo.findById(id);
-        UserSecurityData z = opt.orElse(new UserSecurityData());
-        return z;
-    }
-
-    @Override
     public UserSecurityData saveUserSecurityData(UserSecurityData usd) {
         return userSecurityDataRepo.save(usd);
     }
 
     @Override
     public void deleteUserSecurityData(Integer id) {
-userSecurityDataRepo.deleteById(id);
+        userSecurityDataRepo.deleteById(id);
     }
 
     @Override
@@ -45,10 +33,8 @@ userSecurityDataRepo.deleteById(id);
 
     @Override
     public boolean isAdmin(UserSecurityData user) {
-        for(SecurityRole role:user.getMyRoles())
-        {
-            if(role.getRoleName().equals("ADMIN"))
-            {
+        for (SecurityRole role : user.getMyRoles()) {
+            if (role.getRoleName().equals("ADMIN")) {
                 return true;
             }
         }

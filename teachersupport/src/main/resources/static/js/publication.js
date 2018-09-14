@@ -6,7 +6,7 @@ $(document).ready(
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: '/publications/delete',
+                url: '/publication/delete',
                 data: item,
                 dataType: 'json',
                 success: function () {
