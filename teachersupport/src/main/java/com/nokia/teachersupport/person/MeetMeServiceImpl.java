@@ -109,7 +109,6 @@ public class MeetMeServiceImpl implements IMeetMeService {
         }
         personMeetMeList.clear();
         personService.savePerson(person);
-
         return personMeetMeList;
     }
 }
