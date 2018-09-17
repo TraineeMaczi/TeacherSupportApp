@@ -43,7 +43,9 @@ public class NewsServiceImpl implements INewsService {
 
 
     @Override
-    public News goEditNews(EditNewsDTO editNewsDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public News goEditNews(EditNewsDTO editNewsDTO,IServiceProvider serviceProvider) {
+       IPersonService personService=serviceProvider.getIPersonService();
+       IUserSecurityDataService userSecurityDataService=serviceProvider.getIUserSecurityDataService();
         Person person = personService.getCurrentPerson(userSecurityDataService);
         News news = new News();
 
@@ -56,7 +58,9 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void deleteNewsByContent(String newsContent, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public void deleteNewsByContent(String newsContent,IServiceProvider serviceProvider) {
+        IPersonService personService=serviceProvider.getIPersonService();
+        IUserSecurityDataService userSecurityDataService=serviceProvider.getIUserSecurityDataService();
         Person person = personService.getCurrentPerson(userSecurityDataService);
         News news = person.doIHaveANewsWithContent(newsContent);
         newsRepo.delete(news);
@@ -64,13 +68,13 @@ public class NewsServiceImpl implements INewsService {
 
 
     @Override
-    public List<News> cleanMyNews(Person person, IPersonService personService) {
+    public List<News> cleanMyNews(Person person,IServiceProvider serviceProvider) {
         List<News> newsPersonList = person.getPersonNewsList();
         for (News news : newsPersonList) {
             newsRepo.delete(news);
         }
         newsPersonList.clear();
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return newsPersonList;
     }
 }

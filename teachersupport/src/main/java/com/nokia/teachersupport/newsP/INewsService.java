@@ -13,7 +13,7 @@ import java.util.List;
 public interface INewsService
 {
     void addNews(News news, IServiceProvider serviceProvider);
-    News goEditNews(EditNewsDTO editNewsDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService);
-    void deleteNewsByContent(String newsContent,IPersonService personService,IUserSecurityDataService userSecurityDataService);
-    List<News> cleanMyNews(Person person,IPersonService personService);
+    News goEditNews(EditNewsDTO editNewsDTO,IServiceProvider serviceProvider);
+    void deleteNewsByContent(String newsContent,IServiceProvider serviceProvider);
+    List<News> cleanMyNews(Person person,IServiceProvider serviceProvider);
 }

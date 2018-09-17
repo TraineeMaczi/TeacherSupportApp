@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.faculty;
 
 import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface IFacultyService {
     Faculty findFaculty(String facultyName);
     Faculty saveFaculty(Faculty faculty);
     void deleteFaculty(Faculty faculty);
-    void goDeleteFacultySiteAction(String facultyName, IFileService fileService);
+    void goDeleteFacultySiteAction(String facultyName, IServiceProvider serviceProvider);
 }

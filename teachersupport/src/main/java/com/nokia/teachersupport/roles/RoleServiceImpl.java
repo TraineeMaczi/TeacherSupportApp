@@ -12,7 +12,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void save(SecurityRole securityRole) {
+    public void saveSecurityRole(SecurityRole securityRole) {
         roleRepo.save(securityRole);
     }
 

@@ -11,6 +11,7 @@ import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.roles.SecurityRole;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.tools.CurrentUser;
@@ -58,10 +59,9 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
-                                INewsService newsService, IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
+    public boolean deletePerson(Person person, IServiceProvider serviceProvider,
                                 HttpSession session) {
-        if(person.equals(getCurrentPerson(userSecurityDataService)))
+        if(person.equals(getCurrentPerson(serviceProvider.getIUserSecurityDataService())))
             return false;
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
@@ -73,13 +73,13 @@ public class PersonServiceImpl implements IPersonService {
         person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
 //TO DO wyczysc news publi i meetme
 
-        meetMeService.cleanMyMeetMeData(person,this);
-        newsService.cleanMyNews(person,this);
-        publicationsService.cleanMyPublications(person,this);
-        studGroupService.cleanMyStudGrops(person,this,fileService,remoteResourceService,userSecurityDataService,session);
+        serviceProvider.getIMeetMeService().cleanMyMeetMeData(person,this);
+        serviceProvider.getINewsService().cleanMyNews(person,serviceProvider);
+        serviceProvider.getIPublicationService().cleanMyPublications(person,this);
+        serviceProvider.getIStudGroupService().cleanMyStudGrops(person,this,serviceProvider.getIFileService(),serviceProvider.getIGroupRemoteResourceService(),serviceProvider.getIUserSecurityDataService(),session);
 
 
-        userSecurityDataService.deleteUserSecurityData(person.getUserSecurityDataField().getId());
+        serviceProvider.getIUserSecurityDataService().deleteUserSecurityData(person.getUserSecurityDataField().getId());
         personRepo.delete(person);
         return true;
     }
@@ -109,8 +109,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService, INewsService newsService,
-                                 IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService, HttpSession session) {
+    public void deleteAllPersons(IServiceProvider serviceProvider,HttpSession session) {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;
@@ -118,12 +117,12 @@ public class PersonServiceImpl implements IPersonService {
                 if (securityRole.getRoleName().equals("ADMIN"))
                     toDelete = false;
             if (toDelete)
-                deletePerson(person, userSecurityDataService,meetMeService,newsService,publicationsService,studGroupService,fileService,remoteResourceService,session);
+                deletePerson(person,serviceProvider,session);
         }
     }
 
     @Override
-    public boolean savePersonsFromFile(InputStream stream, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService) {
+    public boolean savePersonsFromFile(InputStream stream, IServiceProvider serviceProvider) {
         String myName;
         String mySurname;
         String myFaculty;
@@ -141,21 +140,21 @@ public class PersonServiceImpl implements IPersonService {
                 myRole = parts[3];
                 myEmail = parts[4];
                 SecurityRole securityRole;
-                if ((userSecurityDataService.getUserSecurityDataByEmail(myEmail) == null) &&
-                        (facultyService.findFaculty(myFaculty) != null) &&
-                        ((roleService.findByRoleName(myRole) != null)||myRole.equals("BOTH"))) {
+                if ((serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(myEmail) == null) &&
+                        (serviceProvider.getIFacultyService().findFaculty(myFaculty) != null) &&
+                        ((serviceProvider.getIRoleService().findByRoleName(myRole) != null)||myRole.equals("BOTH"))) {
                     Person person = new Person();
                     UserSecurityData userSecurityData = new UserSecurityData();
-                    Faculty faculty = facultyService.findFaculty(myFaculty);
+                    Faculty faculty = serviceProvider.getIFacultyService().findFaculty(myFaculty);
                     if(myRole.equals("BOTH"))
                     {
-                        securityRole = roleService.findByRoleName("USER");
+                        securityRole = serviceProvider.getIRoleService().findByRoleName("USER");
                         userSecurityData.addARole(securityRole);
                         securityRole.addUserSecurityDataToRole(userSecurityData);
-                        roleService.save(securityRole);
+                        serviceProvider.getIRoleService().saveSecurityRole(securityRole);
                         myRole="ADMIN";
                     }
-                    securityRole = roleService.findByRoleName(myRole);
+                    securityRole = serviceProvider.getIRoleService().findByRoleName(myRole);
                     person.setNameField(myName);
                     person.setSurnameField(mySurname);
                     faculty.addPersonToFaculty(person);
@@ -168,9 +167,9 @@ public class PersonServiceImpl implements IPersonService {
                     securityRole.addUserSecurityDataToRole(userSecurityData);
                     person.setUserSecurityDataField(userSecurityData);
                     personRepo.save(person);
-                    userSecurityDataService.saveUserSecurityData(userSecurityData);
-                    facultyService.saveFaculty(faculty);
-                        roleService.save(securityRole);
+                    serviceProvider.getIUserSecurityDataService().saveUserSecurityData(userSecurityData);
+                    serviceProvider.getIFacultyService().saveFaculty(faculty);
+                        serviceProvider.getIRoleService().saveSecurityRole(securityRole);
                 }
                 newline = bufferedReader.readLine();
 
@@ -184,26 +183,26 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void addUser(UserDTOForAdminAction userDTOForAdminActionDTO, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService) {
+    public void addUser(UserDTOForAdminAction userDTOForAdminActionDTO, IServiceProvider serviceProvider) {
         //jak nie mam takiego e-mail w bazie jeszcze i jak wydzial istnieje i jesli rola istnieje
-        if ((userSecurityDataService.getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null) &&
-                (facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField()) != null))
+        if ((serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(userDTOForAdminActionDTO.getUserEmailDTOField()) == null) &&
+                (serviceProvider.getIFacultyService().findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField()) != null))
         {
 
             Person person = new Person();
             UserSecurityData userSecurityData = new UserSecurityData();
-            Faculty faculty = facultyService.findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField());
+            Faculty faculty = serviceProvider.getIFacultyService().findFaculty(userDTOForAdminActionDTO.getUserFacultyDTOField());
 
             SecurityRole securityRole;
             if (userDTOForAdminActionDTO.getUserRoleDTOField().equals("BOTH")) {
-                securityRole =roleService.findByRoleName("USER");
+                securityRole =serviceProvider.getIRoleService().findByRoleName("USER");
                 userSecurityData.addARole(securityRole);
                 securityRole.addUserSecurityDataToRole(userSecurityData);
-                roleService.save(securityRole);
-                securityRole = roleService.findByRoleName("ADMIN");
+                serviceProvider.getIRoleService().saveSecurityRole(securityRole);
+                securityRole = serviceProvider.getIRoleService().findByRoleName("ADMIN");
 
             } else {
-                securityRole = roleService.findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
+                securityRole = serviceProvider.getIRoleService().findByRoleName(userDTOForAdminActionDTO.getUserRoleDTOField());
             }
 
             //Tak samo jak dla faculty musi byc security rolke
@@ -219,16 +218,15 @@ public class PersonServiceImpl implements IPersonService {
             userSecurityData.setEmail(userDTOForAdminActionDTO.getUserEmailDTOField());
             userSecurityData.setPassword("NULL"); //UWAGA CHYBA NIE DA SIE NA TO ZALOGOWAC
             userSecurityData.setMatchingPassword("NULL");
-            userSecurityDataService.saveUserSecurityData(userSecurityData);
+            serviceProvider.getIUserSecurityDataService().saveUserSecurityData(userSecurityData);
             userSecurityData.addARole(securityRole);
             securityRole.addUserSecurityDataToRole(userSecurityData);
-            roleService.save(securityRole);
+            serviceProvider.getIRoleService().saveSecurityRole(securityRole);
             person.setUserSecurityDataField(userSecurityData);
 
 
             personRepo.save(person);
-           // userSecurityDataService.saveUserSecurityData(userSecurityData);
-            facultyService.saveFaculty(faculty);
+            serviceProvider.getIFacultyService().saveFaculty(faculty);
         }
     }
 

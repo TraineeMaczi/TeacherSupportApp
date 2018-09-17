@@ -9,6 +9,7 @@ import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
 import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.roles.IRoleService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,15 +24,13 @@ public interface IPersonService {
 
     Person getPerson(Integer id);
     Person savePerson(Person person);
-    boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
-                         INewsService newsService, IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
+    boolean deletePerson(Person person,IServiceProvider serviceProvider,
                          HttpSession session);
     Person getPersonByUserSecurityData(UserSecurityData userSecurityData);
     void setPersonBasicInfo(BasicInfoDTO basicInfoDTO,Person person);
-    void deleteAllPersons(IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService, INewsService newsService,
-                          IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService, HttpSession session);
-    boolean savePersonsFromFile(InputStream stream, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService);
-    void addUser(UserDTOForAdminAction userDTOForAdminActionDTO, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IRoleService roleService);
+    void deleteAllPersons(IServiceProvider serviceProvider,HttpSession session);
+    boolean savePersonsFromFile(InputStream stream, IServiceProvider serviceProvider);
+    void addUser(UserDTOForAdminAction userDTOForAdminActionDTO,IServiceProvider serviceProvider);
     Faculty goSaveMyFaculty(String facultyName,IPersonService personService,IFacultyService facultyService,IUserSecurityDataService userSecurityDataService);
     List<String> goGiveMeFacultyPhoto(IFacultyService facultyService);
     List<Integer> goGiveMeFacultyId(IFacultyService facultyService);

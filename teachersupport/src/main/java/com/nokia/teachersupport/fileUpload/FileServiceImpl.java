@@ -5,6 +5,7 @@ import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.studGroup.StudGroupServiceImpl;
@@ -66,11 +67,10 @@ public class FileServiceImpl implements IFileService {
 
 
         @Override
-        public void goUploadMultipartFile (FileModel fileModel, String facultyName, IFileService
-        fileService, IFacultyService facultyService){
+        public void goUploadMultipartFile (FileModel fileModel, String facultyName, IServiceProvider serviceProvider){
             Faculty faculty = new Faculty();
             faculty.setFacultyNameField(facultyName);
             faculty.setFile(fileModel);
-            facultyService.saveFaculty(faculty);
+            serviceProvider.getIFacultyService().saveFaculty(faculty);
         }
     }

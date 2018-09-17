@@ -15,36 +15,29 @@ import org.thymeleaf.model.IModel;
 
 @Controller
 public class HomeController {
-    private INewsService newsService;
-    private IModelService modelService;
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
+
     private IServiceProvider serviceProvider;
     @Autowired
-    public HomeController(IServiceProvider serviceProvider,INewsService newsServic, IModelService modelService,IPersonService personService,IUserSecurityDataService userSecurityDataService)
+    public HomeController(IServiceProvider serviceProvider)
     {
-        this.modelService=modelService;
-        this.newsService=newsServic;
-        this.personService=personService;
-        this.userSecurityDataService=userSecurityDataService;
         this.serviceProvider=serviceProvider;
     }
 
     @GetMapping("/teacherSupportHome")
     String tshome(Model model) throws InterruptedException {
-        modelService.homeModel(model);
+        serviceProvider.getIModelService().homeModel(model);
         return "teacherSupportHome";
     }
 
     @PostMapping("/tshome/new")
     String addNewNews(News news) {
-        newsService.addNews(news,serviceProvider);
+        serviceProvider.getINewsService().addNews(news,serviceProvider);
         return "redirect:/teacherSupportHome";
     }
 
     @PostMapping("/teacherSupportHome/editNews")
     String editNews(EditNewsDTO editNewsDTO) {
-        newsService.goEditNews(editNewsDTO,personService,userSecurityDataService);
+        serviceProvider.getINewsService().goEditNews(editNewsDTO,serviceProvider);
         return "redirect:/teacherSupportHome";
     }
 
