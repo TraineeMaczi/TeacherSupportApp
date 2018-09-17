@@ -1,7 +1,5 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.tools.CurrentUser;
-import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Base64;
 
 @RestController
 public class AboutMeRESTController {
@@ -53,11 +50,6 @@ public class AboutMeRESTController {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/uploadCV")
-    public String uploadCV(@RequestParam("uploadfile") MultipartFile file) throws IOException {
-        personService.goUploadCv(file, fileService, personService, userSecurityDataService);
-        return "SUCCES";
-    }
 }
 
 

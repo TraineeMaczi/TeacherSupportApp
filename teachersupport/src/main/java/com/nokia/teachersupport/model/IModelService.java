@@ -11,7 +11,7 @@ public interface IModelService {
     void contactModel(Model model);
     void indexModel(Model model);
     void editProfileModel(Model model);
-    void publicationsModel(Model model);
+    void publicationModel(Model model);
     void homeModel(Model model);
     void studGroupModel(Model model, HttpSession session);
 }

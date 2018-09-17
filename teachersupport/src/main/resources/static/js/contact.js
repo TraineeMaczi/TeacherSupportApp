@@ -4,7 +4,7 @@ $(document).ready(
 
         $("#contactPostButton").on('click', function (event) {
             event.preventDefault();
-            ajaxPostContact()
+            ajaxPostContact();
         });
         $("#deleteContactInfoButton").on('click', function () {
             var item = $('input[name=checkedContactInfo]:checked', '#dispContactForm').val();
@@ -41,9 +41,7 @@ function ajaxPostContact() {
         dataType: 'json',
         success: function (result) {
             if (result.status == "success") {
-                $("#postResultDivContact").html(
-                    "Success");
-                // location.reload();
+                location.reload();
             } else {
                 $("#postResultDivContact").html("Invalid Input !");
             }

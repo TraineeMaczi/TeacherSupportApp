@@ -8,7 +8,7 @@ import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.newsP.INewsService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publications.IPublicationsService;
+import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.roles.SecurityRole;
 import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
@@ -59,8 +59,10 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public boolean deletePerson(Person person, IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService,
-                                INewsService newsService, IPublicationsService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
+                                INewsService newsService, IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService,
                                 HttpSession session) {
+        if(person.equals(getCurrentPerson(userSecurityDataService)))
+            return false;
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
             faculty.getFacultyAndPersonList().remove(person);
@@ -107,8 +109,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService,IMeetMeService meetMeService,INewsService newsService,
-                                 IPublicationsService publicationsService,IStudGroupService studGroupService,IFileService fileService,IGroupRemoteResourceService remoteResourceService,HttpSession session) {
+    public void deleteAllPersons(IUserSecurityDataService userSecurityDataService, IMeetMeService meetMeService, INewsService newsService,
+                                 IPublicationService publicationsService, IStudGroupService studGroupService, IFileService fileService, IGroupRemoteResourceService remoteResourceService, HttpSession session) {
         boolean toDelete;
         for (Person person : personRepo.findAll()) {
             toDelete = true;
@@ -232,7 +234,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public Faculty goSaveMyFaculty(String facultyName, IPersonService personService, IFacultyService facultyService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         person.setFacultyField(facultyService.findFaculty(facultyName));
         Faculty faculty = facultyService.findFaculty(facultyName);
         faculty.addPersonToFaculty(person);
@@ -267,7 +269,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         personService.setPersonBasicInfo(basicInfoDTO, person);
         personService.savePerson(person);
         return basicInfoDTO;
@@ -276,7 +278,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public String goAddHobbyInfo(String hobbyInfo, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
 
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
 
         if (!hobbyInfo.equals("")) person.setHobbyField(hobbyInfo);
 
@@ -289,7 +291,7 @@ public class PersonServiceImpl implements IPersonService {
     public void goUploadPhoto(MultipartFile file, IFileService fileService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
         try {
             FileModel fileModel = fileService.saveMultipartFile(file, "personFoto");
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+            Person person =getCurrentPerson(userSecurityDataService);
             person.setFoto(fileModel);
             personService.savePerson(person);
         } catch (Exception ignored) {
@@ -298,7 +300,7 @@ public class PersonServiceImpl implements IPersonService {
 
     @Override
     public String goGivePhoto(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+        Person person = getCurrentPerson(userSecurityDataService);
         String pom;
         if (person.getFoto() == null)
             pom = "img/logo.jpg";
@@ -308,16 +310,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void goUploadCv(MultipartFile file, IFileService fileService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        try {
-            FileModel fileModel = fileService.saveMultipartFile(file, "personCV");
-            Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-            person.setCV(fileModel);
-            personService.savePerson(person);
-        } catch (Exception ignored) {
-        }
+    public Person getCurrentPerson(IUserSecurityDataService userSecurityDataService) {
+        return getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
     }
-
-
-
 }

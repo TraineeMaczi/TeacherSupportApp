@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 public interface IGroupRemoteResourceService {
     GroupRemoteResource resourceDTOIntoResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO);
-    GroupRemoteResource saveRemoteResource(GroupRemoteResource remoteResource);
     GroupRemoteResource findRemoteResourceById(Integer remoteResourceId);
     void deleteRemoteResource(GroupRemoteResource remoteResource);
     void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session,IStudGroupService studGroupService,IPersonService personService,IUserSecurityDataService userSecurityDataService);

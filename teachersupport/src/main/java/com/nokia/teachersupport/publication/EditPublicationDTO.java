@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.publications;
+package com.nokia.teachersupport.publication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface PersonRepo  extends CrudRepository<Person, Integer> {
     List<Person> findAll();
-    Person findByNameField(String name);
     Person findByUserSecurityDataField(UserSecurityData userSecurityData);
 }

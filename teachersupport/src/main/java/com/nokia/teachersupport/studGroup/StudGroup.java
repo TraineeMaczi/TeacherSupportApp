@@ -37,9 +37,6 @@ public class StudGroup {
     @OneToMany(mappedBy = "resourceOwner")
     private List<GroupRemoteResource> groupsResourcesList;
 
-    @OneToMany(mappedBy = "filesOfGroup" )
-    private List<FileModel>fileModels;
-
     public StudGroup() {
         this.groupNameField = Strings.EMPTY;
         this.facultyField = Strings.EMPTY;
@@ -109,14 +106,6 @@ public class StudGroup {
 
     public void setClassDayFiled(String classDayFiled) {
         this.classDayFiled = classDayFiled;
-    }
-
-    public List<FileModel> getFileModels() {
-        return fileModels;
-    }
-
-    public void setFileModels(List<FileModel> fileModels) {
-        this.fileModels = fileModels;
     }
 
     public Person getGroupsOwner() {

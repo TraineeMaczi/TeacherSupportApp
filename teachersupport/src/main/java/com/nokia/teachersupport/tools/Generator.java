@@ -59,7 +59,7 @@ public class Generator {
                 out.closeEntry();
             }
             if (obj.equals("Publications.html")) {
-                contextService.publicationsContext(context);
+                contextService.publicationContext(context);
                 ZipEntry e = new ZipEntry("Publications.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("Publications.html", context).getBytes();
@@ -129,9 +129,9 @@ public class Generator {
         data = ThymeLeafConfig.getTemplateEngine().process("AboutMe.html", context).getBytes();
         out.write(data, 0, data.length);
         out.closeEntry();
-        e = new ZipEntry("Publications.html");
+        e = new ZipEntry("Publication.html");
         out.putNextEntry(e);
-        data = ThymeLeafConfig.getTemplateEngine().process("Publications.html", context).getBytes();
+        data = ThymeLeafConfig.getTemplateEngine().process("Publication.html", context).getBytes();
         out.write(data, 0, data.length);
         out.closeEntry();
         e = new ZipEntry("Contact.html");

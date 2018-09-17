@@ -20,10 +20,6 @@ public class MeetMeServiceImpl implements IMeetMeService {
         this.personRepo = personRepo;
     }
 
-    @Override
-    public List<MeetMe> listOfAllMeetMe() {
-        return meetMeRepo.findAll();
-    }
 
     @Override
     public MeetMe getMeetMe(Integer id) {
@@ -48,7 +44,7 @@ public class MeetMeServiceImpl implements IMeetMeService {
         meetMe.setPlaceField(meetMeDTO.getPlaceField());
         meetMe.setOfficeField(meetMeDTO.getOfficeField());
         meetMe.setDayField(meetMeDTO.getDayField());
-        meetMe.setTimeField(((meetMeDTO.getTimeFromFieldH().length()==1)?"0":"")+meetMeDTO.getTimeFromFieldH() + ":" +((meetMeDTO.getTimeFromFieldM().length()==1)?"0":"")+meetMeDTO.getTimeFromFieldM() + "-" + ((meetMeDTO.getTimeToFieldH().length()==1)?"0":"")+meetMeDTO.getTimeToFieldH() + ":" + ((meetMeDTO.getTimeToFieldM().length()==1)?"0":"")+meetMeDTO.getTimeToFieldM());
+        meetMe.setTimeField(((meetMeDTO.getTimeFromFieldH().length() == 1) ? "0" : "") + meetMeDTO.getTimeFromFieldH() + ":" + ((meetMeDTO.getTimeFromFieldM().length() == 1) ? "0" : "") + meetMeDTO.getTimeFromFieldM() + "-" + ((meetMeDTO.getTimeToFieldH().length() == 1) ? "0" : "") + meetMeDTO.getTimeToFieldH() + ":" + ((meetMeDTO.getTimeToFieldM().length() == 1) ? "0" : "") + meetMeDTO.getTimeToFieldM());
         return meetMe;
     }
 
@@ -60,8 +56,8 @@ public class MeetMeServiceImpl implements IMeetMeService {
     }
 
     @Override
-    public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IPersonService personService,IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+    public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         MeetMe meetMe = meetMeDTOIntoMeetMe(meetMeDTO);
         addContactInfo(person, meetMe);
         return meetMeDTO;
@@ -69,8 +65,8 @@ public class MeetMeServiceImpl implements IMeetMeService {
 
     @Override
     public Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = personService.getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
-       MeetMe meetMe=getMeetMe(id);
+        Person person = personService.getCurrentPerson(userSecurityDataService);
+        MeetMe meetMe = getMeetMe(id);
         person.getPersonMeetMeDataList().remove(meetMe);
         deleteMeetMe(id);
         personService.savePerson(person);
@@ -79,30 +75,25 @@ public class MeetMeServiceImpl implements IMeetMeService {
 
     @Override
     public boolean checkMeetMeDTOIntegrity(MeetMeDTO meetMeDTO) {
-        if(meetMeDTO.getPlaceField().equals("") || meetMeDTO.getOfficeField().equals("")|| meetMeDTO.getDayField().equals("")|| meetMeDTO.getTimeFromFieldH().equals("") ||
-                meetMeDTO.getTimeFromFieldM().equals("") || meetMeDTO.getTimeToFieldM().equals("")||meetMeDTO.getTimeToFieldH().equals("")){
+        if (meetMeDTO.getPlaceField().equals("") || meetMeDTO.getOfficeField().equals("") || meetMeDTO.getDayField().equals("") || meetMeDTO.getTimeFromFieldH().equals("") ||
+                meetMeDTO.getTimeFromFieldM().equals("") || meetMeDTO.getTimeToFieldM().equals("") || meetMeDTO.getTimeToFieldH().equals("")) {
             return false;
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 double fromH = Double.parseDouble(meetMeDTO.getTimeFromFieldH());
                 double fromM = Double.parseDouble(meetMeDTO.getTimeFromFieldM());
                 double toH = Double.parseDouble(meetMeDTO.getTimeToFieldH());
                 double toM = Double.parseDouble(meetMeDTO.getTimeToFieldM());
-                if(toM<0||toH<0||fromH<0||fromM<0)
-                {
+                if (toM < 0 || toH < 0 || fromH < 0 || fromM < 0) {
                     return false;
                 }
-                if(toM>60||toH>24||fromH>24||fromM>60)
-                {
+                if (toM > 60 || toH > 24 || fromH > 24 || fromM > 60) {
                     return false;
                 }
+                if (fromH * 60 + fromM > toH * 60 + toM)
+                    return false;
 
-            }
-            catch(NumberFormatException nfe)
-            {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
             return true;
@@ -110,15 +101,14 @@ public class MeetMeServiceImpl implements IMeetMeService {
     }
 
     @Override
-    public List<MeetMe> cleanMyMeetMeData(Person person,IPersonService personService) {
-        List<MeetMe> personMeetMeList=person.getPersonMeetMeDataList();
+    public List<MeetMe> cleanMyMeetMeData(Person person, IPersonService personService) {
+        List<MeetMe> personMeetMeList = person.getPersonMeetMeDataList();
 
-        for(MeetMe mm :personMeetMeList) {
+        for (MeetMe mm : personMeetMeList) {
             meetMeRepo.delete(mm);
         }
         personMeetMeList.clear();
         personService.savePerson(person);
-
         return personMeetMeList;
     }
 }
