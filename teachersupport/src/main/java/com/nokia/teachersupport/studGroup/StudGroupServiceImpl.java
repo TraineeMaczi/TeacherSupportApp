@@ -99,12 +99,14 @@ public class StudGroupServiceImpl implements IStudGroupService {
     @Override
     public List<StudGroup> cleanMyStudGrops(Person person, IPersonService personService, IFileService fileService,
                                             IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
+
         List<StudGroup> studGroupsPersonList = person.getPersonStudGroupList();
         for (Integer i = 0; !studGroupsPersonList.isEmpty(); ) {
             StudGroup sd = studGroupsPersonList.get(i);
             deleteStudGroup(person, sd.getGroupNameField(), personService, fileService, remoteResourceService, userSecurityDataService, session);
 
         }
+
         return studGroupsPersonList;
     }
 
