@@ -25,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/teacherSupportHome")
     String tshome(Model model) throws InterruptedException {
-        serviceProvider.getIModelService().homeModel(model);
+        serviceProvider.getIModelService().homeModel(model,serviceProvider);
         return "teacherSupportHome";
     }
 

@@ -31,12 +31,12 @@ public interface IPersonService {
     void deleteAllPersons(IServiceProvider serviceProvider,HttpSession session);
     boolean savePersonsFromFile(InputStream stream, IServiceProvider serviceProvider);
     void addUser(UserDTOForAdminAction userDTOForAdminActionDTO,IServiceProvider serviceProvider);
-    Faculty goSaveMyFaculty(String facultyName,IPersonService personService,IFacultyService facultyService,IUserSecurityDataService userSecurityDataService);
-    List<String> goGiveMeFacultyPhoto(IFacultyService facultyService);
-    List<Integer> goGiveMeFacultyId(IFacultyService facultyService);
-    BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO,IUserSecurityDataService userSecurityDataService,IPersonService personService);
-    String goAddHobbyInfo(String hobbyInfo,IPersonService personService,IUserSecurityDataService userSecurityDataService);
-    void goUploadPhoto(MultipartFile file, IFileService fileService,IPersonService personService,IUserSecurityDataService userSecurityDataService);
-    String goGivePhoto(IPersonService personService,IUserSecurityDataService userSecurityDataService);
-    Person getCurrentPerson(IUserSecurityDataService userSecurityDataService);
+    Faculty goSaveMyFaculty(String facultyName,IServiceProvider serviceProvider);
+    List<String> goGiveMeFacultyPhoto(IServiceProvider serviceProvider);
+    List<Integer> goGiveMeFacultyId(IServiceProvider serviceProvider);
+    BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO,IServiceProvider serviceProvider);
+    String goAddHobbyInfo(String hobbyInfo,IServiceProvider serviceProvider);
+    void goUploadPhoto(MultipartFile file, IServiceProvider serviceProvider);
+    String goGivePhoto(IServiceProvider serviceProvider);
+    Person getCurrentPerson(IServiceProvider serviceProvider);
 }

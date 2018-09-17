@@ -44,7 +44,7 @@ public class AdminDashBoardControler {
     String dash(Model model) {
         UserSecurityData user = serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(CurrentUser.getCurrentUserName());
         if (serviceProvider.getIUserSecurityDataService().isAdmin(user)) {
-            serviceProvider.getIModelService().adminDashboardModel(model);
+            serviceProvider.getIModelService().adminDashboardModel(model,serviceProvider);
             return "teacherSupportAdminDashboard";
         }
         return "teacherSupportAdminDashboardInvalid";

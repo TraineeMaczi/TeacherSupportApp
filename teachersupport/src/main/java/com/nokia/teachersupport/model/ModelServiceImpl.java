@@ -42,7 +42,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void aboutMeModel(Model model,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
 
@@ -50,7 +50,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void contactModel(Model model,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("meetMeDataList", person.getPersonMeetMeDataList());
@@ -58,7 +58,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void indexModel(Model model,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("facultyList", serviceProvider.getIFacultyService().listOfAllFaculties());
@@ -71,7 +71,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void publicationModel(Model model,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("publication", person.getPersonPublicationList());
         model.addAttribute("newPublication", new Publication());
@@ -80,7 +80,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void homeModel(Model model,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("logInUser", person);
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
@@ -90,7 +90,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void studGroupModel(Model model, HttpSession session,IServiceProvider serviceProvider) {
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups", person.getPersonStudGroupList());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));

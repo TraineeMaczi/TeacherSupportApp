@@ -231,19 +231,19 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public Faculty goSaveMyFaculty(String facultyName, IPersonService personService, IFacultyService facultyService, IUserSecurityDataService userSecurityDataService) {
-        Person person = getCurrentPerson(userSecurityDataService);
-        person.setFacultyField(facultyService.findFaculty(facultyName));
-        Faculty faculty = facultyService.findFaculty(facultyName);
+    public Faculty goSaveMyFaculty(String facultyName, IServiceProvider serviceProvider) {
+        Person person = getCurrentPerson(serviceProvider);
+        person.setFacultyField(serviceProvider.getIFacultyService().findFaculty(facultyName));
+        Faculty faculty = serviceProvider.getIFacultyService().findFaculty(facultyName);
         faculty.addPersonToFaculty(person);
-        facultyService.saveFaculty(faculty);
-        personService.savePerson(person);
+        serviceProvider.getIFacultyService().saveFaculty(faculty);
+        serviceProvider.getIPersonService().savePerson(person);
         return faculty;
     }
 
     @Override
-    public List<String> goGiveMeFacultyPhoto(IFacultyService facultyService) {
-        List<Faculty> faculties = facultyService.listOfAllFaculties();
+    public List<String> goGiveMeFacultyPhoto(IServiceProvider serviceProvider) {
+        List<Faculty> faculties = serviceProvider.getIFacultyService().listOfAllFaculties();
         List<String> pic = new ArrayList<>();
         String pom;
         for (Faculty faculty : faculties) {
@@ -257,8 +257,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public List<Integer> goGiveMeFacultyId(IFacultyService facultyService) {
-        List<Faculty> faculties = facultyService.listOfAllFaculties();
+    public List<Integer> goGiveMeFacultyId(IServiceProvider serviceProvider) {
+        List<Faculty> faculties = serviceProvider.getIFacultyService().listOfAllFaculties();
         List<Integer> Id = new ArrayList<>();
         for (Faculty faculty : faculties)
             Id.add(faculty.getId());
@@ -266,32 +266,32 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = getCurrentPerson(userSecurityDataService);
-        personService.setPersonBasicInfo(basicInfoDTO, person);
-        personService.savePerson(person);
+    public BasicInfoDTO goAddBasicInfo(BasicInfoDTO basicInfoDTO,IServiceProvider serviceProvider) {
+        Person person = getCurrentPerson(serviceProvider);
+        serviceProvider.getIPersonService().setPersonBasicInfo(basicInfoDTO, person);
+        serviceProvider.getIPersonService().savePerson(person);
         return basicInfoDTO;
     }
 
     @Override
-    public String goAddHobbyInfo(String hobbyInfo, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public String goAddHobbyInfo(String hobbyInfo, IServiceProvider serviceProvider) {
 
-        Person person = getCurrentPerson(userSecurityDataService);
+        Person person = getCurrentPerson(serviceProvider);
 
         if (!hobbyInfo.equals("")) person.setHobbyField(hobbyInfo);
 
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
 
         return hobbyInfo;
     }
 
     @Override
-    public void goUploadPhoto(MultipartFile file, IFileService fileService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public void goUploadPhoto(MultipartFile file,IServiceProvider serviceProvider) {
         try {
-            FileModel fileModel = fileService.saveMultipartFile(file, "personFoto");
-            Person person =getCurrentPerson(userSecurityDataService);
+            FileModel fileModel = serviceProvider.getIFileService().saveMultipartFile(file, "personFoto");
+            Person person =getCurrentPerson(serviceProvider);
             person.setFoto(fileModel);
-            personService.savePerson(person);
+            serviceProvider.getIPersonService().savePerson(person);
         } catch (Exception ignored) {
         } //Uwaga na to
     }

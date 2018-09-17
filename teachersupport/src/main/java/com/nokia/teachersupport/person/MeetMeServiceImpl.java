@@ -1,6 +1,7 @@
 package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,20 +57,20 @@ public class MeetMeServiceImpl implements IMeetMeService {
     }
 
     @Override
-    public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public MeetMeDTO goAddContactInfo(MeetMeDTO meetMeDTO, IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         MeetMe meetMe = meetMeDTOIntoMeetMe(meetMeDTO);
         addContactInfo(person, meetMe);
         return meetMeDTO;
     }
 
     @Override
-    public Integer goDeleteContactInfo(Integer id, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public Integer goDeleteContactInfo(Integer id, IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         MeetMe meetMe = getMeetMe(id);
         person.getPersonMeetMeDataList().remove(meetMe);
         deleteMeetMe(id);
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return id;
     }
 
@@ -101,14 +102,14 @@ public class MeetMeServiceImpl implements IMeetMeService {
     }
 
     @Override
-    public List<MeetMe> cleanMyMeetMeData(Person person, IPersonService personService) {
+    public List<MeetMe> cleanMyMeetMeData(Person person,IServiceProvider serviceProvider) {
         List<MeetMe> personMeetMeList = person.getPersonMeetMeDataList();
 
         for (MeetMe mm : personMeetMeList) {
             meetMeRepo.delete(mm);
         }
         personMeetMeList.clear();
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return personMeetMeList;
     }
 }

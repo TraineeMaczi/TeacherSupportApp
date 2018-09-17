@@ -34,7 +34,7 @@ public class FileServiceImpl implements IFileService {
             return fileModel;
         fileRepository.save(fileModel);
         if (fileModel.getType().equals("CV")) {
-            Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+            Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
             person.setCV(fileModel);
             serviceProvider.getIPersonService().savePerson(person);
         }

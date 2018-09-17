@@ -28,7 +28,7 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public void addNews(News news, IServiceProvider serviceProvider) {
 
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if (person.doIHaveANewsWithContent(news.getNewsContentField()) == null) {
             String userName = CurrentUser.getCurrentUserName();
             UserSecurityData userSecurityData = serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(userName);
@@ -44,7 +44,7 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public News goEditNews(EditNewsDTO editNewsDTO,IServiceProvider serviceProvider) {
 
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         News news = new News();
 
         if (person.doIHaveANewsWithContent(editNewsDTO.getOldContent()) != null && !editNewsDTO.getNewContent().equals("")) {
@@ -58,7 +58,7 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public void deleteNewsByContent(String newsContent,IServiceProvider serviceProvider) {
 
-        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         News news = person.doIHaveANewsWithContent(newsContent);
         newsRepo.delete(news);
     }

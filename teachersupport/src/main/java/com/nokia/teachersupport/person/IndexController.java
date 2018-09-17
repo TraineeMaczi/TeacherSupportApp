@@ -29,26 +29,26 @@ public class IndexController {
 
     @GetMapping("/")
     String index(Model model) {
-        modelService.indexModel(model);
+        serviceProvider.getIModelService().indexModel(model,serviceProvider);
         return "teacherSupportIndex";
     }
 
     @PostMapping("/index/confirmFaculty")
     String saveFaculty(@RequestParam("facultyName") String name) {
-        personService.goSaveMyFaculty(name, personService, facultyService, userSecurityDataService);
+        serviceProvider.getIPersonService().goSaveMyFaculty(name, serviceProvider);
         return "teacherSupportIndex";
     }
 
     @GetMapping("/index/giveMePhoto")
     ResponseEntity<Object> giveFacultyPhoto() {
-        List<String> pic = personService.goGiveMeFacultyPhoto(facultyService);
+        List<String> pic = serviceProvider.getIPersonService().goGiveMeFacultyPhoto(serviceProvider);
         ServiceResponse<List<String>> response = new ServiceResponse<>("success", pic);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @GetMapping("/index/giveMeId")
     ResponseEntity<Object> giveFacultyId() {
-        List<Integer> Id = personService.goGiveMeFacultyId(facultyService);
+        List<Integer> Id = serviceProvider.getIPersonService().goGiveMeFacultyId(serviceProvider);
         ServiceResponse<List<Integer>> response = new ServiceResponse<>("success", Id);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
