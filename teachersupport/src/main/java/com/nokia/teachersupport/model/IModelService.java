@@ -1,17 +1,18 @@
 package com.nokia.teachersupport.model;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
 public interface IModelService {
-    void adminDashboardModel(Model model);
+    void adminDashboardModel(Model model, IServiceProvider serviceProvider);
     void generateModel(Model model);
-    void aboutMeModel(Model model);
-    void contactModel(Model model);
-    void indexModel(Model model);
+    void aboutMeModel(Model model,IServiceProvider serviceProvider);
+    void contactModel(Model model,IServiceProvider serviceProvider);
+    void indexModel(Model model,IServiceProvider serviceProvider);
     void editProfileModel(Model model);
-    void publicationModel(Model model);
-    void homeModel(Model model);
-    void studGroupModel(Model model, HttpSession session);
+    void publicationModel(Model model,IServiceProvider serviceProvider);
+    void homeModel(Model model,IServiceProvider serviceProvider);
+    void studGroupModel(Model model, HttpSession session,IServiceProvider serviceProvider);
 }

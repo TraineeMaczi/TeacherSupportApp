@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.person;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.IFacultyService;
@@ -19,17 +20,11 @@ import java.util.*;
 @Controller
 public class IndexController {
 
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
-    private IFacultyService facultyService;
-    private IModelService modelService;
+    private IServiceProvider serviceProvider;
 
     @Autowired
-    public IndexController(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IModelService modelService) {
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
-        this.facultyService = facultyService;
-        this.modelService = modelService;
+    public IndexController(IServiceProvider serviceProvider) {
+       this.serviceProvider=serviceProvider;
     }
 
     @GetMapping("/")

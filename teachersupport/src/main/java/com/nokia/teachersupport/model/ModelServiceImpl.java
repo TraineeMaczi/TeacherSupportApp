@@ -79,8 +79,8 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void homeModel(Model model) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void homeModel(Model model,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("logInUser", person);
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
@@ -89,12 +89,12 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void studGroupModel(Model model, HttpSession session) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void studGroupModel(Model model, HttpSession session,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("newStudGroupUserAction", new StudGroup());
         model.addAttribute("currentGroups", person.getPersonStudGroupList());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
+        model.addAttribute("hAllFaculty", serviceProvider.getIFacultyService().listOfAllFaculties());
         String groupName = (String) session.getAttribute("currentStudGroupName");
         if (groupName != null && !groupName.equals("")) {
             model.addAttribute("groupRemoteFiles", person.doIHaveAGroupWithName(groupName).getGroupsResourcesList());
