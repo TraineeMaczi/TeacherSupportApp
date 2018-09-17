@@ -3,6 +3,7 @@ package com.nokia.teachersupport.model;
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.publication.Publication;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.tools.CurrentUser;
@@ -24,26 +25,13 @@ import java.util.Objects;
 @Service
 public class ModelServiceImpl implements IModelService {
 
-    private IFacultyService facultyService;
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
-
-
-    @Autowired
-    public ModelServiceImpl(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        this.facultyService = facultyService;
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
-
-    }
-
 
     @Override
-    public void adminDashboardModel(Model model) {
+    public void adminDashboardModel(Model model,IServiceProvider serviceProvider) {
         model.addAttribute("userDataForAdminAction", new UserDTOForAdminAction()); //ladujemy dane do obiektow DTO
         model.addAttribute("newFaculty", new Faculty());
-        model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
-        model.addAttribute("currentUsers", personService.listOfAllPersons());
+        model.addAttribute("hAllFaculty", serviceProvider.getIFacultyService().listOfAllFaculties());
+        model.addAttribute("currentUsers", serviceProvider.getIPersonService().listOfAllPersons());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
     }
 
@@ -53,27 +41,27 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void aboutMeModel(Model model) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void aboutMeModel(Model model,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
 
     }
 
     @Override
-    public void contactModel(Model model) {
-        Person person =  personService.getCurrentPerson(userSecurityDataService);
+    public void contactModel(Model model,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("meetMeDataList", person.getPersonMeetMeDataList());
     }
 
     @Override
-    public void indexModel(Model model) {
-        Person person =  personService.getCurrentPerson(userSecurityDataService);
+    public void indexModel(Model model,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("currentUserPerson", person);
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
-        model.addAttribute("facultyList", facultyService.listOfAllFaculties());
+        model.addAttribute("facultyList", serviceProvider.getIFacultyService().listOfAllFaculties());
     }
 
     @Override
@@ -82,8 +70,8 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void publicationModel(Model model) {
-        Person person =  personService.getCurrentPerson(userSecurityDataService);
+    public void publicationModel(Model model,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider.getIUserSecurityDataService());
         model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("publication", person.getPersonPublicationList());
         model.addAttribute("newPublication", new Publication());
@@ -92,7 +80,7 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public void homeModel(Model model) {
-        Person person =  personService.getCurrentPerson(userSecurityDataService);
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("logInUser", person);
         model.addAttribute("news", person.getPersonNewsList());
         model.addAttribute("newNews", new News());
@@ -101,15 +89,15 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public void studGroupModel(Model model,HttpSession session) {
-        Person person= personService.getCurrentPerson(userSecurityDataService);
+    public void studGroupModel(Model model, HttpSession session) {
+        Person person = personService.getCurrentPerson(userSecurityDataService);
         model.addAttribute("newStudGroupUserAction", new StudGroup());
-        model.addAttribute("currentGroups",person.getPersonStudGroupList());
-        model.addAttribute("currentUserName",Objects.requireNonNull(CurrentUser.getCurrentUserName()));
+        model.addAttribute("currentGroups", person.getPersonStudGroupList());
+        model.addAttribute("currentUserName", Objects.requireNonNull(CurrentUser.getCurrentUserName()));
         model.addAttribute("hAllFaculty", facultyService.listOfAllFaculties());
-        String groupName=(String)session.getAttribute("currentStudGroupName");
-        if(groupName != null && !groupName.equals("")) {
-            model.addAttribute("groupRemoteFiles",person.doIHaveAGroupWithName(groupName).getGroupsResourcesList());
+        String groupName = (String) session.getAttribute("currentStudGroupName");
+        if (groupName != null && !groupName.equals("")) {
+            model.addAttribute("groupRemoteFiles", person.doIHaveAGroupWithName(groupName).getGroupsResourcesList());
         }
     }
 }
