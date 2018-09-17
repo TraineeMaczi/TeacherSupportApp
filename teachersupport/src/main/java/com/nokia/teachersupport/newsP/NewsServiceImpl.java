@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.newsP;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -25,7 +26,9 @@ public class NewsServiceImpl implements INewsService {
 
 
     @Override
-    public void addNews(News news, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public void addNews(News news, IServiceProvider serviceProvider) {
+        IPersonService personService=serviceProvider.getIPersonService();
+        IUserSecurityDataService userSecurityDataService=serviceProvider.getIUserSecurityDataService();
         Person person = personService.getCurrentPerson(userSecurityDataService);
         if (person.doIHaveANewsWithContent(news.getNewsContentField()) == null) {
             String userName = CurrentUser.getCurrentUserName();
