@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.personSecurity.personEditProfile;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -14,13 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 @Service
 public class EditProfileServerImpl implements IEditProfileService{
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
+    private IServiceProvider serviceProvider;
 
     @Autowired
-    public EditProfileServerImpl(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
+    public EditProfileServerImpl(IServiceProvider serviceProvider) {
+        this.serviceProvider=serviceProvider;
     }
 
 

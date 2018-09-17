@@ -61,7 +61,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public boolean deletePerson(Person person, IServiceProvider serviceProvider,
                                 HttpSession session) {
-        if(person.equals(getCurrentPerson(serviceProvider.getIUserSecurityDataService())))
+        if(person.equals(getCurrentPerson(serviceProvider)))
             return false;
         Faculty faculty = person.getFacultyField();
         if (faculty != null) {
@@ -73,7 +73,7 @@ public class PersonServiceImpl implements IPersonService {
         person.getUserSecurityDataField().getMyRoles().removeAll(person.getUserSecurityDataField().getMyRoles());
 //TO DO wyczysc news publi i meetme
 
-        serviceProvider.getIMeetMeService().cleanMyMeetMeData(person,this);
+        serviceProvider.getIMeetMeService().cleanMyMeetMeData(person,serviceProvider);
         serviceProvider.getINewsService().cleanMyNews(person,serviceProvider);
         serviceProvider.getIPublicationService().cleanMyPublications(person,this);
         serviceProvider.getIStudGroupService().cleanMyStudGrops(person,this,serviceProvider.getIFileService(),serviceProvider.getIGroupRemoteResourceService(),serviceProvider.getIUserSecurityDataService(),session);
@@ -297,8 +297,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public String goGivePhoto(IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = getCurrentPerson(userSecurityDataService);
+    public String goGivePhoto(IServiceProvider serviceProvider) {
+        Person person = getCurrentPerson(serviceProvider);
         String pom;
         if (person.getFoto() == null)
             pom = "img/logo.jpg";
@@ -308,7 +308,7 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public Person getCurrentPerson(IUserSecurityDataService userSecurityDataService) {
-        return getPersonByUserSecurityData(userSecurityDataService.getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
+    public Person getCurrentPerson(IServiceProvider serviceProvider) {
+        return getPersonByUserSecurityData(serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(CurrentUser.getCurrentUserName()));
     }
 }
