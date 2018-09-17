@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.nokia.teachersupport.context.IContextService;
 import com.nokia.teachersupport.filestorage.IFileStorage;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,13 +19,11 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 @RestController
 public class GenerateRestController {
-    IContextService contextService;
-    IFileStorage fileStorage;
 
+private IServiceProvider serviceProvider;
     @Autowired
-    public GenerateRestController(IContextService contextService, IFileStorage fileStorage) {
-        this.contextService = contextService;
-        this.fileStorage = fileStorage;
+    public GenerateRestController(IServiceProvider serviceProvider) {
+        this.serviceProvider=serviceProvider;
     }
 
 
