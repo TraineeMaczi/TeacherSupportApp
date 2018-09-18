@@ -27,10 +27,10 @@ public class EditProfileServerImpl implements IEditProfileService{
     public boolean saveNameChange(String name, String surname) {
         if(name.equals("")||surname.equals(""))
             return  false;
-        Person person= personService.getCurrentPerson(userSecurityDataService);
+        Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         person.setNameField(name);
         person.setSurnameField(surname);
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return true;
     }
 
@@ -38,7 +38,7 @@ public class EditProfileServerImpl implements IEditProfileService{
     public boolean savePasswordChange(String password, String confirmPassword) {
         if(!password.equals(confirmPassword))
             return false;
-        Person person= personService.getCurrentPerson(userSecurityDataService);
+        Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         UserSecurityData userSecurityData=person.getUserSecurityDataField();
         //UWAGA Zmiana chcialam zeby sprawdzal tez czy pass jest rowne temu co wprowadzil i ustawiac oba
         if(password.equals(confirmPassword)) {
@@ -47,8 +47,8 @@ public class EditProfileServerImpl implements IEditProfileService{
         }
 
         person.setUserSecurityDataField(userSecurityData);
-        userSecurityDataService.saveUserSecurityData(userSecurityData);
-        personService.savePerson(person);
+        serviceProvider.getIUserSecurityDataService().saveUserSecurityData(userSecurityData);
+        serviceProvider.getIPersonService().savePerson(person);
         Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder
                 .getContext().getAuthentication().getAuthorities();
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userSecurityData.getEmail(), password, nowAuthorities);
@@ -60,12 +60,12 @@ public class EditProfileServerImpl implements IEditProfileService{
     public boolean saveEmailChange(String email, String confirmEmail) {
         if(!email.equals(confirmEmail))
             return false;
-        Person person= personService.getCurrentPerson(userSecurityDataService);
+        Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         UserSecurityData userSecurityData=person.getUserSecurityDataField();
         userSecurityData.setEmail(email);
         person.setUserSecurityDataField(userSecurityData);
-        userSecurityDataService.saveUserSecurityData(userSecurityData);
-        personService.savePerson(person);
+        serviceProvider.getIUserSecurityDataService().saveUserSecurityData(userSecurityData);
+        serviceProvider.getIPersonService().savePerson(person);
         Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>) SecurityContextHolder
                 .getContext().getAuthentication().getAuthorities();
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, userSecurityData.getPassword(), nowAuthorities);

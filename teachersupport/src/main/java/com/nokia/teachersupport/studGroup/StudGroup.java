@@ -1,11 +1,9 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.person.Person;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -43,10 +41,10 @@ public class StudGroup {
         this.groupNrFiled = Strings.EMPTY;
         this.classNameField = Strings.EMPTY;
         this.classDayFiled = Strings.EMPTY;
-        this.timeFromFieldH=Strings.EMPTY;
-        this.timeToFieldH=Strings.EMPTY;
-        this.timeFromFieldM=Strings.EMPTY;
-        this.timeToFieldM=Strings.EMPTY;
+        this.timeFromFieldH = Strings.EMPTY;
+        this.timeToFieldH = Strings.EMPTY;
+        this.timeFromFieldM = Strings.EMPTY;
+        this.timeToFieldM = Strings.EMPTY;
 
         //---------------------------------------------------
     }
@@ -168,10 +166,9 @@ public class StudGroup {
         this.timeToFieldM = timeToFieldM;
     }
 
-    public static String dispTime(String FromH,String FromM,String ToH,String ToM)
-    {
-        String time=FromH+":"+FromM+"-"+ToH+":"+ToM;
-    return time;
+    public static String dispTime(String FromH, String FromM, String ToH, String ToM) {
+        String time = FromH + ":" + FromM + "-" + ToH + ":" + ToM;
+        return time;
     }
 
 

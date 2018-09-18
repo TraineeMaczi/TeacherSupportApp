@@ -20,10 +20,7 @@ public class MeetMe {
     private String placeField;
     private String officeField;
     private String dayField;
-    //    private String timeFromFieldH;
-//    private String timeToFieldH;
-//    private String timeFromFieldM;
-//    private String timeToFieldM;
+
     private String timeField;
 
     @ManyToOne

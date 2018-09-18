@@ -117,7 +117,7 @@ public class UserSecurityData {
     }
 
     public boolean isActived() {
-        return this.active == true;
+        return this.active;
     }
 
 }

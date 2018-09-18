@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.studGroup;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.fileUpload.FileModel;
 import com.nokia.teachersupport.fileUpload.IFileService;
@@ -13,31 +14,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.spi.IIOServiceProvider;
 import javax.servlet.http.HttpSession;
 
 @RestController
 public class StudGroupRESTController {
 
 
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
-    private IStudGroupService studGroupService;
-    private IFileService fileService;
-    private IGroupRemoteResourceService remoteResourceService;
+    private IServiceProvider serviceProvider;
 
     @Autowired
-    public StudGroupRESTController(IGroupRemoteResourceService remoteResourceService, IFileService fileService, IStudGroupService studGroupService, IPersonService personService, IMeetMeService meetMeService, IUserSecurityDataService userSecurityDataService) {
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
-        this.studGroupService = studGroupService;
-        this.fileService = fileService;
-        this.remoteResourceService = remoteResourceService;
+    public StudGroupRESTController(IServiceProvider serviceProvider) {
+        this.serviceProvider=serviceProvider;
     }
 
 
     @PostMapping("/teacherSupportStudent/edit")
     public ResponseEntity<Object> editGroup(@RequestBody String groupName, HttpSession session) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         session.setAttribute("currentStudGroupName", person.doIHaveAGroupWithName(groupName).getGroupNameField());
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
@@ -45,16 +39,16 @@ public class StudGroupRESTController {
 
     @PostMapping("/teacherSupportStudent/delete")
     public ResponseEntity<Object> deleteGroup(@RequestBody String groupName, HttpSession session) {
-        Person person= personService.getCurrentPerson(userSecurityDataService);
-        studGroupService.deleteStudGroup(person,groupName, personService, fileService, remoteResourceService, userSecurityDataService, session);
+        Person person=serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
+        serviceProvider.getIStudGroupService().deleteStudGroup(person,groupName,serviceProvider,session);
         ServiceResponse<String> response = new ServiceResponse<String>("success", groupName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @PostMapping("/teacherSupportStudent/updateGroup")
     public ResponseEntity<Object> studGroupUpdate(@RequestBody StudGroupDTO studGroupDTO, HttpSession session) {
-        if(studGroupService.checkStudGroupDTOIntegrity(studGroupDTO)) {
-            studGroupService.goStudGroupUpdate(studGroupDTO, session, userSecurityDataService, personService);
+        if(serviceProvider.getIStudGroupService().checkStudGroupDTOIntegrity(studGroupDTO)) {
+            serviceProvider.getIStudGroupService().goStudGroupUpdate(studGroupDTO, session, serviceProvider);
             ServiceResponse<StudGroupDTO> response = new ServiceResponse<StudGroupDTO>("success", studGroupDTO);
             return new ResponseEntity<Object>(response, HttpStatus.OK);
         }
