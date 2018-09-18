@@ -2,16 +2,8 @@ package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.newsP.INewsService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publication.IPublicationService;
-import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
-import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
-import com.nokia.teachersupport.studGroup.IStudGroupService;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;

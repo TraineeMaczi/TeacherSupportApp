@@ -15,16 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 @Service
 public class EditProfileServerImpl implements IEditProfileService{
-    private IServiceProvider serviceProvider;
+
 
     @Autowired
-    public EditProfileServerImpl(IServiceProvider serviceProvider) {
-        this.serviceProvider=serviceProvider;
-    }
+    public EditProfileServerImpl() { }
 
 
     @Override
-    public boolean saveNameChange(String name, String surname) {
+    public boolean saveNameChange(String name, String surname,IServiceProvider serviceProvider) {
         if(name.equals("")||surname.equals(""))
             return  false;
         Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
@@ -35,7 +33,7 @@ public class EditProfileServerImpl implements IEditProfileService{
     }
 
     @Override
-    public boolean savePasswordChange(String password, String confirmPassword) {
+    public boolean savePasswordChange(String password, String confirmPassword,IServiceProvider serviceProvider) {
         if(!password.equals(confirmPassword))
             return false;
         Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
@@ -57,7 +55,7 @@ public class EditProfileServerImpl implements IEditProfileService{
     }
 
     @Override
-    public boolean saveEmailChange(String email, String confirmEmail) {
+    public boolean saveEmailChange(String email, String confirmEmail,IServiceProvider serviceProvider) {
         if(!email.equals(confirmEmail))
             return false;
         Person person= serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);

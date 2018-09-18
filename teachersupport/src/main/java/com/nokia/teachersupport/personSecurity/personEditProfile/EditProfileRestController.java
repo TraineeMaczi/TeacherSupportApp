@@ -19,21 +19,21 @@ public class EditProfileRestController {
 
     @PostMapping("/change/name/{name}/{surname}")
     public String changeName(@PathVariable String name, @PathVariable String surname) {
-        if(serviceProvider.getIEditProfileService().saveNameChange(name, surname))
+        if(serviceProvider.getIEditProfileService().saveNameChange(name, surname,serviceProvider))
             return "SUCCES";
         return "Error name and surname can not be empty";
     }
 
     @PostMapping("/change/email")
     public String changeEmail(@RequestParam String email, @RequestParam String confirmEmail) {
-        if (serviceProvider.getIEditProfileService().saveEmailChange(email, confirmEmail))
+        if (serviceProvider.getIEditProfileService().saveEmailChange(email, confirmEmail,serviceProvider))
             return "SUCCES";
         return "Error " + confirmEmail + " is different than " + email;
     }
 
     @PostMapping("/change/password")
     public String changePassword(@RequestParam String password, @RequestParam String confirmPassword) {
-        if (serviceProvider.getIEditProfileService().savePasswordChange(password, confirmPassword))
+        if (serviceProvider.getIEditProfileService().savePasswordChange(password, confirmPassword,serviceProvider))
             return "SUCCES";
         return "Error " + confirmPassword + " is different than " + password;
     }

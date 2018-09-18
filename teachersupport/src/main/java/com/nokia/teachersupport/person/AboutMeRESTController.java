@@ -1,7 +1,5 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

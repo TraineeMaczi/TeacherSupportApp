@@ -1,6 +1,5 @@
 package com.nokia.teachersupport.generate;
 
-import com.nokia.teachersupport.model.IModelService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

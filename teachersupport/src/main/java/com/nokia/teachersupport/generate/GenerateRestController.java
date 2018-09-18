@@ -4,8 +4,6 @@ package com.nokia.teachersupport.generate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.nokia.teachersupport.context.IContextService;
-import com.nokia.teachersupport.filestorage.IFileStorage;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.Generator;
 import org.springframework.beans.factory.annotation.Autowired;

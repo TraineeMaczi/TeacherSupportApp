@@ -2,18 +2,10 @@ package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
 import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.FileModel;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.newsP.INewsService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.file.File;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publication.IPublicationService;
-import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.roles.SecurityRole;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
-import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
-import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.tools.GenerateLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +67,8 @@ public class PersonServiceImpl implements IPersonService {
 
         serviceProvider.getIMeetMeService().cleanMyMeetMeData(person,serviceProvider);
         serviceProvider.getINewsService().cleanMyNews(person,serviceProvider);
-        serviceProvider.getIPublicationService().cleanMyPublications(person,this);
-        serviceProvider.getIStudGroupService().cleanMyStudGrops(person,this,serviceProvider.getIFileService(),serviceProvider.getIGroupRemoteResourceService(),serviceProvider.getIUserSecurityDataService(),session);
+        serviceProvider.getIPublicationService().cleanMyPublications(person,serviceProvider);
+        serviceProvider.getIStudGroupService().cleanMyStudGrops(person,serviceProvider,session);
 
 
         serviceProvider.getIUserSecurityDataService().deleteUserSecurityData(person.getUserSecurityDataField().getId());
@@ -288,7 +280,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public void goUploadPhoto(MultipartFile file,IServiceProvider serviceProvider) {
         try {
-            FileModel fileModel = serviceProvider.getIFileService().saveMultipartFile(file, "personFoto");
+            File fileModel = serviceProvider.getIFileService().saveMultipartFile(file, "personFoto",serviceProvider);
             Person person =getCurrentPerson(serviceProvider);
             person.setFoto(fileModel);
             serviceProvider.getIPersonService().savePerson(person);

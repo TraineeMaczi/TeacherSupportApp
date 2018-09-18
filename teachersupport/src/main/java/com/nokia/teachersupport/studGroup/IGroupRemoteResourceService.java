@@ -1,8 +1,5 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 
 import javax.servlet.http.HttpSession;

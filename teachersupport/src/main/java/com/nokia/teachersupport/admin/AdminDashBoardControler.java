@@ -1,20 +1,8 @@
 package com.nokia.teachersupport.admin;
 
 
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.model.IModelService;
-import com.nokia.teachersupport.newsP.INewsService;
-import com.nokia.teachersupport.person.IMeetMeService;
-import com.nokia.teachersupport.person.IPersonService;
-
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.publication.IPublicationService;
-import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
-import com.nokia.teachersupport.studGroup.IGroupRemoteResourceService;
-import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

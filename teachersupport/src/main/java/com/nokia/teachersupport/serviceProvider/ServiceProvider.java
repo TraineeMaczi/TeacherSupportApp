@@ -2,15 +2,15 @@ package com.nokia.teachersupport.serviceProvider;
 
 import com.nokia.teachersupport.context.IContextService;
 import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.filestorage.IFileStorage;
-import com.nokia.teachersupport.model.IModelService;
+import com.nokia.teachersupport.file.IFileService;
+import com.nokia.teachersupport.fileStorage.IFileStorageService;
+import com.nokia.teachersupport.modelAttributeProvider.IModelAttributeProviderService;
 import com.nokia.teachersupport.newsP.INewsService;
 import com.nokia.teachersupport.person.IMeetMeService;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.personEditProfile.IEditProfileService;
-import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.ITokenService;
+import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.IVerificationTokenService;
 import com.nokia.teachersupport.publication.IPublicationService;
 
 import com.nokia.teachersupport.roles.IRoleService;
@@ -31,16 +31,16 @@ public class ServiceProvider implements IServiceProvider {
     private IPublicationService publicationsService;
     private INewsService newsService;
     private IGroupRemoteResourceService remoteResourceService;
-    private ITokenService tokenService;
+    private IVerificationTokenService tokenService;
     private IEditProfileService editProfileService;
-    private IModelService modelService;
+    private IModelAttributeProviderService modelService;
     private IFileService fileService;
-    private IFileStorage fileStorage;
+    private IFileStorageService fileStorage;
     private IContextService contextService;
 
-    public ServiceProvider(IPersonService personService,IUserSecurityDataService userSecurityDataService,IFacultyService facultyService,IMeetMeService meetMeService,IRoleService roleService,
-                           IStudGroupService studGroupService,IPublicationService publicationsService,INewsService newsService,IGroupRemoteResourceService remoteResourceService,
-                           ITokenService tokenService,IEditProfileService editProfileService,IModelService modelService,IFileService fileService,IFileStorage fileStorage,IContextService contextService) {
+    public ServiceProvider(IPersonService personService, IUserSecurityDataService userSecurityDataService, IFacultyService facultyService, IMeetMeService meetMeService, IRoleService roleService,
+                           IStudGroupService studGroupService, IPublicationService publicationsService, INewsService newsService, IGroupRemoteResourceService remoteResourceService,
+                           IVerificationTokenService tokenService, IEditProfileService editProfileService, IModelAttributeProviderService modelService, IFileService fileService, IFileStorageService fileStorage, IContextService contextService) {
 
         this.personService = personService;
         this.userSecurityDataService=userSecurityDataService;
@@ -105,7 +105,7 @@ public class ServiceProvider implements IServiceProvider {
     }
 
     @Override
-    public ITokenService getITokenService() {
+    public IVerificationTokenService getITokenService() {
         return tokenService;
     }
 
@@ -115,7 +115,7 @@ public class ServiceProvider implements IServiceProvider {
     }
 
     @Override
-    public IModelService getIModelService() {
+    public IModelAttributeProviderService getIModelService() {
         return modelService;
     }
 
@@ -125,7 +125,7 @@ public class ServiceProvider implements IServiceProvider {
     }
 
     @Override
-    public IFileStorage getIFileStorage() {
+    public IFileStorageService getIFileStorage() {
         return fileStorage;
     }
 

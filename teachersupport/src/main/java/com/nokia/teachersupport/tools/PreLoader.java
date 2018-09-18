@@ -2,8 +2,8 @@ package com.nokia.teachersupport.tools;
 
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.FacultyRepo;
-import com.nokia.teachersupport.fileUpload.FileModel;
-import com.nokia.teachersupport.fileUpload.IFileService;
+import com.nokia.teachersupport.file.File;
+import com.nokia.teachersupport.file.IFileService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.person.PersonRepo;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
@@ -18,7 +18,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import java.util.List;
 public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     private FacultyRepo facultyRepo;
     private IFileService fileService;
-    private RoleRepo myRoleRepoInstance;
+    private RoleRepo roleRepo;
     private TokenRepo tokenRepo;
     private PersonRepo personRepo;
     private UserSecurityDataRepo userSecurityDataRepo;
@@ -39,7 +38,7 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     public PreLoader(PersonRepo personRepo, TokenRepo tokenRepo, FacultyRepo facultyRepo, IFileService fileService, RoleRepo roleRepo, UserSecurityDataRepo userSecurityDataRepo) {
         this.facultyRepo = facultyRepo;
         this.fileService = fileService;
-        this.myRoleRepoInstance = roleRepo;
+        this.roleRepo = roleRepo;
         this.tokenRepo = tokenRepo;
         this.userSecurityDataRepo = userSecurityDataRepo;
         this.personRepo = personRepo;
@@ -56,16 +55,16 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
 
 
     private void PreLoadRoles() {
-        if (myRoleRepoInstance.findByRoleName("ADMIN") == null) {
+        if (roleRepo.findByRoleName("ADMIN") == null) {
             SecurityRole admin = new SecurityRole();
             admin.setRoleName("ADMIN");
-            myRoleRepoInstance.save(admin);
+            roleRepo.save(admin);
         }
 
-        if (myRoleRepoInstance.findByRoleName("USER") == null) {
+        if (roleRepo.findByRoleName("USER") == null) {
             SecurityRole user = new SecurityRole();
             user.setRoleName("USER");
-            myRoleRepoInstance.save(user);
+            roleRepo.save(user);
         }
     }
 
@@ -105,10 +104,10 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
         umkFaculties.add("Wydzial Teologiczny");
         for (int i = umkFaculties.size() - 1; i >= 0; i--) {
             if (facultyRepo.findByFacultyNameField(umkFaculties.get(i)) == null) {
-                File file = new File("src\\main\\resources\\static\\images\\logo.jpg");
+                java.io.File file = new java.io.File("src\\main\\resources\\static\\images\\logo.jpg");
                 Faculty faculty = new Faculty();
                 faculty.setFacultyNameField(umkFaculties.get(i));
-                FileModel fileModel = new FileModel();
+                File fileModel = new File();
                 fileModel.setName(umkFaculties.get(i));
                 try {
                     fileModel.setPic(Files.readAllBytes(file.toPath()));
@@ -142,10 +141,10 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
 
             personRepo.save(person);
             userSecurityDataRepo.save(userSecurityData);
-            SecurityRole securityRole = myRoleRepoInstance.findByRoleName("ADMIN");
+            SecurityRole securityRole = roleRepo.findByRoleName("ADMIN");
             userSecurityData.addARole(securityRole);
             securityRole.addUserSecurityDataToRole(userSecurityData);
-            myRoleRepoInstance.save(securityRole);
+            roleRepo.save(securityRole);
 
 
         }

@@ -1,7 +1,6 @@
-package com.nokia.teachersupport.fileUpload;
+package com.nokia.teachersupport.file;
 
 
-import com.nokia.teachersupport.filestorage.IFileStorage;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +29,7 @@ public class UpdateFileController {
             return "Fail! You must upload file in pdf format";
         if (file.getOriginalFilename().equals(""))
             return "Fail! Your file is empty";
-        serviceProvider.getIFileService().saveMultipartFile(file, type);
+        serviceProvider.getIFileService().saveMultipartFile(file,type,serviceProvider);
         return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
     }
 

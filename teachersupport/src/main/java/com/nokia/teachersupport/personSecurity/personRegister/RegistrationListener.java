@@ -2,7 +2,6 @@ package com.nokia.teachersupport.personSecurity.personRegister;
 
 
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.ITokenService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

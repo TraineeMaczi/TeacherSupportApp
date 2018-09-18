@@ -1,11 +1,6 @@
 package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
-import com.nokia.teachersupport.tools.CurrentUser;
-import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.model.IModelService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

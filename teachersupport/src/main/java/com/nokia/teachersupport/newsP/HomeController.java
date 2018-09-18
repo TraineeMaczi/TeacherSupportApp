@@ -1,16 +1,11 @@
 package com.nokia.teachersupport.newsP;
 
-import com.nokia.teachersupport.model.IModelService;
-import com.nokia.teachersupport.person.IPersonService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.model.IModel;
 
 
 @Controller

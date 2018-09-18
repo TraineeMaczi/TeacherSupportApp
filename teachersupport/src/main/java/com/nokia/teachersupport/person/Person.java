@@ -1,7 +1,7 @@
 package com.nokia.teachersupport.person;
 
 import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.fileUpload.FileModel;
+import com.nokia.teachersupport.file.File;
 import com.nokia.teachersupport.newsP.News;
 import com.nokia.teachersupport.publication.Publication;
 import com.nokia.teachersupport.studGroup.StudGroup;
@@ -57,9 +57,9 @@ public class Person {
     @OneToMany(mappedBy = "meetMeOwner")
     private List<MeetMe> personMeetMeDataList;
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private FileModel foto;
+    private File foto;
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private FileModel CV;
+    private File CV;
 
     public Person() {
 
@@ -95,19 +95,19 @@ public class Person {
 //    }
 
 
-    public FileModel getCV() {
+    public File getCV() {
         return CV;
     }
 
-    public void setCV(FileModel CV) {
+    public void setCV(File CV) {
         this.CV = CV;
     }
 
-    public FileModel getFoto() {
+    public File getFoto() {
         return foto;
     }
 
-    public void setFoto(FileModel foto) {
+    public void setFoto(File foto) {
         this.foto = foto;
     }
 

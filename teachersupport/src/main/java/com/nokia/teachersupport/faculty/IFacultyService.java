@@ -1,6 +1,5 @@
 package com.nokia.teachersupport.faculty;
 
-import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.nokia.teachersupport.faculty;
 
-import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;

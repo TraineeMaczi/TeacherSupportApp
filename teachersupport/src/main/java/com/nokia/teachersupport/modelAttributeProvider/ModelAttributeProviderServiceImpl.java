@@ -1,21 +1,15 @@
-package com.nokia.teachersupport.model;
+package com.nokia.teachersupport.modelAttributeProvider;
 
 import com.nokia.teachersupport.admin.UserDTOForAdminAction;
-import com.nokia.teachersupport.publication.IPublicationService;
 import com.nokia.teachersupport.publication.Publication;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
-import com.nokia.teachersupport.studGroup.IStudGroupService;
 import com.nokia.teachersupport.studGroup.StudGroup;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.faculty.IFacultyService;
 import com.nokia.teachersupport.newsP.EditNewsDTO;
 import com.nokia.teachersupport.newsP.News;
-import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.publication.EditPublicationDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -23,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Service
-public class ModelServiceImpl implements IModelService {
+public class ModelAttributeProviderServiceImpl implements IModelAttributeProviderService {
 
 
     @Override

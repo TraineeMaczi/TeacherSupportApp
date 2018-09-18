@@ -1,13 +1,10 @@
-package com.nokia.teachersupport.fileUpload;
-
-import com.nokia.teachersupport.person.Person;
-import com.nokia.teachersupport.studGroup.StudGroup;
+package com.nokia.teachersupport.file;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "files")
-public class FileModel {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -20,10 +17,10 @@ public class FileModel {
     @Column(name = "pic")
     private byte[] pic;
 
-    public FileModel() {
+    public File() {
     }
 
-    public FileModel(String name, String type, byte[] pic) {
+    public File(String name, String type, byte[] pic) {
         this.name = name;
         this.type = type;
         this.pic = pic;

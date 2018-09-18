@@ -1,11 +1,11 @@
-package com.nokia.teachersupport.model;
+package com.nokia.teachersupport.modelAttributeProvider;
 
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
-public interface IModelService {
+public interface IModelAttributeProviderService {
     void adminDashboardModel(Model model, IServiceProvider serviceProvider);
     void generateModel(Model model);
     void aboutMeModel(Model model,IServiceProvider serviceProvider);

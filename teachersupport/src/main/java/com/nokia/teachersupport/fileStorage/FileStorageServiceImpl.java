@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.filestorage;
+package com.nokia.teachersupport.fileStorage;
 
 
 import org.springframework.core.io.Resource;
@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 @Service
-public class FileStorageImpl implements IFileStorage {
+public class FileStorageServiceImpl implements IFileStorageService {
 
 	private final Path rootLocation = Paths.get("filestorage");
  

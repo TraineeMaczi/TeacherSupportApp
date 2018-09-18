@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.fileUpload;
+package com.nokia.teachersupport.file;
 
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.person.Person;
@@ -13,23 +13,23 @@ import java.io.IOException;
 public class FileServiceImpl implements IFileService {
 
     private FileRepository fileRepository;
-    private IServiceProvider serviceProvider;
+
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository, IServiceProvider serviceProvider) {
+    public FileServiceImpl(FileRepository fileRepository) {
 
         this.fileRepository = fileRepository;
-        this.serviceProvider = serviceProvider;
+
     }
 
     @Override
-    public FileModel saveFile(FileModel fileModel) {
-        return fileRepository.save(fileModel);
+    public File saveFile(File file) {
+        return fileRepository.save(file);
     }
 
     @Override
-    public FileModel saveMultipartFile(MultipartFile file, String type) throws IOException {
-        FileModel fileModel = new FileModel(file.getOriginalFilename(), type, file.getBytes());
+    public File saveMultipartFile(MultipartFile file, String type, IServiceProvider serviceProvider) throws IOException {
+        File fileModel = new File(file.getOriginalFilename(), type, file.getBytes());
         if (file.getOriginalFilename().equals(""))
             return fileModel;
         fileRepository.save(fileModel);
@@ -48,18 +48,18 @@ public class FileServiceImpl implements IFileService {
     }
 
     @Override
-    public FileModel findFileById(Integer id) {
+    public File findFileById(Integer id) {
 
-        return fileRepository.findById(id).orElse(new FileModel());
+        return fileRepository.findById(id).orElse(new File());
 
     }
 
 
     @Override
-    public void goUploadMultipartFile(FileModel fileModel, String facultyName, IServiceProvider serviceProvider) {
+    public void goUploadMultipartFile(File file, String facultyName, IServiceProvider serviceProvider) {
         Faculty faculty = new Faculty();
         faculty.setFacultyNameField(facultyName);
-        faculty.setFile(fileModel);
+        faculty.setFile(file);
         serviceProvider.getIFacultyService().saveFaculty(faculty);
     }
 }

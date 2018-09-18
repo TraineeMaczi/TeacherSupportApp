@@ -1,17 +1,11 @@
 package com.nokia.teachersupport.studGroup;
 
-import com.nokia.teachersupport.fileUpload.FileModel;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-import com.nokia.teachersupport.tools.CurrentUser;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -48,21 +42,19 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public StudGroup addStudGroup(StudGroup studGroup, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public StudGroup addStudGroup(StudGroup studGroup, IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if (person.doIHaveAGroupWithName(studGroup.getGroupNameField()) == null) {
             studGroup.setGroupsOwner(person);
             person.addGroupsToMyList(studGroup);
-
-            personService.savePerson(person);
+            serviceProvider.getIPersonService().savePerson(person);
             studGroupRepo.save(studGroup);
         }
         return studGroup;
     }
 
     @Override
-    public void deleteStudGroup(Person person, String groupName, IPersonService personService, IFileService fileService,
-                                IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
+    public void deleteStudGroup(Person person, String groupName,IServiceProvider serviceProvider,HttpSession session) {
 
         StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
 
@@ -71,7 +63,7 @@ public class StudGroupServiceImpl implements IStudGroupService {
             if (studGroup.getGroupsResourcesList() != null) {
                 for (GroupRemoteResource remoteResource : studGroup.getGroupsResourcesList()) {
                     remoteResource.deleteResourceOwner();
-                    remoteResourceService.deleteRemoteResource(remoteResource);
+                    serviceProvider.getIGroupRemoteResourceService().deleteRemoteResource(remoteResource);
                 }
             }
             studGroup.getGroupsResourcesList().clear();
@@ -79,15 +71,15 @@ public class StudGroupServiceImpl implements IStudGroupService {
 
             person.deleteStudGroup(studGroup);
             studGroupRepo.delete(studGroup);
-            personService.savePerson(person);
+            serviceProvider.getIPersonService().savePerson(person);
         }
         //        session.setAttribute("currentStudGroupName",null);
     }
 
     @Override
-    public void goStudGroupUpdate(StudGroupDTO studGroupDTO, HttpSession session, IUserSecurityDataService userSecurityDataService, IPersonService personService) {
+    public void goStudGroupUpdate(StudGroupDTO studGroupDTO, HttpSession session, IServiceProvider serviceProvider) {
         String groupName = (String) session.getAttribute("currentStudGroupName");
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if (person.doIHaveAGroupWithName(groupName) != null) {
             StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
             studGroupDTOIntoStudGroup(studGroupDTO, studGroup);
@@ -97,16 +89,13 @@ public class StudGroupServiceImpl implements IStudGroupService {
     }
 
     @Override
-    public List<StudGroup> cleanMyStudGrops(Person person, IPersonService personService, IFileService fileService,
-                                            IGroupRemoteResourceService remoteResourceService, IUserSecurityDataService userSecurityDataService, HttpSession session) {
-
+    public List<StudGroup> cleanMyStudGrops(Person person,IServiceProvider serviceProvider, HttpSession session) {
         List<StudGroup> studGroupsPersonList = person.getPersonStudGroupList();
         for (Integer i = 0; !studGroupsPersonList.isEmpty(); ) {
             StudGroup sd = studGroupsPersonList.get(i);
-            deleteStudGroup(person, sd.getGroupNameField(), personService, fileService, remoteResourceService, userSecurityDataService, session);
+            deleteStudGroup(person, sd.getGroupNameField(), serviceProvider, session);
 
         }
-
         return studGroupsPersonList;
     }
 

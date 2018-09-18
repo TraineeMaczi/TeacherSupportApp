@@ -1,13 +1,8 @@
 package com.nokia.teachersupport.admin;
 
 
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.fileUpload.FileModel;
-import com.nokia.teachersupport.fileUpload.IFileService;
-import com.nokia.teachersupport.person.IPersonService;
+import com.nokia.teachersupport.file.File;
 import com.nokia.teachersupport.person.ServiceResponse;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
-import com.nokia.teachersupport.roles.IRoleService;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +37,7 @@ public class AdminDashBoardRestController {
     public String uploadMultipartFile(@RequestParam("uploadFile") MultipartFile file, @PathVariable("facultyName") String facultyName) throws IOException {
         if(file.isEmpty())
             return "Firstly you must upload faculty photo";
-        FileModel fileModel = serviceProvider.getIFileService().saveMultipartFile(file, "facultyFoto");
+        File fileModel = serviceProvider.getIFileService().saveMultipartFile(file, "facultyFoto",serviceProvider);
         serviceProvider.getIFileService().goUploadMultipartFile(fileModel,facultyName,serviceProvider);
         return "SUCCES";
     }
