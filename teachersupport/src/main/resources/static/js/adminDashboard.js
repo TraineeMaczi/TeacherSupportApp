@@ -58,7 +58,7 @@ $(document).ready(
             deleteUser(event);
         });
         $("#fotoAdd").change(function () {
-            filename = this.files[0].name
+            filename = this.files[lo0].name
             console.log(filename);
         });
 
@@ -106,9 +106,7 @@ function doAjax(formName, listFiles, typ) {
         contentType: false,
         cache: false,
         success: function (data) {
-            $('#resultOfAddingFaculty').text(data);
-            if (data.equals("SUCCES"))
-                location.reload();
+           location.reload();
         },
         error: function (e) {
             $('#resultOfAddingFaculty').text(e.responseText);
@@ -128,7 +126,7 @@ function doAjax2() {
         contentType: false,
         cache: false,
         success: function (data) {
-            $('#listFiles2').text(data);
+           location.reload();
         },
         error: function (e) {
             $('#listFiles2').text(e.responseText);

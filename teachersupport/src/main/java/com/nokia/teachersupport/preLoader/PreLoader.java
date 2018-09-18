@@ -1,4 +1,4 @@
-package com.nokia.teachersupport.tools;
+package com.nokia.teachersupport.preLoader;
 
 import com.nokia.teachersupport.faculty.Faculty;
 import com.nokia.teachersupport.faculty.FacultyRepo;
@@ -51,6 +51,7 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
         PreLoadFaculties();
         CleanVerificationTokens();
         LoadTswaPrimeAdmin();
+        LoadSampleUser();
     }
 
 
@@ -82,33 +83,33 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
     }
 
     private void PreLoadFaculties() {
-        List<String> umkFaculties = new ArrayList<>();
+        List<PreFacultyObj> umkFaculties = new ArrayList<>();
 
-        umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
-        umkFaculties.add("Wydzial Chemii");
-        umkFaculties.add("Wydzial Farmaceutyczny (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydzial Filologiczny");
-        umkFaculties.add("Wydzial Fizyki, Astronomii i Informatyki Stosowanej");
-        umkFaculties.add("Wydzial Humanistyczny");
-        umkFaculties.add("Wydzial Lekarski (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydzial Matematyki i Informatyki");
-        umkFaculties.add("Wydzial Nauk Ekonomicznych i Zarzadzania");
-        umkFaculties.add("Wydzial Nauk Historycznych");
-        umkFaculties.add("Wydzial Nauk o Zdrowiu (Collegium Medicum w Bydgoszczy)");
-        umkFaculties.add("Wydzial Biologii i Ochrony Srodowiska");
-        umkFaculties.add("Wydzial Nauk o Ziemi");
-        umkFaculties.add("Wydzial Nauk Pedagogicznych");
-        umkFaculties.add("Wydzial Politologii i Studiow Miedzynarodowych");
+        umkFaculties.add(new PreFacultyObj("Wydzial Biologii i Ochrony Srodowiska",new java.io.File("src\\main\\resources\\static\\images\\WBiologiiiOchronySrodowiska.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Chemii",new java.io.File("\\src\\main\\resources\\static\\images\\WChemii.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Farmaceutyczny (Collegium Medicum w Bydgoszczy)",new java.io.File("\\src\\main\\resources\\static\\images\\WFarmaceutyczny.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Filologiczny",new java.io.File("\\src\\main\\resources\\static\\images\\WFilologiczny.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Fizyki, Astronomii i Informatyki Stosowanej",new java.io.File("\\src\\main\\resources\\static\\images\\WFizykiAstronomii iInformatykiStosowanej.jpg"));
+        umkFaculties.add(new PreFacultyObj("Wydzial Humanistyczny",new java.io.File("\\src\\main\\resources\\static\\images\\WHumanistyczny.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Lekarski (Collegium Medicum w Bydgoszczy)",new java.io.File("\\src\\main\\resources\\static\\images\\WLekarski.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Matematyki i Informatyki",new java.io.File("\\src\\main\\resources\\static\\images\\WMatematykiiInformatyki.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Nauk Ekonomicznych i Zarzadzania",new java.io.File("\\src\\main\\resources\\static\\images\\WNaukEkonomicznychiZarzadzania.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Nauk Historycznych",new java.io.File("\\src\\main\\resources\\static\\images\\WNaukHistorycznych.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Nauk o Zdrowiu (Collegium Medicum w Bydgoszczy)",new java.io.File("C:\\Users\\kmakowsk\\Desktop\\teachersupport\\teachersupport\\src\\main\\resources\\static\\images\\WNaukoZdrowiu.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Nauk o Ziemi",new java.io.File("\\src\\main\\resources\\static\\images\\WNauk o Ziemi.jpg"));
+        umkFaculties.add(new PreFacultyObj("Wydzial Nauk Pedagogicznych",new java.io.File("\\src\\main\\resources\\static\\images\\WNaukPedagogicznych.jpg")));
+        umkFaculties.add(new PreFacultyObj("Wydzial Politologii i Studiow Miedzynarodowych",new java.io.File("\\src\\main\\resources\\static\\images\\WPolitologiiiStudiowMiedzynarodowych.jpg")));
         umkFaculties.add("Wydzial Prawa i Administracji");
         umkFaculties.add("Wydzial Sztuk Pieknych");
         umkFaculties.add("Wydzial Teologiczny");
+
         for (int i = umkFaculties.size() - 1; i >= 0; i--) {
-            if (facultyRepo.findByFacultyNameField(umkFaculties.get(i)) == null) {
-                java.io.File file = new java.io.File("src\\main\\resources\\static\\images\\logo.jpg");
+            if (facultyRepo.findByFacultyNameField(umkFaculties.get(i).getFacultyName()) == null) {
+                java.io.File file = umkFaculties.get(i).getFacultyPic();
                 Faculty faculty = new Faculty();
-                faculty.setFacultyNameField(umkFaculties.get(i));
+                faculty.setFacultyNameField(umkFaculties.get(i).getFacultyName());
                 File fileModel = new File();
-                fileModel.setName(umkFaculties.get(i));
+                fileModel.setName(umkFaculties.get(i).getFacultyName());
                 try {
                     fileModel.setPic(Files.readAllBytes(file.toPath()));
                 } catch (IOException e) {
@@ -146,6 +147,30 @@ public class PreLoader implements ApplicationListener<ApplicationReadyEvent> {
             securityRole.addUserSecurityDataToRole(userSecurityData);
             roleRepo.save(securityRole);
 
+
+        }
+    }
+    private void LoadSampleUser() {
+        String primeAdminEMail = "sampleUser@mail.com";
+        if (userSecurityDataRepo.findByEmail(primeAdminEMail) == null) {
+
+            Person person = new Person();
+            person.setNameField("User");
+            person.setSurnameField("User");
+            UserSecurityData userSecurityData = new UserSecurityData();
+            userSecurityData.setActive(true);
+            userSecurityData.setMatchingPassword("pass");
+            userSecurityData.setPassword("pass");
+            userSecurityData.setEmail(primeAdminEMail);
+            person.setUserSecurityDataField(userSecurityData);
+
+
+            personRepo.save(person);
+            userSecurityDataRepo.save(userSecurityData);
+            SecurityRole securityRole = roleRepo.findByRoleName("USER");
+            userSecurityData.addARole(securityRole);
+            securityRole.addUserSecurityDataToRole(userSecurityData);
+            roleRepo.save(securityRole);
 
         }
     }

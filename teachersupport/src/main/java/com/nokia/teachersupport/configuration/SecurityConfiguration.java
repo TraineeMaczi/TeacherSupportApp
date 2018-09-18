@@ -1,6 +1,4 @@
 package com.nokia.teachersupport.configuration;
-
-import com.nokia.teachersupport.personSecurity.personRegister.CustomUserDetails;
 import com.nokia.teachersupport.personSecurity.personRegister.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,11 +8,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableAutoConfiguration
@@ -23,8 +18,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
-    //user details trzeba dostarczyc
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -54,7 +47,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(getPasswordEncoder());
     }
-
     //to na razie nic nie koduje
     private PasswordEncoder getPasswordEncoder() {
         return new PasswordEncoder() {
@@ -71,16 +63,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
         };
     }
-    /*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1").password("user1Pass").roles("USER")
-                .and()
-                .withUser("test")
-                .password("test123")
-                .roles("ADMIN");
-    }
-*/
 }

@@ -1,6 +1,4 @@
 package com.nokia.teachersupport.admin;
-
-
 import com.nokia.teachersupport.file.File;
 import com.nokia.teachersupport.person.ServiceResponse;
 import com.nokia.teachersupport.serviceProvider.IServiceProvider;
@@ -12,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
-
 @RestController
 public class AdminDashBoardRestController {
+
     private IServiceProvider serviceProvider;
 
     @Autowired
@@ -23,7 +20,6 @@ public class AdminDashBoardRestController {
      this.serviceProvider=serviceProvider;
     }
 
-    //Te zostawiam tak jak jest
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/teacherSupportAdminDashboard/newUserAdminActionFromFile")
     String addNewUsersFromFile(@RequestParam("uploadfile") MultipartFile file) throws IOException {
@@ -50,7 +46,6 @@ public class AdminDashBoardRestController {
         ServiceResponse<String> response = new ServiceResponse<String>("success", facultyName);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
-
 }
 
 
