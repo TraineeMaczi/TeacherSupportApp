@@ -1,10 +1,11 @@
 package com.nokia.teachersupport.preLoader;
 
+
 import java.io.File;
 
 public class PreFacultyObj {
     private String facultyName;
-    private java.io.File facultyPic;
+    private File facultyPic;
 
     public PreFacultyObj(String facultyName,java.io.File facultyPic) {
         this.facultyName = facultyName;
