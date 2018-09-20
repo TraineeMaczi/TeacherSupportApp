@@ -29,6 +29,7 @@ public class UpdateFileController {
             return "Fail! You must upload file in pdf format";
         if (file.getOriginalFilename().equals(""))
             return "Fail! Your file is empty";
+
         serviceProvider.getIFileService().saveMultipartFile(file,type,serviceProvider);
         return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
     }
