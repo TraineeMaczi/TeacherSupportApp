@@ -1,3 +1,6 @@
+#This project is still in progress and may contain multple bugs.
+#The final version is going to be provided by the end of the year.
+
 # TeacherSupportApp
 
 #Basic app properties
