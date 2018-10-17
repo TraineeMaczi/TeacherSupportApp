@@ -1,25 +1,26 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.model.IModelService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AboutMeController {
 
 
-    private IModelService modelService;
+    private IServiceProvider serviceProvider;
 
     @Autowired
-    public AboutMeController(IModelService modelService) {
-        this.modelService = modelService;
+    public AboutMeController(IServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
 
     }
+
     @GetMapping("/teacherSupportAboutMe")
     String aboutme(Model model) {
-        modelService.aboutMeModel(model);
+        serviceProvider.getIModelService().aboutMeModel(model, serviceProvider);
         return "teacherSupportAboutMe";
     }
 

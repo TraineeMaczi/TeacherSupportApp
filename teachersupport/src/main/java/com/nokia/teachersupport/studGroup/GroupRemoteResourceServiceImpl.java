@@ -3,6 +3,7 @@ package com.nokia.teachersupport.studGroup;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.tools.GenerateLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,28 +40,28 @@ public class GroupRemoteResourceServiceImpl implements IGroupRemoteResourceServi
     }
 
     @Override
-    public void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session, IStudGroupService studGroupService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public void goDeleteStudGroupRemoteResource(Integer remoteResourceId, HttpSession session, IServiceProvider serviceProvider) {
         GroupRemoteResource remoteResource = findRemoteResourceById(remoteResourceId);
         String groupName = (String) session.getAttribute("currentStudGroupName");
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
         studGroup.getGroupsResourcesList().remove(remoteResource);
-        studGroupService.saveStudGroup(studGroup);
+        serviceProvider.getIStudGroupService().saveStudGroup(studGroup);
         deleteRemoteResource(remoteResource);
     }
 
 
     @Override
-    public RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session, IStudGroupService studGroupService, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public RemoteStudGroupResourceDTO goAddRemoteResource(RemoteStudGroupResourceDTO remoteStudGroupResourceDTO, HttpSession session,IServiceProvider serviceProvider) {
         GroupRemoteResource remoteResource = resourceDTOIntoResource(remoteStudGroupResourceDTO);
         String groupName = (String) session.getAttribute("currentStudGroupName");
         if (groupName != null && !groupName.equals("")) {
-            Person person = personService.getCurrentPerson(userSecurityDataService);
+            Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
             StudGroup studGroup = person.doIHaveAGroupWithName(groupName);
             studGroup.addResourcesToMyList(remoteResource);
             remoteResource.setResourceOwner(studGroup);
             remoteResourceRepo.save(remoteResource);
-            studGroupService.saveStudGroup(studGroup);
+            serviceProvider.getIStudGroupService().saveStudGroup(studGroup);
         }
         return remoteStudGroupResourceDTO;
     }

@@ -1,10 +1,6 @@
 package com.nokia.teachersupport.person;
 
-import com.nokia.teachersupport.tools.CurrentUser;
-import com.nokia.teachersupport.faculty.Faculty;
-import com.nokia.teachersupport.faculty.IFacultyService;
-import com.nokia.teachersupport.model.IModelService;
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,41 +15,35 @@ import java.util.*;
 @Controller
 public class IndexController {
 
-    private IPersonService personService;
-    private IUserSecurityDataService userSecurityDataService;
-    private IFacultyService facultyService;
-    private IModelService modelService;
+    private IServiceProvider serviceProvider;
 
     @Autowired
-    public IndexController(IFacultyService facultyService, IPersonService personService, IUserSecurityDataService userSecurityDataService, IModelService modelService) {
-        this.personService = personService;
-        this.userSecurityDataService = userSecurityDataService;
-        this.facultyService = facultyService;
-        this.modelService = modelService;
+    public IndexController(IServiceProvider serviceProvider) {
+       this.serviceProvider=serviceProvider;
     }
 
     @GetMapping("/")
     String index(Model model) {
-        modelService.indexModel(model);
+        serviceProvider.getIModelService().indexModel(model,serviceProvider);
         return "teacherSupportIndex";
     }
 
     @PostMapping("/index/confirmFaculty")
     String saveFaculty(@RequestParam("facultyName") String name) {
-        personService.goSaveMyFaculty(name, personService, facultyService, userSecurityDataService);
+        serviceProvider.getIPersonService().goSaveMyFaculty(name, serviceProvider);
         return "teacherSupportIndex";
     }
 
     @GetMapping("/index/giveMePhoto")
     ResponseEntity<Object> giveFacultyPhoto() {
-        List<String> pic = personService.goGiveMeFacultyPhoto(facultyService);
+        List<String> pic = serviceProvider.getIPersonService().goGiveMeFacultyPhoto(serviceProvider);
         ServiceResponse<List<String>> response = new ServiceResponse<>("success", pic);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
     @GetMapping("/index/giveMeId")
     ResponseEntity<Object> giveFacultyId() {
-        List<Integer> Id = personService.goGiveMeFacultyId(facultyService);
+        List<Integer> Id = serviceProvider.getIPersonService().goGiveMeFacultyId(serviceProvider);
         ServiceResponse<List<Integer>> response = new ServiceResponse<>("success", Id);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }

@@ -1,7 +1,7 @@
 package com.nokia.teachersupport.faculty;
 
-import com.nokia.teachersupport.fileUpload.IFileService;
 import com.nokia.teachersupport.person.Person;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +38,11 @@ public class FacultyServiceImpl implements IFacultyService {
     }
 
     @Override
-    public void goDeleteFacultySiteAction(String facultyName, IFileService fileService) {
+    public void goDeleteFacultySiteAction(String facultyName, IServiceProvider serviceProvider) {
 
         if (findFaculty(facultyName) != null) {
             Faculty faculty = findFaculty(facultyName);
-            fileService.deleteFileById(faculty.getFile().getId());
+            serviceProvider.getIFileService().deleteFileById(faculty.getFile().getId());
             faculty.setFile(null);
 
             List<Person> myPersons = faculty.getFacultyAndPersonList();

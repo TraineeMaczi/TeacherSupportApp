@@ -2,6 +2,7 @@ package com.nokia.teachersupport.tools;
 
 import com.nokia.teachersupport.configuration.ThymeLeafConfig;
 import com.nokia.teachersupport.context.IContextService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -18,7 +19,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Generator {
 
-    public static MultipartFile generate(String listOfPages, IContextService contextService) throws Exception {
+    public static MultipartFile generate(String listOfPages, IServiceProvider serviceProvider) throws Exception {
         String[] lista = listOfPages.split(",");
         Context context = new Context();
         File f = new File("src\\main\\resources\\zip\\pages.zip");
@@ -38,12 +39,12 @@ public class Generator {
             }
             out.closeEntry();
         } catch (IOException e) {
-            System.out.println("BLADDD");
+            System.out.println("BLADDD");//WTF COS Z TYM ZROBIC
         }
         for (String obj : lista) {
 
             if (obj.equals("Home.html")) {
-                contextService.homeContext(context);
+                serviceProvider.getIContextService().homeContext(context,serviceProvider);
                 ZipEntry e = new ZipEntry("Home.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("Home.html", context).getBytes();
@@ -51,7 +52,7 @@ public class Generator {
                 out.closeEntry();
             }
             if (obj.equals("AboutMe.html")) {
-                contextService.aboutMeContext(context);
+                serviceProvider.getIContextService().aboutMeContext(context,serviceProvider);
                 ZipEntry e = new ZipEntry("AboutMe.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("AboutMe.html", context).getBytes();
@@ -59,7 +60,7 @@ public class Generator {
                 out.closeEntry();
             }
             if (obj.equals("Publications.html")) {
-                contextService.publicationContext(context);
+                serviceProvider.getIContextService().publicationContext(context,serviceProvider);
                 ZipEntry e = new ZipEntry("Publications.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("Publications.html", context).getBytes();
@@ -67,7 +68,7 @@ public class Generator {
                 out.closeEntry();
             }
             if (obj.equals("Contact.html")) {
-                contextService.contactContext(context);
+                serviceProvider.getIContextService().contactContext(context,serviceProvider);
                 ZipEntry e = new ZipEntry("Contact.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("Contact.html", context).getBytes();
@@ -75,7 +76,7 @@ public class Generator {
                 out.closeEntry();
             }
             if (obj.equals("Student.html")) {
-                contextService.studentContext(context);
+                serviceProvider.getIContextService().studentContext(context,serviceProvider);
                 ZipEntry e = new ZipEntry("Student.html");
                 out.putNextEntry(e);
                 byte[] data = ThymeLeafConfig.getTemplateEngine().process("Student.html", context).getBytes();
@@ -97,7 +98,7 @@ public class Generator {
         return result;
     }
 
-    public static MultipartFile generateTemplates(IContextService contextService) throws Exception {
+    public static MultipartFile generateTemplates(IServiceProvider serviceProvider) throws Exception {
         Context context = new Context();
         File f = new File("src\\main\\resources\\zip\\pages.zip");
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
@@ -116,9 +117,9 @@ public class Generator {
             }
             out.closeEntry();
         } catch (IOException e) {
-            System.out.println("BLADDD");
+            System.out.println("BLADDD"); //WTF COS Z TYM ZROBIC
         }
-        contextService.nullContext(context);
+        serviceProvider.getIContextService().nullContext(context);
         ZipEntry e = new ZipEntry("Home.html");
         out.putNextEntry(e);
         byte[] data = ThymeLeafConfig.getTemplateEngine().process("Home.html", context).getBytes();

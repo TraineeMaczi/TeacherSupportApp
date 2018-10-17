@@ -1,6 +1,6 @@
 package com.nokia.teachersupport.personSecurity.personEditProfile;
 
-import com.nokia.teachersupport.model.IModelService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class EditProfileController {
 
-    IModelService modelService;
+   IServiceProvider serviceProvider;
 
     @Autowired
-    public EditProfileController(IModelService modelService) {
-        this.modelService = modelService;
+    public EditProfileController(IServiceProvider serviceProvider) {
+        this.serviceProvider=serviceProvider;
     }
 
     /* To cos to tak naprawde nie zwraca string tylko tutaj mamy parsowanie calej str html na string jakby
      * strone index on nam zparsuje na string ktory jest czytelny dla app  */
     @GetMapping("/teacherSupportEditProfile")
     String editprofile(Model model) {
-        modelService.editProfileModel(model);
+        serviceProvider.getIModelService().editProfileModel(model);
         return "teacherSupportEditProfile";
     }
 }

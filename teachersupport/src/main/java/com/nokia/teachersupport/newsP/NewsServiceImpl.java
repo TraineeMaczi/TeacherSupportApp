@@ -1,5 +1,6 @@
 package com.nokia.teachersupport.newsP;
 
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
@@ -25,23 +26,25 @@ public class NewsServiceImpl implements INewsService {
 
 
     @Override
-    public void addNews(News news, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void addNews(News news, IServiceProvider serviceProvider) {
+
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if (person.doIHaveANewsWithContent(news.getNewsContentField()) == null) {
             String userName = CurrentUser.getCurrentUserName();
-            UserSecurityData userSecurityData = userSecurityDataService.getUserSecurityDataByEmail(userName);
-            Person tmpPerson = personService.getPersonByUserSecurityData(userSecurityData);
+            UserSecurityData userSecurityData = serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(userName);
+            Person tmpPerson = serviceProvider.getIPersonService().getPersonByUserSecurityData(userSecurityData);
             news.setNewsOwner(tmpPerson);
             tmpPerson.addNewsToMyList(news);
-            personService.savePerson(tmpPerson);
+            serviceProvider.getIPersonService().savePerson(tmpPerson);
             newsRepo.save(news);
         }
     }
 
 
     @Override
-    public News goEditNews(EditNewsDTO editNewsDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public News goEditNews(EditNewsDTO editNewsDTO,IServiceProvider serviceProvider) {
+
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         News news = new News();
 
         if (person.doIHaveANewsWithContent(editNewsDTO.getOldContent()) != null && !editNewsDTO.getNewContent().equals("")) {
@@ -53,21 +56,22 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public void deleteNewsByContent(String newsContent, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void deleteNewsByContent(String newsContent,IServiceProvider serviceProvider) {
+
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         News news = person.doIHaveANewsWithContent(newsContent);
         newsRepo.delete(news);
     }
 
 
     @Override
-    public List<News> cleanMyNews(Person person, IPersonService personService) {
+    public List<News> cleanMyNews(Person person,IServiceProvider serviceProvider) {
         List<News> newsPersonList = person.getPersonNewsList();
         for (News news : newsPersonList) {
             newsRepo.delete(news);
         }
         newsPersonList.clear();
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return newsPersonList;
     }
 }

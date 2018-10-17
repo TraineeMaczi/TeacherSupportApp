@@ -1,11 +1,9 @@
 package com.nokia.teachersupport.personSecurity.personRegister;
 
 
-import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
 import com.nokia.teachersupport.personSecurity.UserSecurityData;
-import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.ITokenService;
 import com.nokia.teachersupport.personSecurity.personRegister.verificationToken.VerificationToken;
-import org.aspectj.weaver.patterns.IToken;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
@@ -26,12 +24,10 @@ public class RegisterController {
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
-    @Autowired
-    IUserSecurityDataService userSecurityDataService;
-    @Autowired
-    ITokenService tokenService;
+   @Autowired
+    IServiceProvider serviceProvider;
 
-    //Z tego interesuje mnie tylko securityDataRepo
+
 
 
     @GetMapping("/teacherSupportRegister")
@@ -49,12 +45,12 @@ public class RegisterController {
 //sprawdzic czy mamy takiego w repo po email i czy jedgo active jest 0
 
 
-        if((userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
-                (userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive().equals(false)))
+        if((serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(registerDTO.getUserName_Email())!=null)&&
+                (serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(registerDTO.getUserName_Email()).getActive().equals(false)))
         {
             String appUrl = request.getContextPath();
 
-            UserSecurityData registered=userSecurityDataService.getUserSecurityDataByEmail(registerDTO.getUserName_Email());
+            UserSecurityData registered=serviceProvider.getIUserSecurityDataService().getUserSecurityDataByEmail(registerDTO.getUserName_Email());
 
           //!!UWAGA
            if(registerDTO.getUserPass().equals(registerDTO.getUserConfirmPass()))
@@ -81,7 +77,7 @@ public class RegisterController {
 
         Locale locale = request.getLocale();
 
-        VerificationToken verificationToken = tokenService.getVerificationToken(token);
+        VerificationToken verificationToken = serviceProvider.getITokenService().getVerificationToken(token);
         if (verificationToken == null) {
             return "redirect:/teacherSupportRegisterF";
         }
@@ -96,7 +92,7 @@ public class RegisterController {
         user.setPassword(verificationToken.getPassword());
         user.setMatchingPassword( verificationToken.getPassword());
         user.setActive(true);
-        userSecurityDataService.saveUserSecurityData(user);
+        serviceProvider.getIUserSecurityDataService().saveUserSecurityData(user);
 
         return "redirect:/teacherSupportRegisterS";
     }

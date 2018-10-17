@@ -3,6 +3,7 @@ package com.nokia.teachersupport.publication;
 import com.nokia.teachersupport.person.IPersonService;
 import com.nokia.teachersupport.person.Person;
 import com.nokia.teachersupport.personSecurity.IUserSecurityDataService;
+import com.nokia.teachersupport.serviceProvider.IServiceProvider;
 import com.nokia.teachersupport.tools.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,9 @@ public class PublicationServiceImpl implements IPublicationService {
 
 
     @Override
-    public Publication goEditPublication(EditPublicationDTO editPublicationDTO, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
+    public Publication goEditPublication(EditPublicationDTO editPublicationDTO, IServiceProvider serviceProvider) {
         Publication publication = new Publication();
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if (person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent()) != null && !editPublicationDTO.getNewContent().equals("")) {
         publication=person.doIHaveAPublicationWithContent(editPublicationDTO.getOldContent());
         publication.setPublicationInfoField(editPublicationDTO.getNewContent());
@@ -33,31 +34,31 @@ public class PublicationServiceImpl implements IPublicationService {
     }
 
     @Override
-    public void deletePublicationByContent(String publiContent, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void deletePublicationByContent(String publiContent, IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         Publication publi=person.doIHaveAPublicationWithContent(publiContent);
         publicationRepo.delete(publi);
     }
 
     @Override
-    public List<Publication> cleanMyPublications(Person person, IPersonService personService) {
+    public List<Publication> cleanMyPublications(Person person,IServiceProvider serviceProvider) {
         List<Publication> publicationList =person.getPersonPublicationList();
         for(Publication publi: publicationList)
         {
             publicationRepo.delete(publi);
         }
         publicationList.clear();
-        personService.savePerson(person);
+        serviceProvider.getIPersonService().savePerson(person);
         return publicationList;
     }
 
     @Override
-    public void addNewPublication(Publication publication, IPersonService personService, IUserSecurityDataService userSecurityDataService) {
-        Person person = personService.getCurrentPerson(userSecurityDataService);
+    public void addNewPublication(Publication publication,IServiceProvider serviceProvider) {
+        Person person = serviceProvider.getIPersonService().getCurrentPerson(serviceProvider);
         if(person.doIHaveAPublicationWithContent(publication.getPublicationInfoField())==null) {
             publication.setPublicationOwner(person);
             person.addPubicationsToMyList(publication);
-            personService.savePerson(person);
+            serviceProvider.getIPersonService().savePerson(person);
             publicationRepo.save(publication);
         }
 
